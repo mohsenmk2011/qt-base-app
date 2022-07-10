@@ -59,8 +59,8 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 }
 
 ANDROID_EXTRA_LIBS +=\
-    $$PWD/../sdk/android_openssl/latest/arm/libcrypto_1_1.so \
-    $$PWD/../sdk/android_openssl/latest/arm/libssl_1_1.so
+    $$PWD/../../../../sdk/android_openssl/latest/arm/libcrypto_1_1.so \
+    $$PWD/../../../../sdk/android_openssl/latest/arm/libssl_1_1.so
 
 android{
 

@@ -1,5 +1,22 @@
 TEMPLATE = subdirs
 CONFIG+=ordered
+
+android{
+SUBDIRS += \
+    libs/androidlib \
+    libs/corelib \
+    libs/networklib \
+    libs/chatlib \
+    libs/notificationlib \
+    libs/quicklib \
+    libs/managerlib \
+    libs/settingslib \
+    libs/purchasinglib \
+    libs/loginlib \
+    rokhshidAndroidService \
+    rokhshid
+}
+else{
 SUBDIRS += \
 #    jooyaQuickDesign \ commented temporarly
 #    JooyaGira \
@@ -18,11 +35,6 @@ SUBDIRS += \
     libs/purchasinglib \
     libs/loginlib \
     rokhshid
-
-android{
-
-SUBDIRS +=  \
-    rokhshidAndroidService
 }
 
 #corelib.depends  = androidlib

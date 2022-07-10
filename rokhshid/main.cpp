@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     //QQuickStyle::setStyle("Universal");
     //------------------------[ load main.qml with engin 11111]-----------------------
-    const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/apps/rokhshid/rokhshid");
+    const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/rokhshid");
 
     //QmlLive live;
 //    FileWatcher* fw= QmlLive::qmlAttachedProperties(nullptr);
