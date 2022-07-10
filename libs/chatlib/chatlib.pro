@@ -1,0 +1,71 @@
+
+android{
+QT+=androidextras
+}
+QT += core qml quick network multimedia
+
+TEMPLATE = lib
+CONFIG += dll
+
+CONFIG += c++17
+
+# You can make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+SOURCES += \
+    chat.cpp \
+    chatlib.cpp \
+    chatlistmodel.cpp \
+    chatmanager.cpp \
+    contact.cpp \
+    contactlistmodel.cpp \
+    contactmanager.cpp \
+    post.cpp \
+    postbase.cpp \
+    postlistmodel.cpp \
+    talkcontainer.cpp \
+    talklistmodel.cpp \
+    tcpserver.cpp
+
+HEADERS += \
+    chat.h \
+    chatlib.h \
+    chatlistmodel.h \
+    chatmanager.h \
+    chattypes.h \
+    contact.h \
+    contactlistmodel.h \
+    contactmanager.h \
+    post.h \
+    postbase.h \
+    postlistmodel.h \
+    talkcontainer.h \
+    talklistmodel.h \
+    talkstates.h \
+    tcpserver.h
+
+android{
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../corelib/release/ -lcorelib_armeabi-v7a
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../corelib/debug/ -lcorelib_armeabi-v7a
+else:unix: LIBS += -L$$OUT_PWD/../corelib/ -lcorelib_armeabi-v7a
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../networklib/release/ -lnetworklib_armeabi-v7a
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../networklib/debug/ -lnetworklib_armeabi-v7a
+else:unix: LIBS += -L$$OUT_PWD/../networklib/ -lnetworklib_armeabi-v7a
+}
+else{
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../corelib/release/ -lcorelib
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../corelib/debug/ -lcorelib
+else:unix: LIBS += -L$$OUT_PWD/../corelib/ -lcorelib
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../networklib/release/ -lnetworklib
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../networklib/debug/ -lnetworklib
+else:unix: LIBS += -L$$OUT_PWD/../networklib/ -lnetworklib
+}
+INCLUDEPATH += $$PWD/../corelib
+DEPENDPATH += $$PWD/../corelib
+
+
+INCLUDEPATH += $$PWD/../networklib
+DEPENDPATH += $$PWD/../networklib

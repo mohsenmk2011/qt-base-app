@@ -1,0 +1,5 @@
+#define VERSION_MAJOR 1 
+#define VERSION_MINOR 8
+#define VERSION_PATCH 25
+#define VERSION_CODE 10
+#define VERSION_BUILD 4510

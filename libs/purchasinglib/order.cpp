@@ -1,0 +1,197 @@
+#include "order.h"
+
+Order::Order(QObject *parent) : JooyaNetwork(parent)
+{
+    setId(0);
+    setDiscountPercent(0);
+    setDate("");
+    setPrice(0);
+    setPriceWithDiscount(0);
+    setPaid(false);
+    setManualPaid(false);
+    setUserId("");
+}
+
+Order::Order(int id, QString date, int price,bool mp, bool paid, QString userId):Order()
+{
+    setId(id);
+    setDate(date);
+    setPrice(price);
+    setPaid(paid);
+    setManualPaid(mp);
+    setUserId(userId);
+}
+
+int Order::id()
+{
+    return m_Id;
+}
+
+int Order::price()
+{
+    return m_Price;
+}
+
+QString Order::date()
+{
+    return m_Date;
+}
+
+bool Order::paid()
+{
+    return m_Paid;
+}
+
+QString Order::userId()
+{
+    return m_UserId;
+}
+
+bool Order::manualPaid()
+{
+    return m_ManualPaid;
+}
+
+void Order::setManualPaid(bool p)
+{
+    if(m_ManualPaid!=p){
+        m_ManualPaid=p;
+        emit manualPaidChanged();
+    }
+}
+
+void Order::setId(int id)
+{
+    if(m_Id!=id){
+        m_Id=id;
+        emit idChanged();
+    }
+}
+
+void Order::setPrice(int price)
+{
+    if(m_Price!=price){
+        m_Price=price;
+        emit priceChanged();
+    }
+}
+
+void Order::setDate(QString date)
+{
+    if(m_Date!=date){
+        m_Date=date;
+        emit dateChanged();
+    }
+}
+
+void Order::setPaid(bool paid)
+{
+    if(m_Paid!=paid){
+        m_Paid=paid;
+        emit paidChanged();
+    }
+}
+
+void Order::setUserId(QString userId)
+{
+    if(m_UserId!=userId){
+        m_UserId=userId;
+        emit userIdChanged();
+    }
+}
+
+QString Order::convertPriceToText(int price)
+{    
+    return QString("%1 تومان").arg(price/10);
+}
+
+bool Order::hasDiscount()
+{
+    return m_HasDiscount;
+}
+
+void Order::setHasDiscount(bool hd)
+{
+    if(m_HasDiscount!=hd){
+        m_HasDiscount=hd;
+        emit hasDiscountChanged();
+    }
+}
+
+int Order::priceWithDiscount()
+{
+    return m_PriceWithDiscount;
+}
+
+void Order::setPriceWithDiscount(int p)
+{
+    if(m_PriceWithDiscount!=p){
+        m_PriceWithDiscount=p;
+        emit priceWithDiscountChanged();
+    }
+}
+
+int Order::discountPercent()
+{
+    return m_DiscountPercent;
+}
+
+void Order::setDiscountPercent(int percent)
+{
+    if(m_DiscountPercent!=percent){
+        m_DiscountPercent=percent;
+        emit dicountPercentChanged();
+    }
+}
+
+void Order::load(QString userId)
+{
+    setIsProcssing(true);
+    QNetworkReply* r= getRequest(QString("api/Order?userId=%1").arg(userId));
+    connect(r,SIGNAL(finished()),this,SLOT(loadFinished()));
+}
+void Order::loadFinished()
+{
+    QNetworkReply* r=convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError){
+        readOrder(r->readAll());
+    }
+    else{
+        showMessage(r);
+    }
+    setIsProcssing(false);
+}
+
+void Order::manualPay()
+{
+    setIsProcssing(true);
+    QNetworkReply* r=getRequest(QString("api/Order/ManualPay/%1").arg(id()));
+    connect(r,SIGNAL(finished()),this,SLOT(manualPayFinished()));
+}
+void Order::manualPayFinished()
+{
+    QNetworkReply* r=convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError){
+        setManualPaid(!manualPaid());
+    }
+    showMessage(r);
+    setIsProcssing(false);
+}
+
+
+void Order::readOrder(QByteArray json)
+{
+    QJsonDocument doc= QJsonDocument::fromJson(json);
+    QJsonObject obj= doc.object();
+    setId(obj.value("id").toInt());
+    setDate(obj.value("date").toString());
+    setPaid(obj.value("paid").toBool());
+    setManualPaid(obj.value("manualPaid").toBool());
+    qDebug()<<"manualPaid="<<manualPaid();
+    setPrice(obj.value("price").toInt());
+    setUserId(obj.value("userId").toString());
+    setPriceWithDiscount(obj.value("priceWithDiscount").toInt());
+    setDiscountPercent(obj.value("discountPercent").toInt());
+    setHasDiscount(obj.value("hasDiscount").toBool());
+}
+

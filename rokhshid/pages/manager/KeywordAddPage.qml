@@ -1,0 +1,54 @@
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.12
+import QtQuick.Layouts 1.12
+import Jooya 1.0
+import "../../jooyaQuickControls"
+
+JooyaFlickable {
+    id: root
+    contentHeight: mainClm.implicitHeight
+    flickableDirection: Flickable.AutoFlickIfNeeded
+
+    property Keyword keyword: null
+
+    Component.onCompleted: {
+        keyword.message=myMessage;
+    }
+    Connections{
+        target:keyword
+        function onIsProcessingChanged(isProcessing) {
+            btnSave.enabled=!isProcessing;
+        }
+        function onSaveSucceed() {
+            console.log("keyword saved")
+        }
+    }
+    ColumnLayout{
+        id: mainClm
+        anchors.fill: parent
+        JooyaTextField{
+            id: tfKeywordValue
+            placeholderText: "نام کلمه کلیدی"
+
+            Layout.fillWidth: true
+            text: keyword.value
+            onTextChanged: {
+                keyword.value=tfKeywordValue.text;
+            }
+        }
+        JooyaButton{
+            id: btnSave
+            highlighted: true
+            enabled: !keyword.isProcessing
+            text:keyword.keywordId === 0? "ذخیره":"ویرایش"
+            Layout.fillWidth: true
+            onClicked: {
+                keyword.save();
+            }
+        }
+        Item {
+            Layout.fillHeight: true
+        }
+    }
+}
