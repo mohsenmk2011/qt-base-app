@@ -164,7 +164,7 @@ void ChatManager::deleteChats()
     setSelectMode(false);
 }
 
-void ChatManager::onNewTalkReceived(QJsonObject obj, QString senderId ){
+void ChatManager::onNewTalkReceived(QJsonObject obj, QString senderId , QString receiverId){
     qDebug()<<"add new Post(talk or message) (that received from "<<senderId<<")";
     Post* newTalk=new Post(obj);
 
@@ -180,8 +180,12 @@ void ChatManager::onNewTalkReceived(QJsonObject obj, QString senderId ){
         qDebug()<<"chat not found(this is first post of sender)";
         currentChat= new Chat();
         currentChat->setChatId(senderId);
+        currentChat->setUserId(receiverId);
         currentChat->setType(ChatTypes::ChatTypesENUM::Conversation);
         addNewChatToList(currentChat);
+    }
+    if(currentChat->userId().isNull()){
+        currentChat->setUserId(receiverId);
     }
     currentChat->addNewPost(newTalk,true);
     newTalk->setStatus(TalkStatus::TalkStatusEnum::Received);
@@ -322,7 +326,7 @@ void ChatManager::onNewInfoReceived(WebSocketInfo *info)
     qInfo()<<"info => "<<info->toJson();
     if(info->type()=="NewTalk"){
         qInfo()<<"New Info is New Post=> is adding";
-        onNewTalkReceived(jsonUtility()->convertToJsonObject(info->information()),info->senderId());
+        onNewTalkReceived(jsonUtility()->convertToJsonObject(info->information()),info->senderId(),info->receiverId());
     }
     //TODO: Managing error of reconnect socket
     else if(info->type()=="ChatIsTyping"){

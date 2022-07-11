@@ -268,6 +268,12 @@ void Chat::send(QString content)
         message()->setContent("شناسه چت خالی است");
         return;
     }
+    if(userId().isNull()||userId().isEmpty()){
+        message()->setContent("شناسه کاربر ارسال کننده خالی است");
+        qDebug()<<"contats.count=> "<<m_Contacts.rowCount();
+
+        return;
+    }
     Post* newPost=new Post(userId(), chatId(),content);
     if(type()==ChatTypes::ChatTypesENUM::FrequentQuestions){
         qInfo()<<"Is going to Save new Frequent Questions";        
@@ -687,6 +693,7 @@ void Chat::addContact(Contact *c)
         qInfo()<<"contact is null return";
         return;
     }
+    connect(c,&Contact::updateFinished,this,&Chat::onContactUpdateFinished);
     m_Contacts.add(c);
     if(c->isMe()){
         qInfo()<<"contact is me set userID to => "<<c->userId();
@@ -698,7 +705,6 @@ void Chat::addContact(Contact *c)
     else{
         if(type()==ChatTypes::ChatTypesENUM::Conversation){
             m_Contact=c;
-            connect(m_Contact,&Contact::updateFinished,this,&Chat::onContactUpdateFinished);
             emit contactChanged();
             updateFromContact(c);
         }
@@ -708,7 +714,13 @@ void Chat::addContact(Contact *c)
 void Chat::updateFromContact(Contact *c)
 {
     qDebug()<<"***[ Update from contact ]***";
-    if(!c->isMe()&&type()==ChatTypes::ChatTypesENUM::Conversation){
+    if(type()!=ChatTypes::ChatTypesENUM::Conversation){
+        return;
+    }
+    if(c->isMe()){
+        setUserId(c->userId());
+    }
+    else{
         setChatName(c->displayName());
         updateLastTalkDate();
         setChatId(c->userId());
@@ -769,6 +781,9 @@ void Chat::addNewPost(Post* post,bool triggeredByUser){
     }
     else{
         qDebug()<<"is fromMe userId is CurrentUser.UserID";
+        if(post->userId().isNull()){
+            qWarning()<<"because post.userId is null , so fromMe will not be specified correctly";
+        }
         if(post->userId()==userId()){
             post->setFromMe(true);
         }

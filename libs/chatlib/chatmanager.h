@@ -61,7 +61,7 @@ private:
     ChatListModel m_ListModel;
     ContactManager m_ContactManager;
     int m_UnReadTalks;
-    void onNewTalkReceived(QJsonObject obj, QString senderId);
+    void onNewTalkReceived(QJsonObject obj, QString senderId, QString receiverId);
     void loadFromFile();
     void readTalks(QByteArray bytes);
     void addNewChatToList(Chat* newChat);
