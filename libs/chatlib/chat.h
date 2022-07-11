@@ -147,10 +147,8 @@ signals:
     ///emits when current user has been added Post to listmodel
     void newPostIsSended();
     ///Post send to server
-    void talkSendSucceed(QString soundFileUrl);
+    void postSendSucceed(QString soundFileUrl);
     void getTalkFinishd(bool succeed);
-
-
 
     void contactIdChanged();
     void contactChanged();
@@ -168,7 +166,7 @@ private slots:
     void onDeleteTalks();
     void onTalkDeletedSucceed();
     void onGetTalks();
-    void onTalkSendSucceed();
+    void onPostSendSucceed();
     void onTalkIsSelectedChanged();
     void updateLastTalkDate();
     void updateUnReadTalksCount();

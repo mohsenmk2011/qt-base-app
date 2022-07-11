@@ -759,7 +759,7 @@ void Chat::addNewPost(Post* post,bool triggeredByUser){
     qDebug()<<"***[ add New Post ]***";
     connect(post,&Post::isSelectedChanged,this,&Chat::onTalkIsSelectedChanged);
     connect(post,&Post::deleteSucceed,this,&Chat::onTalkDeletedSucceed);
-    connect(post,&Post::talkSendSucceed,this,&Chat::onTalkSendSucceed);
+    connect(post,&Post::postSendSucceed,this,&Chat::onPostSendSucceed);
     connect(post,&Post::statusChanged,this,&Chat::updateUnReadTalksCount);
     if(type()==ChatTypes::ChatTypesENUM::FrequentQuestions){
         post->setFromMe(post->userId().isNull()&&post->userId().isEmpty());
@@ -817,9 +817,9 @@ void Chat::updateLastTalkOnChatItem(){
     updateUnReadTalksCount();
 }
 
-void Chat::onTalkSendSucceed()
+void Chat::onPostSendSucceed()
 {
-    emit talkSendSucceed(m_SendMessageSound->url().toString());
+    emit postSendSucceed(m_SendMessageSound->url().toString());
 }
 
 void Chat::onTalkIsSelectedChanged()

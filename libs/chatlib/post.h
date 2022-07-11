@@ -33,7 +33,6 @@ private slots:
     void onGetStatus();
     void onSaveFinished();
 signals:
-    void talkSendSucceed();
     void deleteSucceed();
 
     void widthChanged();

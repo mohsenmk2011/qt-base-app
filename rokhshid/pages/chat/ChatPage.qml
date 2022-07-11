@@ -38,7 +38,7 @@ Page{
             btnGoToEndOfList.isVisible=false;
             console.log("$$$$$onNewTalkIsSending$$$$$$")
         }
-        function onTalkSendSucceed(soundFileUrl) {
+        function onPostSendSucceed(soundFileUrl) {
             if(!chat.isMuted){
                 console.log("sound file url=> "+soundFileUrl)
                 aPlayer.source=soundFileUrl;
