@@ -3,7 +3,7 @@
 ChatManager::ChatManager(QObject *parent) : ListManager(parent)
 {
     m_UnReadTalks=0;
-    //loadFromFile();
+    loadFromFile();
     connect(m_WebSocketHandler,&WebSocketHandler::newInfoReceived,this,&ChatManager::onNewInfoReceived);    
     connect(m_WebSocketHandler,&WebSocketHandler::connectedChanged,this,&ChatManager::onWebSocketConnected);
     m_NewNotification=new File("/Audios/NewNotification1.mp3");
