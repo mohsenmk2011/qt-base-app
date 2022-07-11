@@ -179,7 +179,7 @@ void ChatManager::onNewTalkReceived(QJsonObject obj, QString senderId ){
     if(currentChat==nullptr){
         qDebug()<<"chat not found(this is first post of sender)";
         currentChat= new Chat();
-        currentChat->setChatId(newTalk->chatId());
+        currentChat->setChatId(senderId);
         currentChat->setType(ChatTypes::ChatTypesENUM::Conversation);
         addNewChatToList(currentChat);
     }
