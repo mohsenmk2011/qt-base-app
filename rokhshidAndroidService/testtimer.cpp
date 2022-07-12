@@ -22,6 +22,10 @@ void TestTimer::onNewMessage(QString message)
             m_Timer.start();
         }
     }
+    else if(message=="StopTimer"){
+            qInfo()<<"###[ Stop Timer ]###";
+            m_Timer.stop();
+    }
 }
 
 void TestTimer::onTimerTimeout()

@@ -98,12 +98,11 @@ public class QtAndroidService extends QtService
             {
                 stopQtAndroidService();
             }
-            else if(qtMessage.equals("StartTimer"))
+            else if(qtMessage.equals("StartTimer")||qtMessage.equals("StopTimer"))
             {
                 try
                 {
                     Log.i(TAG, "***[ Is goning to send message to c++ service ]***");
-                    Toast.makeText(this, "Start Timer => "+qtMessage, Toast.LENGTH_LONG).show();
                     ServiceBroadcastUtility.sendToCPPService(qtMessage);
                 }
                 catch(Exception e)
@@ -113,7 +112,6 @@ public class QtAndroidService extends QtService
             }
             else if(qtMessage.contains("CurrentTime"))
             {
-                Toast.makeText(this, "CPP Service Message=> "+qtMessage, Toast.LENGTH_LONG).show();
                 sendMessageToQtAPP(qtMessage);
             }
             else

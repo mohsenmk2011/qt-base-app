@@ -44,6 +44,12 @@ Page {
                 qtAndroidService.startService();
             }
         }
+        JooyaButton{
+            text: "توقف سرویس"
+            onClicked: {
+                qtAndroidService.stopService()
+            }
+        }
         TextEdit{
             id:teAndroidServiceMessage
             Layout.fillWidth: true
@@ -52,7 +58,6 @@ Page {
                 pixelSize: 18
             }
         }
-
         JooyaButton{
             text: "شروع تایمر در سرویس"
             onClicked: {
@@ -60,9 +65,9 @@ Page {
             }
         }
         JooyaButton{
-            text: "توقف سرویس"
+            text: "توقف تایمر"
             onClicked: {
-                qtAndroidService.stopService()
+                qtAndroidService.sendToService("StopTimer");
             }
         }
         Item{
