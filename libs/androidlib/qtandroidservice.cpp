@@ -57,20 +57,8 @@ void QtAndroidService::sendMessage(const QString &message)
 
 void QtAndroidService::startService()
 {
-//    sendToService();
 #if defined(Q_OS_ANDROID)
-    QAndroidJniObject::callStaticMethod<void>(
-        "org/jooya/rokhshid/QtAndroidService",
-        "startQtAndroidService",
-        "(Landroid/content/Context;)V",
-        QtAndroid::androidActivity().object());
-
-//    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-//                                 "org/jooya/rokhshid/QtAndroidService");
-//    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
-//                "startService",
-//                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-//                serviceIntent.handle().object());
+    sendToService("StartService");
 #endif
 }
 
