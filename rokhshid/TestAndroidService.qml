@@ -41,8 +41,7 @@ Page {
             onClicked: {
                 pb.value=pb.value+1.0;
                 console.log("pb.value=> "+pb.value);
-//                qtAndroidService.startService();
-                qtAndroidService.sendToService("StartService");
+                qtAndroidService.startService();
             }
         }
         TextEdit{
