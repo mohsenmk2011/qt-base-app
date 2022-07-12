@@ -94,6 +94,10 @@ public class QtAndroidService extends QtService
                 .build();
                 startForeground(1, notification);
             }
+            else if(qtMessage.equals("StopService"))
+            {
+                stopQtAndroidService();
+            }
             else if(qtMessage.equals("StartTimer"))
             {
                 try
@@ -138,6 +142,9 @@ public class QtAndroidService extends QtService
     }
     public static void startQtAndroidService(Context context) {
         context.startService(new Intent(context, QtAndroidService.class));
+    }
+    public void stopQtAndroidService() {
+        this.stopService(new Intent(this, QtAndroidService.class));
     }
     public void initializeWebView(){
         if(wv!=null){
