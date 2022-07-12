@@ -42,7 +42,6 @@ Page {
                 pb.value=pb.value+1.0;
                 console.log("pb.value=> "+pb.value);
 //                qtAndroidService.startService();
-                //no idea why applicatio will crash when starting android servie
                 qtAndroidService.sendToService("StartService");
             }
         }
@@ -59,6 +58,12 @@ Page {
             text: "شروع تایمر در سرویس"
             onClicked: {
                 qtAndroidService.sendToService("StartTimer");
+            }
+        }
+        JooyaButton{
+            text: "توقف سرویس"
+            onClicked: {
+                qtAndroidService.stopService()
             }
         }
         Item{
