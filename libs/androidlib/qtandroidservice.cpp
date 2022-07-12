@@ -77,12 +77,7 @@ void QtAndroidService::startService()
 void QtAndroidService::stopService()
 {
 #if defined(Q_OS_ANDROID)
-    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-                                 "org/jooya/rokhshid/QtAndroidService");
-    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
-                "stopService",
-                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-                serviceIntent.handle().object());
+    sendToService("StopService");
 #endif
 }
 
