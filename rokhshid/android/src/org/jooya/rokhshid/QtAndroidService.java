@@ -24,8 +24,11 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
+import android.net.Uri;
+import android.media.RingtoneManager;
+import android.media.Ringtone;
 public class QtAndroidService extends QtService
 {
     private static native void callFromJava(String message);
@@ -83,14 +86,17 @@ public class QtAndroidService extends QtService
             {
                 Toast.makeText(this, "Service started by user", Toast.LENGTH_LONG).show();
                 Log.i(TAG, "***[ Is Showing Notification ]***");
-                Intent ni=new Intent(this,MainActivity.class);
-                PendingIntent pi=PendingIntent.getActivity(this,0,ni,0);
+//                Intent intent=new Intent(this,MainActivity.class);
+                PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
+
+                Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Notification notification=new NotificationCompat.Builder(this,"org.jooya.rokhshid.ForegroundServiceChannel"/*CHANNEL_ID*/)
                 .setContentTitle("رخشید")
                 .setContentText(qtMessage)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                 .setSmallIcon(R.drawable.icon)
                 .setContentIntent(pi)
+                .setSound(soundUri)
                 .build();
                 startForeground(1, notification);
             }
@@ -124,6 +130,7 @@ public class QtAndroidService extends QtService
         return START_NOT_STICKY;
         //return ret;
     }
+
     public void sendMessageToQtAPP(String message){
         Intent sendToUiIntent = new Intent();
         sendToUiIntent.setAction(AppBroadcastUtility.BROADCAST_NAME_ACTION1);
