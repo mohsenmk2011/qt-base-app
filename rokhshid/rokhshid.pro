@@ -39,8 +39,11 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
+    android/src/org/jooya/rokhshid/AlarmWorker.java \
     android/src/org/jooya/rokhshid/AppBroadcastUtility.java \
+    android/src/org/jooya/rokhshid/DownloadWorker.java \
     android/src/org/jooya/rokhshid/JSInterface.java \
+    android/src/org/jooya/rokhshid/JooyaAlarmManager.java \
     android/src/org/jooya/rokhshid/JooyaApplication.java \
     android/src/org/jooya/rokhshid/MainActivity.java \
     android/src/org/jooya/rokhshid/NotificationClient.java \

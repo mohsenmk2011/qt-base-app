@@ -5,15 +5,161 @@ import JooyaQuick.Controls.Material 1.0
 import QtQuick.Layouts 1.15
 import "../../jooyaQuickControls"
 import QtGraphicalEffects 1.0
+import Jooya 1.0
 
 Flickable {
     id:settingsPage
     LayoutMirroring.enabled: true
     LayoutMirroring.childrenInherit: true
     contentHeight: clm.implicitHeight
+    function formatText(count, modelData) {
+        var data = count === 12 ? modelData + 1 : modelData;
+        return data.toString().length < 2 ? "0" + data : data;
+    }
+    AlarmManager{
+        id:alarmManager
+    }
+
     ColumnLayout{
         id:clm
         anchors.fill: parent
+        Pane{
+            Material.elevation: 1
+            Material.background: MaterialStyle.backColor100
+            Layout.fillWidth: true
+            Layout.margins: 9
+            Layout.leftMargin: 0
+            Layout.rightMargin: 0
+            height: 407
+            ColumnLayout{
+                id:clmAlarm
+                anchors.fill: parent
+                spacing: 9
+                Text {
+                    text: qsTr("هشدار")
+                    color: MaterialStyle.primaryTextColor
+                    font{
+                        family:flYekan.name
+                        pixelSize: 27
+                    }
+                }
+                RowLayout{
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 18
+                    Layout.leftMargin: 18
+                    spacing: 9
+                    ImageOverlay {
+
+                        width: 27
+                        height: 27
+                        Layout.alignment: Qt.AlignVCenter
+                        source: "../../images/common/brightness-6.png"
+                    }
+                    Text {
+                        text: qsTr("یادآوری شود")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
+                    Text {
+                        text: qsTr("خاموش")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                    Switch{
+                        id:swAlarm
+                        checked: MaterialStyle.isDark
+                        onCheckedChanged: {
+                            console.log("swAlarm.checked => "+swAlarm.checked)
+                        }
+                        onToggled: {
+                            console.log("onToggled swAlarm.checked => "+swAlarm.checked)
+                            if(checked){
+                            }
+                            else{
+                                alarmManager.cancelAlarm();
+                            }
+                        }
+                    }
+                    Text {
+                        text: qsTr("روشن")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                }
+                RowLayout{
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 18
+                    Layout.leftMargin: 18
+                    spacing: 9
+                    FontMetrics {
+                        id: fontMetrics
+                    }
+                    Component {
+                        id: delegateComponent
+                        Label {
+                            text: formatText(Tumbler.tumbler.count, modelData)
+                            opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            font.pixelSize: fontMetrics.font.pixelSize * 1.25
+                        }
+                    }
+                    JooyaButton{
+                        text: "یاد آوری"
+                        enabled: swAlarm.checked
+                        onClicked: {
+                            alarmManager.setAlarm(hoursTumbler.currentIndex,minutesTumbler.currentIndex,0);
+                        }
+                    }
+                    Frame {
+                        id: frame
+                        Layout.alignment: Qt.AlignHCenter
+                        padding: 0
+                        enabled: swAlarm.checked
+                        Row {
+                            LayoutMirroring.enabled: false
+                            id: row
+                            Tumbler {
+                                id: hoursTumbler
+                                model: 24
+                                delegate: delegateComponent
+
+                                onCurrentIndexChanged: {
+                                    console.log("hoursTumbler.currentIndex => "+hoursTumbler.currentIndex);
+                                }
+                            }
+                            Tumbler {
+                                id: minutesTumbler
+                                model: 60
+                                delegate: delegateComponent
+                                onCurrentIndexChanged: {
+                                    console.log("minutesTumbler.currentIndex => "+minutesTumbler.currentIndex);
+                                }
+                            }
+                        }
+                    }
+                }
+                Separator {
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 4.5
+                    Layout.leftMargin: 4.5
+                    color: MaterialStyle.accent200
+                }
+                Item {
+                    Layout.fillHeight: true
+                }
+            }
+        }
+        //=============================================================================
         Pane{
             Material.elevation: 1
             Material.background: MaterialStyle.backColor100
@@ -295,7 +441,7 @@ Flickable {
                     }
                     TabButton {
                         text: qsTr("بازگردانی به حالت پیش فرض")
-//                        color: MaterialStyle.primaryTextColor
+                        //                        color: MaterialStyle.primaryTextColor
                         font{
                             family:flYekan.name
                         }
@@ -311,6 +457,8 @@ Flickable {
                 }
             }
         }
+
+        //=============================================================================
 
         Item {
             Layout.fillHeight: true

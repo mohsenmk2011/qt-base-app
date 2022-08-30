@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "jooyaQuickControls"
+import Jooya 1.0
 
 Page {
     id:pageAndroidService
@@ -11,6 +12,10 @@ Page {
 
             txt.text = message
         }
+    }
+    AlarmManager{
+        id:alarmManager
+
     }
 
     ColumnLayout{
@@ -35,7 +40,6 @@ Page {
             Layout.fillWidth: true
 
         }
-
         JooyaButton{
             text: "شروع سرویس"
             onClicked: {
@@ -48,6 +52,12 @@ Page {
             text: "توقف سرویس"
             onClicked: {
                 qtAndroidService.stopService()
+            }
+        }
+        JooyaButton{
+            text: "یاد آوری"
+            onClicked: {
+                alarmManager.setAlarm(18,24,0);
             }
         }
         TextEdit{
