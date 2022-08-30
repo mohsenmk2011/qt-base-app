@@ -48,6 +48,7 @@ DISTFILES += \
     android/src/org/jooya/rokhshid/MainActivity.java \
     android/src/org/jooya/rokhshid/NotificationClient.java \
     android/src/org/jooya/rokhshid/QtAndroidService.java \
+    android/src/org/jooya/rokhshid/ReminderBroadcastReceiver.java \
     android/src/org/jooya/rokhshid/ServiceBroadcastUtility.java \
     android/src/org/jooya/rokhshid/ShareManager.java \
     android/src/org/jooya/rokhshid/SmsManager.java \
