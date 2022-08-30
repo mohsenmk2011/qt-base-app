@@ -102,6 +102,11 @@
             <action android:name="android.provider.Telephony.SMS_DELIVER"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".ReminderBroadcastReceiver">
+            <intent-filter>
+            <action android:name="alarmRokhshidExercis"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 <!-- %%INSERT_PERMISSIONS -->
