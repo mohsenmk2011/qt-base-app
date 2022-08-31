@@ -13,16 +13,24 @@ import android.os.Vibrator;
 
 public class ReminderBroadcastReceiver extends BroadcastReceiver {
 
+    private static final String TAG = "ReminderBroadcastReceiver";
     @Override
     public void onReceive(Context context, Intent intent) {
+        Toast.makeText(context, "Alarm trigged now !!!", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "Alarm trigged now !!! ");
+        Log.i(TAG, "context is null => "+(context == null) );
+        Log.i(TAG, "intent is null => "+(intent == null) );
+        Log.i(TAG, "intent.getAction() == null => "+(intent.getAction() == null) );
         if(context == null || intent == null || intent.getAction() == null){
             return;
         }
-        if (intent.getAction().equals("alarmRokhshidExercis")) {
-            Toast.makeText(context, "Time Up... Now Vibrating !!!",Toast.LENGTH_LONG).show();
+        if (intent.getAction().equals("org.jooya.rokhshid.EXERCISE_ALRAM_SIMPLE")) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(2000);
+            vibrator.vibrate(900);
             NotificationClient.notify(context,"رخشید","زمان انجام تمرینات");
+        }
+        else if (intent.getAction().equals("org.jooya.rokhshid.EXERCISE_ALRAM_SHOWPAGE")) {
+            //Display alarm activy page
         }
     }
 }
