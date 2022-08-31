@@ -103,9 +103,6 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".ReminderBroadcastReceiver">
-            <intent-filter>
-            <action android:name="alarmRokhshidExercis"/>
-            </intent-filter>
         </receiver>
     </application>
 
@@ -134,9 +131,5 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-
-
-
-
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 </manifest>
