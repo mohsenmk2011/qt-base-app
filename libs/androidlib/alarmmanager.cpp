@@ -22,7 +22,7 @@
 AlarmManager::AlarmManager(QObject *parent)
     : QObject{parent}
 {
-//    m_instance=this;
+    //    m_instance=this;
     connect(QtAndroidService::instance(),&QtAndroidService::appMessageReceived,this,&AlarmManager::onAppMessageReceived);
 }
 
@@ -44,6 +44,27 @@ void AlarmManager::setAlarm(int hour, int minute)
         }
     }
 #endif
+}
+
+void AlarmManager::startAlarmWithAlamManager(int hour, int minute)
+{
+    qInfo()<<"***[ start Alarm With AlamManager ]***";
+#if defined(Q_OS_ANDROID)
+    QAndroidJniEnvironment env;
+    QString hm=QString("%1:%2").arg(hour).arg(minute);
+    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+    if (env->ExceptionCheck()) {
+        env->ExceptionClear();
+    }
+    if (activity.isValid())
+    {
+        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","startAlarmWithAlamManager","(Landroid/content/Context;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>());
+        if (env->ExceptionCheck()) {
+            env->ExceptionClear();
+        }
+    }
+#endif
+
 }
 
 void AlarmManager::cancelAlarm()
