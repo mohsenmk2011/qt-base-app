@@ -31,6 +31,9 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         }
         else if (intent.getAction().equals("org.jooya.rokhshid.EXERCISE_ALRAM_SHOWPAGE")) {
             //Display alarm activy page
+            Intent alarmIntent = new Intent(context,AlarmActivity.class);
+            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(alarmIntent);
         }
     }
 }
