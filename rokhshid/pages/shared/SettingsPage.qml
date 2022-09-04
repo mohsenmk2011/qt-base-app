@@ -120,6 +120,13 @@ Flickable {
                             //alarmManager.setAlarm(hoursTumbler.currentIndex,minutesTumbler.currentIndex,0);
                             alarmManager.startAlarmWithAlamManager(hoursTumbler.currentIndex,minutesTumbler.currentIndex);
                         }
+                    }                    
+                    JooyaButton{
+                        text: "نمایش هشدار"
+                        visible: CurrentUser.isAdmin
+                        onClicked: {
+                            alarmManager.displayAlarmPage();
+                        }
                     }
                     Frame {
                         id: frame
