@@ -38,7 +38,10 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew \
     android/gradlew.bat \
+    android/res/drawable/alarmlayout.xml \
+    android/res/drawable/splashscreen.xml \
     android/res/values/libs.xml \
+    android/src/org/jooya/rokhshid/AlarmActivity.java \
     android/src/org/jooya/rokhshid/AlarmWorker.java \
     android/src/org/jooya/rokhshid/AppBroadcastUtility.java \
     android/src/org/jooya/rokhshid/DownloadWorker.java \
