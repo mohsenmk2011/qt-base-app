@@ -21,6 +21,8 @@ dependencies {
     implementation "androidx.work:work-runtime:$work_version"
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'com.android.support:support-compat:27.1.1'
+
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
 }
 
 android {
