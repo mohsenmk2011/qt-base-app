@@ -21,6 +21,8 @@ public:
 
     Q_INVOKABLE void setAlarm(int hour, int minutes);
     Q_INVOKABLE void startAlarmWithAlamManager(int hour, int minutes);
+
+    Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");
     Q_INVOKABLE void cancelAlarm();
 
 //    void registerNativesOfApp();

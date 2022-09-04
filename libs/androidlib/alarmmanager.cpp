@@ -64,7 +64,26 @@ void AlarmManager::startAlarmWithAlamManager(int hour, int minute)
         }
     }
 #endif
+}
 
+void AlarmManager::displayAlarmPage(QString alarmType)
+{
+    qInfo()<<"***[ displayAlarmPage ]***";
+    //alarmType => {Page,Notification}
+#if defined(Q_OS_ANDROID)
+    QAndroidJniEnvironment env;
+    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+    if (env->ExceptionCheck()) {
+        env->ExceptionClear();
+    }
+    if (activity.isValid())
+    {
+        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","displayAlarmPage","(Landroid/content/Context;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
+        if (env->ExceptionCheck()) {
+            env->ExceptionClear();
+        }
+    }
+#endif
 }
 
 void AlarmManager::cancelAlarm()
