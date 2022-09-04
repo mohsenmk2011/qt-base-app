@@ -17,7 +17,9 @@ import android.util.Log;
 import java.lang.Thread;
 import java.lang.InterruptedException;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import java.io.IOException;
 
 public class AlarmActivity extends Activity{
     MediaPlayer mPlayer;
@@ -41,12 +43,18 @@ public class AlarmActivity extends Activity{
                         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
         playWakeupAudio();
     }
     private void playWakeupAudio()
     {
         Log.i("AlarmActivity", "***[ Is palying alarm audio ]***");
         mPlayer = MediaPlayer.create(this, R.raw.alarm);
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 20, 0);
         mPlayer.start();
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
