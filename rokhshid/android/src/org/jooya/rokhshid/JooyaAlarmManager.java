@@ -138,13 +138,13 @@ public class JooyaAlarmManager
         WorkManager.getInstance(context).cancelAllWorkByTag(ALARMID);
     }
 
-public static void startAlarmWithAlamManager(Context context,String hm)
-    {        
-        // alarm first vibrate at 14 hrs and 40 min and repeat itself at ONE_HOUR interval
+    public static void startAlarmWithAlamManager(Context context,String hm)
+    {
+        Log.i(TAG, "JooyaAlarmManager.startAlarmWithAlamManager");
 
-        Log.i(TAG, "JooyaAlarmManager.startAlarmWithAlamManager ");
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-        alarmIntent.setAction("org.jooya.rokhshid.EXERCISE_ALRAM_SIMPLE");
+        //intent.setAction("org.jooya.rokhshid.EXERCISE_ALRAM_SIMPLE");
+          intent.setAction("org.jooya.rokhshid.EXERCISE_ALRAM_SHOWPAGE");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 360999, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         //=====================================================
         String[] separated=hm.split(":");
@@ -171,7 +171,7 @@ public static void startAlarmWithAlamManager(Context context,String hm)
             diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;
             Log.i(TAG, "is pass so => new diffSeconds is => "+diffSeconds);
         }
-    //=========================
+        //=========================
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         //====================================================================
         //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -186,9 +186,7 @@ public static void startAlarmWithAlamManager(Context context,String hm)
             Log.i(TAG, " ");
             alarmManager.set(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
         }
-    Log.i(TAG, "Build.VERSION.SDK_INT=> "+Build.VERSION.SDK_INT);
-         //============================================
-        Toast.makeText(context, "Alarm will vibrate at time specified", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "Build.VERSION.SDK_INT=> "+Build.VERSION.SDK_INT);
     }
 }
 
