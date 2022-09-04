@@ -34,6 +34,7 @@ import androidx.work.NetworkType;
 import java.util.concurrent.TimeUnit;
 import androidx.work.WorkerParameters;
 import java.util.Calendar;
+import android.os.Vibrator;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
 
@@ -136,6 +137,26 @@ public class JooyaAlarmManager
 
         //WorkManager.getInstance(context).cancelWorkById(alarmRequest.getId());
         WorkManager.getInstance(context).cancelAllWorkByTag(ALARMID);
+    }
+    public static void displayAlarmPage(Context context,String alarmType)
+    {
+        //Display alarm activy page
+
+        Log.i(TAG, "displayAlarmPage");
+        Log.i(TAG, "alarmType=>"+alarmType);
+        //alarmType => {Page,Notification}
+        if(alarmType.equals("Page"))
+        {
+            Intent alarmIntent = new Intent(context,AlarmActivity.class);
+            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(alarmIntent);
+        }
+        else if(alarmType.equals("Notification"))
+        {
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(900);
+            NotificationClient.notify(context,"رخشید","زمان انجام تمرینات");
+        }
     }
 
     public static void startAlarmWithAlamManager(Context context,String hm)
