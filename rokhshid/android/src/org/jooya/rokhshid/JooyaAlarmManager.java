@@ -159,13 +159,14 @@ public class JooyaAlarmManager
         }
     }
 
-    public static void startAlarmWithAlamManager(Context context,String hm)
+    public static void startAlarmWithAlamManager(Context context,String hm,String alarmType)
     {
         Log.i(TAG, "JooyaAlarmManager.startAlarmWithAlamManager");
+        Log.i(TAG, "alarmType=>"+alarmType);
+        //alarmType => {Page,Notification}
 
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-        //intent.setAction("org.jooya.rokhshid.EXERCISE_ALRAM_SIMPLE");
-          intent.setAction("org.jooya.rokhshid.EXERCISE_ALRAM_SHOWPAGE");
+        intent.setAction(alarmType);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 360999, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         //=====================================================
         String[] separated=hm.split(":");

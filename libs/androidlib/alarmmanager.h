@@ -20,7 +20,7 @@ public:
 //    static AlarmManager *instance() { return m_instance; }
 
     Q_INVOKABLE void setAlarm(int hour, int minutes);
-    Q_INVOKABLE void startAlarmWithAlamManager(int hour, int minutes);
+    Q_INVOKABLE void startAlarmWithAlamManager(int hour, int minutes,QString alarmType="Notification");
 
     Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");
     Q_INVOKABLE void cancelAlarm();

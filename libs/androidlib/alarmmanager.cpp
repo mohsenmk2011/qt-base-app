@@ -46,9 +46,10 @@ void AlarmManager::setAlarm(int hour, int minute)
 #endif
 }
 
-void AlarmManager::startAlarmWithAlamManager(int hour, int minute)
+void AlarmManager::startAlarmWithAlamManager(int hour, int minute,QString alarmType)
 {
     qInfo()<<"***[ start Alarm With AlamManager ]***";
+    //alarmType => {Page,Notification} , Page will display alarm page,Notification just diplay alarm in status bar as notification
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
     QString hm=QString("%1:%2").arg(hour).arg(minute);
@@ -58,7 +59,7 @@ void AlarmManager::startAlarmWithAlamManager(int hour, int minute)
     }
     if (activity.isValid())
     {
-        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","startAlarmWithAlamManager","(Landroid/content/Context;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>());
+        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","startAlarmWithAlamManager","(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }

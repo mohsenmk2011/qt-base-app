@@ -24,12 +24,12 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         if(context == null || intent == null || intent.getAction() == null){
             return;
         }
-        if (intent.getAction().equals("org.jooya.rokhshid.EXERCISE_ALRAM_SIMPLE")) {
+        if (intent.getAction().equals("Notification")) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(900);
             NotificationClient.notify(context,"رخشید","زمان انجام تمرینات");
         }
-        else if (intent.getAction().equals("org.jooya.rokhshid.EXERCISE_ALRAM_SHOWPAGE")) {
+        else if (intent.getAction().equals("Page")) {
             //Display alarm activy page
             Intent alarmIntent = new Intent(context,AlarmActivity.class);
             alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

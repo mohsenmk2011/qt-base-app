@@ -117,8 +117,7 @@ Flickable {
                         text: "یاد آوری"
                         enabled: swAlarm.checked
                         onClicked: {
-                            //alarmManager.setAlarm(hoursTumbler.currentIndex,minutesTumbler.currentIndex,0);
-                            alarmManager.startAlarmWithAlamManager(hoursTumbler.currentIndex,minutesTumbler.currentIndex);
+                            alarmManager.startAlarmWithAlamManager(hoursTumbler.currentIndex,minutesTumbler.currentIndex,"Page");
                         }
                     }                    
                     JooyaButton{
