@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fffde7"
+    tools:context=".AlarmActivity">
+    <LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_marginTop="100dp"
+            android:layout_width="270dp"
+            android:layout_height="270dp"
+            android:src="@drawable/alarm"
+            android:background="@drawable/clockalarmbackground"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="رخشید"
+            android:textColor="#3e2723"
+            android:textSize="36sp"
+            android:layout_marginTop="18dp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="292dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="زمان انجام تمرینات"
+            android:textColor="#3e2723"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="292dp" />
+        <Button
+              android:id="@+id/btnFinish"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:textColor="#3e2723"
+              android:background="#ffeb3b"
+              android:text="پایان"
+              android:textSize="18dp"
+              android:layout_marginBottom="2dp"
+              android:layout_marginRight="18dp"
+              android:layout_marginTop="45dp"
+              android:layout_marginLeft="18dp"
+              android:onClick="onbtnFinishClick"
+          />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
