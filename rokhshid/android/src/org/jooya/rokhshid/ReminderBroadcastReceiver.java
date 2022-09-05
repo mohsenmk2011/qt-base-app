@@ -35,6 +35,15 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
             alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(alarmIntent);
         }
-        JooyaAlarmManager.startAlarmWithAlamManager(context,alarmTime,alarmType);
+        if(JooyaAlarmManager.isAlarmUp(context))
+        {
+            //JooyaAlarmManager.startAlarmWithAlamManager(context,alarmTime,alarmType);
+            Log.i(TAG, "Alarm is up !!! ");
+        }
+        else
+        {
+            //JooyaAlarmManager.startAlarmWithAlamManager(context,alarmTime,alarmType);
+            Log.i(TAG, "Alarm is not up !!! ");
+        }
     }
 }
