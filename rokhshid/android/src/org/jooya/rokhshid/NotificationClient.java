@@ -43,6 +43,8 @@ public class NotificationClient
                     .setDefaults(Notification.DEFAULT_SOUND)
                     .setColor(Color.GREEN)
                     .setContentIntent(pi)
+//                    .addAction(R.drawable.notif_icon, "Buy", intent)
+//                    .addAction(R.drawable.notif_icon, "Product details", intent)
                     .setAutoCancel(true);
             m_notificationManager.notify(0, m_builder.build());
         } catch (Exception e) {
