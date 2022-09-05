@@ -131,12 +131,20 @@ public class JooyaAlarmManager
 
     public static void cancelAlarm(Context context) {
 
+        Log.i(TAG, "***[ cancel Alarm ]***");
 //        PeriodicWorkRequest alarmRequest=new PeriodicWorkRequest.Builder(AlarmWorker.class,1,TimeUnit.DAYS)
 //                    .addTag(ALARMID)
 //                    .build();
 
         //WorkManager.getInstance(context).cancelWorkById(alarmRequest.getId());
-        WorkManager.getInstance(context).cancelAllWorkByTag(ALARMID);
+        //WorkManager.getInstance(context).cancelAllWorkByTag(ALARMID);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
+         intent.setAction("org.jooya.rokhshid.EXERCISEALARM");
+         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,360999,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+         alarmManager.cancel(pendingIntent);
+         pendingIntent.cancel();
     }
     public static void displayAlarmPage(Context context,String alarmType)
     {
