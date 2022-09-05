@@ -5,6 +5,17 @@ ApplicationSettings::ApplicationSettings(QObject *parent) : JooyaSettings(parent
 
 }
 
+QString ApplicationSettings::alarmInfo()
+{
+    return get("alarmInfo").toString();
+}
+
+void ApplicationSettings::setAlarmInfo(QString ai)
+{
+    qInfo()<<"alarm info=> "<<ai;
+    set("alarmInfo",ai);
+}
+
 QString ApplicationSettings::theme()
 {
     return get("theme").toString();
