@@ -16,10 +16,21 @@ Flickable {
         var data = count === 12 ? modelData + 1 : modelData;
         return data.toString().length < 2 ? "0" + data : data;
     }
+    ApplicationSettings{
+        id:settings
+    }
+
     AlarmManager{
         id:alarmManager
     }
-
+    Component.onCompleted: {
+        console.log("settings.alarmInfo"+settings.alarmInfo);
+        alarmManager.alarmInfo.fromString(settings.alarmInfo)
+        console.log("alarmManager.alarmInfo.alarmHour"+alarmManager.alarmInfo.alarmHour);
+        console.log("alarmManager.alarmInfo.alarmMinute"+alarmManager.alarmInfo.alarmMinutes);
+        hoursTumbler.currentIndex=alarmManager.alarmInfo.alarmHour;
+        minutesTumbler.currentIndex=alarmManager.alarmInfo.alarmMinutes;
+    }
     ColumnLayout{
         id:clm
         anchors.fill: parent
@@ -117,7 +128,7 @@ Flickable {
                         text: "یاد آوری"
                         enabled: swAlarm.checked
                         onClicked: {
-                            alarmManager.startAlarmWithAlamManager(hoursTumbler.currentIndex,minutesTumbler.currentIndex,"Page");
+                            alarmManager.startAlarmWithAlamManager("Page");
                         }
                     }                    
                     JooyaButton{
@@ -139,17 +150,27 @@ Flickable {
                                 id: hoursTumbler
                                 model: 24
                                 delegate: delegateComponent
-
-                                onCurrentIndexChanged: {
-                                    console.log("hoursTumbler.currentIndex => "+hoursTumbler.currentIndex);
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
+                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
+                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
+                                    }
                                 }
                             }
                             Tumbler {
                                 id: minutesTumbler
                                 model: 60
                                 delegate: delegateComponent
-                                onCurrentIndexChanged: {
-                                    console.log("minutesTumbler.currentIndex => "+minutesTumbler.currentIndex);
+                                wrap: false
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
+                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
+                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
+                                    }
                                 }
                             }
                         }
