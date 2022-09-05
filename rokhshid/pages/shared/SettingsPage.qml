@@ -88,7 +88,6 @@ Flickable {
                         id:swAlarmType
                         visible: CurrentUser.isAdmin
                         onToggled: {
-                            console.log("onToggled swAlarm.checked => "+swAlarm.checked)
                             if(checked){
                             }
                             else{
@@ -123,16 +122,22 @@ Flickable {
                         }
                     }
                     JooyaButton{
-                        text: "یاد آوری"
-                        enabled: swAlarm.checked
+                        text: alarmManager.isUpAndRunning?"پایان دادن به هشدار": "یاد آوری"
                         onClicked: {
-                            if(swAlarmType.checked)
+                            if(!alarmManager.isUpAndRunning)
                             {
-                                alarmManager.startAlarmWithAlamManager("Page");
+                                if(swAlarmType.checked)
+                                {
+                                    alarmManager.startAlarmWithAlamManager("Page");
+                                }
+                                else
+                                {
+                                    alarmManager.startAlarmWithAlamManager("Notification");
+                                }
                             }
                             else
                             {
-                                alarmManager.startAlarmWithAlamManager("Notification");
+                                alarmManager.cancelAlarm();
                             }
                         }
                     }                    
@@ -162,6 +167,7 @@ Flickable {
                                 id: hoursTumbler
                                 model: 24
                                 delegate: delegateComponent
+                                wrap: false
                                 onMovingChanged: {
                                     if(!moving)
                                     {
