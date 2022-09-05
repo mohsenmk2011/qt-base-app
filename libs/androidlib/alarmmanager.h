@@ -21,6 +21,8 @@ public:
 //    static AlarmManager *instance() { return m_instance; }
     AlarmInfo* alarmInfo();
     Q_INVOKABLE void setAlarm(int hour, int minute);
+    //is alarm up and running?
+    Q_INVOKABLE bool isAlarmUp();
     Q_INVOKABLE void startAlarmWithAlamManager(QString alarmType="Notification");
 
     Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");

@@ -52,6 +52,28 @@ void AlarmManager::setAlarm(int hour, int minute)
 #endif
 }
 
+bool AlarmManager::isAlarmUp()
+{
+    bool up=false;
+    qInfo()<<"***[ is Alarm Up ]***";
+#if defined(Q_OS_ANDROID)
+    QAndroidJniEnvironment env;
+    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+    if (env->ExceptionCheck()) {
+        env->ExceptionClear();
+    }
+    if (activity.isValid())
+    {
+      up= (bool) QAndroidJniObject::callStaticMethod<jboolean>("org/jooya/rokhshid/JooyaAlarmManager","isAlarmUp","(Landroid/content/Context;)Z",QtAndroid::androidContext().object<jobject>());
+
+        if (env->ExceptionCheck()) {
+            env->ExceptionClear();
+        }
+    }
+#endif
+return up;
+}
+
 void AlarmManager::startAlarmWithAlamManager(QString alarmType)
 {
     qInfo()<<"***[ start Alarm With AlamManager ]***";
