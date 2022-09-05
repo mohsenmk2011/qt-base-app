@@ -24,6 +24,12 @@ AlarmManager::AlarmManager(QObject *parent)
 {
     //    m_instance=this;
     connect(QtAndroidService::instance(),&QtAndroidService::appMessageReceived,this,&AlarmManager::onAppMessageReceived);
+    m_AlarmInfo=new AlarmInfo();
+}
+
+AlarmInfo *AlarmManager::alarmInfo()
+{
+    return m_AlarmInfo;
 }
 
 void AlarmManager::setAlarm(int hour, int minute)
@@ -46,13 +52,13 @@ void AlarmManager::setAlarm(int hour, int minute)
 #endif
 }
 
-void AlarmManager::startAlarmWithAlamManager(int hour, int minute,QString alarmType)
+void AlarmManager::startAlarmWithAlamManager(QString alarmType)
 {
     qInfo()<<"***[ start Alarm With AlamManager ]***";
     //alarmType => {Page,Notification} , Page will display alarm page,Notification just diplay alarm in status bar as notification
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
-    QString hm=QString("%1:%2").arg(hour).arg(minute);
+    QString hm=QString("%1:%2").arg(alarmInfo()->alarmHour()).arg(alarmInfo()->alarmMinutes());
     QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
     if (env->ExceptionCheck()) {
         env->ExceptionClear();

@@ -5,7 +5,7 @@
 #include<QDebug>
 #include<QDateTime>
 #include<qtandroidservice.h>
-
+#include<alarminfo.h>
 #if defined(Q_OS_ANDROID)
 #include<qandroidjniobject.h>
 #include<QAndroidJniEnvironment>
@@ -15,12 +15,13 @@
 class AlarmManager : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(AlarmInfo* alarmInfo READ alarmInfo CONSTANT)
 public:
     explicit AlarmManager(QObject *parent = nullptr);
 //    static AlarmManager *instance() { return m_instance; }
-
-    Q_INVOKABLE void setAlarm(int hour, int minutes);
-    Q_INVOKABLE void startAlarmWithAlamManager(int hour, int minutes,QString alarmType="Notification");
+    AlarmInfo* alarmInfo();
+    Q_INVOKABLE void setAlarm(int hour, int minute);
+    Q_INVOKABLE void startAlarmWithAlamManager(QString alarmType="Notification");
 
     Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");
     Q_INVOKABLE void cancelAlarm();
@@ -33,7 +34,7 @@ signals:
 private slots:
     void onAppMessageReceived(const QString &message);
 private:
-//    static AlarmManager* m_instance;
+    AlarmInfo* m_AlarmInfo;
 };
 
 #endif // ALARMMANAGER_H
