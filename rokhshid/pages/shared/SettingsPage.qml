@@ -23,7 +23,8 @@ Flickable {
     AlarmManager{
         id:alarmManager
     }
-    Component.onCompleted: {
+    Component.onCompleted: {        
+        console.log("alarmManager.isAlarmUp()=> "+alarmManager.isAlarmUp());
         console.log("settings.alarmInfo"+settings.alarmInfo);
         alarmManager.alarmInfo.fromString(settings.alarmInfo)
         console.log("alarmManager.alarmInfo.alarmHour"+alarmManager.alarmInfo.alarmHour);
@@ -67,7 +68,7 @@ Flickable {
                         source: "../../images/common/brightness-6.png"
                     }
                     Text {
-                        text: qsTr("یادآوری شود")
+                        text: qsTr("نوع هشدار")
                         color: MaterialStyle.primaryTextColor
                         font{
                             family:flYekan.name
@@ -77,18 +78,15 @@ Flickable {
                         Layout.fillWidth: true
                     }
                     Text {
-                        text: qsTr("خاموش")
+                        text: qsTr("در نوار")
                         color: MaterialStyle.primaryTextColor
                         font{
                             family:flYekan.name
                         }
                     }
                     Switch{
-                        id:swAlarm
-                        checked: MaterialStyle.isDark
-                        onCheckedChanged: {
-                            console.log("swAlarm.checked => "+swAlarm.checked)
-                        }
+                        id:swAlarmType
+                        visible: CurrentUser.isAdmin
                         onToggled: {
                             console.log("onToggled swAlarm.checked => "+swAlarm.checked)
                             if(checked){
@@ -99,7 +97,7 @@ Flickable {
                         }
                     }
                     Text {
-                        text: qsTr("روشن")
+                        text: qsTr("در صفحه")
                         color: MaterialStyle.primaryTextColor
                         font{
                             family:flYekan.name
@@ -128,21 +126,35 @@ Flickable {
                         text: "یاد آوری"
                         enabled: swAlarm.checked
                         onClicked: {
-                            alarmManager.startAlarmWithAlamManager("Page");
+                            if(swAlarmType.checked)
+                            {
+                                alarmManager.startAlarmWithAlamManager("Page");
+                            }
+                            else
+                            {
+                                alarmManager.startAlarmWithAlamManager("Notification");
+                            }
                         }
                     }                    
                     JooyaButton{
                         text: "نمایش هشدار"
                         visible: CurrentUser.isAdmin
                         onClicked: {
-                            alarmManager.displayAlarmPage();
+                            if(swAlarmType.checked)
+                            {
+                                alarmManager.displayAlarmPage("Page");
+                            }
+                            else
+                            {
+                                alarmManager.displayAlarmPage();
+                                //or => alarmManager.displayAlarmPage("Notification");
+                            }
                         }
                     }
                     Frame {
                         id: frame
                         Layout.alignment: Qt.AlignHCenter
                         padding: 0
-                        enabled: swAlarm.checked
                         Row {
                             LayoutMirroring.enabled: false
                             id: row
