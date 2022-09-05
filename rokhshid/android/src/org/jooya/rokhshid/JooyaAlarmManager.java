@@ -166,7 +166,8 @@ public class JooyaAlarmManager
         //alarmType => {Page,Notification}
 
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-        intent.setAction(alarmType);
+        intent.putExtra("type",alarmType);
+        intent.putExtra("time",hm);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 360999, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         //=====================================================
         String[] separated=hm.split(":");
@@ -179,6 +180,7 @@ public class JooyaAlarmManager
         Calendar dt = Calendar.getInstance();
         dt.set(Calendar.HOUR_OF_DAY, hour);
         dt.set(Calendar.MINUTE, minute);
+        dt.set(Calendar.SECOND, 0);
 
         //============================[ find diffrence between two date time ]==================================
         long diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;

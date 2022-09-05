@@ -16,24 +16,25 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "ReminderBroadcastReceiver";
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Alarm trigged now !!!", Toast.LENGTH_SHORT).show();
         Log.i(TAG, "Alarm trigged now !!! ");
-        Log.i(TAG, "context is null => "+(context == null) );
-        Log.i(TAG, "intent is null => "+(intent == null) );
-        Log.i(TAG, "intent.getAction() == null => "+(intent.getAction() == null) );
-        if(context == null || intent == null || intent.getAction() == null){
+        if(context == null || intent == null){
             return;
         }
-        if (intent.getAction().equals("Notification")) {
+        String alarmTime = intent.getStringExtra("time");
+        String alarmType = intent.getStringExtra("type");
+        Log.i(TAG, "alarmTime=>  "+alarmTime);
+        Log.i(TAG, "alarmType=>  "+alarmType);
+        if (alarmType.equals("Notification")) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(900);
             NotificationClient.notify(context,"رخشید","زمان انجام تمرینات");
         }
-        else if (intent.getAction().equals("Page")) {
+        else if (alarmType.equals("Page")) {
             //Display alarm activy page
             Intent alarmIntent = new Intent(context,AlarmActivity.class);
             alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(alarmIntent);
         }
+        JooyaAlarmManager.startAlarmWithAlamManager(context,alarmTime,alarmType);
     }
 }
