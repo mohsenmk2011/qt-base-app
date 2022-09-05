@@ -25,11 +25,26 @@ AlarmManager::AlarmManager(QObject *parent)
     //    m_instance=this;
     connect(QtAndroidService::instance(),&QtAndroidService::appMessageReceived,this,&AlarmManager::onAppMessageReceived);
     m_AlarmInfo=new AlarmInfo();
+    m_IsUpAndRunning=isAlarmUp();
 }
 
 AlarmInfo *AlarmManager::alarmInfo()
 {
     return m_AlarmInfo;
+}
+
+bool AlarmManager::isUpAndRunning()
+{
+    return m_IsUpAndRunning;
+}
+
+void AlarmManager::setIsUpAndRunning(bool r)
+{
+    if(m_IsUpAndRunning!=r)
+    {
+        m_IsUpAndRunning=r;
+        emit isUpAndRunningChanged();
+    }
 }
 
 void AlarmManager::setAlarm(int hour, int minute)
@@ -92,6 +107,7 @@ void AlarmManager::startAlarmWithAlamManager(QString alarmType)
             env->ExceptionClear();
         }
     }
+    setIsUpAndRunning(isAlarmUp());
 #endif
 }
 
@@ -131,6 +147,7 @@ void AlarmManager::cancelAlarm()
             env->ExceptionClear();
         }
     }
+    setIsUpAndRunning(isAlarmUp());
 #endif
 }
 
