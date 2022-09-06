@@ -21,6 +21,9 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import java.io.IOException;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class AlarmActivity extends Activity{
     MediaPlayer mPlayer;
     @Override
@@ -43,6 +46,14 @@ public class AlarmActivity extends Activity{
                         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
+        Timer timer = new Timer();
+        TimerTask t = new TimerTask() {
+            @Override
+            public void run() {
+                finish();
+            }
+        };
+        timer.scheduleAtFixedRate(t,90000,9000);
     }
     @Override
     protected void onStart(){
