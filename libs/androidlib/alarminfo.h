@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include<QDateTime>
 #include<QJsonDocument>
+#include<alarmtypes.h>
 
 class AlarmInfo : public QObject
 {
@@ -12,8 +13,12 @@ class AlarmInfo : public QObject
     Q_PROPERTY(int alarmHour READ alarmHour WRITE setAlarmHour NOTIFY alarmHourChanged)
     Q_PROPERTY(int alarmMinutes READ alarmMinutes WRITE setAlarmMinutes NOTIFY alarmMinutesChanged)
     Q_PROPERTY(int audioVolume READ audioVolume WRITE setAudioVolume NOTIFY audioVolumeChanged)
+    Q_PROPERTY(AlarmTypes::AlarmTypesEnum alarmType READ alarmType WRITE setAlarmType NOTIFY alarmTypeChanged)
 public:
     explicit AlarmInfo(QObject *parent = nullptr);
+
+    AlarmTypes::AlarmTypesEnum alarmType();
+    void setAlarmType(AlarmTypes::AlarmTypesEnum at);
 
     int alarmHour();
     void setAlarmHour(int h);
@@ -33,11 +38,13 @@ signals:
     void alarmHourChanged();
     void alarmMinutesChanged();
     void audioVolumeChanged();
+    void alarmTypeChanged();
 
 private:
     int m_AlarmHour;
     int m_AlarmMinutes;
     int m_AudioVolume;
+    AlarmTypes::AlarmTypesEnum m_AlarmType;
 };
 
 #endif // ALARMINFO_H

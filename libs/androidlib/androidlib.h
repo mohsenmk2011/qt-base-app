@@ -10,11 +10,11 @@
 #include<smsmanager.h>
 #include<alarmmanager.h>
 #include<alarminfo.h>
+#include<alarmtypes.h>
 
 class Androidlib
 {
 public:
-    Androidlib();
     static void registerTypes()
     {
         qmlRegisterType<AndroidFileDialog>("Jooya",1,0,"AndroidFileDialog");
@@ -26,6 +26,7 @@ public:
         qmlRegisterType<ShareManager>("Jooya",1,0,"ShareManager");
         qmlRegisterType<SmsManager>("Jooya",1,0,"SmsManager");
         qmlRegisterUncreatableType<PermissionTypes>("Jooya",1,0,"PermissionTypes","Permission Types");
+        qmlRegisterUncreatableType<AlarmTypes>("Jooya",1,0,"AlarmTypes","Alarm Types");
     }
 };
 

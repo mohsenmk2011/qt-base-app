@@ -31,6 +31,7 @@ SOURCES += \
 HEADERS += \
     alarminfo.h \
     alarmmanager.h \
+    alarmtypes.h \
     androidfiledialog.h \
     androidlib.h \
     androidlib.h \

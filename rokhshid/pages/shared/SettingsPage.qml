@@ -31,6 +31,7 @@ Flickable {
         console.log("alarmManager.alarmInfo.alarmMinute"+alarmManager.alarmInfo.alarmMinutes);
         hoursTumbler.currentIndex=alarmManager.alarmInfo.alarmHour;
         minutesTumbler.currentIndex=alarmManager.alarmInfo.alarmMinutes;
+        swAlarmType.checked=alarmManager.alarmInfo.alarmType===AlarmTypes.DisplayPage
     }
     ColumnLayout{
         id:clm
@@ -151,10 +152,12 @@ Flickable {
                         visible: CurrentUser.isAdmin
                         onToggled: {
                             if(checked){
+                                alarmManager.alarmInfo.alarmType=AlarmTypes.DisplayPage;
                             }
                             else{
-                                alarmManager.cancelAlarm();
+                                alarmManager.alarmInfo.alarmType=AlarmTypes.SimpleNotification;
                             }
+                            settings.alarmInfo=alarmManager.alarmInfo.convertToString();
                         }
                     }
                     Text {

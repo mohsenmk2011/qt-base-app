@@ -8,6 +8,20 @@ AlarmInfo::AlarmInfo(QObject *parent)
     setAudioVolume(20);
 }
 
+AlarmTypes::AlarmTypesEnum AlarmInfo::alarmType()
+{
+    return m_AlarmType;
+}
+
+void AlarmInfo::setAlarmType(AlarmTypes::AlarmTypesEnum at)
+{
+    if(m_AlarmType!=at)
+    {
+        m_AlarmType=at;
+        emit alarmTypeChanged();
+    }
+}
+
 int AlarmInfo::alarmHour()
 {
     return m_AlarmHour;
@@ -55,6 +69,7 @@ QJsonObject AlarmInfo::toJson()
     obj.insert("hour",alarmHour());
     obj.insert("minute",alarmMinutes());
     obj.insert("volume",audioVolume());
+    obj.insert("alarmType",(int)alarmType());
     return obj;
 }
 
@@ -78,4 +93,5 @@ void AlarmInfo::fromJson(QJsonObject json)
     setAlarmHour(json.value("hour").toInt());
     setAlarmMinutes(json.value("minute").toInt());
     setAudioVolume(json.value("volume").toInt());
+    setAlarmType((AlarmTypes::AlarmTypesEnum)json.value("alarmType").toInt());
 }
