@@ -55,6 +55,68 @@ Flickable {
                         pixelSize: 27
                     }
                 }
+                    Component {
+                        id: delegateComponent
+                        Label {
+                            text: formatText(Tumbler.tumbler.count, modelData)
+                            opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: {
+                                    console.log("lbl.height=> "+parent.height);
+                                }
+                            }
+                        }
+                    }
+                    Frame {
+                        id: frame
+                        clip: true
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredHeight: 170
+                        padding: 0
+                        Row {
+                            anchors.fill: parent
+                            LayoutMirroring.enabled: false
+                            id:rowTumbler
+                            Tumbler {
+                                id: hoursTumbler
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                model: 24
+                                delegate: delegateComponent
+                                wrap: false
+                                visibleItemCount: 3
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
+                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
+                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
+                                    }
+                                }
+                            }
+                            Tumbler {
+                                id: minutesTumbler
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                model: 60
+                                delegate: delegateComponent
+                                wrap: false
+                                visibleItemCount: 3
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
+                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
+                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 RowLayout{
                     Layout.fillWidth: true
                     Layout.rightMargin: 18
@@ -105,25 +167,17 @@ Flickable {
                 }
                 RowLayout{
                     Layout.fillWidth: true
-                    Layout.rightMargin: 18
-                    Layout.leftMargin: 18
+                    Layout.rightMargin: 9
+                    Layout.leftMargin: 9
                     spacing: 9
-                    FontMetrics {
-                        id: fontMetrics
-                    }
-                    Component {
-                        id: delegateComponent
-                        Label {
-                            text: formatText(Tumbler.tumbler.count, modelData)
-                            opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: fontMetrics.font.pixelSize * 1.25
-                        }
-                    }
                     JooyaButton{
                         text: alarmManager.isUpAndRunning?"پایان دادن به هشدار": "یاد آوری"
+                        Layout.fillWidth: true
                         onClicked: {
+                            rowTumbler.height-=10;
+                            frame.height-=10;
+                            console.log("frame.height=> "+rowTumbler.height);
+                            return;
                             if(!alarmManager.isUpAndRunning)
                             {
                                 if(swAlarmType.checked)
@@ -142,8 +196,8 @@ Flickable {
                         }
                     }                    
                     JooyaButton{
-                        text: "نمایش هشدار"
-                        visible: CurrentUser.isAdmin
+                        text: "پیش نمایش هشدار"
+                        Layout.fillWidth: true
                         onClicked: {
                             if(swAlarmType.checked)
                             {
@@ -153,43 +207,6 @@ Flickable {
                             {
                                 alarmManager.displayAlarmPage();
                                 //or => alarmManager.displayAlarmPage("Notification");
-                            }
-                        }
-                    }
-                    Frame {
-                        id: frame
-                        Layout.alignment: Qt.AlignHCenter
-                        padding: 0
-                        Row {
-                            LayoutMirroring.enabled: false
-                            id: row
-                            Tumbler {
-                                id: hoursTumbler
-                                model: 24
-                                delegate: delegateComponent
-                                wrap: false
-                                onMovingChanged: {
-                                    if(!moving)
-                                    {
-                                        alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
-                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
-                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
-                                    }
-                                }
-                            }
-                            Tumbler {
-                                id: minutesTumbler
-                                model: 60
-                                delegate: delegateComponent
-                                wrap: false
-                                onMovingChanged: {
-                                    if(!moving)
-                                    {
-                                        alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
-                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
-                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
-                                    }
-                                }
                             }
                         }
                     }
@@ -205,7 +222,7 @@ Flickable {
                 }
             }
         }
-        //=============================================================================
+        //===================================< End of Alarm >==========================================
         Pane{
             Material.elevation: 1
             Material.background: MaterialStyle.backColor100
