@@ -127,7 +127,7 @@ Flickable {
                         width: 27
                         height: 27
                         Layout.alignment: Qt.AlignVCenter
-                        source: "../../images/common/brightness-6.png"
+                        source: "../../images/common/bell.png"
                     }
                     Text {
                         text: qsTr("نوع هشدار")
