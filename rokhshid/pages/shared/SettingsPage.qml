@@ -23,7 +23,7 @@ Flickable {
     AlarmManager{
         id:alarmManager
     }
-    Component.onCompleted: {        
+    Component.onCompleted: {
         console.log("alarmManager.isAlarmUp()=> "+alarmManager.isAlarmUp());
         console.log("settings.alarmInfo"+settings.alarmInfo);
         alarmManager.alarmInfo.fromString(settings.alarmInfo)
@@ -37,6 +37,7 @@ Flickable {
         id:clm
         anchors.fill: parent
         Pane{
+            id:paneAlarm
             Material.elevation: 1
             Material.background: MaterialStyle.backColor100
             Layout.fillWidth: true
@@ -56,63 +57,57 @@ Flickable {
                         pixelSize: 27
                     }
                 }
-                    Component {
-                        id: delegateComponent
-                        Label {
-                            text: formatText(Tumbler.tumbler.count, modelData)
-                            opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            MouseArea{
-                                anchors.fill: parent
-                                onClicked: {
-                                    console.log("lbl.height=> "+parent.height);
+                Component {
+                    id: delegateComponent
+                    Label {
+                        text: formatText(Tumbler.tumbler.count, modelData)
+                        opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+                Frame {
+                    id: frame
+                    clip: true
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredHeight: 170
+                    padding: 0
+                    Row {
+                        anchors.fill: parent
+                        LayoutMirroring.enabled: false
+                        id:rowTumbler
+                        Tumbler {
+                            id: hoursTumbler
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            model: 24
+                            delegate: delegateComponent
+                            wrap: false
+                            visibleItemCount: 3
+                            onMovingChanged: {
+                                if(!moving)
+                                {
+                                    alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
+                                }
+                            }
+                        }
+                        Tumbler {
+                            id: minutesTumbler
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            model: 60
+                            delegate: delegateComponent
+                            wrap: false
+                            visibleItemCount: 3
+                            onMovingChanged: {
+                                if(!moving)
+                                {
+                                    alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
                                 }
                             }
                         }
                     }
-                    Frame {
-                        id: frame
-                        clip: true
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredHeight: 170
-                        padding: 0
-                        Row {
-                            anchors.fill: parent
-                            LayoutMirroring.enabled: false
-                            id:rowTumbler
-                            Tumbler {
-                                id: hoursTumbler
-                                anchors.top: parent.top
-                                anchors.bottom: parent.bottom
-                                model: 24
-                                delegate: delegateComponent
-                                wrap: false
-                                visibleItemCount: 3
-                                onMovingChanged: {
-                                    if(!moving)
-                                    {
-                                        alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
-                                    }
-                                }
-                            }
-                            Tumbler {
-                                id: minutesTumbler
-                                anchors.top: parent.top
-                                anchors.bottom: parent.bottom
-                                model: 60
-                                delegate: delegateComponent
-                                wrap: false
-                                visibleItemCount: 3
-                                onMovingChanged: {
-                                    if(!moving)
-                                    {
-                                        alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                }
 
                 RowLayout{
                     Layout.fillWidth: true
@@ -166,12 +161,10 @@ Flickable {
                 }
                 RowLayout{
                     Layout.fillWidth: true
-                    Layout.rightMargin: 9
-                    Layout.leftMargin: 9
                     spacing: 9
                     JooyaButton{
                         text: alarmManager.isUpAndRunning?"پایان دادن به هشدار": "یاد آوری"
-                        Layout.fillWidth: true
+                        Layout.preferredWidth: (paneAlarm.width/2)-9
                         onClicked: {
                             if(!alarmManager.isUpAndRunning)
                             {
@@ -190,10 +183,10 @@ Flickable {
                                 alarmManager.cancelAlarm();
                             }
                         }
-                    }                    
+                    }
                     JooyaButton{
                         text: "پیش نمایش هشدار"
-                        Layout.fillWidth: true
+                        Layout.preferredWidth: (paneAlarm.width/2)-9
                         onClicked: {
                             if(swAlarmType.checked)
                             {
@@ -206,12 +199,6 @@ Flickable {
                             }
                         }
                     }
-                }
-                Separator {
-                    Layout.fillWidth: true
-                    Layout.rightMargin: 4.5
-                    Layout.leftMargin: 4.5
-                    color: MaterialStyle.accent200
                 }
                 Item {
                     Layout.fillHeight: true
