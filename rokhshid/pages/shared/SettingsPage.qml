@@ -174,10 +174,6 @@ Flickable {
                         text: alarmManager.isUpAndRunning?"پایان دادن به هشدار": "یاد آوری"
                         Layout.fillWidth: true
                         onClicked: {
-                            rowTumbler.height-=10;
-                            frame.height-=10;
-                            console.log("frame.height=> "+rowTumbler.height);
-                            return;
                             if(!alarmManager.isUpAndRunning)
                             {
                                 if(swAlarmType.checked)
