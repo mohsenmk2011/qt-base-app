@@ -93,8 +93,6 @@ Flickable {
                                     if(!moving)
                                     {
                                         alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
-                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
-                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
                                     }
                                 }
                             }
@@ -110,8 +108,6 @@ Flickable {
                                     if(!moving)
                                     {
                                         alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
-                                        settings.alarmInfo=alarmManager.alarmInfo.convertToString();
-                                        console.log("alarm info=> "+alarmManager.alarmInfo.convertToString())
                                     }
                                 }
                             }
@@ -187,6 +183,7 @@ Flickable {
                                 {
                                     alarmManager.startAlarmWithAlamManager("Notification");
                                 }
+                                settings.alarmInfo=alarmManager.alarmInfo.convertToString();
                             }
                             else
                             {
