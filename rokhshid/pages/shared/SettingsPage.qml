@@ -140,7 +140,6 @@ Flickable {
                     }
                     Switch{
                         id:swAlarmType
-                        visible: CurrentUser.isAdmin
                         onToggled: {
                             if(checked){
                                 alarmManager.alarmInfo.alarmType=AlarmTypes.DisplayPage;
