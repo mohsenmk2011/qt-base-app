@@ -40,11 +40,10 @@ public class SmsReceiver extends BroadcastReceiver {
                         msg[i] = SmsMessage.createFromPdu((byte[]) mPdus[i]);
                         smsFrom = msg[i].getOriginatingAddress();
                         String smsBody = msg[i].getMessageBody();
-                        SmsManager.sendToQtApp(smsBody);
 //                        Toast.makeText(context, smsBody, Toast.LENGTH_LONG).show();
 
                         if(smsBody.contains("rokhshid")){
-
+                            SmsManager.sendToQtApp(smsBody);
                          }
                         else{
 //                            Toast.makeText(context, "سر شماره / " + smsFrom + " / متن: " + smsBody, Toast.LENGTH_LONG).show();
