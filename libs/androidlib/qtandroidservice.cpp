@@ -58,6 +58,12 @@ void QtAndroidService::sendMessage(const QString &message)
 void QtAndroidService::startService()
 {
 #if defined(Q_OS_ANDROID)
+    //    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
+    //                                 "org/jooya/rokhshid/QtAndroidService");
+    //    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
+    //                "startService",
+    //                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
+    //                serviceIntent.handle().object())
     sendToService("StartService");
 #endif
 }
@@ -65,6 +71,14 @@ void QtAndroidService::startService()
 void QtAndroidService::stopService()
 {
 #if defined(Q_OS_ANDROID)
+
+//    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
+//                                 "org/jooya/rokhshid/QtAndroidService");
+//    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
+//                "stopService",
+//                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
+//                serviceIntent.handle().object());
+
     sendToService("StopService");
 #endif
 }
