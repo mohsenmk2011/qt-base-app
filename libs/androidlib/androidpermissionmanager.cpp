@@ -32,7 +32,6 @@ QString AndroidPermissionManager::convertToString(PermissionTypes::PermissionTyp
 
     case PermissionTypes::PermissionTypesEnum::CAMERA:
         return "android.permission.CAMERA";
-
     case PermissionTypes::PermissionTypesEnum::RECEIVE_BOOT_COMPLETED:
         return "android.permission.RECEIVE_BOOT_COMPLETED";
     case PermissionTypes::PermissionTypesEnum::FOREGROUND_SERVICE:
@@ -48,6 +47,14 @@ QString AndroidPermissionManager::convertToString(PermissionTypes::PermissionTyp
         return "android.permission.SEND_SMS";
     case PermissionTypes::PermissionTypesEnum::RECEIVE_WAP_PUSH:
         return "android.permission.RECEIVE_WAP_PUSH";
+    case PermissionTypes::PermissionTypesEnum::SET_ALARM:
+        return "com.android.alarm.permission.SET_ALARM";
+    case PermissionTypes::PermissionTypesEnum::WAKE_LOCK:
+        return "android.permission.WAKE_LOCK";
+    case PermissionTypes::PermissionTypesEnum::REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
+        return "android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS";
+    case PermissionTypes::PermissionTypesEnum::VIBRATE:
+        return "android.permission.VIBRATE";
 
     default: return "";
     }
@@ -97,6 +104,17 @@ bool AndroidPermissionManager::requestCamera()
 {
     AndroidPermissionManager pm;
     pm.addPermission(PermissionTypes::PermissionTypesEnum::CAMERA);
+    return pm.requestPermissions();
+}
+
+bool AndroidPermissionManager::requestSetAlarm()
+{
+    AndroidPermissionManager pm;
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::WAKE_LOCK);
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::SET_ALARM);
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::VIBRATE);
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::RECEIVE_WAP_PUSH);
     return pm.requestPermissions();
 }
 
