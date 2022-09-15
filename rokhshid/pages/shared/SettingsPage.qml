@@ -19,6 +19,9 @@ Flickable {
     ApplicationSettings{
         id:settings
     }
+    AndroidPermissionManager{
+        id:androidPermissionManager
+    }
 
     AlarmManager{
         id:alarmManager
@@ -31,7 +34,7 @@ Flickable {
         console.log("alarmManager.alarmInfo.alarmMinute"+alarmManager.alarmInfo.alarmMinutes);
         hoursTumbler.currentIndex=alarmManager.alarmInfo.alarmHour;
         minutesTumbler.currentIndex=alarmManager.alarmInfo.alarmMinutes;
-        swAlarmType.checked=alarmManager.alarmInfo.alarmType===AlarmTypes.DisplayPage
+        combxAlarmType.currentIndex=alarmManager.alarmInfo.alarmType===AlarmTypes.DisplayPage?0:1
     }
     ColumnLayout{
         id:clm
@@ -64,51 +67,9 @@ Flickable {
                         opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                        color: MaterialStyle.primaryTextColor
                     }
                 }
-                Frame {
-                    id: frame
-                    clip: true
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredHeight: 170
-                    padding: 0
-                    Row {
-                        anchors.fill: parent
-                        LayoutMirroring.enabled: false
-                        id:rowTumbler
-                        Tumbler {
-                            id: hoursTumbler
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            model: 24
-                            delegate: delegateComponent
-                            wrap: false
-                            visibleItemCount: 3
-                            onMovingChanged: {
-                                if(!moving)
-                                {
-                                    alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
-                                }
-                            }
-                        }
-                        Tumbler {
-                            id: minutesTumbler
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            model: 60
-                            delegate: delegateComponent
-                            wrap: false
-                            visibleItemCount: 3
-                            onMovingChanged: {
-                                if(!moving)
-                                {
-                                    alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
-                                }
-                            }
-                        }
-                    }
-                }
-
                 RowLayout{
                     Layout.fillWidth: true
                     Layout.rightMargin: 18
@@ -131,17 +92,66 @@ Flickable {
                     Item {
                         Layout.fillWidth: true
                     }
-                    Text {
-                        text: qsTr("در نوار")
-                        color: MaterialStyle.primaryTextColor
+                    ComboBox {
+                        id:combxAlarmType
+                        model: ["در صفحه","در نوار اعلان"]
                         font{
-                            family:flYekan.name
+                            family: flYekan.name
                         }
-                    }
-                    Switch{
-                        id:swAlarmType
-                        onToggled: {
-                            if(checked){
+                        delegate: ItemDelegate {
+                            width: combxAlarmType.width
+                            contentItem: Text {
+                                text: modelData
+                                color: MaterialStyle.primaryTextColor
+                                font: combxAlarmType.font
+                                elide: Text.ElideRight
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            highlighted: combxAlarmType.highlightedIndex === index
+                        }
+                        contentItem: Text {
+                            leftPadding: 0
+                            rightPadding: combxAlarmType.indicator.width + combxAlarmType.spacing
+
+                            text: combxAlarmType.displayText
+                            font: combxAlarmType.font
+                            color: MaterialStyle.primaryTextColor
+                            verticalAlignment: Text.AlignVCenter
+                            elide: Text.ElideRight
+                        }
+
+                        background: Rectangle {
+                            implicitWidth: 120
+                            implicitHeight: 40
+                            color: MaterialStyle.backColor200
+                            border.color: combxAlarmType.pressed ? MaterialStyle.backColor300 : MaterialStyle.backColor200
+                            border.width: combxAlarmType.visualFocus ? 2 : 1
+                            radius: 3
+                        }
+
+                        popup: Popup {
+                            y: combxAlarmType.height - 1
+                            width: combxAlarmType.width
+                            implicitHeight: contentItem.implicitHeight
+                            padding: 1
+
+                            contentItem: ListView {
+                                clip: true
+                                implicitHeight: contentHeight
+                                model: combxAlarmType.popup.visible ? combxAlarmType.delegateModel : null
+                                currentIndex: combxAlarmType.highlightedIndex
+
+                                ScrollIndicator.vertical: ScrollIndicator { }
+                            }
+
+                            background: Rectangle {
+                                color: MaterialStyle.backColor200
+                                border.color: MaterialStyle.backColor300
+                                radius: 2
+                            }
+                        }
+                        onActivated: {
+                            if(index==0){
                                 alarmManager.alarmInfo.alarmType=AlarmTypes.DisplayPage;
                             }
                             else{
@@ -150,14 +160,77 @@ Flickable {
                             settings.alarmInfo=alarmManager.alarmInfo.convertToString();
                         }
                     }
-                    Text {
-                        text: qsTr("در صفحه")
-                        color: MaterialStyle.primaryTextColor
-                        font{
-                            family:flYekan.name
+                }
+                RowLayout{
+                    Layout.alignment: Qt.AlignHCenter
+                    Rectangle{
+                        color: MaterialStyle.backColor300
+                        Layout.preferredHeight: 3
+                        Layout.preferredWidth: 99
+                        Layout.alignment: Qt.AlignVCenter
+                        radius: 3
+                    }
+                    Rectangle {
+                        id: frame
+                        clip: true
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredHeight: 170
+                        Layout.preferredWidth: 117
+                        color: MaterialStyle.backColor200
+                        radius: 9
+                        Row {
+                            anchors.fill: parent
+                            LayoutMirroring.enabled: false
+                            id:rowTumbler
+                            Tumbler {
+                                id: hoursTumbler
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                model: 24
+                                delegate: delegateComponent
+                                wrap: false
+                                visibleItemCount: 3
+                                font{
+                                    family: flYekan.name
+                                    pixelSize: 36
+                                }
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        alarmManager.alarmInfo.alarmHour=hoursTumbler.currentIndex;
+                                    }
+                                }
+                            }
+                            Tumbler {
+                                id: minutesTumbler
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                model: 60
+                                delegate: delegateComponent
+                                wrap: false
+                                visibleItemCount: 3
+                                font{
+                                    family: flYekan.name
+                                    pixelSize: 36
+                                }
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        alarmManager.alarmInfo.alarmMinutes=minutesTumbler.currentIndex;
+                                    }
+                                }
+                            }
                         }
                     }
+                    Rectangle{
+                        color: MaterialStyle.backColor300
+                        Layout.preferredHeight: 3
+                        Layout.preferredWidth: 99
+                        Layout.alignment: Qt.AlignVCenter
+                        radius: 3
+                    }
                 }
+
                 RowLayout{
                     Layout.fillWidth: true
                     spacing: 9
@@ -167,7 +240,10 @@ Flickable {
                         onClicked: {
                             if(!alarmManager.isUpAndRunning)
                             {
-                                if(swAlarmType.checked)
+                                if(!androidPermissionManager.requestSetAlarm()){
+                                    return;
+                                }
+                                if(combxAlarmType.currentIndex==0)
                                 {
                                     alarmManager.startAlarmWithAlamManager("Page");
                                 }
@@ -187,7 +263,7 @@ Flickable {
                         text: "پیش نمایش هشدار"
                         Layout.preferredWidth: (paneAlarm.width/2)-9
                         onClicked: {
-                            if(swAlarmType.checked)
+                            if(combxAlarmType.currentIndex==0)
                             {
                                 alarmManager.displayAlarmPage("Page");
                             }
