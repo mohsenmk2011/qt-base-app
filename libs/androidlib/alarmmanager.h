@@ -25,7 +25,7 @@ public:
     bool isUpAndRunning();
     void setIsUpAndRunning(bool r);
 
-    Q_INVOKABLE void setAlarm(int hour, int minute);
+    Q_INVOKABLE void startAlarmWithWorkManager();
     //is alarm up and running?
     Q_INVOKABLE bool isAlarmUp();
     Q_INVOKABLE void startAlarmWithAlamManager(QString alarmType="Notification");

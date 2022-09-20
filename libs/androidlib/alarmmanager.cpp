@@ -47,12 +47,12 @@ void AlarmManager::setIsUpAndRunning(bool r)
     }
 }
 
-void AlarmManager::setAlarm(int hour, int minute)
+void AlarmManager::startAlarmWithWorkManager()
 {
     qInfo()<<"***[ set Alarm ]***";
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
-    QString hm=QString("%1:%2").arg(hour).arg(minute);
+    QString hm=QString("%1:%2").arg(alarmInfo()->alarmHour()).arg(alarmInfo()->alarmMinutes());
     QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
     if (env->ExceptionCheck()) {
         env->ExceptionClear();
