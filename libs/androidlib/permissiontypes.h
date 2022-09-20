@@ -30,10 +30,16 @@ public:
         SEND_SMS,
         RECEIVE_MMS,
         RECEIVE_WAP_PUSH,
+
         SET_ALARM,
         WAKE_LOCK,
         REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+        SCHEDULE_EXACT_ALARM,
+        USE_EXACT_ALARM,
         VIBRATE,
+        DISABLE_KEYGUARD,
+        SYSTEM_ALERT_WINDOW,
+        ACTION_MANAGE_OVERLAY_PERMISSION
     };
     Q_ENUMS(PermissionTypesEnum)
 };
