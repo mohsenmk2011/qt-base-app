@@ -56,16 +56,10 @@ public class AlarmWorker extends Worker {
 //        Ringtone r = RingtoneManager.getRingtone(m_Context, soundUri);
 //        r.play();
 
-//        Notification notification=new NotificationCompat.Builder(m_Context,"org.jooya.rokhshid.alarmNotification1254")
-//        .setContentTitle("رخشید")
-//        .setContentText("Hi Hi Notification Content Text")
-//        .setLargeIcon(BitmapFactory.decodeResource(m_Context.getResources(), R.drawable.icon))
-//        .setSmallIcon(R.drawable.icon)
-//        .setContentIntent(pi)
-//        .setSound(soundUri)
-//        .build();
-
-        NotificationClient.notify(m_Context,"رخشید","زمان انجام تمرینات");
+        Intent alarmIntent = new Intent(m_Context,AlarmActivity.class);
+        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        m_Context.startActivity(alarmIntent);
 
 //        wl.release();
         ///send data as output of worker
