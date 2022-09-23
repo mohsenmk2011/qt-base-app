@@ -89,9 +89,10 @@ bool AlarmManager::isAlarmUp()
 return up;
 }
 
-void AlarmManager::startAlarmWithAlamManager(QString alarmType)
+int AlarmManager::startAlarmWithAlamManager(QString alarmType)
 {
     qInfo()<<"***[ start Alarm With AlamManager ]***";
+    int result= 0;
     //alarmType => {Page,Notification} , Page will display alarm page,Notification just diplay alarm in status bar as notification
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
@@ -102,13 +103,15 @@ void AlarmManager::startAlarmWithAlamManager(QString alarmType)
     }
     if (activity.isValid())
     {
-        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","startAlarmWithAlamManager","(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
+        result=(int)QAndroidJniObject::callStaticMethod<jint>("org/jooya/rokhshid/JooyaAlarmManager","startAlarmWithAlamManager","(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
     }
     setIsUpAndRunning(isAlarmUp());
+
 #endif
+    return result;
 }
 
 void AlarmManager::displayAlarmPage(QString alarmType)

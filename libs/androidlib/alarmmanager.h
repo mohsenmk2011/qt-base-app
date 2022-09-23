@@ -28,7 +28,7 @@ public:
     Q_INVOKABLE void startAlarmWithWorkManager();
     //is alarm up and running?
     Q_INVOKABLE bool isAlarmUp();
-    Q_INVOKABLE void startAlarmWithAlamManager(QString alarmType="Notification");
+    Q_INVOKABLE int startAlarmWithAlamManager(QString alarmType="Notification");
 
     Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");
     Q_INVOKABLE void cancelAlarm();
