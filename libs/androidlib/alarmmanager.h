@@ -25,14 +25,15 @@ public:
     bool isUpAndRunning();
     void setIsUpAndRunning(bool r);
 
-    Q_INVOKABLE void startAlarmWithWorkManager();
+    Q_INVOKABLE bool startAlarmWithWorkManager();
+    bool isTimeValid(int hour,int minute);
     //is alarm up and running?
     Q_INVOKABLE bool isAlarmUp();
+    Q_INVOKABLE QString message();
     Q_INVOKABLE int startAlarmWithAlamManager(QString alarmType="Notification");
 
     Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");
     Q_INVOKABLE void cancelAlarm();
-
 //    void registerNativesOfApp();
 //    void registerNativesOfService();
 
@@ -44,6 +45,7 @@ private slots:
 private:
     AlarmInfo* m_AlarmInfo;
     bool m_IsUpAndRunning;
+    QString m_Message;
 };
 
 #endif // ALARMMANAGER_H

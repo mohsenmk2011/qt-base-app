@@ -47,12 +47,17 @@ void AlarmManager::setIsUpAndRunning(bool r)
     }
 }
 
-void AlarmManager::startAlarmWithWorkManager()
+bool AlarmManager::startAlarmWithWorkManager()
 {
     qInfo()<<"***[ set Alarm ]***";
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
     QString hm=QString("%1:%2").arg(alarmInfo()->alarmHour()).arg(alarmInfo()->alarmMinutes());
+    if(!isTimeValid(alarmInfo()->alarmHour(),alarmInfo()->alarmMinutes()))
+    {
+        m_Message="حداقل فاصله زمانی پانزده دقیقه می باشد";
+        return false;
+    }
     QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
     if (env->ExceptionCheck()) {
         env->ExceptionClear();
@@ -65,6 +70,20 @@ void AlarmManager::startAlarmWithWorkManager()
         }
     }
 #endif
+    return true;
+}
+
+bool AlarmManager::isTimeValid(int hour, int minute)
+{
+    QDateTime now=QDateTime::currentDateTime();
+    QDateTime dt=QDateTime::currentDateTime();
+    dt.setTime(QTime(hour,minute));
+    qint64 t=now.msecsTo(dt);
+    qInfo()<<"t=> "<<t;
+    if(t>=0&&t<=15*60000){
+        return false;
+    }
+    return true;
 }
 
 bool AlarmManager::isAlarmUp()
@@ -86,13 +105,23 @@ bool AlarmManager::isAlarmUp()
         }
     }
 #endif
-return up;
+    return up;
+}
+
+QString AlarmManager::message()
+{
+    return m_Message;
 }
 
 int AlarmManager::startAlarmWithAlamManager(QString alarmType)
 {
     qInfo()<<"***[ start Alarm With AlamManager ]***";
     int result= 0;
+    m_Message="حداقل فاصله زمانی پانزده دقیقه می باشد";
+    if(!isTimeValid(alarmInfo()->alarmHour(),alarmInfo()->alarmMinutes()))
+    {
+        return 3;
+    }
     //alarmType => {Page,Notification} , Page will display alarm page,Notification just diplay alarm in status bar as notification
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
