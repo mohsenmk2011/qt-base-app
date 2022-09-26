@@ -12,6 +12,8 @@ import org.qtproject.qt5.android.QtNative;
 import android.widget.Toast;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
+import android.os.PowerManager;
+import android.net.Uri;
 
 import android.app.Activity;
 import android.content.Context;
@@ -37,14 +39,18 @@ import java.util.Calendar;
 import android.os.Vibrator;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
+import android.provider.Settings;
+
 
 public class JooyaAlarmManager
 {
     public static native void sendToQtApp(String message);
     public static native void sendToQtService(String message);
 
-    private static final String TAG = "JooyaAlarmManager";
+    private static final String TAG = "JooyaAlarmManager";    
+    private static final int ALARMPENDIGID = 4972563;
     private static final String ALARMID = "org.jooya.rokhshid.exercisealarm";
+
 
     public static void setAlarm(Context context,String hm) {
         Log.i(TAG, "***[ setAlarm ]***");
@@ -54,7 +60,7 @@ public class JooyaAlarmManager
 //                    .build();
         Constraints con=new Constraints.Builder()
 //        .setRequiredNetworkType(NetworkType.CONNECTED)
-            .setRequiresDeviceIdle(true)
+            .setRequiresDeviceIdle(false)
         .build();
 
         //==================================for download file=========================================================
@@ -98,10 +104,10 @@ public class JooyaAlarmManager
 
            OneTimeWorkRequest alarmRequest = new OneTimeWorkRequest.Builder(AlarmWorker.class)
              //  .setInputData(data) //read time from json file and send as data here
-               //.setConstraints(con)
-               .setInitialDelay(-diffSeconds,TimeUnit.SECONDS)
+               .setConstraints(con)
+               .setInitialDelay(diffSeconds,TimeUnit.SECONDS)
                  .addTag(ALARMID)
-                 .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                // .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                .build();
 
            WorkManager.getInstance(context)
@@ -142,7 +148,7 @@ public class JooyaAlarmManager
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
          Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
          intent.setAction("org.jooya.rokhshid.EXERCISEALARM");
-         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,360999,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE);
          alarmManager.cancel(pendingIntent);
          pendingIntent.cancel();
     }
@@ -170,21 +176,23 @@ public class JooyaAlarmManager
     {
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
         intent.setAction("org.jooya.rokhshid.EXERCISEALARM");
-        boolean alarmUp = (PendingIntent.getBroadcast(context,360999,intent,PendingIntent.FLAG_NO_CREATE) != null);
+        boolean alarmUp = (PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE) != null);
         Log.i(TAG, "isAlarmUp=> "+alarmUp);
         return alarmUp;
     }
-    public static void startAlarmWithAlamManager(Context context,String hm,String alarmType)
+    public static int startAlarmWithAlamManager(Context context,String hm,String alarmType)
     {
         Log.i(TAG, "JooyaAlarmManager.startAlarmWithAlamManager");
         Log.i(TAG, "alarmType=>"+alarmType);
+        Log.i(TAG, "ACTION_REQUEST_SCHEDULE_EXACT_ALARM => "+Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
         //alarmType => {Page,Notification}
 
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
         intent.setAction("org.jooya.rokhshid.EXERCISEALARM");
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         intent.putExtra("type",alarmType);
         intent.putExtra("time",hm);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 360999, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         //=====================================================
         String[] separated=hm.split(":");
         int hour=Integer.parseInt(separated[0]);
@@ -207,6 +215,11 @@ public class JooyaAlarmManager
         // if dt < now so diff is negetive => diff = dt    - now
         //                                    -600 = 11:10 - 11:00
         // so add one day to dt
+        Log.i(TAG, "Build.VERSION_CODES.S => "+Build.VERSION_CODES.S);
+        if(diffSeconds>=0&&diffSeconds<=15*60/*&&now.day()==dt.day()*/)
+        {
+            return 3;
+        }
         if(diffSeconds<0){//time is passed
             dt.add(Calendar.DAY_OF_MONTH, 1);
             diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;
@@ -214,20 +227,85 @@ public class JooyaAlarmManager
         }
         //=========================
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            Log.i(TAG, "sdk version is bigger than s");
+//            if(!alarmManager.canScheduleExactAlarms())
+//            {
+//                Log.i(TAG, "alarmManager.canScheduleExactAlarms() is false => ");
+//                context.startActivity(new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+//            }
+//            else
+//            {
+//                Log.i(TAG, "alarmManager.canScheduleExactAlarms() is true => ");
+//            }
+//        }
+//        else
+//        {
+//            Log.i(TAG, "sdk version is not bigger than s");
+//        }
         //====================================================================
-        //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-             alarmManager.setExact(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
+        //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
+        //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Log.i(TAG, "is bigger than marshall");
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            Intent pmIntent = new Intent();
+            Log.i(TAG, "pm.isIgnoringBatteryOptimizations() => "+pm.isIgnoringBatteryOptimizations(context.getPackageName()));
+            if(pm.isIgnoringBatteryOptimizations(context.getPackageName()))
+            {
+                //pmIntent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);//for disable doze mode
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
+            }
+            else
+            {
+                pmIntent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);//for enable doze mode
+                pmIntent.setData(Uri.parse("package:" +context.getPackageName()));
+            }
+            context.startActivity(pmIntent);
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
 
             // effort to save battery, allow deviation of 15 minutes
             int windowMillis = 15 * 60 * 1000;
+            Log.i(TAG, "is higher than kitkat");
             //alarmManager.setWindow(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), windowMillis, pendingIntent);
         }
         else {
-            Log.i(TAG, " ");
+            Log.i(TAG, "is lower than kitkat");
             alarmManager.set(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
         }
         Log.i(TAG, "Build.VERSION.SDK_INT=> "+Build.VERSION.SDK_INT);
+        Log.i(TAG, "Build.VERSION_CODES.M => "+Build.VERSION_CODES.M);
+        if(isAlarmUp(context))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public static boolean checkBatteryOptimization(Context context)
+    {
+        Log.i(TAG, "is going to ignore battery optimization");
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent();
+            String packageName = context.getPackageName();
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            if (pm.isIgnoringBatteryOptimizations(packageName))
+            {
+                intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                intent.setData(Uri.parse("package:" + packageName));
+            }
+//            else {
+//                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+//                intent.setData(Uri.parse("package:" + packageName));
+//            }
+            context.startActivity(intent);
+        }
+        return true;
     }
 }
 
