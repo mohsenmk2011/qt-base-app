@@ -47,14 +47,23 @@ QString AndroidPermissionManager::convertToString(PermissionTypes::PermissionTyp
         return "android.permission.SEND_SMS";
     case PermissionTypes::PermissionTypesEnum::RECEIVE_WAP_PUSH:
         return "android.permission.RECEIVE_WAP_PUSH";
+
     case PermissionTypes::PermissionTypesEnum::SET_ALARM:
         return "com.android.alarm.permission.SET_ALARM";
+    case PermissionTypes::PermissionTypesEnum::SCHEDULE_EXACT_ALARM:
+        return "android.permission.SCHEDULE_EXACT_ALARM";
     case PermissionTypes::PermissionTypesEnum::WAKE_LOCK:
         return "android.permission.WAKE_LOCK";
     case PermissionTypes::PermissionTypesEnum::REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
         return "android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS";
     case PermissionTypes::PermissionTypesEnum::VIBRATE:
         return "android.permission.VIBRATE";
+    case PermissionTypes::PermissionTypesEnum::USE_EXACT_ALARM:
+        return "android.permission.USE_EXACT_ALARM";
+    case PermissionTypes::PermissionTypesEnum::DISABLE_KEYGUARD:
+        return "android.permission.DISABLE_KEYGUARD";
+    case PermissionTypes::PermissionTypesEnum::SYSTEM_ALERT_WINDOW:
+        return "android.permission.SYSTEM_ALERT_WINDOW";
 
     default: return "";
     }
@@ -110,25 +119,41 @@ bool AndroidPermissionManager::requestCamera()
 bool AndroidPermissionManager::requestSetAlarm()
 {
     AndroidPermissionManager pm;
-    pm.addPermission(PermissionTypes::PermissionTypesEnum::WAKE_LOCK);
-    pm.addPermission(PermissionTypes::PermissionTypesEnum::SET_ALARM);
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::WAKE_LOCK);//
     pm.addPermission(PermissionTypes::PermissionTypesEnum::REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-    pm.addPermission(PermissionTypes::PermissionTypesEnum::VIBRATE);
-    pm.addPermission(PermissionTypes::PermissionTypesEnum::RECEIVE_WAP_PUSH);
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::VIBRATE);//
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::RECEIVE_WAP_PUSH);//
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::SET_ALARM);//
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::DISABLE_KEYGUARD);
+    //https://developer.android.com/training/scheduling/alarms#exact-permission-declare
+    //if your app targets api 31(anndroid 12(S)) and later you need to grantd
+    //https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::SCHEDULE_EXACT_ALARM);
+    //pm.addPermission(PermissionTypes::PermissionTypesEnum::USE_EXACT_ALARM);//android 13 and later
+    return pm.requestPermissions();
+}
+
+bool AndroidPermissionManager::requestSetAlertWindow()
+{
+    //How to grant ? -> https://developer.android.com/reference/android/Manifest.permission#SYSTEM_ALERT_WINDOW
+    qWarning()<<"TODO: not implemented";
+    AndroidPermissionManager pm;
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::SYSTEM_ALERT_WINDOW);
     return pm.requestPermissions();
 }
 
 bool AndroidPermissionManager::requestPermissions()
 {
 #if defined(Q_OS_ANDROID)
-    QtAndroid::PermissionResultMap r= QtAndroid::requestPermissionsSync(m_PermissionList);
-    foreach (QtAndroid::PermissionResult t, r) {
-        if(t==QtAndroid::PermissionResult::Denied){
-            qWarning()<<" permission was not greanted";
-            return false;
+    QtAndroid::PermissionResultMap rs= QtAndroid::requestPermissionsSync(m_PermissionList);
+    for (QHash<QString,QtAndroid::PermissionResult>::iterator r=rs.begin();r!=rs.end();r++) {
+
+
+        if(r.value()==QtAndroid::PermissionResult::Denied){
+             qWarning()<<r.key()<<" => "<<"Denied";
         }
         else{
-            qInfo()<<" permission was greanted";
+            qInfo()<<r.key()<<" => "<<"Greanted";
         }
     }
     return  true;

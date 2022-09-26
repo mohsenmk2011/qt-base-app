@@ -25,6 +25,7 @@ public:
     Q_INVOKABLE bool requestSms();
     Q_INVOKABLE bool requestCamera();
     Q_INVOKABLE bool requestSetAlarm();
+    Q_INVOKABLE bool requestSetAlertWindow();
 signals:
 
 public slots:
