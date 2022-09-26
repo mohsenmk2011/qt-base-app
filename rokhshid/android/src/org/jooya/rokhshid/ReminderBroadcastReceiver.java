@@ -2,6 +2,7 @@ package org.jooya.rokhshid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
@@ -33,6 +34,7 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
             //Display alarm activy page
             Intent alarmIntent = new Intent(context,AlarmActivity.class);
             alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(alarmIntent);
         }
         if(JooyaAlarmManager.isAlarmUp(context))
