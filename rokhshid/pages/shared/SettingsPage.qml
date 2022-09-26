@@ -238,6 +238,12 @@ Flickable {
                         text: alarmManager.isUpAndRunning?"پایان دادن به هشدار": "یاد آوری"
                         Layout.preferredWidth: (paneAlarm.width/2)-9
                         onClicked: {
+//                            if(!alarmManager.startAlarmWithWorkManager())
+//                            {
+//                                MessageBoard.setContent(alarmManager.message());
+//                            }
+
+                            var r=0;
                             if(!alarmManager.isUpAndRunning)
                             {
                                 if(!androidPermissionManager.requestSetAlarm()){
@@ -245,13 +251,16 @@ Flickable {
                                 }
                                 if(combxAlarmType.currentIndex==0)
                                 {
-                                    alarmManager.startAlarmWithAlamManager("Page");
+                                   r= alarmManager.startAlarmWithAlamManager("Page");
                                 }
                                 else
                                 {
-                                    alarmManager.startAlarmWithAlamManager("Notification");
+                                   r= alarmManager.startAlarmWithAlamManager("Notification");
                                 }
                                 settings.alarmInfo=alarmManager.alarmInfo.convertToString();
+                                if(r==3){
+                                    MessageBoard.setContent(alarmManager.message());
+                                }
                             }
                             else
                             {
