@@ -90,7 +90,7 @@ public class QtAndroidService extends QtService
                 PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
                 Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Notification notification=new NotificationCompat.Builder(this,"org.jooya.rokhshid.ForegroundServiceChannel"/*CHANNEL_ID*/)
+                Notification notification=new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
                 .setContentTitle("رخشید")
                 .setContentText(qtMessage)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
