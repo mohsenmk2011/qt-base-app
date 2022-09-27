@@ -6,13 +6,13 @@ import Jooya 1.0
 
 Page {
     id:pageAndroidService
-    Connections {
-        target: qtAndroidService
-        function onAppMessageReceived(message) {
-
+    QtAndroidService{
+        id:timerService
+        onAppMessageReceived: {
             txt.text = message
         }
     }
+
     AlarmManager{
         id:alarmManager
 
@@ -45,13 +45,13 @@ Page {
             onClicked: {
                 pb.value=pb.value+1.0;
                 console.log("pb.value=> "+pb.value);
-                qtAndroidService.startService();
+                timerService.startService();
             }
         }
         JooyaButton{
             text: "توقف سرویس"
             onClicked: {
-                qtAndroidService.stopService()
+                timerService.stopService()
             }
         }
         JooyaButton{
@@ -71,13 +71,13 @@ Page {
         JooyaButton{
             text: "شروع تایمر در سرویس"
             onClicked: {
-                qtAndroidService.sendToService("StartTimer");
+                timerService.sendToService("StartTimer");
             }
         }
         JooyaButton{
             text: "توقف تایمر"
             onClicked: {
-                qtAndroidService.sendToService("StopTimer");
+                timerService.sendToService("StopTimer");
             }
         }
         Item{

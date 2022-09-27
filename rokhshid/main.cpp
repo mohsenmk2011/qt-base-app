@@ -147,7 +147,6 @@ int main(int argc, char *argv[])
     QtAndroidService *qtAndroidService = new QtAndroidService(&app);
     qtAndroidService->registerNativesOfApp();
     qtAndroidService->registerAppBroadcastReceiver();
-    engine.rootContext()->setContextProperty(QLatin1String("qtAndroidService"), qtAndroidService);
 
     SmsManager *smsManager=new SmsManager(&app);
     smsManager->registerNativesMethod();

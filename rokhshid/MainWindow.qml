@@ -558,7 +558,7 @@ Page {
                 font.pixelSize: 18
                 color: MaterialStyle.primaryTextColor
             }
-            visible: sv.depth==1
+            visible: sv.depth==1&&CurrentUser.isAnyAdmin
             height: visible ? implicitHeight : 0
             onClicked: {
                 sv.push("TestAndroidService.qml")
