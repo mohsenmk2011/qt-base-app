@@ -1,12 +1,12 @@
 #include <QDebug>
 
-#include<androidservicemanager.h>
-
 //#include<notifymanager.h>
 //#include<jooyaapplication.h>
 //#include<jooyanetworkengine.h>
 //#include<jooyalogger.h>
+#include<androidservicemanager.h>
 #include<testtimer.h>
+
 #if defined(Q_OS_ANDROID)
 #include <QAndroidService>
 #endif
@@ -68,13 +68,13 @@ int main(int argc, char *argv[])
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
 #if defined(Q_OS_ANDROID)
     QAndroidService app(argc, argv);
-    AndroidServiceManager *qtAndroidService = new AndroidServiceManager(&app);
+    AndroidServiceManager *sm = new AndroidServiceManager();
     qInfo() << "%%%%%%%%[ qtAndroidService->registerNativesOfService();  ]%%%%%%%%%%%%";
-    qtAndroidService->registerNativesOfService();
+    sm->registerNativesOfService();
     qInfo() << "%%%%%%%%[ => qtAndroidService->sendMessage(Hi from service);  ]%%%%%%%%%%%%";
 //    qtAndroidService->sendToService("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"));
 //    qtAndroidService->registerServiceBroadcastReceiver();
-    tt.setAndroidService(qtAndroidService);
+    tt.setAndroidService(sm);
     return app.exec();
 
 #endif

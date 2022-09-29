@@ -1,11 +1,5 @@
 ﻿#include "androidservicemanager.h"
 
-#if defined(Q_OS_ANDROID)
-#include <QAndroidJniEnvironment>
-#include <QAndroidIntent>
-#endif
-#include <QtDebug>
-
 AndroidServiceManager *AndroidServiceManager::m_instance = nullptr;
 
 #if defined(Q_OS_ANDROID)
@@ -21,7 +15,7 @@ static void serviceMessagereceivedFromAndroidService(JNIEnv *env, jobject /*thiz
 {
     QString message=env->GetStringUTFChars(value, nullptr);
     qInfo()<<"***[ Service Message Received From Service ]***";
-    qInfo()<<"***[ the message=> ]***"<<message;
+    qInfo()<<"***[ the message=> ]***"<<message;    
     emit AndroidServiceManager::instance()->serviceMessageReceived(message);
 }
 #endif
@@ -31,19 +25,32 @@ AndroidServiceManager::AndroidServiceManager(QObject *parent) : QObject(parent)
     m_instance = this;
 }
 
-void AndroidServiceManager::sendToService(const QString &name)
+void AndroidServiceManager::sendToService(const QString &name,bool fromApp)
 {
 #if defined(Q_OS_ANDROID)
-    QAndroidIntent serviceIntent(QtAndroid::androidService().object(),"org/jooya/rokhshid/QtAndroidService");
-    if(serviceIntent.handle().isValid()){
+    if(fromApp)
+    {
+        QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
+                                     "org/jooya/rokhshid/QtAndroidService");
         serviceIntent.putExtra("MessageFromQt", name.toUtf8());
-        QAndroidJniObject result = QtAndroid::androidService().callObjectMethod(
+        QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
                     "startService",
                     "(Landroid/content/Intent;)Landroid/content/ComponentName;",
                     serviceIntent.handle().object());
     }
-    else{
-        qCritical()<<"&&&[ QAndroidIntent QtAndroidService is not valid ]&&&";
+    else
+    {
+        QAndroidIntent serviceIntent(QtAndroid::androidService().object(),"org/jooya/rokhshid/QtAndroidService");
+        if(serviceIntent.handle().isValid()){
+            serviceIntent.putExtra("MessageFromQt", name.toUtf8());
+            QAndroidJniObject result = QtAndroid::androidService().callObjectMethod(
+                        "startService",
+                        "(Landroid/content/Intent;)Landroid/content/ComponentName;",
+                        serviceIntent.handle().object());
+        }
+        else{
+            qCritical()<<"&&&[ QAndroidIntent QtAndroidService is not valid ]&&&";
+        }
     }
 #endif
 }
@@ -52,49 +59,44 @@ void AndroidServiceManager::sendMessage(const QString &message)
 {
 #if defined (Q_OS_ANDROID)
     QAndroidJniObject javaMessage = QAndroidJniObject::fromString(message);
-//    QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/QtAndroidService",
-//                                              "printFromJava",
-//                                              "(Ljava/lang/String;)V",
-//                                              javaMessage.object<jstring>());
+    QAndroidJniObject activity = QtAndroid::androidActivity();
+    if (activity.isValid()) {
+        activity.callObjectMethod("printFromJava", "org/jooya/rokhshid/QtAndroidService", javaMessage.object<jstring>());
 
-QAndroidJniObject androidServiceObj("org/jooya/rokhshid/QtAndroidService");
-    if (androidServiceObj.isValid()) {
-        androidServiceObj.callMethod<void>("printFromJava","(Ljava/lang/String;)V", javaMessage.object<jstring>());
+//        if (window.isValid()) {
+//            const int FLAG_KEEP_SCREEN_ON = 128;
+//            window.callObjectMethod("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
+//        }
+    }
 
-    }
-    else{
-        qCritical()<<"activaity is not valid";
-    }
 #endif
 }
+
 void AndroidServiceManager::startService()
 {
-//    sendToService();
 #if defined(Q_OS_ANDROID)
-    QAndroidJniObject::callStaticMethod<void>(
-        "org/jooya/rokhshid/QtAndroidService",
-        "startQtAndroidService",
-        "(Landroid/content/Context;)V",
-        QtAndroid::androidActivity().object());
-
-//    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-//                                 "org/jooya/rokhshid/QtAndroidService");
-//    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
-//                "startService",
-//                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-//                serviceIntent.handle().object());
+    //    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
+    //                                 "org/jooya/rokhshid/QtAndroidService");
+    //    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
+    //                "startService",
+    //                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
+    //                serviceIntent.handle().object())
+    sendToService("StartService");
 #endif
 }
 
 void AndroidServiceManager::stopService()
 {
 #if defined(Q_OS_ANDROID)
-    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-                                 "org/jooya/rokhshid/QtAndroidService");
-    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
-                "stopService",
-                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-                serviceIntent.handle().object());
+
+//    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
+//                                 "org/jooya/rokhshid/QtAndroidService");
+//    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
+//                "stopService",
+//                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
+//                serviceIntent.handle().object());
+
+    sendToService("StopService");
 #endif
 }
 

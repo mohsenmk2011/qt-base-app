@@ -32,6 +32,6 @@ void TestTimer::onTimerTimeout()
 {
     qDebug()<<"Send Message From c++ service to java service";
     //m_Service->sendMessage("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"));
-    m_Service->sendToService("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"));
+    m_Service->sendToService("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"),false);
     qDebug()<<"Send Message From c++ service to java service Finished";
 }

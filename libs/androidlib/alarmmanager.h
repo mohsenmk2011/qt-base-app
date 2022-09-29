@@ -4,7 +4,7 @@
 #include <QObject>
 #include<QDebug>
 #include<QDateTime>
-#include<qtandroidservice.h>
+#include<androidservicemanager.h>
 #include<alarminfo.h>
 #if defined(Q_OS_ANDROID)
 #include<qandroidjniobject.h>

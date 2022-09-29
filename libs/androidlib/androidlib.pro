@@ -17,15 +17,15 @@ SOURCES += \
     alarminfo.cpp \
     alarmmanager.cpp \
     androidfiledialog.cpp \
-    androidpermissionmanager.cpp \
     androidsplashanimator.cpp \
     androidutility.cpp \
     jooyaandroid.cpp \
     jooyaandroidcontext.cpp \
     mainandroidactivity.cpp \
     notificationclient.cpp \
-    qtandroidservice.cpp \
     sharemanager.cpp \
+    androidservicemanager.cpp \
+    androidpermissionmanager.cpp \
     smsmanager.cpp
 
 HEADERS += \
@@ -34,8 +34,6 @@ HEADERS += \
     alarmtypes.h \
     androidfiledialog.h \
     androidlib.h \
-    androidlib.h \
-    androidpermissionmanager.h \
     androidsplashanimator.h \
     androidutility.h \
     jooyaandroid.h \
@@ -43,6 +41,7 @@ HEADERS += \
     mainandroidactivity.h \
     notificationclient.h \
     permissiontypes.h \
-    qtandroidservice.h \
     sharemanager.h \
+    androidservicemanager.h \
+    androidpermissionmanager.h \
     smsmanager.h

@@ -31,7 +31,7 @@
 #include<filewatcher.h>
 #include <QCommandLineParser>
 #include <QFile>
-#include<qtandroidservice.h>
+#include<androidservicemanager.h>
 #include<smsmanager.h>
 
 
@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
     //
     //------------------------ ANDROID SERVICE-----------------------
 #if defined(Q_OS_ANDROID)
-    QtAndroidService *qtAndroidService = new QtAndroidService(&app);
+    AndroidServiceManager *qtAndroidService = new AndroidServiceManager(&app);
     qtAndroidService->registerNativesOfApp();
     qtAndroidService->registerAppBroadcastReceiver();
 

@@ -11,7 +11,7 @@
 #include<alarmmanager.h>
 #include<alarminfo.h>
 #include<alarmtypes.h>
-#include<qtandroidservice.h>
+#include<androidservicemanager.h>
 
 class Androidlib
 {
@@ -28,7 +28,7 @@ public:
         qmlRegisterType<SmsManager>("Jooya",1,0,"SmsManager");
         qmlRegisterUncreatableType<PermissionTypes>("Jooya",1,0,"PermissionTypes","Permission Types");
         qmlRegisterUncreatableType<AlarmTypes>("Jooya",1,0,"AlarmTypes","Alarm Types");
-        qmlRegisterUncreatableType<QtAndroidService>("Jooya",1,0,"QtAndroidService","QtAndroidService ,a tool for create and commiunicate with service");
+        qmlRegisterType<AndroidServiceManager>("Jooya",1,0,"AndroidServiceManager");
     }
 };
 

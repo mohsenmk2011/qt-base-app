@@ -23,7 +23,7 @@ AlarmManager::AlarmManager(QObject *parent)
     : QObject{parent}
 {
     //    m_instance=this;
-    connect(QtAndroidService::instance(),&QtAndroidService::appMessageReceived,this,&AlarmManager::onAppMessageReceived);
+    connect(AndroidServiceManager::instance(),&AndroidServiceManager::appMessageReceived,this,&AlarmManager::onAppMessageReceived);
     m_AlarmInfo=new AlarmInfo();
     m_IsUpAndRunning=isAlarmUp();
 }

@@ -6,7 +6,7 @@ import Jooya 1.0
 
 Page {
     id:pageAndroidService
-    QtAndroidService{
+    AndroidServiceManager{
         id:timerService
         onAppMessageReceived: {
             txt.text = message
