@@ -4,7 +4,6 @@
 #include <QObject>
 #include<QDebug>
 #include<QDateTime>
-#include<androidservicemanager.h>
 #include<alarminfo.h>
 #if defined(Q_OS_ANDROID)
 #include<qandroidjniobject.h>
@@ -41,7 +40,6 @@ public:
 signals:
     void isUpAndRunningChanged();
 private slots:
-    void onAppMessageReceived(const QString &message);
 private:
     AlarmInfo* m_AlarmInfo;
     bool m_IsUpAndRunning;

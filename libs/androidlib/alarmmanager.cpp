@@ -22,8 +22,6 @@
 AlarmManager::AlarmManager(QObject *parent)
     : QObject{parent}
 {
-    //    m_instance=this;
-    connect(AndroidServiceManager::instance(),&AndroidServiceManager::appMessageReceived,this,&AlarmManager::onAppMessageReceived);
     m_AlarmInfo=new AlarmInfo();
     m_IsUpAndRunning=isAlarmUp();
 }
@@ -228,9 +226,4 @@ void AlarmManager::registerBroadcastReceiver()
                                  "(Landroid/content/Context;)V",
                                  QtAndroid::androidContext().object());
 #endif
-}
-
-void AlarmManager::onAppMessageReceived(const QString &message)
-{
-    qInfo()<<"message=> "<<message;
 }
