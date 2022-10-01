@@ -57,6 +57,7 @@ void DownloadManager::add(QString link)
     }
     else{
         qInfo()<<"is in qt app => send link to service";
+        files.append(new File(link));
         androidService()->sendToService("DownloadManagerAddFile,"+link);
     }
 #else
@@ -136,7 +137,13 @@ void DownloadManager::updateDownloadCount()
     qDebug() <<"files.count()="<<files.count();
 
     if(m_CountDownloaded+m_CountFailed==files.count()){
-        emit totalFileDownloaded();
+        if(androidService()->isInService())
+        {
+            androidService()->sendToService("DownloadManagerTotalFileDownloaded");
+        }
+        else{
+            emit totalFileDownloaded();
+        }
     }
 }
 
@@ -164,6 +171,10 @@ void DownloadManager::onNewAppeMessage(QString appMessage)
     else if(appMessage.contains("DownloadManagerTotalRatio"))
     {
         setTotalRatio((appMessage.split(",").at(1).toFloat()));
+    }
+    else if(appMessage.contains("DownloadManagerTotalFileDownloaded"))
+    {
+        emit totalFileDownloaded();
     }
 }
 void DownloadManager::refreshDownloadMessage()

@@ -103,7 +103,7 @@ public class QtAndroidService extends QtService
                 else if(qtMessage.contains("DownloadManager")||qtMessage.contains("Timer"))
                 {
                     Log.i(TAG, "***[ send to download manager ]***");
-                    if(qtMessage.contains("TotalRatio")||qtMessage.contains("FileExists")||qtMessage.contains("CurrentTime"))
+                    if(qtMessage.contains("TotalRatio")||qtMessage.contains("FileExists")||qtMessage.contains("TotalFileDownloaded")||qtMessage.contains("CurrentTime"))
                     {
                         Log.i(TAG, "***[ Is goning to send message to qt app ]***");
                         sendMessageToQtAPP(qtMessage);
