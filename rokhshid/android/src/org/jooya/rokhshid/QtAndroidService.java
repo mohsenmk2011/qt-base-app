@@ -65,13 +65,7 @@ public class QtAndroidService extends QtService
         Toast.makeText(this, "Service stoped by user", Toast.LENGTH_LONG).show();
         super.onDestroy();
     }
-    public void printFromJava(String message)
-    {
-        System.out.println("This is printed from JAVA, message received from c++ is: " + message);
-        sendMessageToQtAPP(message);
-//        Toast.makeText(this, "This is printed from JAVA, message is: " + message, Toast.LENGTH_LONG).show();
-//        callFromJava("Hello from JAVA!");
-    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "***[ Start Command ]***");
@@ -79,52 +73,57 @@ public class QtAndroidService extends QtService
         if(intent!=null){
             String qtMessage = new String(intent.getByteArrayExtra("MessageFromQt"),StandardCharsets.UTF_8);
 //            String qtMessage = intent.getStringExtra("MessageFromQt");
-            Log.i(TAG, qtMessage);
+            Log.i(TAG, "the message ==>> "+qtMessage);
 
             Toast.makeText(this, qtMessage, Toast.LENGTH_LONG).show();
-            if(qtMessage.equals("StartService"))
+            try
             {
-                Toast.makeText(this, "Service started by user", Toast.LENGTH_LONG).show();
-                Log.i(TAG, "***[ Is Showing Notification ]***");
-//                Intent intent=new Intent(this,MainActivity.class);
-                PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
+                if(qtMessage.equals("StartService"))
+                {
+                    Toast.makeText(this, "Service started by user", Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "***[ Is Showing Notification ]***");
+        //                Intent intent=new Intent(this,MainActivity.class);
+                    PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
-                Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Notification notification=new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
-                .setContentTitle("رخشید")
-                .setContentText(qtMessage)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
-                .setSmallIcon(R.drawable.icon)
-                .setContentIntent(pi)
-                .setSound(soundUri)
-                .build();
-                startForeground(1, notification);
-            }
-            else if(qtMessage.equals("StopService"))
-            {
-                stopQtAndroidService();
-            }
-            else if(qtMessage.equals("StartTimer")||qtMessage.equals("StopTimer"))
-            {
-                try
-                {
-                    Log.i(TAG, "***[ Is goning to send message to c++ service ]***");
-                    ServiceBroadcastUtility.sendToCPPService(qtMessage);
+                    Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Notification notification=new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
+                    .setContentTitle("رخشید")
+                    .setContentText(qtMessage)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
+                    .setSmallIcon(R.drawable.icon)
+                    .setContentIntent(pi)
+                    .setSound(soundUri)
+                    .build();
+                    startForeground(1, notification);
                 }
-                catch(Exception e)
+                else if(qtMessage.equals("StopService"))
                 {
-                    System.out.println("StartTimer Error " + e.getMessage());
+                    stopQtAndroidService();
+                }
+                else if(qtMessage.contains("DownloadManager")||qtMessage.contains("Timer"))
+                {
+                    Log.i(TAG, "***[ send to download manager ]***");
+                    if(qtMessage.contains("TotalRatio")||qtMessage.contains("FileExists")||qtMessage.contains("CurrentTime"))
+                    {
+                        Log.i(TAG, "***[ Is goning to send message to qt app ]***");
+                        sendMessageToQtAPP(qtMessage);
+                    }
+                    else if(qtMessage.contains("AddFile")||qtMessage.contains("StartDownload")||qtMessage.contains("StartTimer")||qtMessage.contains("StopTimer"))
+                    {
+                        Log.i(TAG, "***[ Is goning to send message to c++ service ]***");
+                        ServiceBroadcastUtility.sendToCPPService(qtMessage);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "New Message=> "+qtMessage, Toast.LENGTH_LONG).show();
+                    sendMessageToQtAPP("Your Message was=> "+qtMessage);
+                    //notification.setContentText(qtMessage);
                 }
             }
-            else if(qtMessage.contains("CurrentTime"))
+            catch(Exception e)
             {
-                sendMessageToQtAPP(qtMessage);
-            }
-            else
-            {
-                Toast.makeText(this, "New Message=> "+qtMessage, Toast.LENGTH_LONG).show();
-                sendMessageToQtAPP("Your Message was=> "+qtMessage);
-                //notification.setContentText(qtMessage);
+                System.out.println("all eroeo ldol3 Error => " + e.getMessage());
             }
         }
         return START_NOT_STICKY;

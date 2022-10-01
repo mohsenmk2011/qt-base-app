@@ -76,9 +76,9 @@ int main(int argc, char *argv[])
     jne.setApiName("JooyaRokhshidAPI");
     jne.appendClientScopes(jne.apiName());
     jne.appendClientScopes("IdentityServerApi");
-    qDebug()<<"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
-    qDebug()<<jne.clientScopes();
-    qDebug()<<"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
+    qDebug()<<"^^^^^^^^^^^^^^^^^^^< qt app >^^^^^^^^^^^^^^^^^^^^^^^^^^^";
+    qDebug()<<"          "<<jne.clientScopes();
+    qDebug()<<"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     WebSocketHandler::setUrl("wss://rokhshid.jooyabash.ir/ws");
     //    WebSocketHandler::setUrl("ws://localhost:5000/ws");
@@ -144,9 +144,8 @@ int main(int argc, char *argv[])
     //
     //------------------------ ANDROID SERVICE-----------------------
 #if defined(Q_OS_ANDROID)
-    AndroidServiceManager *qtAndroidService = new AndroidServiceManager(&app);
-    qtAndroidService->registerNativesOfApp();
-    qtAndroidService->registerAppBroadcastReceiver();
+    jne.androidService()->registerNativesOfApp();
+    jne.androidService()->registerAppBroadcastReceiver();
 
     SmsManager *smsManager=new SmsManager(&app);
     smsManager->registerNativesMethod();

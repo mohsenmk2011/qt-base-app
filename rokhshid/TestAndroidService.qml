@@ -5,17 +5,19 @@ import "jooyaQuickControls"
 import Jooya 1.0
 
 Page {
-    id:pageAndroidService
-    AndroidServiceManager{
-        id:timerService
-        onAppMessageReceived: {
-            txt.text = message
-        }
+    id:pageAndroidService    
+
+    DownloadManager{
+        id:downloadManager
     }
 
     AlarmManager{
         id:alarmManager
 
+    }
+
+    AndroidService.onAppMessageReceived:{
+        console.log(message);
     }
 
     ColumnLayout{
@@ -33,9 +35,9 @@ Page {
         }
         ProgressBar{
             id:pb
-            from: 1
-            to: 0
-            value: 10
+            from: 0
+            to: 1
+            value: downloadManager.totalRatio
             Layout.preferredHeight: 9
             Layout.fillWidth: true
 
@@ -45,13 +47,21 @@ Page {
             onClicked: {
                 pb.value=pb.value+1.0;
                 console.log("pb.value=> "+pb.value);
-                timerService.startService();
+                AndroidService.startService();
+
             }
         }
         JooyaButton{
             text: "توقف سرویس"
             onClicked: {
-                timerService.stopService()
+                AndroidService.stopService()
+            }
+        }
+        JooyaButton{
+            text: "شروع دانلود"
+            onClicked: {
+                downloadManager.add("Videos/01.mp4");
+                downloadManager.download();
             }
         }
         JooyaButton{
@@ -71,13 +81,13 @@ Page {
         JooyaButton{
             text: "شروع تایمر در سرویس"
             onClicked: {
-                timerService.sendToService("StartTimer");
+                AndroidService.sendToService("StartTimer");
             }
         }
         JooyaButton{
             text: "توقف تایمر"
             onClicked: {
-                timerService.sendToService("StopTimer");
+                AndroidService.sendToService("StopTimer");
             }
         }
         Item{

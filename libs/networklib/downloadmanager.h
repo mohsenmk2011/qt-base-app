@@ -4,6 +4,7 @@
 #include <QObject>
 #include<jooyanetwork.h>
 #include<file.h>
+#include<androidservicemanager.h>
 
 class DownloadManager : public JooyaNetwork
 {
@@ -21,6 +22,7 @@ public:
 
     Q_INVOKABLE void download();
     Q_INVOKABLE void add(QList<File*> fls);
+    Q_INVOKABLE void add(QString link);
     Q_INVOKABLE bool checkExistance();
 signals:
     void downloadCountMessageChanged();
@@ -29,7 +31,8 @@ signals:
 private slots:
     void updateRatio();
     void updateDownloadCount();
-
+    void onNewServiceMessage(QString message);
+    void onNewAppeMessage(QString appMessage);
 private:
     QString m_DownloadCountMessage;
     float m_TotalRatio;

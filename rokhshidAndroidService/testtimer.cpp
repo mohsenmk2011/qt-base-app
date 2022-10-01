@@ -16,6 +16,7 @@ void TestTimer::setAndroidService(AndroidServiceManager *service)
 void TestTimer::onNewMessage(QString message)
 {
     //m_Service->sendToService("Received in cpp servie");// CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"));
+    qInfo()<<"###[ TestTimer: message received "<<message<<" ]###";
     if(message=="StartTimer"){
         if(!m_Timer.isActive()){
             qInfo()<<"###[ Timer Statred ]###";
@@ -32,6 +33,6 @@ void TestTimer::onTimerTimeout()
 {
     qDebug()<<"Send Message From c++ service to java service";
     //m_Service->sendMessage("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"));
-    m_Service->sendToService("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"),false);
+    m_Service->sendToService("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"));
     qDebug()<<"Send Message From c++ service to java service Finished";
 }
