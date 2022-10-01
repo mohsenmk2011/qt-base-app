@@ -40,6 +40,11 @@ UserLoginInfo *JooyaNetworkEngine::loginInfo()
     return m_loginInfo;
 }
 
+AndroidServiceManager *JooyaNetworkEngine::androidService()
+{
+    return m_AndroidServiceManager;
+}
+
 bool JooyaNetworkEngine::isProcessing()
 {
     return m_IsProccessing;
@@ -158,6 +163,7 @@ void JooyaNetworkEngine::setOperationType(OperationTypes::OperationTypesEnum o)
  }
 
  UserLoginInfo* JooyaNetworkEngine::m_loginInfo=new UserLoginInfo();
+ AndroidServiceManager* JooyaNetworkEngine::m_AndroidServiceManager = new AndroidServiceManager();
  FileWatcher* JooyaNetworkEngine::m_FileWather;//=new FileWatcher();
 
 

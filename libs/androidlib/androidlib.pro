@@ -24,7 +24,6 @@ SOURCES += \
     mainandroidactivity.cpp \
     notificationclient.cpp \
     sharemanager.cpp \
-    androidservicemanager.cpp \
     androidpermissionmanager.cpp \
     smsmanager.cpp
 
@@ -42,6 +41,5 @@ HEADERS += \
     notificationclient.h \
     permissiontypes.h \
     sharemanager.h \
-    androidservicemanager.h \
     androidpermissionmanager.h \
     smsmanager.h

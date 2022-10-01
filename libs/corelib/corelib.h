@@ -26,6 +26,8 @@
 #include<qmllive.h>
 #include<filewatcher.h>
 #include<QQmlEngine>
+#include<androidservice.h>
+
 class Corelib
 {
 public:
@@ -42,6 +44,8 @@ public:
         qmlRegisterType<JooyaSettings>("Jooya",1,0,"JooyaSettings");
         qmlRegisterType<ApplicationSettings>("Jooya",1,0,"ApplicationSettings");
         qmlRegisterType<CurrentUser>("Jooya",1,0,"CurrentUser");
+        qmlRegisterType<AndroidServiceManager>("Jooya",1,0,"AndroidServiceManager");
+        qmlRegisterType<AndroidService>("Jooya",1,0,"AndroidService");
         qmlRegisterType<MessageBoard>("Jooya",1,0,"MessageBoard");
         qmlRegisterType<AppPagesManager>("Jooya",1,0,"AppPagesManager");
         qmlRegisterType<QmlLive>("Jooya",1,0,"QmlLive");
