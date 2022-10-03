@@ -68,10 +68,10 @@ public:
     bool isDownloaded();
     void setIsDownloaded(bool isD);
 
-    bool exists();
+    Q_INVOKABLE bool exists();
 
     Q_INVOKABLE virtual void download();
-    void remove();
+    Q_INVOKABLE void remove();
     bool isVideo(QString ext="");
     bool isAudio(QString ext="");
     bool save(QByteArray textContent);

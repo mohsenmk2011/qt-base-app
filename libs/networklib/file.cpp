@@ -223,7 +223,15 @@ void File::remove()
 {
     if(QFile::exists(url().path())){
         QFile file(url().path());
-        file.remove();
+        if(file.remove()){
+            message()->setContent("فایل حذف شد",true);
+        }
+        else {
+            message()->setContent("فایل حذف نشد");
+        }
+    }
+    else {
+        message()->setContent("فایل قبلا حذف شده است");
     }
 }
 
