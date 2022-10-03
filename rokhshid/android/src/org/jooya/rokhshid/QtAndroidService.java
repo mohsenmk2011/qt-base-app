@@ -74,25 +74,20 @@ public class QtAndroidService extends QtService
             String qtMessage = new String(intent.getByteArrayExtra("MessageFromQt"),StandardCharsets.UTF_8);
 //            String qtMessage = intent.getStringExtra("MessageFromQt");
             Log.i(TAG, "the message ==>> "+qtMessage);
-
-            Toast.makeText(this, qtMessage, Toast.LENGTH_LONG).show();
             try
             {
                 if(qtMessage.equals("StartService"))
                 {
                     Toast.makeText(this, "Service started by user", Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "***[ Is Showing Notification ]***");
-        //                Intent intent=new Intent(this,MainActivity.class);
+                    Log.i(TAG, "***[ Is Showing Foreground Notification ]***");
                     PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
-                    Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                     Notification notification=new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
                     .setContentTitle("رخشید")
                     .setContentText(qtMessage)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                     .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pi)
-                    .setSound(soundUri)
                     .build();
                     startForeground(1, notification);
                 }
