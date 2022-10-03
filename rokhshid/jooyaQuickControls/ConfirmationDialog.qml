@@ -43,7 +43,7 @@ Dialog{
         anchors.top: parent.top
         wrapMode: Text.Wrap
         font{
-            pixelSize: 17
+            pixelSize: fontSize
             family: flYekan.name
         }
         color: MaterialStyle.primaryTextColor
