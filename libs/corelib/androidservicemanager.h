@@ -3,12 +3,12 @@
 
 #include <QObject>
 #include <QtDebug>
+#include<QtQml>
 #if defined(Q_OS_ANDROID)
 #include <QtAndroid>
 #include <QAndroidIntent>
 #include <QAndroidJniEnvironment>
 #include <QAndroidIntent>
-#include<QtQml>
 #endif
 
 class AndroidServiceManager : public QObject
