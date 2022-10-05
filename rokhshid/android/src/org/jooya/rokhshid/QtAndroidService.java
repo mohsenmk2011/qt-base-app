@@ -31,8 +31,11 @@ import android.media.RingtoneManager;
 import android.media.Ringtone;
 public class QtAndroidService extends QtService
 {
-    private static native void callFromJava(String message);
     private static final String TAG = "QtAndroidService";
+    private static int ForegroundCount=0;
+    private static int backgroundCount=0;
+    private static boolean IsDowloadServiceStarted=false;
+    private NotificationCompat.Builder downloadNotification;
 //    WindowManager windowManager;
 //    LinearLayout view;
     private WebView wv;
@@ -82,14 +85,13 @@ public class QtAndroidService extends QtService
                     Log.i(TAG, "***[ Is Showing Foreground Notification ]***");
                     PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
-                    Notification notification=new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
+                    downloadNotification =new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
                     .setContentTitle("رخشید")
                     .setContentText(qtMessage)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                     .setSmallIcon(R.drawable.icon)
-                    .setContentIntent(pi)
-                    .build();
-                    startForeground(1, notification);
+                    .setContentIntent(pi);
+                    startForeground(1, downloadNotification.build());
                 }
                 else if(qtMessage.equals("StopService"))
                 {
@@ -98,13 +100,50 @@ public class QtAndroidService extends QtService
                 else if(qtMessage.contains("DownloadManager")||qtMessage.contains("Timer"))
                 {
                     Log.i(TAG, "***[ send to download manager ]***");
-                    if(qtMessage.contains("TotalRatio")||qtMessage.contains("FileExists")|qtMessage.contains("IsDownloaded")||qtMessage.contains("TotalFileDownloaded")||qtMessage.contains("CurrentTime"))
+                    if(qtMessage.contains("TotalRatio")||qtMessage.contains("DownloadMessage")||qtMessage.contains("FileExists")|qtMessage.contains("IsDownloaded")||qtMessage.contains("TotalFileDownloaded")||qtMessage.contains("CurrentTime"))
                     {
                         Log.i(TAG, "***[ Is goning to send message to qt app ]***");
                         sendMessageToQtAPP(qtMessage);
+                        if(qtMessage.contains("TotalRatio"))
+                        {
+                            if(downloadNotification==null){
+                                createDownloadNotification(intent);
+                            }
+                            Log.i(TAG, "***[ qt message => "+qtMessage+"]***");
+                            String[] separated=qtMessage.split(",");
+                            float ratio = Float.parseFloat(separated[1]);
+
+                            downloadNotification.setProgress(100,(int)(ratio*100),false);
+                            startForeground(1, downloadNotification.build());
+                        }
+                        else if(qtMessage.contains("TotalFileDownloaded"))
+                        {
+//                            downloadNotification.setContentText("دانلود به پایان رسید");
+//                            startForeground(1, downloadNotification.build());
+                            stopForeground(true);
+                            if(ForegroundCount==0){
+                            }
+                        }
+                        else if(qtMessage.contains("DownloadMessage"))
+                        {
+                            String[] separated=qtMessage.split(",");
+                            Log.i(TAG, "***[ DownloadMessage ==> "+separated[1]+"]***");
+                            downloadNotification.setContentText(separated[1]);
+                            startForeground(1, downloadNotification.build());
+                        }
+                        else if(qtMessage.contains("IsDownloaded"))
+                        {
+                            Log.i(TAG, "***[ IsDownloaded so => stop service ]***");
+//                            stopForeground(true);
+                        }
                     }
                     else if(qtMessage.contains("AddFile")||qtMessage.contains("StartDownload")||qtMessage.contains("StartTimer")||qtMessage.contains("StopTimer"))
                     {
+                        if(qtMessage.contains("AddFile")&&!IsDowloadServiceStarted)
+                        {
+                            IsDowloadServiceStarted=true;
+                            createDownloadNotification(intent);
+                        }
                         Log.i(TAG, "***[ Is goning to send message to c++ service ]***");
                         ServiceBroadcastUtility.sendToCPPService(qtMessage);
                     }
@@ -124,7 +163,19 @@ public class QtAndroidService extends QtService
         return START_NOT_STICKY;
         //return ret;
     }
+    public void createDownloadNotification(Intent intent){
+        Log.i(TAG, "***[ Is Showing Foreground Notification For Download Manager ]***");
+        PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
+        downloadNotification =new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
+        .setContentTitle("رخشید")
+        .setOngoing(true)
+        .setContentText("در حال دانلود")
+        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
+        .setSmallIcon(R.drawable.icon)
+        .setContentIntent(pi);
+        startForeground(1, downloadNotification.build());
+    }
     public void sendMessageToQtAPP(String message){
         Intent sendToUiIntent = new Intent();
         sendToUiIntent.setAction(AppBroadcastUtility.BROADCAST_NAME_ACTION1);
