@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 Page {
     Text {
         id: txt
+        objectName: "HomePage"
         text: qsTr("Home page")
         anchors.centerIn: parent
     }
