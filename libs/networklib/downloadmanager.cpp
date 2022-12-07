@@ -85,7 +85,7 @@ void DownloadManager::add(File *file)
         androidService()->sendToService("DownloadManagerAddFile,"+file->downloadLink());
     }
 #else
-    files.append(n(link));
+    files.append(file);
 #endif
     updateDownloadCount();
 }
