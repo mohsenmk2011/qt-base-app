@@ -41,21 +41,21 @@ DISTFILES += \
     android/res/drawable/alarmlayout.xml \
     android/res/drawable/splashscreen.xml \
     android/res/values/libs.xml \
-    android/src/org/jooya/rokhshid/AlarmActivity.java \
-    android/src/org/jooya/rokhshid/AlarmWorker.java \
-    android/src/org/jooya/rokhshid/AppBroadcastUtility.java \
-    android/src/org/jooya/rokhshid/DownloadWorker.java \
-    android/src/org/jooya/rokhshid/JSInterface.java \
-    android/src/org/jooya/rokhshid/JooyaAlarmManager.java \
-    android/src/org/jooya/rokhshid/JooyaApplication.java \
-    android/src/org/jooya/rokhshid/MainActivity.java \
-    android/src/org/jooya/rokhshid/NotificationClient.java \
-    android/src/org/jooya/rokhshid/QtAndroidService.java \
-    android/src/org/jooya/rokhshid/ReminderBroadcastReceiver.java \
-    android/src/org/jooya/rokhshid/ServiceBroadcastUtility.java \
-    android/src/org/jooya/rokhshid/ShareManager.java \
-    android/src/org/jooya/rokhshid/SmsManager.java \
-    android/src/org/jooya/rokhshid/SmsReceiver.java
+    android/src/org/jooya/jooyaqtapplication/AlarmActivity.java \
+    android/src/org/jooya/jooyaqtapplication/AlarmWorker.java \
+    android/src/org/jooya/jooyaqtapplication/AppBroadcastUtility.java \
+    android/src/org/jooya/jooyaqtapplication/DownloadWorker.java \
+    android/src/org/jooya/jooyaqtapplication/JSInterface.java \
+    android/src/org/jooya/jooyaqtapplication/JooyaAlarmManager.java \
+    android/src/org/jooya/jooyaqtapplication/JooyaApplication.java \
+    android/src/org/jooya/jooyaqtapplication/MainActivity.java \
+    android/src/org/jooya/jooyaqtapplication/NotificationClient.java \
+    android/src/org/jooya/jooyaqtapplication/QtAndroidService.java \
+    android/src/org/jooya/jooyaqtapplication/ReminderBroadcastReceiver.java \
+    android/src/org/jooya/jooyaqtapplication/ServiceBroadcastUtility.java \
+    android/src/org/jooya/jooyaqtapplication/ShareManager.java \
+    android/src/org/jooya/jooyaqtapplication/SmsManager.java \
+    android/src/org/jooya/jooyaqtapplication/SmsReceiver.java
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 ANDROID_ABIS = armeabi-v7a
