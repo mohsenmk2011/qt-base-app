@@ -172,7 +172,7 @@ void File::setDownloadState(FileDownloadStates::FileDownloadStatesEnum ds)
 
 bool File::exists()
 {
-    return QFile::exists((url().toLocalFile()));
+    return QFile::exists((url().path()));
 }
 
 QByteArray File::read()
@@ -221,6 +221,9 @@ void File::download()
 ///remove file from disk
 void File::remove()
 {
+    if(url().isEmpty()){
+        return;
+    }
     if(QFile::exists(url().path())){
         QFile file(url().path());
         if(file.remove()){
