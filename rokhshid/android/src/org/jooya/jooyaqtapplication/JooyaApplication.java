@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 
 import android.app.Notification;
 import android.app.Application;
@@ -10,11 +10,11 @@ import android.app.PendingIntent;
 import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import android.app.NotificationChannel;
-import org.jooya.rokhshid.R;
+import org.jooya.jooyaqtapplication.R;
 import org.qtproject.qt5.android.bindings.QtApplication;
 
 public class JooyaApplication extends QtApplication{
-    public static final String CHANNEL_ID = "org.jooya.rokhshid.ForegroundServiceChannel";
+    public static final String CHANNEL_ID = "org.jooya.jooyaqtapplication.ForegroundServiceChannel";
 
     @Override
     public void onCreate() {

@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,7 @@ public class ServiceBroadcastUtility {
     public static native void sendToCPPService(String message);
 
     private static final String TAG = "ServiceBroadcastUtility";
-    public static final String BROADCAST_NAME_ACTION2 = "org.jooya.rokhshid.sendToCPPService";
+    public static final String BROADCAST_NAME_ACTION2 = "org.jooya.jooyaqtapplication.sendToCPPService";
 
     public void registerServiceBroadcastReceiver(Context context) {
         IntentFilter intentFilter = new IntentFilter();

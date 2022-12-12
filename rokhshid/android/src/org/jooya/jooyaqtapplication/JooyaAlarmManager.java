@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.NotificationChannel;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.app.PendingIntent;
 import android.graphics.Color;
 import android.graphics.BitmapFactory;
-import org.jooya.rokhshid.R;
+import org.jooya.jooyaqtapplication.R;
 import org.qtproject.qt5.android.QtNative;
 import android.widget.Toast;
 import android.util.Log;
@@ -49,7 +49,7 @@ public class JooyaAlarmManager
 
     private static final String TAG = "JooyaAlarmManager";    
     private static final int ALARMPENDIGID = 4972563;
-    private static final String ALARMID = "org.jooya.rokhshid.exercisealarm";
+    private static final String ALARMID = "org.jooya.jooyaqtapplication.exercisealarm";
 
 
     public static void setAlarm(Context context,String hm) {
@@ -147,7 +147,7 @@ public class JooyaAlarmManager
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
          Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-         intent.setAction("org.jooya.rokhshid.EXERCISEALARM");
+         intent.setAction("org.jooya.jooyaqtapplication.EXERCISEALARM");
          PendingIntent pendingIntent = PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE);
          alarmManager.cancel(pendingIntent);
          pendingIntent.cancel();
@@ -175,7 +175,7 @@ public class JooyaAlarmManager
     public static boolean isAlarmUp(Context context)
     {
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-        intent.setAction("org.jooya.rokhshid.EXERCISEALARM");
+        intent.setAction("org.jooya.jooyaqtapplication.EXERCISEALARM");
         boolean alarmUp = (PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE) != null);
         Log.i(TAG, "isAlarmUp=> "+alarmUp);
         return alarmUp;
@@ -188,7 +188,7 @@ public class JooyaAlarmManager
         //alarmType => {Page,Notification}
 
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-        intent.setAction("org.jooya.rokhshid.EXERCISEALARM");
+        intent.setAction("org.jooya.jooyaqtapplication.EXERCISEALARM");
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         intent.putExtra("type",alarmType);
         intent.putExtra("time",hm);

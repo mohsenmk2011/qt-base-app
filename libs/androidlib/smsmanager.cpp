@@ -22,7 +22,7 @@ void SmsManager::registerNativesMethod()
     JNINativeMethod methods[] {
         {"sendToQtApp", "(Ljava/lang/String;)V", reinterpret_cast<void *>(newSmsReceivedFromQtActivity)},
     };
-    QAndroidJniObject javaClass("org/jooya/rokhshid/SmsManager");
+    QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/SmsManager");
 
     QAndroidJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());

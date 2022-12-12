@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 
 import androidx.annotation.NonNull;
 import androidx.work.Data;
@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.app.PendingIntent;
 import android.graphics.BitmapFactory;
-import org.jooya.rokhshid.R;
+import org.jooya.jooyaqtapplication.R;
 import androidx.core.app.NotificationCompat;
 
 

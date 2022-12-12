@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ public class AppBroadcastUtility {
     public static native void sendToQtApp(String message);
 
     private static final String TAG = "AppBroadcastUtility";
-    public static final String BROADCAST_NAME_ACTION1 = "org.jooya.rokhshid.sendToQtApp";
+    public static final String BROADCAST_NAME_ACTION1 = "org.jooya.jooyaqtapplication.sendToQtApp";
 
     public void registerServiceBroadcastReceiver(Context context) {
         IntentFilter intentFilter = new IntentFilter();

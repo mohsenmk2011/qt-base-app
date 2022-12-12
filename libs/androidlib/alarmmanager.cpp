@@ -62,7 +62,7 @@ bool AlarmManager::startAlarmWithWorkManager()
     }
     if (activity.isValid())
     {
-        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","setAlarm","(Landroid/content/Context;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>());
+        QAndroidJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/JooyaAlarmManager","setAlarm","(Landroid/content/Context;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
@@ -96,7 +96,7 @@ bool AlarmManager::isAlarmUp()
     }
     if (activity.isValid())
     {
-      up= (bool) QAndroidJniObject::callStaticMethod<jboolean>("org/jooya/rokhshid/JooyaAlarmManager","isAlarmUp","(Landroid/content/Context;)Z",QtAndroid::androidContext().object<jobject>());
+      up= (bool) QAndroidJniObject::callStaticMethod<jboolean>("org/jooya/jooyaqtapplication/JooyaAlarmManager","isAlarmUp","(Landroid/content/Context;)Z",QtAndroid::androidContext().object<jobject>());
 
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
@@ -130,7 +130,7 @@ int AlarmManager::startAlarmWithAlamManager(QString alarmType)
     }
     if (activity.isValid())
     {
-        result=(int)QAndroidJniObject::callStaticMethod<jint>("org/jooya/rokhshid/JooyaAlarmManager","startAlarmWithAlamManager","(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
+        result=(int)QAndroidJniObject::callStaticMethod<jint>("org/jooya/jooyaqtapplication/JooyaAlarmManager","startAlarmWithAlamManager","(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(hm).object<jstring>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
@@ -153,7 +153,7 @@ void AlarmManager::displayAlarmPage(QString alarmType)
     }
     if (activity.isValid())
     {
-        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","displayAlarmPage","(Landroid/content/Context;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
+        QAndroidJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/JooyaAlarmManager","displayAlarmPage","(Landroid/content/Context;Ljava/lang/String;)V",QtAndroid::androidContext().object<jobject>(),QAndroidJniObject::fromString(alarmType).object<jstring>());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
@@ -172,7 +172,7 @@ void AlarmManager::cancelAlarm()
     }
     if (activity.isValid())
     {
-        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/JooyaAlarmManager","cancelAlarm","(Landroid/content/Context;)V",QtAndroid::androidContext().object<jobject>());
+        QAndroidJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/JooyaAlarmManager","cancelAlarm","(Landroid/content/Context;)V",QtAndroid::androidContext().object<jobject>());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
@@ -187,7 +187,7 @@ void AlarmManager::cancelAlarm()
 //    JNINativeMethod methods[] {
 //        {"sendToCPPService", "(Ljava/lang/String;)V", reinterpret_cast<void *>(serviceMessagereceivedFromAndroidService)},
 //    };
-//    QAndroidJniObject javaClass("org/jooya/rokhshid/JooyaAlarmManager");
+//    QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/JooyaAlarmManager");
 
 //    QAndroidJniEnvironment env;
 //    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
@@ -204,7 +204,7 @@ void AlarmManager::cancelAlarm()
 //    JNINativeMethod methods[] {
 //        {"sendToQtApp", "(Ljava/lang/String;)V", reinterpret_cast<void *>(appMessagereceivedFromAndroidService)},
 //    };
-//    QAndroidJniObject javaClass("org/jooya/rokhshid/JooyaAlarmManager");
+//    QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/JooyaAlarmManager");
 
 //    QAndroidJniEnvironment env;
 //    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
@@ -219,7 +219,7 @@ void AlarmManager::registerBroadcastReceiver()
 {
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
-    jclass javaClass = env.findClass("org/jooya/rokhshid/JooyaAlarmManager");
+    jclass javaClass = env.findClass("org/jooya/jooyaqtapplication/JooyaAlarmManager");
     QAndroidJniObject classObject(javaClass);
 
     classObject.callMethod<void>("registerBroadcastReceiver",

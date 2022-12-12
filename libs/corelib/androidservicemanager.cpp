@@ -31,7 +31,7 @@ void AndroidServiceManager::sendToService(const QString &name)
     if(!isInService())
     {
         QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-                                     "org/jooya/rokhshid/QtAndroidService");
+                                     "org/jooya/jooyaqtapplication/QtAndroidService");
         serviceIntent.putExtra("MessageFromQt", name.toUtf8());
         QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
                     "startService",
@@ -40,7 +40,7 @@ void AndroidServiceManager::sendToService(const QString &name)
     }
     else
     {
-        QAndroidIntent serviceIntent(QtAndroid::androidService().object(),"org/jooya/rokhshid/QtAndroidService");
+        QAndroidIntent serviceIntent(QtAndroid::androidService().object(),"org/jooya/jooyaqtapplication/QtAndroidService");
         if(serviceIntent.handle().isValid()){
             serviceIntent.putExtra("MessageFromQt", name.toUtf8());
             QAndroidJniObject result = QtAndroid::androidService().callObjectMethod(
@@ -61,7 +61,7 @@ void AndroidServiceManager::sendMessage(const QString &message)
     QAndroidJniObject javaMessage = QAndroidJniObject::fromString(message);
     QAndroidJniObject activity = QtAndroid::androidActivity();
     if (activity.isValid()) {
-        activity.callObjectMethod("printFromJava", "org/jooya/rokhshid/QtAndroidService", javaMessage.object<jstring>());
+        activity.callObjectMethod("printFromJava", "org/jooya/jooyaqtapplication/QtAndroidService", javaMessage.object<jstring>());
 
         //        if (window.isValid()) {
         //            const int FLAG_KEEP_SCREEN_ON = 128;
@@ -76,7 +76,7 @@ void AndroidServiceManager::startService()
 {
 #if defined(Q_OS_ANDROID)
     //    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-    //                                 "org/jooya/rokhshid/QtAndroidService");
+    //                                 "org/jooya/jooyaqtapplication/QtAndroidService");
     //    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
     //                "startService",
     //                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
@@ -90,7 +90,7 @@ void AndroidServiceManager::stopService()
 #if defined(Q_OS_ANDROID)
 
     //    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-    //                                 "org/jooya/rokhshid/QtAndroidService");
+    //                                 "org/jooya/jooyaqtapplication/QtAndroidService");
     //    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
     //                "stopService",
     //                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
@@ -116,7 +116,7 @@ void AndroidServiceManager::registerNativesOfApp()
     JNINativeMethod methods[] {
         {"sendToQtApp", "(Ljava/lang/String;)V", reinterpret_cast<void *>(appMessagereceivedFromAndroidService)},
     };
-    QAndroidJniObject javaClass("org/jooya/rokhshid/AppBroadcastUtility");
+    QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/AppBroadcastUtility");
 
     QAndroidJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
@@ -133,7 +133,7 @@ void AndroidServiceManager::registerNativesOfService()
     JNINativeMethod methods[] {
         {"sendToCPPService", "(Ljava/lang/String;)V", reinterpret_cast<void *>(serviceMessagereceivedFromAndroidService)},
     };
-    QAndroidJniObject javaClass("org/jooya/rokhshid/ServiceBroadcastUtility");
+    QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/ServiceBroadcastUtility");
 
     QAndroidJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
@@ -148,7 +148,7 @@ void AndroidServiceManager::registerAppBroadcastReceiver()
 {
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
-    jclass javaClass = env.findClass("org/jooya/rokhshid/AppBroadcastUtility");
+    jclass javaClass = env.findClass("org/jooya/jooyaqtapplication/AppBroadcastUtility");
     QAndroidJniObject classObject(javaClass);
 
     classObject.callMethod<void>("registerServiceBroadcastReceiver",
@@ -161,7 +161,7 @@ void AndroidServiceManager::registerServiceBroadcastReceiver()
 {
 #if defined(Q_OS_ANDROID)
     QAndroidJniEnvironment env;
-    jclass javaClass = env.findClass("org/jooya/rokhshid/ServiceBroadcastUtility");
+    jclass javaClass = env.findClass("org/jooya/jooyaqtapplication/ServiceBroadcastUtility");
     QAndroidJniObject classObject(javaClass);
 
     classObject.callMethod<void>("registerServiceBroadcastReceiver",

@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

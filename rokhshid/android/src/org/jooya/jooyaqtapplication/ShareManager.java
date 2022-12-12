@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.app.PendingIntent;
 import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import android.app.NotificationChannel;
-import org.jooya.rokhshid.R;
+import org.jooya.jooyaqtapplication.R;
 import org.qtproject.qt5.android.QtNative;
 
 import android.app.Activity;

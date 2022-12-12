@@ -9,5 +9,5 @@ void AndroidSplashAnimator::animate()
 {
     qDebug()<<"calling animate mehtod";
 //    QtAndroid::androidActivity().callMethod<void>("animate");
-//    QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/AppActivity","animate");
+//    QAndroidJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/AppActivity","animate");
 }

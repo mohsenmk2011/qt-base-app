@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 
 import java.nio.charset.StandardCharsets;
 import android.content.Context;
@@ -85,7 +85,7 @@ public class QtAndroidService extends QtService
                     Log.i(TAG, "***[ Is Showing Foreground Notification ]***");
                     PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
-                    downloadNotification =new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
+                    downloadNotification =new NotificationCompat.Builder(this,"org.jooya.jooyaqtapplication.RokhshidDownloadForegroundServiceChannel")
                     .setContentTitle("رخشید")
                     .setContentText(qtMessage)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
@@ -167,7 +167,7 @@ public class QtAndroidService extends QtService
         Log.i(TAG, "***[ Is Showing Foreground Notification For Download Manager ]***");
         PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
-        downloadNotification =new NotificationCompat.Builder(this,"org.jooya.rokhshid.RokhshidDownloadForegroundServiceChannel")
+        downloadNotification =new NotificationCompat.Builder(this,"org.jooya.jooyaqtapplication.RokhshidDownloadForegroundServiceChannel")
         .setContentTitle("رخشید")
         .setOngoing(true)
         .setContentText("در حال دانلود")

@@ -18,7 +18,7 @@ void ShareManager::share(QString message)
     }
     if (activity.isValid() )
     {
-        QAndroidJniObject::callStaticMethod<void>("org/jooya/rokhshid/ShareManager","share","(Landroid/app/Activity;Ljava/lang/String;)V",activity.object<jobject>(),QAndroidJniObject::fromString(message).object<jstring>());
+        QAndroidJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/ShareManager","share","(Landroid/app/Activity;Ljava/lang/String;)V",activity.object<jobject>(),QAndroidJniObject::fromString(message).object<jstring>());
         if (_env->ExceptionCheck()) {
             _env->ExceptionClear();
         }
