@@ -1,45 +1,35 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
-
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
-
+## List of branches
+1. master :the base application of all other branches
+2. rokhshid : a beuty app,for being young by face muscles exercises
+3. bimeh : users can get tamin insurance sheet and pay it with this app
+4. nabat: fale hafez,and reimplemented ganjoor ,  not created yet
+5. gira: jooya leitner app,study with no,not created yet
+6. hokm: hokm game, not created yet
+7. appsaz: the application that will create your application with QmlLive
+---
+## How change the build directory
+1. In qt creator from sidebar click "Projects"
+2. from Kits in left pane ,select one and click on "Build",now you can see Build Settings in right pane
+3. in Build directory you can see a path like => /home/mohsen/QtProjects/builds/build-jooyaqtapp-android-release , this path is for master branch ,jooyaqtapp is for master branch
+4. when you select each branch,you should change the build directory ,so in above path change **jooyaqtapp** to **rokhshid**,**bimeh**,**gira** or ...
+---
+## Steps to do after creating new branch from master branch
+    1. change package name of application:first open AndroidManifest file and then change package,application,activty and version name and version code
+    2. rename src folder name:after renaming PWD/android/src/org/jooya/jooyaqtapp => PWD/android/src/org/jooya/yourapplicationname
+    3. rename all path of using src folder:
+        * first search for **jooyaqtapplication**  
+        * then replace it with your app name
+        * for example 'package org.jooya.jooyaqtapplication' will changed to 'package org.jooya.rokhshid'
+        * for example 'QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/SmsManager")' will changed to 'QAndroidJniObject javaClass("org/jooya/rokhshid/SmsManager")'
+    4. download icon in png format 512px or higher
+    5. convert it to *.ico
+    6. open AndroidManifest.xml file then Advanced -> Master icon select icon 
+    7. do this for SplashScreen too
+    8. 
+---
+## How preview *.md file in visual studio code
+* press Ctrl+K V for preview side by side (and real time)
+* press Ctrl+Shift+V preview in new tab
 ---
 
-## Edit a file
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
-
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
-
----
-
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
