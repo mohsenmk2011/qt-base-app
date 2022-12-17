@@ -28,7 +28,8 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         if (alarmType.equals("Notification")) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(900);
-            NotificationClient.notify(context,"رخشید","زمان انجام تمرینات");
+            //TODO: Change this after creating new branch from master branch
+            NotificationClient.notify(context,"اپلیکیشن جویا","زمان انجام تمرینات");
         }
         else if (alarmType.equals("Page")) {
             //Display alarm activy page

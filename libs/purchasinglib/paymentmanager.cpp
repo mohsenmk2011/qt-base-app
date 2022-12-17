@@ -34,7 +34,8 @@ void PaymentManager::reqPayFinished(){
         QJsonObject obj=doc.object();
         m_RefId= obj.value("refId").toString();
         qDebug()<<"RefId="<<m_RefId;
-        emit payRequestSucceed(true,"https://rokhshid.jooyabash.ir/order/PayFromApp/"+m_RefId);
+        //TODO: Change this after creating new branch from master branch
+        emit payRequestSucceed(true,"https://jooyabash.ir/order/PayFromApp/"+m_RefId);
     }
     else {
         showMessage(r);
@@ -64,7 +65,7 @@ void PaymentManager::setUrl(QString url)
     if(m_Url!=url){
         m_Url=url;
         QString temp=m_Url.toLower();
-        if(temp.contains("rokhshid.jooyabash.ir/order/result"))
+        if(temp.contains("jooyabash.ir/order/result"))
         {
             qDebug()<<"====>> Url of result page=> "<<m_Url;
             m_IsResultPage=true;

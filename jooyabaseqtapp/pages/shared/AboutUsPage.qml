@@ -37,7 +37,7 @@ Page {
                         fillMode: Image.PreserveAspectFit
                     }
                     Text {
-                        text: qsTr("رخشید نسخه "+versionInfo.versionName)
+                        text: qsTr("نسخه "+versionInfo.versionName)
                         Layout.fillWidth: true
                         wrapMode: Text.Wrap
                         font.family: flIranSanse.name

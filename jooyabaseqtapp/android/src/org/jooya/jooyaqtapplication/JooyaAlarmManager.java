@@ -169,7 +169,8 @@ public class JooyaAlarmManager
         {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(900);
-            NotificationClient.notify(context,"رخشید","زمان انجام تمرینات");
+            //TODO: Change this after creating new branch from master branch
+            NotificationClient.notify(context,"اپلیکیشن جویا","زمان انجام تمرینات");
         }
     }
     public static boolean isAlarmUp(Context context)

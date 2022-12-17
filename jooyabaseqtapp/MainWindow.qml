@@ -566,7 +566,8 @@ Page {
         }
         MenuItem{
             contentItem: Text {
-                text: qsTr("معرفی رخشید")
+                //TODO: Change this after creating new branch from master branch
+                text: qsTr("معرفی اپلیکیشن")
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignRight
                 font.family:flYekan.name
@@ -731,7 +732,8 @@ Page {
                     }
                     Text{
                         id: txtAppVersion
-                        baseUrl: "https://rokhshid.jooyabash.ir"
+                        //TODO: Change this after creating new branch from master branch
+                        baseUrl: "https://jooyabash.ir"
                         text: "نسخه "+appInfo.versionName
                         color: MaterialStyle.primaryTextColor
                         Layout.fillWidth: true
@@ -787,7 +789,7 @@ Page {
         }
     }
 
-    RokhshidSettings{
+    BaseAppSettings{
         id: rSettings
         objectName: "settingManager"
     }

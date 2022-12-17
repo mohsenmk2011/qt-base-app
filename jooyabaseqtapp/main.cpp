@@ -37,7 +37,8 @@
 
 int main(int argc, char *argv[])
 {
-    JooyaApplication japp("Jooya","www.rokhshid.jooyabash.ir","Rokhshid");
+    //TODO: Change this after creating new branch from master branch
+    JooyaApplication japp("Jooya","www.jooyabash.ir","JooyaQtBaseApplication");
     japp.setDefaultTheme(MaterialThemes::MaterialThemesEnum::Light,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink);
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -65,22 +66,26 @@ int main(int argc, char *argv[])
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     JooyaNetworkEngine jne;
 
-    jne.setBaseUrl("https://rokhshid.jooyabash.ir");
+    //TODO: Change this after creating new branch from master branch
+    jne.setBaseUrl("https://jooyabash.ir");
     //jne.setBaseUrl("https://localhost:5001");
 
     jne.setIdentityUrl("https://identity.jooyabash.ir");
     //jne.setIdentityUrl("http://localhost:53963");
 
-    jne.setClientId("JooyaRokhshidApp");
+    //TODO: Change this after creating new branch from master branch
+    jne.setClientId("JooyaQtBaseApp");
     jne.setClientSecret("secret");
-    jne.setApiName("JooyaRokhshidAPI");
+    //TODO: Change this after creating new branch from master branch
+    jne.setApiName("JooyaQtBaseAPI");
     jne.appendClientScopes(jne.apiName());
     jne.appendClientScopes("IdentityServerApi");
     qDebug()<<"^^^^^^^^^^^^^^^^^^^< qt app >^^^^^^^^^^^^^^^^^^^^^^^^^^^";
     qDebug()<<"          "<<jne.clientScopes();
     qDebug()<<"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    WebSocketHandler::setUrl("wss://rokhshid.jooyabash.ir/ws");
+    //TODO: Change this after creating new branch from master branch
+    WebSocketHandler::setUrl("wss://jooyabash.ir/ws");
     //    WebSocketHandler::setUrl("ws://localhost:5000/ws");
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     QGuiApplication app(argc, argv);
@@ -93,7 +98,8 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     //QQuickStyle::setStyle("Universal");
     //------------------------[ load main.qml with engin 11111]-----------------------
-    const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/rokhshid");
+    //TODO: Change this after creating new branch from master branch
+    const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/jooyabaseqtapp");
 
     //QmlLive live;
 //    FileWatcher* fw= QmlLive::qmlAttachedProperties(nullptr);

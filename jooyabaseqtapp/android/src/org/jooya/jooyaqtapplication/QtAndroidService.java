@@ -86,7 +86,9 @@ public class QtAndroidService extends QtService
                     PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
                     downloadNotification =new NotificationCompat.Builder(this,"org.jooya.jooyaqtapplication.DownloadForegroundServiceChannel")
-                    .setContentTitle("رخشید")
+
+                    //TODO: Change this after creating new branch from master branch
+                    .setContentTitle("اپلیکیشن جویا")
                     .setContentText(qtMessage)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                     .setSmallIcon(R.drawable.icon)
@@ -168,7 +170,8 @@ public class QtAndroidService extends QtService
         PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
         downloadNotification =new NotificationCompat.Builder(this,"org.jooya.jooyaqtapplication.DownloadForegroundServiceChannel")
-        .setContentTitle("رخشید")
+        //TODO: Change this after creating new branch from master branch
+        .setContentTitle("اپلیکیشن جویا")
         .setOngoing(true)
         .setContentText("در حال دانلود")
         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
