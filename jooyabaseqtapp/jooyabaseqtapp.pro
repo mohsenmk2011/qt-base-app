@@ -15,15 +15,15 @@ RESOURCES += \
 
 HEADERS += \
     applicationversioninfo.h \
-    rokhshidpath.h \
-    rokhshidsettings.h \
+    baseapppath.h \
+    baseappsettings.h \
     version.h
 
 SOURCES += \
     applicationversioninfo.cpp \
-    main.cpp \
-    rokhshidpath.cpp \
-    rokhshidsettings.cpp
+    baseapppath.cpp \
+    baseappsettings.cpp \
+    main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

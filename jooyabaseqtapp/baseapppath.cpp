@@ -1,11 +1,11 @@
-#include "rokhshidpath.h"
+#include "baseapppath.h"
 
-RokhshidPath::RokhshidPath(QObject *parent) : ApplicationPath(parent)
+BaseAppPath::BaseAppPath(QObject *parent) : ApplicationPath(parent)
 {
 
 }
 
-QString RokhshidPath::currentExerciseImagesFolderPath(int exerciseId,bool checkExistance)
+QString BaseAppPath::currentExerciseImagesFolderPath(int exerciseId,bool checkExistance)
 {
 
     QString path=imagesFolderPath();
@@ -20,7 +20,7 @@ QString RokhshidPath::currentExerciseImagesFolderPath(int exerciseId,bool checkE
     return path;
 }
 
-QString RokhshidPath::currentExerciseImagePath(int exerciseId)
+QString BaseAppPath::currentExerciseImagePath(int exerciseId)
 {
     QString t=currentExerciseImagesFolderPath(exerciseId,true);
     qDebug()<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.=>"<<t;

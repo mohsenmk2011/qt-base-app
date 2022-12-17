@@ -5,7 +5,7 @@
 #include <QtWebView>
 #include<QQuickView>
 
-#include<rokhshidsettings.h>
+#include<baseappsettings.h>
 #include<version.h>
 #include<applicationversioninfo.h>
 #include<jooyaapplication.h>
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     Managerlib::registerTypes();
     Chatlib::registerTypes();
 
-    qmlRegisterType<RokhshidSettings>("Jooya",1,0,"RokhshidSettings");
+    qmlRegisterType<BaseAppSettings>("Jooya",1,0,"BaseAppSettings");
     qmlRegisterType<ApplicationVersionInfo>("Jooya",1,0,"ApplicationVersionInfo");
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     JooyaNetworkEngine jne;
