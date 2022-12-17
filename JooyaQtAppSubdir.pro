@@ -13,8 +13,8 @@ SUBDIRS += \
     libs/settingslib \
     libs/purchasinglib \
     libs/loginlib \
-    rokhshidAndroidService \
-    rokhshid
+    jooyabaseqtappAndroidService \
+    jooyabaseqtapp
 }
 else{
 SUBDIRS += \
@@ -34,7 +34,7 @@ SUBDIRS += \
     libs/settingslib \
     libs/purchasinglib \
     libs/loginlib \
-    rokhshid
+    jooyabaseqtapp
 }
 
 #corelib.depends  = androidlib

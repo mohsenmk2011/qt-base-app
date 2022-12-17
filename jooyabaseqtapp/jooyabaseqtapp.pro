@@ -111,12 +111,12 @@ win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libs/loginlib/relea
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../libs/loginlib/debug/ -lloginlib_armeabi-v7a
 else:unix: LIBS += -L$$OUT_PWD/../libs/loginlib/ -lloginlib_armeabi-v7a
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../rokhshidAndroidService/release/ -lservice_armeabi-v7a
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../rokhshidAndroidService/debug/ -lservice_armeabi-v7a
-else:unix: LIBS += -L$$OUT_PWD/../rokhshidAndroidService/ -lservice_armeabi-v7a
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../jooyabaseqtappAndroidService/release/ -lservice_armeabi-v7a
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../jooyabaseqtappAndroidService/debug/ -lservice_armeabi-v7a
+else:unix: LIBS += -L$$OUT_PWD/../jooyabaseqtappAndroidService/ -lservice_armeabi-v7a
 
-INCLUDEPATH += $$PWD/../rokhshidAndroidService
-DEPENDPATH += $$PWD/../rokhshidAndroidService
+INCLUDEPATH += $$PWD/../jooyabaseqtappAndroidService
+DEPENDPATH += $$PWD/../jooyabaseqtappAndroidService
 
 }
 else{

@@ -705,8 +705,9 @@ Page {
                     Text{
                         id: txtAppName
                         Layout.fillWidth: true
-                        baseUrl: "https://rokhshid.jooyabash.ir"
-                        text: "اپلیکیشن رخشید"
+                        //TODO: Change this after creating new branch from master branch
+                        baseUrl: "https://jooyabash.ir"
+                        text: "اپلیکیشن جویا"
                         horizontalAlignment: Text.AlignRight
                         color: MaterialStyle.primaryTextColor
                         font{
