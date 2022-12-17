@@ -108,7 +108,7 @@ void WebSocketHandler::open()
 
 void WebSocketHandler::close()
 {
-    m_WebSocket.close(QWebSocketProtocol::CloseCodeNormal,"Rokhshid is closed with user");
+    m_WebSocket.close(QWebSocketProtocol::CloseCodeNormal,"websocket is closed with user");
 
 }
 
@@ -159,7 +159,7 @@ void WebSocketHandler::onError(QAbstractSocket::SocketError error)
 void WebSocketHandler::onDisconnected()
 {
     qCritical()<<"***[ socket is disconnected ]***";
-    m_WebSocket.close(QWebSocketProtocol::CloseCodeNormal,"Rokhshid is closed with user");
+    m_WebSocket.close(QWebSocketProtocol::CloseCodeNormal,"websocket is closed with user");
     setConnected(false);
 }
 

@@ -5,7 +5,7 @@ QT += androidextras
 QT += core qml quick widgets quickcontrols2 gui network multimedia webview quick-private qml-private quickcontrols2-private websockets
 
 CONFIG += c++11 console
-RC_FILE = Rokhshid.rc
+RC_FILE = AppIcon.rc
 
 
 #STATECHARTS +=

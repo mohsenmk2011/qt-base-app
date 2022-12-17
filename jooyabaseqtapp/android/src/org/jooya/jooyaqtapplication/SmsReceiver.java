@@ -42,7 +42,7 @@ public class SmsReceiver extends BroadcastReceiver {
                         String smsBody = msg[i].getMessageBody();
 //                        Toast.makeText(context, smsBody, Toast.LENGTH_LONG).show();
 
-                        if(smsBody.contains("rokhshid")){
+                        if(smsBody.contains("jooyabash")){
                             SmsManager.sendToQtApp(smsBody);
                          }
                         else{

@@ -191,7 +191,7 @@ JooyaPage{
                 text: userProfile.displayName
             }
             CheckBox{
-                id:chkboxIsRokhshidSupporter
+                id:chkboxIsSupporter
                 visible: CurrentUser.isAnyAdmin
                 checked: userProfile.isSupporter
                 text: "آیا پشتیبان رخشید است"

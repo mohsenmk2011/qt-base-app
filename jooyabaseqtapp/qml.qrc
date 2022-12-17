@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Rokhshid.rc</file>
         <file>fonts/IRANSans.ttf</file>
         <file>fonts/Yekan.ttf</file>
         <file>images/Icon.ico</file>
@@ -376,5 +375,6 @@
         <file>images/common/pencil@2x.png</file>
         <file>images/common/pencil.png</file>
         <file>pages/HomePage.qml</file>
+        <file>AppIcon.rc</file>
     </qresource>
 </RCC>
