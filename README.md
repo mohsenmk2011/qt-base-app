@@ -17,15 +17,19 @@
     1. change package name of application:first open AndroidManifest file and then change package,application,activty and version name and version code
     2. rename src folder name:after renaming PWD/android/src/org/jooya/jooyaqtapp => PWD/android/src/org/jooya/yourapplicationname
     3. rename all path of using src folder:
-        * first search for **jooyaqtapplication**  
-        * then replace it with your app name
-        * for example 'package org.jooya.jooyaqtapplication' will changed to 'package org.jooya.rokhshid'
-        * for example 'QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/SmsManager")' will changed to 'QAndroidJniObject javaClass("org/jooya/rokhshid/SmsManager")'
+        - first search for **jooyaqtapplication**  
+        - then replace it with your app name
+        - for example 'package org.jooya.jooyaqtapplication' will changed to 'package org.jooya.rokhshid'
+        - for example 'QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/SmsManager")' will changed to 'QAndroidJniObject javaClass("org/jooya/rokhshid/SmsManager").
     4. download icon in png format 512px or higher
     5. convert it to *.ico
     6. open AndroidManifest.xml file then Advanced -> Master icon select icon 
     7. do this for SplashScreen too
-    8. 
+    8. replace new icon.ico and icon.png with old ones
+    9. rename application pro files(ex:jooyabaseqtapp --rename--> rokhshid).
+    10. rename AppSettings and AppPath classes
+    11. change application names and urls
+  
 ---
 ## How preview *.md file in visual studio code
 * press Ctrl+K V for preview side by side (and real time)
