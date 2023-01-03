@@ -25,7 +25,6 @@ public:
     Q_INVOKABLE void add(QString link);
     Q_INVOKABLE void add(File* file);
     File* findFile(QString link);
-    Q_INVOKABLE bool checkExistance();
 signals:
     void downloadCountMessageChanged();
     void totalRatioChanged();
@@ -39,6 +38,7 @@ private slots:
     void onNewAppeMessage(QString appMessage);
 private:
     QString m_DownloadCountMessage;
+    void downloadFiles();
     float m_TotalRatio;
     int m_CountToDownload;
     int m_CountDownloaded;
