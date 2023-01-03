@@ -51,7 +51,6 @@ public class QtAndroidService extends QtService
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        Toast.makeText(this, "***[ Creating Service ]***", Toast.LENGTH_LONG).show();
         try
         {
             //initializeWebView();
