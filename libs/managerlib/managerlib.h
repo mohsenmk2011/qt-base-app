@@ -10,7 +10,7 @@ public:
     Managerlib();
     static void registerTypes()
     {
-        qmlRegisterType<PrivateKeyTool>("Jooya",1,0,"ManagerTool");
+        qmlRegisterType<PrivateKeyTool>("Jooya",1,0,"PrivateKeyTool");
         qmlRegisterType<JooyaX509Certificate>("Jooya",1,0,"JooyaX509Certificate");
 
     }

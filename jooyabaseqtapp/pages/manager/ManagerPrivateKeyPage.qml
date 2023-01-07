@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 import "../../jooyaQuickControls"
 
 JooyaPage {
-    ManagerTool{
+    PrivateKeyTool{
         id:managerTool
         onIsProcessingChanged: {
             progressIndicatorVisible=isProcessing;
