@@ -171,6 +171,9 @@ QJsonObject Contact::toJson()
 void Contact::getFromServer()
 {
     qWarning()<<"***[ getFromServer ]***";
+    if(!loginInfo()->isLoggedIn()){
+        return;
+    }
     QNetworkReply* reply=nullptr;
     if(isMe()){
         reply=getRequest("api/Contact/Me");
