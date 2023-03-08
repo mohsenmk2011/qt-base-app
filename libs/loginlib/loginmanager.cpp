@@ -182,7 +182,7 @@ void LoginManager::signUp(QString phoneNumber,bool hasActivationCode)
     jObj.insert("phoneNumber",phoneNumber);
     jObj.insert("hasActivationCode",hasActivationCode);
 
-    QNetworkReply* reply= postRequest("api/User/SignupPhone",jObj,true);
+    QNetworkReply* reply= postRequest("api/User/SignupPhone",jObj);
     connect(reply,SIGNAL(finished()) ,this,SLOT(signUpPhoneFinished()));
 }
 
@@ -260,13 +260,14 @@ void LoginManager::activate(QString phoneNumber,QString activationCode)
     jObj.insert("apiName",apiName());
 
     qCritical()<<"clientId=> "<<clientId();
-    QNetworkReply* reply= postRequest("api/User/Activate",jObj,true);
+    QNetworkReply* reply= postRequest("api/User/Activate",jObj);
     connect(reply,SIGNAL(finished()) ,this,SLOT(activateFinished()));
 }
 void LoginManager::activateFinished(){
     QNetworkReply* reply=convertToReply(sender());
     if(reply->error()== QNetworkReply::NoError)
     {
+
         readAndSaveToken(reply->readAll());
 //        addTokenToRequestHeader();
         loginInfo()->setState(LoginStates::LoginStatesEnum::LoggedIn);
@@ -279,8 +280,5 @@ void LoginManager::activateFinished(){
 }
 void LoginManager::readAndSaveToken(QByteArray jsonToken)
 {
-    QJsonObject tokenobj=jsonUtility()->convertToJsonObject(jsonToken);
-    QString to= tokenobj.value("access_token").toString();
-    //qWarning()<<"save the token=>"<<to;
-    loginInfo()->setToken(to);
+    loginInfo()->setToken(jsonToken);
 }
