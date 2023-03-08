@@ -14,6 +14,7 @@ public:
         Admin2 = 3,
         Admin3= 4,
         Admin4= 5,
+        UnKnown = 6
     };
     Q_ENUM(UserRolesEnum)
 };

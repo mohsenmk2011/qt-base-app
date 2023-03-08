@@ -120,6 +120,11 @@ void BaseUser::loadFromJson(QString json)
     QJsonObject obj= jsonUtility()->convertToJsonObject(json.toUtf8());
 
     UserRoles::UserRolesEnum role= static_cast<UserRoles::UserRolesEnum>(obj.value("role").toInt());
+    if(role == UserRoles::UserRolesEnum::UnKnown){
+        qDebug()<<"user info is defualt => get UserInfo from server";
+        getUserInfo();
+        return;
+    }
     setInfo(obj.value("displayName").toString(),obj.value("userName").toString(),role);
     if(!obj.value("lastImage").isNull()){
         qInfo()<<"=> load Last Image from json ";
@@ -154,7 +159,6 @@ void BaseUser::load()
     }
     qDebug()<<"Is Loggedin || Reading UserInfo from QSettings";
     QString userInfo=appSettings.userInfo();
-    qInfo()<<"UserInfo=> "<<userInfo;
     if(userInfo.isNull()||userInfo.isEmpty()){
         qDebug()<<"UserInfo was not in QSettings => Load BaseUser From Server";
         getUserInfo();
