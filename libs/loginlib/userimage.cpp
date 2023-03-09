@@ -4,6 +4,7 @@ UserImage::UserImage(QObject *parent) : ImageFile(parent)
 {
     setWidth(72);
     setHeight(72);
+    m_Date = QDateTime::currentDateTime().addYears(-9);
 
     ApplicationPath appPath;
     setFolderPath(appPath.userFolderPath());
