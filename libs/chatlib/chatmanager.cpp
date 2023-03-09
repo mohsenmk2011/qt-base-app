@@ -65,6 +65,10 @@ void ChatManager::setUnReadTalks(int u)
 void ChatManager::getList()
 {
     qDebug()<<"***[ ChatManager::getList ]***";
+    if(!loginInfo()->isLoggedIn())
+    {
+        return;
+    }
     if(listHasCompeleted()){
         qDebug()<<" list Has Compeleted ";
         return;
