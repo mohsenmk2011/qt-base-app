@@ -71,7 +71,7 @@ public:
     Q_INVOKABLE bool exists();
 
     Q_INVOKABLE virtual void download();
-    Q_INVOKABLE void remove();
+    Q_INVOKABLE bool remove();
     bool isVideo(QString ext="");
     bool isAudio(QString ext="");
     bool save(QByteArray textContent);

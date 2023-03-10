@@ -219,22 +219,17 @@ void File::download()
 }
 
 ///remove file from disk
-void File::remove()
+bool File::remove()
 {
     if(url().isEmpty()){
-        return;
+        return false;
     }
     if(QFile::exists(url().path())){
         QFile file(url().path());
-        if(file.remove()){
-            message()->setContent("فایل حذف شد",true);
-        }
-        else {
-            message()->setContent("فایل حذف نشد");
-        }
+        return file.remove();
     }
     else {
-        message()->setContent("فایل قبلا حذف شده است");
+        return false;
     }
 }
 
