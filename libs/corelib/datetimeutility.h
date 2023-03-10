@@ -10,9 +10,9 @@ class DateTimeUtility : public QObject
 public:
     explicit DateTimeUtility(QObject *parent = nullptr);
 
-    QDateTime toDateTime(QString date);
-    QString fromDateTime(QDateTime date);
-    QString toPersianHourString(QDateTime date);
+    Q_INVOKABLE QDateTime toDateTime(QString date);
+    Q_INVOKABLE QString fromDateTime(QDateTime date);
+    Q_INVOKABLE QString toPersianHourString(QDateTime date);
 signals:
 
 };

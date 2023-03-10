@@ -18,6 +18,7 @@
 #include<userroles.h>
 #include<jooyasettings.h>
 #include<websockethandler.h>
+#include<datetimeutility.h>
 
 class JooyaNetwork : public JooyaNetworkEngine/*,public QNetworkAccessManager*/
 {
@@ -51,6 +52,7 @@ public:
 
     int getHttpCode(QNetworkReply *reply);
     static WebSocketHandler* m_WebSocketHandler;
+    DateTimeUtility m_DateTimeUtility;
 signals:
     void unAuthorizedAccess();
     void tokenChanged();

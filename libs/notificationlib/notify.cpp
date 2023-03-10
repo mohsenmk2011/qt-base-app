@@ -312,8 +312,8 @@ void Notify::loadFromJson(QJsonObject obj)
     //-----------------------------------------
     if(/*type()==NotificationTypes::NotificationTypesEnum::Discount*/true){
         setAmount(obj.value("amount").toInt());
-        setDate(QDateTime::fromString(obj.value("date").toString(),"yyyy-MM-dd HH:mm"));
-        setEndDate(QDateTime::fromString(obj.value("endDate").toString(),"yyyy-MM-dd HH:mm"));
+        setDate(m_DateTimeUtility.toDateTime(obj.value("date").toString()));
+        setEndDate(m_DateTimeUtility.toDateTime(obj.value("endDate").toString()));
         setDateString(obj.value("persianDate").toString());
         setEndDateString(obj.value("persianEndDate").toString());
     }
@@ -395,8 +395,8 @@ QJsonObject Notify::readFeilds(){
     qWarning()<<"image bytes count=>"<<m_ImageBytes.count();
     obj.insert("amount",amount());
     obj.insert("moreInfoLink",moreInfoLink());
-    obj.insert("date",date().toString("yyyy-MM-dd hh:mm"));
-    obj.insert("endDate",endDate().toString("yyyy-MM-dd hh:mm"));
+    obj.insert("date",m_DateTimeUtility.fromDateTime(date()));
+    obj.insert("endDate",m_DateTimeUtility.fromDateTime(endDate()));
     obj.insert("type",(int)type());
     return obj;
 }

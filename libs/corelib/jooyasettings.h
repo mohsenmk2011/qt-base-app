@@ -5,6 +5,7 @@
 #include <QCoreApplication>
 #include<QSettings>
 #include<qdebug.h>
+#include<datetimeutility.h>
 
 class JooyaSettings : public QObject
 {
@@ -17,6 +18,7 @@ public:
 
     int getInt(QString key);
     void setInt(QString key,int value);
+    DateTimeUtility m_DateTimeUtility;
 signals:
 
 private:

@@ -9,16 +9,16 @@ QDateTime NotificationInfo::discountViewDate()
 {    
     qCritical()<<"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
     qCritical()<<"%%%%%%%%%%%%%%%%%%toverfy%%%%%%%%%%%%%%%%%%%%%%%%%%%";
-    qInfo()<<QDateTime::fromString(get("discountViewDate").toString(),"ddd yyyy/MM/dd HH:MM:ss");
+    qInfo()<<m_DateTimeUtility.toDateTime(get("discountViewDate").toString());
     qInfo()<<get("discountViewDate").toDateTime();
     qCritical()<<"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
     qCritical()<<"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
 
-    return QDateTime::fromString(get("discountViewDate").toString(),"ddd yyyy/MM/dd HH:MM:ss");
+    return m_DateTimeUtility.toDateTime(get("discountViewDate").toString());
     //return get("discountViewDate").toDateTime();
 }
 
 void NotificationInfo::refreshDiscountDateView()
 {
-    set("discountViewDate",QDateTime::currentDateTime().toString("ddd yyyy/MM/dd HH:MM:ss"));
+    set("discountViewDate",m_DateTimeUtility.fromDateTime(QDateTime::currentDateTime()));
 }

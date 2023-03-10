@@ -207,7 +207,9 @@ void BaseUser::getLastImage()
         qDebug()<<"returnd-> Before Checked Last Image of User";
         return;
     }
-    QNetworkReply* reply= getRequest(QString("api/User/LastImage?date=%1").arg(lastImage()->date().toString("ddd yyyy-MM-dd HH:mm::ss")));
+    qInfo()<<"last image date => "<<m_DateTimeUtility.fromDateTime(lastImage()->date());
+    qInfo()<<"last image date => "<<lastImage()->date();
+    QNetworkReply* reply= getRequest(QString("api/User/LastImage?date=%1").arg(m_DateTimeUtility.fromDateTime(lastImage()->date())));
     connect(reply,SIGNAL(finished()),this,SLOT(getLastImageFinished()));
 }
 

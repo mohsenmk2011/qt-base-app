@@ -20,7 +20,6 @@ JooyaNetwork::JooyaNetwork(QObject *parent) :JooyaNetworkEngine(parent)/*, QNetw
 void JooyaNetwork::initializeRequestHeader(bool withJsonHeader)
 {
     //    qCritical()<<"*** Initialization request header ***";
-    m_Request=QNetworkRequest();
     m_Request.rawHeaderList().clear();
     if(withJsonHeader){
         m_Request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/json"));

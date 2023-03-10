@@ -5,6 +5,7 @@ UserImage::UserImage(QObject *parent) : ImageFile(parent)
     setWidth(72);
     setHeight(72);
     m_Date = QDateTime::currentDateTime().addYears(-9);
+    qCritical()<<"date ===> "<<m_Date;
 
     ApplicationPath appPath;
     setFolderPath(appPath.userFolderPath());
@@ -37,7 +38,7 @@ void UserImage::loadFromJson(QJsonObject obj)
     setName(QString::number(fileId()));
     setDownloadLink(obj.value("url").toString());
     setPersianDate(obj.value("persianDate").toString());
-    setDate(QDateTime::fromString(obj.value("date").toString(),"ddd yyyy-MM-dd HH:mm::ss"));
+    setDate(m_DateTimeUtility.toDateTime(obj.value("date").toString()));
 }
 
 QJsonObject UserImage::toJson()
@@ -46,7 +47,7 @@ QJsonObject UserImage::toJson()
     obj.insert("id",fileId());
     obj.insert("name",fileId());
     obj.insert("url",downloadLink());
-    obj.insert("date",date().toString("ddd yyyy-MM-dd HH:mm::ss"));
+    obj.insert("date",m_DateTimeUtility.fromDateTime(date()));
     obj.insert("persianDate",persianDate());
     return obj;
 }
@@ -95,7 +96,7 @@ QDateTime UserImage::date()
 
 void UserImage::setDate(QDateTime d)
 {
-    if(m_Date!=d){
+    if(m_Date!=d&&!d.isValid()){
         m_Date=d;
         emit dateChanged();
     }
