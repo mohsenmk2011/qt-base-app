@@ -8,17 +8,18 @@ DateTimeUtility::DateTimeUtility(QObject *parent)
 
 QDateTime DateTimeUtility::toDateTime(QString date)
 {
-    return QDateTime::fromString(date,"yyyyMMddHHmmss");
+    QLocale locale(QLocale::English,QLocale::UnitedStates);
+    return locale.toDateTime(date,"yyyyMMddHHmmss");
 }
 
 QString DateTimeUtility::toPersianHourString(QDateTime date)
 {
-    QLocale locale(QLocale("fa_IR"));
+    QLocale locale(QLocale::Persian,QLocale::Iran);
     return locale.toString(date,"HH:mm");
 }
 
 QString DateTimeUtility::fromDateTime(QDateTime date)
 {
-    QLocale locale(QLocale("en_US"));
+    QLocale locale(QLocale::English,QLocale::UnitedStates);
     return locale.toString(date,"yyyyMMddHHmmss");
 }
