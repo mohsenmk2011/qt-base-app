@@ -22,8 +22,12 @@ JooyaDialog {
         pixelSize: 18
         bold: true
     }
+
     Component.onCompleted: {
         progressIndicatorVisible=notify.isProcessing;
+    }
+    DateTimeUtility{
+        id:dtu
     }
     header: RowLayout{
         height: 48
@@ -179,15 +183,16 @@ JooyaDialog {
                         placeholderText: "تاریخ شروع تخفیف"
                         color: "#3D3D3D"
                         Layout.fillWidth: true
-                        text: Qt.formatDateTime(notify.date,"ddd yyyy-MM-dd HH:mm:ss")
+                        text: dtu.fromDateTime(notify.date)
                         MouseArea{
                             anchors.fill: parent
                             onClicked: {
                                 isSettingStartDate=true;
-                                datePicker.date= Date.fromLocaleString(Qt.locale(), tfStartDate.text, "ddd yyyy-MM-dd hh:mm:ss")
-                                datePicker.startDate= Date.fromLocaleString(Qt.locale(), tfStartDate.text, "ddd yyyy-MM-dd hh:mm:ss")
-                                datePicker.endDate= Date.fromLocaleString(Qt.locale(), tfEndDate.text, "ddd yyyy-MM-dd hh:mm:ss")
+                                datePicker.date= dtu.toDateTime(tfStartDate.text);
+                                datePicker.startDate= dtu.toDateTime(tfStartDate.text)
+                                datePicker.endDate= dtu.toDateTime(tfEndDate.text);
                                 datePicker.open();
+
                             }
                         }
                     }
@@ -196,14 +201,14 @@ JooyaDialog {
                         placeholderText: "تاریخ پایان تخفیف"
                         color: "#3D3D3D"
                         Layout.fillWidth: true
-                        text: Qt.formatDateTime(notify.endDate,"ddd yyyy-MM-dd HH:mm:ss")
+                        text: dtu.fromDateTime(notify.endDate)
                         MouseArea{
                             anchors.fill: parent
                             onClicked: {
                                 isSettingStartDate=false;
-                                datePicker.date= Date.fromLocaleString(Qt.locale(), tfEndDate.text, "ddd yyyy-MM-dd hh:mm:ss")
-                                datePicker.startDate= Date.fromLocaleString(Qt.locale(), tfStartDate.text, "ddd yyyy-MM-dd hh:mm:ss")
-                                datePicker.endDate= Date.fromLocaleString(Qt.locale(), tfEndDate.text, "ddd yyyy-MM-dd hh:mm:ss")
+                                datePicker.date= dtu.toDateTime(tfEndDate.text);
+                                datePicker.startDate= dtu.toDateTime(tfEndDate.text);
+                                datePicker.endDate=dtu.toDateTime(tfEndDate.text);
                                 datePicker.open();
                             }
                         }
