@@ -226,6 +226,7 @@ void BaseUser::getLastImageFinished()
         qInfo()<<"Reading new user image => and download";
         QString jsonImage=r->readAll();
         m_LastImage.loadFromJson(jsonUtility()->convertToJsonObject(jsonImage));
+        appSettings.setUserInfo(jsonUtility()->convertToJsonString(toJson()));
         m_LastImage.download();
     }
 }
