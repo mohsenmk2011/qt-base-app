@@ -96,7 +96,7 @@ QDateTime UserImage::date()
 
 void UserImage::setDate(QDateTime d)
 {
-    if(m_Date!=d&&!d.isValid()){
+    if(m_Date!=d&&d.isValid()){
         m_Date=d;
         emit dateChanged();
     }
