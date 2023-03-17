@@ -23,13 +23,13 @@
         - for example 'QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/SmsManager")' will changed to 'QAndroidJniObject javaClass("org/jooya/rokhshid/SmsManager").
     4. download icon in png format 512px or higher
     5. convert it to *.ico
-    6. open AndroidManifest.xml file then Advanced -> Master icon select icon 
+    6. Change the Application icon: open AndroidManifest.xml file then go to Advanced -> Application icon -> Master icon and select your new application icon file(png file)
     7. do this for SplashScreen too
     8. replace new icon.ico and icon.png with old ones
     9. rename application pro files(ex:jooyabaseqtapp --rename--> rokhshid).
     10. rename AppSettings and AppPath classes
-    11. change application names and urls
-  
+    11. change application names and urls:
+        - Serach for "TODO: Change this after creating new branch from master branch" and change all of them.
 ---
 ## How preview *.md file in visual studio code
 * press Ctrl+K V for preview side by side (and real time)
