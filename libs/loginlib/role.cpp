@@ -63,7 +63,7 @@ void Role::save()
     QJsonObject obj;
     obj.insert("Id",id());
     obj.insert("Name",name());
-    QNetworkReply* r=postRequest("api/Role",obj,true);
+    QNetworkReply* r=postRequest("api/Role",obj);
     connect(r,SIGNAL(finished()),this,SLOT(saveFinished()));
 }
 void Role::saveFinished()
@@ -95,7 +95,7 @@ void Role::deleteRole()
         return;
     }
     setIsProcssing(true);
-    QNetworkReply* r=deleteRequest("api/Role/"+id(),true);
+    QNetworkReply* r=deleteRequest("api/Role/"+id());
     connect(r,SIGNAL(finished()),this,SLOT(deleteRoleFinished()));
 }
 void Role::deleteRoleFinished()

@@ -16,7 +16,7 @@ void UserManager::getList()
     }
     setIsProcssing(true);
     QString url=QString("api/User?skipcount=%1&count=%2").arg(skipCount()).arg(takeCount());
-    QNetworkReply* r=getRequest(url,true);
+    QNetworkReply* r=getRequest(url);
     connect(r,SIGNAL(finished()),this,SLOT(getListFinishded()));
 }
 

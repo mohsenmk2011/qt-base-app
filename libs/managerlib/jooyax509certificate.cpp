@@ -8,7 +8,7 @@ JooyaX509Certificate::JooyaX509Certificate(QObject *parent) : JooyaNetwork(paren
 void JooyaX509Certificate::getInfo()
 {
     setIsProcssing(true);
-    QNetworkReply* r=getRequest("api/SignTokenCert/Info",false,true);
+    QNetworkReply* r=getRequest("api/SignTokenCert/Info");
     connect(r,SIGNAL(finished()),this,SLOT(getInfoFinished()));
 }
 
@@ -21,7 +21,7 @@ void JooyaX509Certificate::getInfoFinished()
 void JooyaX509Certificate::save()
 {
     setIsProcssing(true);
-    QNetworkReply* r=getRequest("api/SignTokenCert/Save",false,true);
+    QNetworkReply* r=getRequest("api/SignTokenCert/Save");
     connect(r,SIGNAL(finished()),this,SLOT(saveFinished()));
 }
 

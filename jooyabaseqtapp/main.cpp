@@ -69,20 +69,6 @@ int main(int argc, char *argv[])
     //TODO: Change this after creating new branch from master branch
     jne.setBaseUrl("https://jooyabash.ir");
     //jne.setBaseUrl("https://localhost:5001");
-
-    jne.setIdentityUrl("https://identity.jooyabash.ir");
-    //jne.setIdentityUrl("http://localhost:53963");
-
-    //TODO: Change this after creating new branch from master branch
-    jne.setClientId("JooyaQtBaseApp");
-    jne.setClientSecret("secret");
-    //TODO: Change this after creating new branch from master branch
-    jne.setApiName("JooyaQtBaseAPI");
-    jne.appendClientScopes(jne.apiName());
-    jne.appendClientScopes("IdentityServerApi");
-    qDebug()<<"^^^^^^^^^^^^^^^^^^^< qt app >^^^^^^^^^^^^^^^^^^^^^^^^^^^";
-    qDebug()<<"          "<<jne.clientScopes();
-    qDebug()<<"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     //TODO: Change this after creating new branch from master branch
     WebSocketHandler::setUrl("wss://jooyabash.ir/ws");

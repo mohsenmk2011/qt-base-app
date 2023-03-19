@@ -27,7 +27,7 @@ void LoginManager::login(QString un,QString pass)
     postData.addQueryItem("scope",clientScopes());
     postData.addQueryItem("client_id",clientId());
     postData.addQueryItem("client_secret",clientSecret());
-    QNetworkReply* reply=postRequest("connect/token",postData,true,false);
+    QNetworkReply* reply=postRequest("connect/token",postData);
     connect(reply,SIGNAL(finished()) ,this,SLOT(loginFinished()));
 }
 
@@ -48,7 +48,7 @@ void LoginManager::login(QString code)
     postData.addQueryItem("client_secret",clientSecret());
     postData.addQueryItem("responsetype","code");
 
-    QNetworkReply* reply=postRequest("connect/authorize",postData,true,false);
+    QNetworkReply* reply=postRequest("connect/authorize",postData);
     connect(reply,SIGNAL(finished()) ,this,SLOT(loginFinished()));
 }
 
@@ -75,7 +75,7 @@ void LoginManager::loginUN(QString un,QString pass,QString captha,QString captha
     jObj.insert("password",pass);
     jObj.insert("captha",captha.trimmed());
     jObj.insert("capthaHash",capthaHash);
-    QNetworkReply* reply=postRequest("api/User/Login",jObj,true);
+    QNetworkReply* reply=postRequest("api/User/Login",jObj);
     qDebug()<<"url=>"<<identityUrl();
     connect(reply,SIGNAL(finished()) ,this,SLOT(loginFinished()));
 }
@@ -157,7 +157,7 @@ void LoginManager::signUp(QString un,QString pass,QString passRepeat,QString cap
     jObj.insert("Captha",captha.trimmed());
     jObj.insert("CapthaHash",capthaHash);
 
-    QNetworkReply* reply= postRequest("api/User",jObj,true);
+    QNetworkReply* reply= postRequest("api/User",jObj);
     connect(reply,SIGNAL(finished()) ,this,SLOT(signUpFinished()));
 }
 void LoginManager::signUpFinished()

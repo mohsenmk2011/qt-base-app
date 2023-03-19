@@ -203,7 +203,7 @@ RoleListModel *User::roles()
 void User::getRoles()
 {
     setIsProcssing(true);
-    QNetworkReply* r=getRequest("api/User/Roles/"+userId(),true);
+    QNetworkReply* r=getRequest("api/User/Roles/"+userId());
     connect(r,SIGNAL(finished()),this,SLOT(getRolesFinished()));
 }
 
@@ -227,7 +227,7 @@ void User::addToRole(QString roleName)
     qDebug()<<"UserManager::addToRole";
     setIsProcssing(true);
     QString url=QString("api/User/AddToRole/%1?roleName=%2").arg(userId()).arg(roleName);
-    QNetworkReply* r=getRequest(url,true);
+    QNetworkReply* r=getRequest(url);
     connect(r,SIGNAL(finished()),this,SLOT(addToRoleFinished()));
 }
 void User::addToRoleFinished()
@@ -248,7 +248,7 @@ void User::removeFromRole(QString roleName)
     qDebug()<<"UserManager::removeFromRole";
     setIsProcssing(true);
     QString url=QString("api/User/RemoveFromRole/%1?roleName=%2").arg(userId()).arg(roleName);
-    QNetworkReply* r=getRequest(url,true);
+    QNetworkReply* r=getRequest(url);
     connect(r,SIGNAL(finished()),this,SLOT(removeFromRoleFinished()));
 }
 

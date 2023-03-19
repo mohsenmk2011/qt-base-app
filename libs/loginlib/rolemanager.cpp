@@ -7,7 +7,7 @@ RoleManager::RoleManager(QObject *parent) : JooyaNetwork(parent)
 void RoleManager::getList()
 {
     setIsProcssing(true);
-    QNetworkReply* r=getRequest("api/Role",true);
+    QNetworkReply* r=getRequest("api/Role");
     connect(r,SIGNAL(finished()),this,SLOT(getListFinished()));
 }
 

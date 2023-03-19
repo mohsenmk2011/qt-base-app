@@ -14,7 +14,7 @@ void CapthaManager::loadCaptha()
     }
     qDebug()<<"loading Captha ...";
     setIsProcssing(true);
-    QNetworkReply* reply=getRequest("api/Captha",true,false);
+    QNetworkReply* reply=getRequest("api/Captha");
     connect(reply,SIGNAL(finished()),this,SLOT(loadCapthaFinished()));
 }
 

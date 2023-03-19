@@ -60,7 +60,7 @@ void SmsSettings::setSenderNumber(QString number)
 void SmsSettings::load()
 {
     setIsProcssing(true);
-    QNetworkReply* r=getRequest("api/Settings/Sms",true);
+    QNetworkReply* r=getRequest("api/Settings/Sms");
     connect(r,SIGNAL(finished()),this,SLOT(loadFinished()));
 }
 void SmsSettings::loadFinished()
@@ -83,7 +83,7 @@ void SmsSettings::loadFinished()
 void SmsSettings::save()
 {
     setIsProcssing(true);
-    QNetworkReply* r=postRequest("api/Settings/SaveSms",readFeilds(),true);
+    QNetworkReply* r=postRequest("api/Settings/SaveSms",readFeilds());
     connect(r,SIGNAL(finished()),this,SLOT(saveFinished()));
 }
 void SmsSettings::saveFinished()
