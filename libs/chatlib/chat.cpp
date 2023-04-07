@@ -476,7 +476,7 @@ QJsonObject Chat::toJson()
     obj.insert("date",dateTimeUtility()->fromDateTime(date()));
     obj.insert("isMuted",isMuted());
 
-    obj.insert("imageName",image()->name());
+    obj.insert("imageName",image()->imageName());
     obj.insert("imageUrl",image()->downloadLink());
     QJsonArray posts;
 

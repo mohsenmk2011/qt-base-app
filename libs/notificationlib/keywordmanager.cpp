@@ -10,7 +10,6 @@ void KeywordManager::getList(int parentId)
     if(listHasCompeleted()){
         return;
     }
-    setIsProcssing(true);
     QNetworkReply* r=getRequest(QString("api/Keyword?parentId=%1&skipcount=%2&count=%3").arg(parentId).arg(skipCount()).arg(takeCount()));
     connect(r,SIGNAL(finished()),this,SLOT(getListFinished()));
 }

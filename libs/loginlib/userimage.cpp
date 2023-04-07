@@ -16,8 +16,8 @@ UserImage::UserImage(int id, QDateTime date,QString link):UserImage()
     setDate(date);
     setFileId(id);
     setDownloadLink(link);
-    setName(QString::number(id));
-    setUrl(QUrl::fromLocalFile(folderPath()+name()+ext()));
+    setImageName(QString::number(id));
+    setUrl(QUrl::fromLocalFile(folderPath()+imageName()+ext()));
 }
 
 UserImage::UserImage(QJsonObject jobj):UserImage()
@@ -35,7 +35,7 @@ void UserImage::loadFromJson(QJsonObject obj)
         qInfo()<<"json image is not null";
     }
     setFileId(obj.value("id").toInt());
-    setName(QString::number(fileId()));
+    setImageName(QString::number(fileId()));
     setDownloadLink(obj.value("url").toString());
     setPersianDate(obj.value("persianDate").toString());
     setDate(m_DateTimeUtility.toDateTime(obj.value("date").toString()));
@@ -55,7 +55,7 @@ QJsonObject UserImage::toJson()
 void UserImage::resetImage()
 {
     setFileId(0);
-    setName("");
+    setImageName("");
     setDownloadLink("");
     setPersianDate("");
     setDate(QDateTime());
@@ -75,7 +75,7 @@ void UserImage::deleteItem()
 bool UserImage::isDefault()
 {
     qInfo()<<toJson();
-    return name().isNull()||name().isEmpty();
+    return imageName().isNull()||imageName().isEmpty();
 }
 
 void UserImage::deleteItemFinished()

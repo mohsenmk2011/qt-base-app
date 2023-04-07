@@ -106,7 +106,6 @@ void Keyword::deleteItem()
         message()->setContent("حذف شد");
         return;
     }
-    setIsProcssing(true);
     QNetworkReply* r=deleteRequest("api/Keyword/"+QString::number(keywordId()));
     connect(r,SIGNAL(finished()),this,SLOT(deleteItemFinished()));
 }
@@ -130,9 +129,11 @@ void Keyword::saveFinished()
         qInfo()<<"With NO Error";
         QJsonObject obj=jsonUtility()->convertToJsonObject(r);
         showOkMessage(obj.value("message").toString());
-        if(keywordId()==0){
-            setKeywordId(obj.value("id").toInt());
-        }
+        QString SId=obj.value("id").toString();
+        qInfo()<<"KeywordId now is => "<<SId.toInt();
+        setKeywordId(SId.toInt());
+        qInfo()<<"KeywordId now is => "<<keywordId();
+
         emit saveSucceed();
     }
     else {

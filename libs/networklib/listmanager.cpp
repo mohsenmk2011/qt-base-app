@@ -14,7 +14,7 @@ ListManager::ListManager(QObject *parent) : JooyaListItem(parent)
 void ListManager::toJsonFile(QString fileName, QJsonArray array)
 {
     File file;
-    file.setName(fileName);
+    file.setImageName(fileName);
     file.setExt("json");
     file.saveJson(array);
 }
@@ -22,7 +22,7 @@ void ListManager::toJsonFile(QString fileName, QJsonArray array)
 QJsonArray ListManager::fromJsonFile(QString name)
 {
     File file;
-    file.setName(name);
+    file.setImageName(name);
     file.setExt("json");
     if(file.exists())
     {

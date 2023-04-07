@@ -20,7 +20,7 @@
 #include<websockethandler.h>
 #include<datetimeutility.h>
 
-class JooyaNetwork : public JooyaNetworkEngine/*,public QNetworkAccessManager*/
+class JooyaNetwork : public JooyaNetworkEngine
 {
     Q_OBJECT
 

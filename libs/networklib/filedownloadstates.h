@@ -16,6 +16,7 @@ public:
         ErrorInSaving=4,
         FileExists=5,
         IsDownloading=6,
+        FileNotFound = 7,
     };
     Q_ENUM(FileDownloadStatesEnum)
 };

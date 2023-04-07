@@ -20,7 +20,6 @@ public:
     QString filesFolderPath();
     void makeSurePathExsists(QString path);
     QString currentExerciseImagesFolderPath(int bookId, bool checkExistance=false);
-    QString currentExerciseImagePath(int exerciseId);
 
     ///پوشه حاوی عکس های کاربر
     QString userFolderPath();

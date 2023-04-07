@@ -88,10 +88,3 @@ QString ApplicationPath::currentExerciseImagesFolderPath(int exerciseId,bool che
     }
     return path;
 }
-
-QString ApplicationPath::currentExerciseImagePath(int exerciseId)
-{
-    QString t=currentExerciseImagesFolderPath(exerciseId,true);
-    qDebug()<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.=>"<<t;
-    return  t+"exercise.jpg";
-}

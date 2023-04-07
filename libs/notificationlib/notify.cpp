@@ -307,7 +307,7 @@ void Notify::loadFromJson(QJsonObject obj)
     setTitle(obj.value("title").toString());
     setDescription(obj.value("description").toString());
     setDownloadLink(obj.value("imageUrl").toString());
-    setName(obj.value("imageName").toString());
+    setImageName(obj.value("imageName").toString());
     setBeVisibleForUsers(obj.value("visible").toBool());
     //-----------------------------------------
     if(/*type()==NotificationTypes::NotificationTypesEnum::Discount*/true){
@@ -369,7 +369,7 @@ bool Notify::isFeildsValid()
         message()->setContent("توضیحات را وارد کنید");
         return false;
     }
-    if(name().isNull()||name().isEmpty()){
+    if(imageName().isNull()||imageName().isEmpty()){
         message()->setContent("نام تصویر را وارد کنید");
         return false;
     }
@@ -388,7 +388,7 @@ QJsonObject Notify::readFeilds(){
     obj.insert("title",title());
     obj.insert("description",description());
     obj.insert("visible",visible());
-    obj.insert("imageName",name());
+    obj.insert("imageName",imageName());
 
     QString s=m_ImageBytes.toBase64();
     obj.insert("imageBase64",s);
@@ -404,6 +404,11 @@ QJsonObject Notify::readFeilds(){
 void Notify::loadImageFromFile(QString path)
 {
     qInfo()<<"Image Path=>"<<path;
+    if(path.isNull()||path.isEmpty())
+    {
+        message()->setContent("مسیر فایل تهی است");
+        return;
+    }
     JooyaImage im;
     if(!im.loadFromPath(path)){
         message()->setContent("تصویر بارگذاری نشد");
@@ -413,7 +418,7 @@ void Notify::loadImageFromFile(QString path)
     setUrl(QUrl::fromLocalFile(path));
     QStringList filePathSplits=path.split("/");
     QString fileNameHasExtension=filePathSplits.at(filePathSplits.count()-1);
-    setName(fileNameHasExtension.split(".").at(0));
+    setImageName(fileNameHasExtension.split(".").at(0));
     //=======================
     m_ImageBytes=im.imageBytes();
     qWarning()<<"Image Bytes =>"<<m_ImageBytes.count();

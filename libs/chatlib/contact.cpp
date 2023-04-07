@@ -152,7 +152,7 @@ void Contact::fromJson(QJsonObject obj)
     setDownloadLink(obj.value("imageLink").toString());
     setDisplayName(obj.value("displayName").toString());
     setLastActivityDate(dateTimeUtility()-> toDateTime(obj.value("lastActivityDate").toString()));
-    setName(obj.value("imageName").toString());
+    setImageName(obj.value("imageName").toString());
 }
 
 QJsonObject Contact::toJson()
@@ -164,7 +164,7 @@ QJsonObject Contact::toJson()
    obj.insert("imageLink",downloadLink());
    obj.insert("displayName",displayName());
    obj.insert("lastActivityDate",dateTimeUtility()->fromDateTime(lastActivityDate()));
-   obj.insert("imageName",name());
+   obj.insert("imageName",imageName());
    return obj;
 }
 

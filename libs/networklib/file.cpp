@@ -9,7 +9,7 @@ File::File(QObject *parent) : JooyaNetwork (parent)
     m_IsDownloaded=false;
     m_DownloadState=FileDownloadStates::FileDownloadStatesEnum::NotStarted;
     connect(this,&File::downloadLinkChanged,this,&File::refreshPath);
-    connect(this,SIGNAL(nameChanged()),this,SLOT(refreshPath()));
+    connect(this,SIGNAL(imageNameChanged()),this,SLOT(refreshPath()));
     connect(this,SIGNAL(extChanged()),this,SLOT(refreshPath()));
     connect(this,SIGNAL(folderPathChanged()),this,SLOT(refreshPath()));
 }
@@ -43,7 +43,7 @@ void File::setDownloadLink(QString link)
         m_DowloadLink=link;
         emit downloadLinkChanged();
         QFileInfo file(link);
-        setName(file.baseName());
+        setImageName(file.baseName());
         setExt(file.suffix());
     }
 }
@@ -65,16 +65,16 @@ void File::setUrl(QUrl p)
     }
 }
 
-QString File::name()
+QString File::imageName()
 {
     return m_Name;
 }
 
-void File::setName(QString n)
+void File::setImageName(QString n)
 {
     if(m_Name!=n){
         m_Name=n;
-        emit nameChanged();
+        emit imageNameChanged();
     }
 }
 
@@ -206,7 +206,7 @@ void File::download()
         setDownloadState(FileDownloadStates::FileDownloadStatesEnum::FileExists);
         return;
     }
-    qDebug()<<"downloadLink()=> "<<downloadLink();
+    qDebug()<<"is going to download => "<<downloadLink();
     if(downloadLink().isNull()||downloadLink().isEmpty()){
         setDownloadState(FileDownloadStates::FileDownloadStatesEnum::Faild);
         qWarning()<<"download link was null->return";
@@ -260,11 +260,16 @@ void File::updownLoadingProgress(qint64 bytesSent,qint64 bytesTotal)
 void File::onDownloadFinishd()
 {
     QNetworkReply* r=convertToReply(sender());
+    qDebug()<<"image download findish";
     if(r->error()==QNetworkReply::NoError)
     {
-        qInfo()<<"NoError=> url=>"<<url();
+        qInfo()<<"with no error => url=>"<<url();
         qInfo()<<"NoError=> path=>"<<url().path();
         save(r->readAll());
+    }
+    else if(isNotFound(r)){
+        qCritical()<<"File not found in remote";
+        setDownloadState(FileDownloadStates::FileDownloadStatesEnum::FileNotFound);
     }
     else {
         qCritical()<<"Error";
@@ -282,31 +287,21 @@ void File::onDownloadFinishd()
 
 bool File::saveJson(QJsonArray array){
     QJsonDocument doc(array);
-    return save(doc.toJson());    
+    return save(doc.toJson());
 }
 
 bool File::save(QByteArray textContent){
-//    QFile file(url().path());
-//    if( file.open( QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate ) )
-//        {
-//            QTextStream iStream( &file );
-//            iStream.setCodec( "utf-8" );
-//            iStream << bytes;
-//            file.close();
-//        }
-//        else
-//        {
-//        return false;
-//        }
-//return true;
-
+    qDebug()<<"is going to save the file with size=> "<<textContent.count();
+    if(url().isEmpty()||!url().isValid()){
+        qWarning()<<"path of file was null";
+        return false;
+    }
     QFile f(url().path());
     if(!f.open(QIODevice::ReadWrite|QIODevice::Text|QIODevice::Truncate)){
         message()->setContent("فایل ذخیره نشد");
         setDownloadState(FileDownloadStates::FileDownloadStatesEnum::ErrorInSaving);
         return false;
     }
-    qDebug()<<"file size=> "<<textContent.count();
     f.write(textContent);
     f.close();
     if(f.exists()) {
@@ -326,13 +321,13 @@ void File::refreshPath()
     if(folderPath().isNull()||folderPath().isEmpty()){
         return;
     }
-    if(name().isNull()||name().isEmpty()){
+    if(imageName().isNull()||imageName().isEmpty()){
         return;
     }
     if(ext().isNull()||ext().isEmpty()){
         return;
     }
-    setUrl(QUrl::fromLocalFile(folderPath()+name()+"."+ext()));
+    setUrl(QUrl::fromLocalFile(folderPath()+imageName()+"."+ext()));
 }
 
 void File::makeSureFolderExsists()

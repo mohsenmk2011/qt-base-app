@@ -18,7 +18,6 @@ void LoginManager::login(QString un,QString pass)
         message()->setContent("کلمه عبور را وارد کنید");
         return;
     }
-    setIsProcssing(true);
 
     QUrlQuery postData;
     postData.addQueryItem("grant_type","password");
@@ -38,7 +37,6 @@ void LoginManager::login(QString code)
         message()->setContent("کد فعالسازی را وارد کنید");
         return;
     }
-    setIsProcssing(true);
 
     QUrlQuery postData;
     postData.addQueryItem("grant_type","hybrid");
@@ -148,7 +146,6 @@ void LoginManager::signUp(QString un,QString pass,QString passRepeat,QString cap
         message()->setContent("تصویر امنیتی را وارد کنید");
         return;
     }
-    setIsProcssing(true);
 
     QJsonObject jObj;
     jObj.insert("UserName",un.trimmed());

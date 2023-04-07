@@ -17,7 +17,7 @@ class File : public JooyaNetwork
 
     Q_PROPERTY(QString downloadLink READ downloadLink WRITE setDownloadLink NOTIFY downloadLinkChanged)
     Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QString imageName READ imageName WRITE setImageName NOTIFY imageNameChanged)
     Q_PROPERTY(int fileId READ fileId WRITE setFileId NOTIFY fileIdChanged)
 
     Q_PROPERTY(qint64 bytesSent READ bytesSent WRITE setBytesSent NOTIFY bytesSentChanged)
@@ -41,8 +41,8 @@ public:
     QUrl url();
     void setUrl(QUrl p);
 
-    QString name();
-    void setName(QString n);
+    QString imageName();
+    void setImageName(QString n);
 
     int fileId();
     void setFileId(int id);
@@ -80,7 +80,7 @@ public:
 signals:
  void downloadLinkChanged();
  void urlChanged();
- void nameChanged();
+ void imageNameChanged();
  void fileIdChanged();
  void upDownRatioChanged();
  void folderPathChanged();
