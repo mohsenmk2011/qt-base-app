@@ -7,10 +7,7 @@ import "../../jooyaQuickControls"
 JooyaGridView{
     id:keywordPage
     KeywordManager{
-        id:keyManager
-        onIsProcessingChanged: {
-            progressIndicatorVisible=isProcessing
-        }
+        id:keyManager        
 
     }
     property int parentId: 0
@@ -28,10 +25,10 @@ JooyaGridView{
     }
     model:keyManager.listModel
     onScrolledUp: {
-        btnAddUser.stateVisible=false
+        btnAdd.stateVisible=false
     }
     onScrolledDown: {
-        btnAddUser.stateVisible=true;
+        btnAdd.stateVisible=true;
     }
     ConfirmationDialog{
         id: deleteDialog
@@ -55,7 +52,7 @@ JooyaGridView{
             fillMode: Image.Pad
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            source: "/images/add.png"
+            source: "../../images/common/plus.png"
         }
         onClicked: {
             keyManager.addNewItem(parentId);

@@ -13,7 +13,6 @@ JooyaFlickable {
     property Keyword keyword: null
 
     Component.onCompleted: {
-        keyword.message=myMessage;
     }
     Connections{
         target:keyword

@@ -39,7 +39,7 @@ Rectangle{
             PropertyItemRow{
                 key: "تاریخ"
                 value: transaction.date
-                valueFontName: fl.name
+                valueFontName: flYekan.name
             }
             PropertyItemRow{
                 key: "شناسه ارجاع"

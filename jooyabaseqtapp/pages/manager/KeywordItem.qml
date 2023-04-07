@@ -1,23 +1,27 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
+import JooyaQuick.Controls.Material 1.0
 import QtQuick.Layouts 1.12
 import "../../jsf/Bootstrap.js" as Bs
 import Jooya 1.0
 import "../../jooyaQuickControls"
 
-Rectangle{
+Item{
     id: root
     signal itemClicked(Keyword keyword);
 
     property Keyword keyword: null
     Pane {
         id:pane
-        Material.elevation:3
+        Material.elevation:1
+        Material.background: MaterialStyle.backColor100
+        rightPadding: 18
+        leftPadding: 18
         padding: 0
         anchors.centerIn: parent
-        height: 60
-        width:parent.width-20
+        height: 63
+        width:parent.width-18
         MouseArea{
             anchors.fill: parent
             onClicked: {
@@ -30,12 +34,15 @@ Rectangle{
             Text {
                 id: txtValue
                 text: keyword.value
-                font.pixelSize: 12
-                color: "#3d3d3d"
+                color: MaterialStyle.primaryTextColor
                 Layout.fillHeight: true
                 width: parent.width/2
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
+                font{
+                    family: flYekan.name
+                    pixelSize: 18
+                }
             }
             Item {
                 Layout.fillWidth: true
@@ -49,12 +56,10 @@ Rectangle{
                     fillMode: Image.Pad
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "/images/delete-light.png"
+                    source: "../../images/common/delete.png"
                 }
                 onClicked: {
                     selectedKeyword=keyword;
-                    keyword.message=keywordPage.myMessage;
-                    keywordPage.progressIndicatorVisible=keyword.isProcessing;
                     deleteDialog.open();
                 }
             }
@@ -67,7 +72,7 @@ Rectangle{
                     fillMode: Image.Pad
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "/images/edit.png"
+                    source: "../../images/common/pencil.png"
                 }
                 onClicked: {
                     svManaging.push("/pages/manager/KeywordAddPage.qml",{keyword:keyword});
@@ -83,7 +88,7 @@ Rectangle{
                     fillMode: Image.Pad
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "/images/add.png"
+                    source: "../../images/common/plus.png"
                 }
                 onClicked: {
                     if(keyword.parentId==0){
