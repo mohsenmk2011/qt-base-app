@@ -3,7 +3,7 @@
         <file>main.qml</file>
         <file>fonts/IRANSans.ttf</file>
         <file>fonts/Yekan.ttf</file>
-        <file>images/Icon.ico</file>
+        <file>images/icon.ico</file>
         <file>jooyaQuickControls/CircleImage.qml</file>
         <file>jooyaQuickControls/CirclePercentIndicator.qml</file>
         <file>jooyaQuickControls/CircleSecondIndicator.qml</file>
