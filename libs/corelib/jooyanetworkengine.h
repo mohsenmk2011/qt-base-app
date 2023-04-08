@@ -47,6 +47,9 @@ public:
     bool isProcessing();
     void setIsProcssing(bool isProcessing);
 
+    bool displayCommonErrorMessage();
+    void setDisplayCommonErrorMessage(bool show);
+
     QString operationMessage();
     void setOperationMessage(QString message);
 
@@ -88,6 +91,7 @@ private:
     static QString m_ClientScopes;
     static QString m_ApiName;
     bool m_IsProccessing;
+    bool m_DisplayCommonErrorMessage;
     QString m_OperationMessage;
     OperationTypes::OperationTypesEnum m_OperationType;
 };

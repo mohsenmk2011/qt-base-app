@@ -209,6 +209,7 @@ void BaseUser::getLastImage()
     }
     qInfo()<<"last image date => "<<m_DateTimeUtility.fromDateTime(lastImage()->date());
     qInfo()<<"last image date => "<<lastImage()->date();
+    setDisplayCommonErrorMessage(false);
     QNetworkReply* reply= getRequest(QString("api/User/LastImage?date=%1").arg(m_DateTimeUtility.fromDateTime(lastImage()->date())));
     connect(reply,SIGNAL(finished()),this,SLOT(getLastImageFinished()));
 }
@@ -217,7 +218,7 @@ void BaseUser::getLastImageFinished()
 {
     QNetworkReply* r=convertToReply(sender());
     if(isNotFound(r)) {
-        qDebug()<<"No new user image";
+        qDebug()<<"user don't have any image,or don't have newer one";
         m_CheckedLastImage=true;
         return;
     }

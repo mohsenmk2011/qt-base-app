@@ -142,6 +142,7 @@ void JooyaNetwork::currentReplyFinished(QNetworkReply* r)
 {
     checkCommonErrors(r);
     setIsProcssing(false);
+    setDisplayCommonErrorMessage(true);
     setOperationType(OperationTypes::OperationTypesEnum::NoOperation);
     emit requestFinished(r->error()==QNetworkReply::NoError);
 }
@@ -164,9 +165,10 @@ void JooyaNetwork::checkCommonErrors(QNetworkReply* r)
         return;
     }
     qWarning()<<"***[ ErrorString => "<<r->errorString()<<" ]***";
+    QString m= "";
     if(httpCode==0&& !r->bytesAvailable())
     {
-        message()->setContent("اتصال اینترنت را بررسی کنید");
+        m = "اتصال اینترنت را بررسی کنید";
         qDebug()<<"NetworkManager::readReplyMessage =>content="<<message()->content();
         qInfo()<<"faild url=> "<<r->url().path();
         emit connectionError();
@@ -174,29 +176,33 @@ void JooyaNetwork::checkCommonErrors(QNetworkReply* r)
     else if(httpCode==405)
     {
         if(r->errorString().contains("Method Not Allowed")){
-            message()->setContent("چنین متدی تعریف نشده است");
+            m = "چنین متدی تعریف نشده است";
         }
         else{
-            message()->setContent(QString("خطای شماره %1 رخ داد").arg(httpCode));
+            m = QString("خطای شماره %1 رخ داد").arg(httpCode);
         }
     }
     else if(httpCode==403)//UnAuthorized
     {
-        message()->setContent("دسترسی غیر مجاز");
+        m = "دسترسی غیر مجاز";
         emit unAuthorizedAccess();
     }
     else if(httpCode==404)
     {
-        message()->setContent("آدرس یا منبع مورد نظر یافت نشد");
+        m = "آدرس یا منبع مورد نظر یافت نشد";
     }
     else if(httpCode==500)
     {
         qCritical()<<"Error ==>> "<<r->readAll();
-        message()->setContent("خطای سرور");
+        m = "خطای سرور";
     }
     else
     {
-        message()->setContent(QString("خطای شماره %1 رخ داد").arg(httpCode));
+        m = QString("خطای شماره %1 رخ داد").arg(httpCode);
+    }
+    if(displayCommonErrorMessage()&&!m.isNull()&&!m.isEmpty())
+    {
+        message()->setContent(m);
     }
 }
 

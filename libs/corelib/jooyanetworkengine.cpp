@@ -3,6 +3,7 @@
 JooyaNetworkEngine::JooyaNetworkEngine(QObject *parent) : QObject(parent)
 {
     m_IsProccessing=false;
+    m_DisplayCommonErrorMessage = true;
     m_OperationType=OperationTypes::OperationTypesEnum::NoOperation;
     m_OperationMessage="";
 }
@@ -54,6 +55,16 @@ void JooyaNetworkEngine::setIsProcssing(bool isProcessing)
 {
     m_IsProccessing=isProcessing;
     emit isProcessingChanged(m_IsProccessing);
+}
+
+bool JooyaNetworkEngine::displayCommonErrorMessage()
+{
+    return m_DisplayCommonErrorMessage;
+}
+
+void JooyaNetworkEngine::setDisplayCommonErrorMessage(bool show)
+{
+    m_DisplayCommonErrorMessage = show;
 }
 
 QString JooyaNetworkEngine::operationMessage()
