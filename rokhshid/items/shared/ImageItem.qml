@@ -6,17 +6,15 @@ import JooyaQuick.Controls.Material 1.0
 import Jooya 1.0
 import "../../jooyaQuickControls"
 
-Rectangle{
+Item{
     id:imgContainer
 
     property ImageFile imageFile: null
-
-
-//    Layout.minimumHeight: imageFile.isDownloaded? img.height:imageMinHeight
+    property string defaultImageUrl: "../../images/common/image-filter-hdr.png"
     clip: true
     Image {
         id: imgDefualt
-        source: "../../../images/common/image-filter-hdr.png"
+        source:defaultImageUrl
         width: 27
         height: 27
         visible: !img.visible
@@ -25,9 +23,9 @@ Rectangle{
     }
     Image {
         id:img
-        visible: imageFile.isDownloaded
+        visible: imageFile!=null&&imageFile.isDownloaded
         anchors.centerIn: parent
-        source: imageFile.isDownloaded? imageFile.url:""
+        source: (imageFile!=null&&imageFile.isDownloaded)? imageFile.url:""
         width: parent.width
         height: parent.height
         fillMode: Image.PreserveAspectFit
@@ -52,7 +50,7 @@ Rectangle{
         Material.elevation: 1
         contentItem: Image {
             fillMode: Image.Pad
-            source: "../../../images/common/download.png"
+            source: "../../images/common/download.png"
         }
         JooyaToolTip {
             text:"دانلود عکس"
