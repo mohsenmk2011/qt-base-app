@@ -10,7 +10,6 @@ UserProfile::UserProfile(QObject *parent) : User(parent)
     m_CanTakePic=false;
     m_ListModel.add(new UserImage());
     connect(&m_ListModel,SIGNAL(deletedItem()),this,SLOT(onImageDeleted()));
-    connect(&m_ListModel,SIGNAL(itemAdded(UserImage*)),this,SLOT(itemAddedToListModel(UserImage*)));
 }
 
 bool UserProfile::canTakePic()
@@ -211,6 +210,7 @@ void UserProfile::fromJson(QJsonObject obj){
 
     m_ListModel.removeRows();
     if(canTakePic()){
+        qInfo()<<"is adding default image";
         m_ListModel.add(new UserImage());
     }
     if(array.count()>0){
