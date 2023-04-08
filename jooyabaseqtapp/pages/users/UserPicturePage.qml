@@ -63,6 +63,8 @@ JooyaPage{
     UserProfile{
         id: userProfile
         displayName: tfDisplayName.text
+        userName: tfUserName.text
+        email: tfEmail.text
         onProfileChanged: {
             baseUser.getUserInfo(true);
         }
@@ -204,8 +206,15 @@ JooyaPage{
                 Layout.topMargin: 36
                 placeholderText: "نام کاربری"
                 Layout.fillWidth: true
-                text: userName
+                text: userProfile.userName
                 enabled: false
+            }
+            JooyaTextField{
+                id: tfEmail
+                Layout.topMargin: 36
+                placeholderText: "ایمیل"
+                Layout.fillWidth: true
+                text: userProfile.email
             }
             JooyaTextField{
                 id: tfUserScore

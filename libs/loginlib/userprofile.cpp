@@ -168,7 +168,8 @@ QJsonObject UserProfile::readFields(){
 //    jObj.insert("lastName",lastName());
 //    jObj.insert("gender",gender()?"true":"false");
 //    jObj.insert("phoneNumber",phoneNumber());
-//    jObj.insert("email",email());
+       jObj.insert("userName",userName());
+       jObj.insert("email",email());
     return jObj;
 }
 
@@ -202,7 +203,8 @@ void UserProfile::fromJson(QJsonObject obj){
 //    setLastName(obj.value("lastName").toString());
 //    setGender(obj.value("gender").toBool());
 //    setPhoneNumber(obj.value("phoneNumber").toString());
-//    setEmail(obj.value("email").toString());
+    setEmail(obj.value("email").toString());
+    setUserName(obj.value("userName").toString());
 
     setIsSupporter(obj.value("isSupporter").toBool());
     setCanTakePic(obj.value("canTakeNewPicture").toBool());
