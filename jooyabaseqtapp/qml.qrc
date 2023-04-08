@@ -376,5 +376,6 @@
         <file>images/common/pencil.png</file>
         <file>pages/HomePage.qml</file>
         <file>AppIcon.rc</file>
+        <file>items/shared/ImageItem.qml</file>
     </qresource>
 </RCC>
