@@ -135,10 +135,7 @@ JooyaPage{
                         UserImageItem{
                             width: svUserImages.width
                             height: svUserImages.height
-                            userImage: argUserImage
-                            onDeleteItem: {
-                                console.log("item deleted id=> "+itemId);
-                            }
+                            userImage: argUserImage                            
                         }
                     }
                 }
@@ -157,13 +154,13 @@ JooyaPage{
                         fillMode: Image.Pad
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: (userProfile.canTakePic&&currentImage.isDefault)?"../../images/common/camera.png": "../../images/common/delete.png"
+                        source: (userProfile.canTakePic)?"../../images/common/camera.png": "../../images/common/delete.png"
                     }
                     JooyaToolTip {
-                        text:(userProfile.canTakePic&&currentImage.isDefault)? "گرفتن عکس":"حذف کردن عکس"
+                        text:(userProfile.canTakePic)? "گرفتن عکس":"حذف کردن عکس"
                     }
                     onClicked: {
-                        if(userProfile.canTakePic&&currentImage.isDefault){
+                        if(userProfile.canTakePic){
 
                             if(permissionManager.requestCamera()){
                                 sv.push("../../pages/TakePicturePage.qml",{up:userProfile});

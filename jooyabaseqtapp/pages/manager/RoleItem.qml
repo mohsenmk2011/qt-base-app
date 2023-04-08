@@ -51,7 +51,7 @@ Pane{
                 source: "../../images/common/pencil.png"
             }
             onClicked: {
-                svManaging.push("/pages/manager/RoleAddPage.qml",{role:role});
+                svManaging.push("RoleAddPage.qml",{role:role});
             }
         }
 
