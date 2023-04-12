@@ -50,6 +50,7 @@ DISTFILES += \
     android/src/org/jooya/jooyaqtapplication/JooyaApplication.java \
     android/src/org/jooya/jooyaqtapplication/MainActivity.java \
     android/src/org/jooya/jooyaqtapplication/NotificationClient.java \
+    android/src/org/jooya/jooyaqtapplication/PackageinfoManager.java \
     android/src/org/jooya/jooyaqtapplication/QtAndroidService.java \
     android/src/org/jooya/jooyaqtapplication/ReminderBroadcastReceiver.java \
     android/src/org/jooya/jooyaqtapplication/ServiceBroadcastUtility.java \

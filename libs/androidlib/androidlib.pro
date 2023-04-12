@@ -23,6 +23,7 @@ SOURCES += \
     jooyaandroidcontext.cpp \
     mainandroidactivity.cpp \
     notificationclient.cpp \
+    packageinfomanager.cpp \
     sharemanager.cpp \
     androidpermissionmanager.cpp \
     smsmanager.cpp
@@ -39,6 +40,7 @@ HEADERS += \
     jooyaandroidcontext.h \
     mainandroidactivity.h \
     notificationclient.h \
+    packageinfomanager.h \
     permissiontypes.h \
     sharemanager.h \
     androidpermissionmanager.h \
