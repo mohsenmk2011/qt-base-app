@@ -147,7 +147,7 @@ JooyaPage{
                     width: 72
                     height: 72
                     highlighted: true
-                    enabled: !(currentImage==null||userProfile.isProcessing||(currentImage!=null&& currentImage.isProcessing))
+                    enabled: !currentImage.isProcessing
                     anchors.top: parent.bottom
                     anchors.topMargin: -width/2
                     anchors.right: parent.right
@@ -156,10 +156,10 @@ JooyaPage{
                         fillMode: Image.Pad
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: (userProfile.canTakePic)?"../../images/common/camera.png": "../../images/common/delete.png"
+                        source: (currentImage.isDownloaded)?"../../images/common/delete.png": "../../images/common/camera.png"
                     }
                     JooyaToolTip {
-                        text:(userProfile.canTakePic)? "گرفتن عکس":"حذف کردن عکس"
+                        text:!currentImage.isDownloaded? "گرفتن عکس":"حذف کردن عکس"
                     }
                     onClicked: {
                         if(userProfile.canTakePic){

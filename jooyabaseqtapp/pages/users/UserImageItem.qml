@@ -6,9 +6,11 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.15
 import JooyaQuick.Controls.Material 1.0
 import "../../items/shared"
-Item{
+
+Rectangle{
     id:itemimg
     property UserImage userImage: null
+    color: MaterialStyle.backColor200
 
     ImageItem{
         imageFile: userImage

@@ -105,12 +105,10 @@ Page {
                 sv.replace("pages/HomePage.qml");
             }
         }
-        else if(fileName==="UserPicturePage"){
-            if(sv.currentItem.objectName=="UserPicturePage"){
-                sv.replaceEnter.enabled=false;
-                QmlLive.clearCache();
-                sv.replace("pages/users/UserPicturePage.qml",{baseUser:baseUser});
-            }
+        else if(fileName==="UserPicturePage"||fileName==="UserImageItem"){
+            sv.replaceEnter.enabled=false;
+            QmlLive.clearCache();
+            sv.replace("pages/users/UserPicturePage.qml",{baseUser:baseUser});
         }
         else if(fileName==="SettingsPage"){
                 sv.replaceEnter.enabled=false;

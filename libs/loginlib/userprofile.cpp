@@ -210,12 +210,12 @@ void UserProfile::fromJson(QJsonObject obj){
     setCanTakePic(obj.value("canTakeNewPicture").toBool());
     QJsonArray array=obj.value("images").toArray();
 
-    m_ListModel.removeRows();
     if(canTakePic()){
         qInfo()<<"is adding default image";
         m_ListModel.add(new UserImage());
     }
     if(array.count()>0){
+        m_ListModel.removeRows();
         for (int i = array.count()-1; i >= 0; --i) {
             QJsonObject obj=array.at(i).toObject();
             UserImage* img=new UserImage(obj);
