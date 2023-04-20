@@ -8,6 +8,7 @@ class Order : public JooyaNetwork
 {
     Q_OBJECT
     Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString billId READ billId WRITE setBillId NOTIFY billIdChanged)
     Q_PROPERTY(int price READ price WRITE setPrice NOTIFY priceChanged)
     Q_PROPERTY(QString date READ date WRITE setDate NOTIFY dateChanged)
     Q_PROPERTY(bool paid READ paid WRITE setPaid NOTIFY paidChanged)
@@ -50,6 +51,9 @@ public:
     Q_INVOKABLE void load(QString userId);
     Q_INVOKABLE void manualPay();
 
+    const QString &billId() const;
+    void setBillId(const QString &newBillId);
+
 signals:
     void idChanged();
     void priceChanged();
@@ -60,6 +64,8 @@ signals:
     void hasDiscountChanged();
     void priceWithDiscountChanged();
     void dicountPercentChanged();
+    void billIdChanged();
+
 private:
     int m_Id;
     int m_Price;
@@ -71,6 +77,8 @@ private:
     bool m_HasDiscount;
     int m_PriceWithDiscount;
     void readOrder(QByteArray json);
+    QString m_billId;
+
 private slots:
     void loadFinished();
     void manualPayFinished();

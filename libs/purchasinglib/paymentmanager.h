@@ -9,6 +9,7 @@
 #include<paymentresult.h>
 #include<QJsonArray>
 #include<transactionlistmodel.h>
+#include<order.h>
 
 class PaymentManager : public JooyaNetwork
 {
@@ -20,7 +21,7 @@ class PaymentManager : public JooyaNetwork
     Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
     Q_PROPERTY(int loadProgress READ loadProgress WRITE setLoadProgress NOTIFY loadProgressChanged)
 
-    Q_PROPERTY(int orderId READ orderId WRITE setOrderId NOTIFY orderIdChanged)
+    Q_PROPERTY(Order* order READ order WRITE setOrder NOTIFY orderChanged)
     Q_PROPERTY(bool isPageLoading READ isPageLoading WRITE setIsPageLoading NOTIFY isPageLoadingChanged)
 
 public:
@@ -39,15 +40,16 @@ public:
     int loadProgress();
     void setLoadProgress(int lp);
 
-    int orderId();
-    void setOrderId(int oId);
-
     bool isPageLoading();
     void setIsPageLoading(bool loading);
 
     void readTransactions(QString r);
     Q_INVOKABLE void getTransactions();
     TransactionListModel *transactions();
+
+    Order *order() const;
+    void setOrder(Order *newOrder);
+
 signals:
     void payRequestSucceed(bool succeed, QString argUrl);
     void paymentResultChanged(PaymentResult* argPaymentResult);
@@ -58,10 +60,11 @@ signals:
     void resultPageLoaded();
     void resultPageStartToLoad();
     void bankPageLoaded();
-    void orderIdChanged();
 
     void paymentFinished(bool argSucceed);
     void isPageLoadingChanged();
+
+    void orderChanged();
 
 private slots:
     void reqPayFinished();
@@ -80,7 +83,7 @@ private:
 
     PaymentResult *readPaymentResult(QString r);
     TransactionListModel m_Transactions;
-    int m_OrderId;
+    Order *m_order = nullptr;
 };
 
 #endif // PAYMENTMANAGER_H

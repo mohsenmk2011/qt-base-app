@@ -6,19 +6,19 @@ PaymentManager::PaymentManager(QObject *parent) : JooyaNetwork(parent)
     m_RefId="";
     m_Url="";
     m_LoadProgress=0;
-    m_OrderId=0;
+    m_order= nullptr;
 
     m_PaymentResult=new PaymentResult(false,"در حال دریافت نتیجه تراکنش");
 }
 
 void PaymentManager::pay()
 {
-    if(orderId()<=0){
+    if(order()->id()<=0){
         message()->setContent("شناسه سفارش معتبر نیست");
         return;
     }
     setIsProcssing(true);
-    QNetworkReply* reply=getRequest(QString("api/Order/Pay/%1").arg(orderId()));
+    QNetworkReply* reply=getRequest(QString("api/Order/Pay/%1").arg(order()->id()));
     connect(reply,SIGNAL(finished()),this,SLOT(reqPayFinished()));
 }
 
@@ -33,9 +33,10 @@ void PaymentManager::reqPayFinished(){
         QJsonDocument doc=QJsonDocument::fromJson(r->readAll());
         QJsonObject obj=doc.object();
         m_RefId= obj.value("refId").toString();
-        qDebug()<<"RefId="<<m_RefId;
-        //TODO: Change this after creating new branch from master branch
-        emit payRequestSucceed(true,"https://jooyabash.ir/order/PayFromApp/"+m_RefId);
+        order()->setBillId( obj.value("billId").toString());
+        qDebug()<<"RefId=> "<<m_RefId;
+        qDebug()<<"billId=> "<<order()->billId();
+        emit payRequestSucceed(true,QString("https://jooyabash.ir/order/PayFromApp/%1?billId=%2").arg(m_RefId).arg(order()->billId()));
     }
     else {
         showMessage(r);
@@ -107,18 +108,6 @@ void PaymentManager::setLoadProgress(int lp)
     }
 }
 
-int PaymentManager::orderId()
-{
-    return m_OrderId;
-}
-
-void PaymentManager::setOrderId(int oId)
-{
-    if(m_OrderId!=oId){
-        m_OrderId=oId;
-        emit orderIdChanged();
-    }
-}
 
 bool PaymentManager::isPageLoading()
 {
@@ -145,7 +134,7 @@ void PaymentManager::setIsPageLoading(bool loading)
 void PaymentManager::getResult(){
     qDebug()<<"is getting result";
     setIsProcssing(true);
-    QString url=QString("api/Order/Result/%1").arg(orderId());
+    QString url=QString("api/Order/Result/%1").arg(order()->id());
     qDebug()<<url;
     QNetworkReply* reply=getRequest(url);
     connect(reply,SIGNAL(finished()),this,SLOT(getResultFinished()));
@@ -186,7 +175,7 @@ void PaymentManager::getTransactions(){
 //        return;
 //    }
     qDebug()<<"=>started";
-    QString url=QString("api/Order/Transactions/%1").arg(orderId());
+    QString url=QString("api/Order/Transactions/%1").arg(order()->id());
     QNetworkReply* reply=getRequest(url);
     connect(reply,SIGNAL(finished()),this,SLOT(reqGetTransactionsFinished()));
 }
@@ -216,6 +205,20 @@ void PaymentManager::readTransactions(QString r){
         m_Transactions.add(new Transaction(obj.value("id").toString(),obj.value("date").toString(),obj.value("resultMessage").toString(),obj.value("shenasehErjaTarakonesh").toString(),obj.value("dargah").toString(),obj.value("creditCardNumber").toString()));
     }
 }
+
 TransactionListModel* PaymentManager::transactions(){
     return &m_Transactions;
+}
+
+Order *PaymentManager::order() const
+{
+    return m_order;
+}
+
+void PaymentManager::setOrder(Order *newOrder)
+{
+    if (m_order == newOrder)
+        return;
+    m_order = newOrder;
+    emit orderChanged();
 }

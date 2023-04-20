@@ -42,7 +42,7 @@ JooyaPage{
     }
     PaymentManager {
         id:paymentManager
-        orderId: order.id
+        order: order
         onPayRequestSucceed: {
             if(succeed){
                 webview.url=argUrl;

@@ -195,3 +195,16 @@ void Order::readOrder(QByteArray json)
     setHasDiscount(obj.value("hasDiscount").toBool());
 }
 
+
+const QString &Order::billId() const
+{
+    return m_billId;
+}
+
+void Order::setBillId(const QString &newBillId)
+{
+    if (m_billId == newBillId)
+        return;
+    m_billId = newBillId;
+    emit billIdChanged();
+}
