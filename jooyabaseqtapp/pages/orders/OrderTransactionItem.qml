@@ -39,7 +39,8 @@ Rectangle{
             PropertyItemRow{
                 key: "تاریخ"
                 value: transaction.date
-                valueFontName: flYekan.name
+                valueFontName: flIranSanse.name
+
             }
             PropertyItemRow{
                 key: "شناسه ارجاع"
@@ -56,8 +57,6 @@ Rectangle{
             PropertyItemRow{
                 key: "نتیجه پرداخت"
                 value: transaction.resultMessage
-                keyColor:transaction.shenasehErja=="0"?"#ef9a9a": "#c8e6c9"
-                valueColor: transaction.shenasehErja=="0"?"#ef9a9a": "#c8e6c9"
 
                 keyTextColor: transaction.shenasehErja=="0"?"#b71c1c": "#1b5e20"
                 valueTextColor: transaction.shenasehErja=="0"?"#b71c1c": "#1b5e20"

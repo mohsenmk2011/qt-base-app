@@ -39,16 +39,14 @@ JooyaPage{
         onIsProcessingChanged: {
             progressIndicator.visible=isProcessing;
         }
+
     }
     PaymentManager {
         id:paymentManager
         order: order
         onPayRequestSucceed: {
             if(succeed){
-                webview.url=argUrl;
-            }
-            else{
-                progressIndicator.visible=false;
+                Qt.openUrlExternally(argUrl);
             }
         }
         onBankPageLoaded: {
@@ -370,26 +368,9 @@ JooyaPage{
             }
         }
 
-        JooyaPage  {
-            id:pageLoader
-            WebView{
-                id:webview
-                anchors.fill: parent
-
-                onUrlChanged: {
-                    console.log("webveiw url changed to "+webview.url);
-                    paymentManager.url=url;
-                }
-                onLoadingChanged: {
-                    progressIndicator.visible=loading;
-                    paymentManager.isPageLoading=loading;
-                }
-                onLoadProgressChanged: {
-                    paymentManager.loadProgress=loadProgress;
-                }
-            }
-        }
-
+    }
+    ProgressIndicator{
+        id: progressIndicator
     }
     ConfirmationDialog{
         id:dlgManualPay
@@ -400,28 +381,6 @@ JooyaPage{
     OrderPaymentResultDlg{
         id:dlgPaymentResult
         paymentResult: paymentManager.paymentResult
-    }
-    footer: TabBar{
-        visible:CurrentUser.isAdmin
-        currentIndex: swipView.currentIndex
-        TabButton{
-            text: "سبد"
-            font{
-                family: flYekan.name
-            }
-            onClicked: {
-                swipView.setCurrentIndex(0)
-            }
-        }
-        TabButton{
-            text: "صفحه بانک"
-            font{
-                family: flYekan.name
-            }
-            onClicked: {
-                swipView.setCurrentIndex(1)
-            }
-        }
     }
 }
 

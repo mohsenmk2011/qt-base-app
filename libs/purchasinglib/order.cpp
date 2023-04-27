@@ -146,20 +146,42 @@ void Order::setDiscountPercent(int percent)
 
 void Order::load(QString userId)
 {
-    setIsProcssing(true);
     QNetworkReply* r= getRequest(QString("api/Order?userId=%1").arg(userId));
     connect(r,SIGNAL(finished()),this,SLOT(loadFinished()));
 }
+
 void Order::loadFinished()
 {
     QNetworkReply* r=convertToReply(sender());
     if(r->error()==QNetworkReply::NoError){
         readOrder(r->readAll());
+        //if payment not paid and has billId so get the result of payment
+        if(!paid()&&!(billId().isNull()||billId().isEmpty()))
+        {
+            getPaymentResult();
+        }
     }
     else{
         showMessage(r);
     }
     setIsProcssing(false);
+}
+
+void Order::getPaymentResult()
+{
+    QNetworkReply* r= getRequest(QString("api/Order/Result/%1").arg(id()));
+    connect(r,SIGNAL(finished()),this,SLOT(getPaymentResultFinished()));
+
+}
+void Order::getPaymentResultFinished()
+{
+    QNetworkReply* r= convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError){
+        setPaid(true);
+    }
+    else{
+        showBadMessage(r->readAll());
+    }
 }
 
 void Order::manualPay()
@@ -181,11 +203,13 @@ void Order::manualPayFinished()
 
 void Order::readOrder(QByteArray json)
 {
+    qDebug()<<"order=> "<<json;
     QJsonDocument doc= QJsonDocument::fromJson(json);
     QJsonObject obj= doc.object();
     setId(obj.value("id").toInt());
     setDate(obj.value("date").toString());
     setPaid(obj.value("paid").toBool());
+    setBillId(obj.value("billId").toString());
     setManualPaid(obj.value("manualPaid").toBool());
     qDebug()<<"manualPaid="<<manualPaid();
     setPrice(obj.value("price").toInt());

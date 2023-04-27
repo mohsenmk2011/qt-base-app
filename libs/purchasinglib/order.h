@@ -49,6 +49,7 @@ public:
     void setDiscountPercent(int percent);
     //==========
     Q_INVOKABLE void load(QString userId);
+    void getPaymentResult();
     Q_INVOKABLE void manualPay();
 
     const QString &billId() const;
@@ -81,6 +82,7 @@ private:
 
 private slots:
     void loadFinished();
+    void getPaymentResultFinished();
     void manualPayFinished();
 };
 
