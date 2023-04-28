@@ -44,6 +44,7 @@ DISTFILES += \
     android/src/org/jooya/jooyaqtapplication/AlarmActivity.java \
     android/src/org/jooya/jooyaqtapplication/AlarmWorker.java \
     android/src/org/jooya/jooyaqtapplication/AppBroadcastUtility.java \
+    android/src/org/jooya/jooyaqtapplication/DeepLinkManager.java \
     android/src/org/jooya/jooyaqtapplication/DownloadWorker.java \
     android/src/org/jooya/jooyaqtapplication/JSInterface.java \
     android/src/org/jooya/jooyaqtapplication/JooyaAlarmManager.java \

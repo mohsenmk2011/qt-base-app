@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include<jooyanetwork.h>
+#include<applicationsettings.h>
+#include<androiddeeplinkmanager.h>
 
 class Order : public JooyaNetwork
 {
@@ -49,7 +51,7 @@ public:
     void setDiscountPercent(int percent);
     //==========
     Q_INVOKABLE void load(QString userId);
-    void getPaymentResult();
+    Q_INVOKABLE void getPaymentResult(int orderid=0);
     Q_INVOKABLE void manualPay();
 
     const QString &billId() const;

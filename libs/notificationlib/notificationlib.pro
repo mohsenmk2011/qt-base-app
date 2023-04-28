@@ -48,6 +48,11 @@ HEADERS += \
     usernotificationinfo.h
 
 android{
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../androidlib/release/ -landroidlib_armeabi-v7a
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../androidlib/debug/ -landroidlib_armeabi-v7a
+else:unix: LIBS += -L$$OUT_PWD/../androidlib/ -landroidlib_armeabi-v7a
+
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../corelib/release/ -lcorelib_armeabi-v7a
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../corelib/debug/ -lcorelib_armeabi-v7a
 else:unix: LIBS += -L$$OUT_PWD/../corelib/ -lcorelib_armeabi-v7a
@@ -65,6 +70,9 @@ win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../networklib/release/
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../networklib/debug/ -lnetworklib
 else:unix: LIBS += -L$$OUT_PWD/../networklib/ -lnetworklib
 }
+INCLUDEPATH += $$PWD/../androidlib
+DEPENDPATH += $$PWD/../androidlib
+
 INCLUDEPATH += $$PWD/../corelib
 DEPENDPATH += $$PWD/../corelib
 

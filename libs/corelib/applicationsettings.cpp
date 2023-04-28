@@ -27,6 +27,16 @@ void ApplicationSettings::setTheme(QString t)
     emit themeChanged();
 }
 
+void ApplicationSettings::setDefaultTheme(QString t)
+{
+    set("DefaultTheme",t);
+}
+
+QString ApplicationSettings::defaultTheme()
+{
+    return get("DefaultTheme").toString();
+}
+
 QString ApplicationSettings::userInfo()
 {
     return get("userInfo").toString();
@@ -35,6 +45,16 @@ QString ApplicationSettings::userInfo()
 void ApplicationSettings::setUserInfo(QString t)
 {
     set("userInfo",t);
+}
+
+QString ApplicationSettings::lastTriedPaymentOrderId()
+{
+    return get("lastTriedPaymentOrderId").toString();
+}
+
+void ApplicationSettings::setLastTriedPaymentOrderId(QString id)
+{
+    set("lastTriedPaymentOrderId",id);
 }
 
 bool ApplicationSettings::seenAppIntroducing()
@@ -47,4 +67,3 @@ void ApplicationSettings::setSeenAppIntroducing(bool seen)
     set("seenAppIntroducing",seen);
     void seenAppIntroducingChanged();
 }
-

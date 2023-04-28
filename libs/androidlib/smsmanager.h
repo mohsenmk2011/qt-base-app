@@ -2,8 +2,6 @@
 #define SMSMANAGER_H
 
 #include <QObject>
-
-#include <QObject>
 #include <QtDebug>
 #if defined(Q_OS_ANDROID)
 #include <QtAndroid>
@@ -17,7 +15,6 @@ class SmsManager : public QObject
     Q_OBJECT
 public:
     explicit SmsManager(QObject *parent = nullptr);
-
 
     static SmsManager *instance() { return m_instance; }
     void registerNativesMethod();

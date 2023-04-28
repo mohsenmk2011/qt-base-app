@@ -174,7 +174,9 @@ void JooyaNetworkEngine::setOperationType(OperationTypes::OperationTypesEnum o)
  }
 
  UserLoginInfo* JooyaNetworkEngine::m_loginInfo=new UserLoginInfo();
+
  AndroidServiceManager* JooyaNetworkEngine::m_AndroidServiceManager = new AndroidServiceManager();
+ AndroidManager* JooyaNetworkEngine::m_AndroidManager =new AndroidManager();
  FileWatcher* JooyaNetworkEngine::m_FileWather;//=new FileWatcher();
 
 

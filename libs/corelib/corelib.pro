@@ -14,6 +14,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    androidmanager.cpp \
     androidservicemanager.cpp \
     applicationpath.cpp \
     applicationsettings.cpp \
@@ -24,7 +25,6 @@ SOURCES += \
     filewatcher.cpp \
     itemsvisiblestate.cpp \
     jooyaapplication.cpp \
-    jooyaapplicationsettings.cpp \
     jooyafile.cpp \
     jooyafont.cpp \
     jooyaimage.cpp \
@@ -41,6 +41,7 @@ SOURCES += \
     userloginsettings.cpp
 
 HEADERS += \
+    androidmanager.h \
     androidservice.h \
     androidservicemanager.h \
     applicationpath.h \
@@ -53,7 +54,6 @@ HEADERS += \
     filewatcher.h \
     itemsvisiblestate.h \
     jooyaapplication.h \
-    jooyaapplicationsettings.h \
     jooyafile.h \
     jooyafont.h \
     jooyaimage.h \

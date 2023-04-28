@@ -199,6 +199,19 @@ Page {
             }
         }
     }
+    AndroidDeepLinkManager{
+        id:adlm
+        onNewOrderIdReceived: {
+            console.error("main.qml=> jooya new order id received"+orderId);
+            drawerPaymentResult.orderId = orderId;
+            drawerPaymentResult.open();
+        }
+    }
+    Order{
+        id:order
+
+    }
+
     Audio{
         id:aPlayer
     }
@@ -224,6 +237,9 @@ Page {
         console.info("#########################################################################")
         setAnimationEnabling(false);
         if(CurrentUser.isLoggedIn){
+            //check deep link here
+            //in rokhshid it inserted after loading exercises
+            //adlm.checkDeepLink();
             sv.push("pages/HomePage.qml");
             WebSocketManager.open();
         }
@@ -791,6 +807,110 @@ Page {
         id: rSettings
         objectName: "settingManager"
     }
+    Drawer{
+        id:drawerPaymentResult
+        height: parent.height/3
+        width: parent.width
+        edge: Qt.BottomEdge
+        interactive: false
+        property int orderId: 0
+
+        onOpened: {
+            if(!order.paid&&orderId!=0){
+                order.getPaymentResult(drawerPaymentResult.orderId)
+            }
+        }
+        ToolButton{
+            id:btnClosePaymentResult
+            Material.elevation: 1
+            width: 63
+            height: 63
+            Material.background: MaterialStyle.backColor50
+            contentItem: ImageOverlay {
+                width: 27
+                height: 27
+                fillMode: Image.Pad
+                source: "images/common/window-close.png"
+            }
+            onClicked: {
+                drawerPaymentResult.close();
+            }
+        }
+
+        ColumnLayout{
+            anchors.fill: parent
+            spacing: 0
+
+            Pane{
+                Material.background: MaterialStyle.backColor100
+                Material.elevation: 1
+                Layout.alignment: Qt.AlignHCenter
+                Layout.rightMargin: 18
+                Layout.leftMargin: 18
+                Layout.topMargin: 63
+                Layout.fillWidth: true
+
+                Text {
+                    anchors.fill: parent
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: {
+                        if(drawerPaymentResult.orderId==0)
+                        {
+                            return "لینک پراخت کلیک نشده است"
+                        }
+                        if(order.isProcessing)
+                        {
+                            return "در حال دریافت نتیجه پرداخت"
+                        }
+                        if(order.paid){
+                            return "پرداخت موفقیت آمیز بوده است"
+                        }
+                        else{
+                            return "پرداخت با شکست مواجه شد"
+
+                        }
+                    }
+
+                    color: MaterialStyle.primaryTextColor
+                    font{
+                        pixelSize: 18
+                        family: flYekan.name
+                        bold: true
+                    }
+                }
+            }
+            JooyaButton{
+                id:btnCopyShareLink
+                Layout.topMargin: 18
+                Layout.rightMargin: 36
+                Layout.leftMargin: 36
+                text:"مشاهده سبد خرید"
+                enabled: !order.isProcessing
+                onClicked: {
+                    if(!isBasketVisible){
+                        sv.push("pages/orders/BaskeBankPage.qml");
+                    }
+                    drawerPaymentResult.close();
+                }
+            }
+            ProgressBar{
+                visible:order.isProcessing
+                height: 3
+                Layout.topMargin: 0
+                Layout.fillWidth: true
+                Layout.rightMargin: 36
+                Layout.leftMargin: 36
+                indeterminate: true
+            }
+            Item {
+                Layout.fillHeight: true
+            }
+        }
+
+    }
+
     MessageBar{
         id: messageBar
     }

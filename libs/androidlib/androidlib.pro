@@ -16,6 +16,7 @@ CONFIG += c++17
 SOURCES += \
     alarminfo.cpp \
     alarmmanager.cpp \
+    androiddeeplinkmanager.cpp \
     androidfiledialog.cpp \
     androidsplashanimator.cpp \
     androidutility.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     alarminfo.h \
     alarmmanager.h \
     alarmtypes.h \
+    androiddeeplinkmanager.h \
     androidfiledialog.h \
     androidlib.h \
     androidsplashanimator.h \

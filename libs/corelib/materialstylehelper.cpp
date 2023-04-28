@@ -184,7 +184,7 @@ void MaterialStyleHelper::refreshBackgroundColors()
 void MaterialStyleHelper::saveThemeInSettings()
 {
     qInfo()<<"theme style changed=> save in settings";
-    JooyaApplicationSettings s;
+    ApplicationSettings s;
     qInfo()<<"m_MaterialStyleHelper->toJson()=> "<<toJson();
     s.setTheme(toJson());
 }
@@ -264,7 +264,7 @@ void MaterialStyleHelper::invertTheme()
 
 void MaterialStyleHelper::resetToDefault()
 {
-    JooyaApplicationSettings s;
+    ApplicationSettings s;
     loadFromJson(s.defaultTheme());
 }
 

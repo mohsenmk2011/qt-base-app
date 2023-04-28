@@ -5,7 +5,7 @@
 #include <QCoreApplication>
 #include<jooyanetworkengine.h>
 #include<materialstylehelper.h>
-#include<jooyaapplicationsettings.h>
+#include<applicationsettings.h>
 #include<QGuiApplication>
 
 class JooyaApplication : public JooyaNetworkEngine

@@ -20,8 +20,15 @@ public:
     QString theme();
     void setTheme(QString t);
 
+    void setDefaultTheme(QString t);
+    QString defaultTheme();
+
     QString userInfo();
     void setUserInfo(QString t);
+
+    //the last order that user tried for payment
+    QString lastTriedPaymentOrderId();
+    void setLastTriedPaymentOrderId(QString id);
 
     bool seenAppIntroducing();
     void setSeenAppIntroducing(bool seen);

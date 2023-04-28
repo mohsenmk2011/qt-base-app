@@ -10,6 +10,11 @@ Order::Order(QObject *parent) : JooyaNetwork(parent)
     setPaid(false);
     setManualPaid(false);
     setUserId("");
+    //if user has tried for payment read the order id from settings
+    ApplicationSettings as;
+    if(!(as.lastTriedPaymentOrderId().isNull()||as.lastTriedPaymentOrderId().isEmpty())){
+        AndroidDeepLinkManager::m_OrderId = as.lastTriedPaymentOrderId().toInt();
+    }
 }
 
 Order::Order(int id, QString date, int price,bool mp, bool paid, QString userId):Order()
@@ -167,9 +172,12 @@ void Order::loadFinished()
     setIsProcssing(false);
 }
 
-void Order::getPaymentResult()
+void Order::getPaymentResult(int orderid)
 {
-    QNetworkReply* r= getRequest(QString("api/Order/Result/%1").arg(id()));
+    if(orderid<=0){
+        orderid = id();
+    }
+    QNetworkReply* r= getRequest(QString("api/Order/Result/%1").arg(orderid));
     connect(r,SIGNAL(finished()),this,SLOT(getPaymentResultFinished()));
 
 }
@@ -182,6 +190,9 @@ void Order::getPaymentResultFinished()
     else{
         showBadMessage(r->readAll());
     }
+    qDebug()<<"reset the last order id that user tried for payment";
+    ApplicationSettings as;
+    as.setLastTriedPaymentOrderId("");
 }
 
 void Order::manualPay()

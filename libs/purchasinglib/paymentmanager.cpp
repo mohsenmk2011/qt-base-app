@@ -37,12 +37,14 @@ void PaymentManager::reqPayFinished(){
         qDebug()<<"RefId=> "<<m_RefId;
         qDebug()<<"billId=> "<<order()->billId();
         emit payRequestSucceed(true,QString("https://jooyabash.ir/order/PayFromApp/%1?billId=%2").arg(m_RefId).arg(order()->billId()));
+        //save thet last order id that user tried for payment in settings
+        ApplicationSettings as;
+        as.setLastTriedPaymentOrderId(QString::number(order()->id()));
     }
     else {
         showMessage(r);
         emit payRequestSucceed(false,"");
     }
-    setIsProcssing(false);
 }
 
 PaymentResult *PaymentManager::paymentResult()

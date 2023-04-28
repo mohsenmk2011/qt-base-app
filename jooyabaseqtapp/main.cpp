@@ -34,7 +34,6 @@
 #include<androidservicemanager.h>
 #include<smsmanager.h>
 
-
 int main(int argc, char *argv[])
 {
     //TODO: Change this after creating new branch from master branch
@@ -133,17 +132,7 @@ int main(int argc, char *argv[])
     JooyaNetworkEngine::m_FileWather->addExcludeDirs(QStringList()<<"Other"<<"android");
     JooyaNetworkEngine::m_FileWather->setDirectory(projectDirectory.absolutePath());
     JooyaNetworkEngine::m_FileWather->writepathcounts();
-    //
-    //------------------------ ANDROID SERVICE-----------------------
-#if defined(Q_OS_ANDROID)
-    jne.androidService()->registerNativesOfApp();
-    jne.androidService()->registerAppBroadcastReceiver();
-
-    SmsManager *smsManager=new SmsManager(&app);
-    smsManager->registerNativesMethod();
-
-#endif
-    //---------------------------------------------------------------
+    //----------------------------------------------------------
 #if defined(QT_DEBUG)
         //use below line instead above line for qml live be working
         engine.load(QUrl(projectDirectory.absolutePath()+"/main.qml"));

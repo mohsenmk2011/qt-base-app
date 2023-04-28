@@ -34,7 +34,7 @@ JooyaApplication::JooyaApplication(QString organization, QString organizationDom
 
 void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,MaterialColors::MaterialColorsEnum primary,MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor)
 {
-    JooyaApplicationSettings s;
+    ApplicationSettings s;
     if(s.defaultTheme().isNull()||s.defaultTheme().isEmpty()){
         m_MaterialStyleHelper->setTheme(theme);
         m_MaterialStyleHelper->setPrimary(primary);

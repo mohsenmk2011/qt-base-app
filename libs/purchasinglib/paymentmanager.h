@@ -10,6 +10,7 @@
 #include<QJsonArray>
 #include<transactionlistmodel.h>
 #include<order.h>
+#include<applicationsettings.h>
 
 class PaymentManager : public JooyaNetwork
 {

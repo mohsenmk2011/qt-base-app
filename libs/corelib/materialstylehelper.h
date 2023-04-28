@@ -13,7 +13,7 @@
 #include<QtQml>
 #include<qjsondocument.h>
 #include<QTimer>
-#include<jooyaapplicationsettings.h>
+#include<applicationsettings.h>
 
 class MaterialStyleHelper : public QObject
 {
