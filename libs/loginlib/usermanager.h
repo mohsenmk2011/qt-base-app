@@ -4,7 +4,7 @@
 #include <QObject>
 #include<jooyanetwork.h>
 #include<QImage>
-#include<jooyaimage.h>
+#include<imageutility.h>
 #include<userlistmodel.h>
 #include<QJsonArray>
 #include<user.h>

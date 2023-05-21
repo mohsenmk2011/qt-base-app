@@ -38,7 +38,7 @@ void CapthaManager::loadCapthaFinished()
         QString base64img= obj.value("capthaBytes").toString();
         QString c= obj.value("capthaHash").toString();
         setCapthaHash(c);
-        JooyaImage im(base64img);
+        ImageUtility im(base64img);
         emit capthaChanged(im.image());
     }
     else {

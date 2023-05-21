@@ -229,7 +229,7 @@ void UserProfile::fromJson(QJsonObject obj){
 
 void UserProfile::loadImage(int angle,QString path)
 {
-    JooyaImage im;
+    ImageUtility im;
 
     if(path.isNull()||path.isEmpty())
     {
@@ -260,7 +260,7 @@ void UserProfile::loadImage(int angle,QString path)
     emit imageLoadingChanged(true);
 }
 
-void UserProfile::rezieRotatImage(JooyaImage* im,int rotationAngle)
+void UserProfile::rezieRotatImage(ImageUtility* im,int rotationAngle)
 {
     im->crop(0,0,im->imgWidth(),im->imgWidth());
     int newWidth=0;

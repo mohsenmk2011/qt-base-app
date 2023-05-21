@@ -409,7 +409,7 @@ void Notify::loadImageFromFile(QString path)
         message()->setContent("مسیر فایل تهی است");
         return;
     }
-    JooyaImage im;
+    ImageUtility im;
     if(!im.loadFromPath(path)){
         message()->setContent("تصویر بارگذاری نشد");
         return;

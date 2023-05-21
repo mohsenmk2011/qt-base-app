@@ -7,6 +7,7 @@ File::File(QObject *parent) : JooyaNetwork (parent)
 
     setFileId(0);
     m_IsDownloaded=false;
+    m_IsExists= false;
     m_DownloadState=FileDownloadStates::FileDownloadStatesEnum::NotStarted;
     connect(this,&File::downloadLinkChanged,this,&File::refreshPath);
     connect(this,SIGNAL(imageNameChanged()),this,SLOT(refreshPath()));
@@ -166,7 +167,8 @@ void File::setDownloadState(FileDownloadStates::FileDownloadStatesEnum ds)
     if(ds!=m_DownloadState){
         m_DownloadState=ds;
         emit downloadStateChanged();
-        setIsDownloaded(ds==FileDownloadStates::FileDownloadStatesEnum::FileExists||ds==FileDownloadStates::FileDownloadStatesEnum::Succeed);
+        setIsDownloaded(ds==FileDownloadStates::FileDownloadStatesEnum::Succeed);
+        setIsExists(ds==FileDownloadStates::FileDownloadStatesEnum::FileExists||ds==FileDownloadStates::FileDownloadStatesEnum::Succeed);
     }
 }
 
@@ -187,6 +189,12 @@ QByteArray File::read()
     return QByteArray();
 }
 
+/// returns and url that is contatinated with folder, name and extention
+QUrl File::getUrl(QString name)
+{
+    return QUrl::fromLocalFile(folderPath()+name+"."+ext());
+}
+
 bool File::isDownloaded()
 {
     return m_IsDownloaded;
@@ -197,6 +205,19 @@ void File::setIsDownloaded(bool isD)
     if(m_IsDownloaded!=isD){
         m_IsDownloaded=isD;
         emit isDownloadedChanged();
+    }
+}
+
+bool File::isExists()
+{
+    return m_IsExists;
+}
+
+void File::setIsExists(bool isD)
+{
+    if(m_IsExists!=isD){
+        m_IsExists=isD;
+        emit isExistsChanged();
     }
 }
 
@@ -266,6 +287,7 @@ void File::onDownloadFinishd()
         qInfo()<<"with no error => url=>"<<url();
         qInfo()<<"NoError=> path=>"<<url().path();
         save(r->readAll());
+        setDownloadState(FileDownloadStates::FileDownloadStatesEnum::Succeed);
     }
     else if(isNotFound(r)){
         qCritical()<<"File not found in remote";
@@ -305,7 +327,7 @@ bool File::save(QByteArray textContent){
     f.write(textContent);
     f.close();
     if(f.exists()) {
-        setDownloadState(FileDownloadStates::FileDownloadStatesEnum::Succeed);
+        setDownloadState(FileDownloadStates::FileDownloadStatesEnum::FileExists);
         emit urlChanged();
         qInfo()<<"file downloaded successfully";
         return true;

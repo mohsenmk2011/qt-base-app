@@ -13,7 +13,7 @@
 #include<QQmlEngine>
 #include<QQmlContext>
 #include<QQuickImageProvider>
-#include<jooyaimage.h>
+#include<imageutility.h>
 #include<androidpermissionmanager.h>
 #include<permissiontypes.h>
 
@@ -74,7 +74,7 @@ private:
     QJsonObject readProfileImage();
     UserImageListModel m_ListModel;
 
-    void rezieRotatImage(JooyaImage *image, int rotationAngle);
+    void rezieRotatImage(ImageUtility *image, int rotationAngle);
 };
 
 #endif // USERPROFILE_H

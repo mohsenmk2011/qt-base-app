@@ -5,7 +5,7 @@
 #include<jooyanetwork.h>
 #include<applicationsettings.h>
 #include<applicationpath.h>
-#include<jooyaimage.h>
+#include<imageutility.h>
 #include<userimage.h>
 #include<userroles.h>
 #include<imagefile.h>

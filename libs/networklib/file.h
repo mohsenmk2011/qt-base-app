@@ -28,6 +28,7 @@ class File : public JooyaNetwork
     Q_PROPERTY(QString ext READ ext WRITE setExt NOTIFY extChanged)
     Q_PROPERTY(FileDownloadStates::FileDownloadStatesEnum downloadState READ downloadState WRITE setDownloadState NOTIFY downloadStateChanged)
     Q_PROPERTY(bool isDownloaded READ isDownloaded WRITE setIsDownloaded NOTIFY isDownloadedChanged)
+    Q_PROPERTY(bool isExists READ isExists WRITE setIsExists NOTIFY isExistsChanged)
 
 public:
     explicit File(QObject *parent = nullptr);
@@ -68,6 +69,9 @@ public:
     bool isDownloaded();
     void setIsDownloaded(bool isD);
 
+    bool isExists();
+    void setIsExists(bool isD);
+
     Q_INVOKABLE bool exists();
 
     Q_INVOKABLE virtual void download();
@@ -77,6 +81,8 @@ public:
     bool save(QByteArray textContent);
     bool saveJson(QJsonArray array);
     QByteArray read();
+
+    QUrl getUrl(QString name);
 signals:
  void downloadLinkChanged();
  void urlChanged();
@@ -89,6 +95,7 @@ signals:
  void bytesTotalChanged();
  void downloadStateChanged();
  void isDownloadedChanged();
+ void isExistsChanged();
 private slots:
  void updownLoadingProgress(qint64 bytesSent, qint64 bytesTotal);
  void onDownloadFinishd();
@@ -106,7 +113,7 @@ private:
     QString m_Extension;
     FileDownloadStates::FileDownloadStatesEnum m_DownloadState;
     bool m_IsDownloaded;
-
+    bool m_IsExists;
     void makeSureFolderExsists();
     void initializeFolderPath(QString ext);
 };

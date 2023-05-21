@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include<jooyanetwork.h>
-#include<jooyaimage.h>
+#include<imageutility.h>
 #include<QNetworkReply>
 #include<QJsonDocument>
 #include<QJsonObject>

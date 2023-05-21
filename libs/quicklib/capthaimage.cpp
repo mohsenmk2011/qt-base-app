@@ -36,7 +36,7 @@ void CapthaImage::setPath(QString p)
     if(m_Path!=p){
         m_Path=p;
         emit pathChanged();
-        JooyaImage im;
+        ImageUtility im;
         im.loadFromPath(p);
         setImage(im.image());
         qDebug()<<"width=>"<<image().width();

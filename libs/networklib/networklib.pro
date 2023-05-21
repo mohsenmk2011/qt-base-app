@@ -17,6 +17,7 @@ SOURCES += \
     downloadmanager.cpp \
     file.cpp \
     imagefile.cpp \
+    imagelistmodel.cpp \
     jooyalistitem.cpp \
     jooyanetwork.cpp \
     jooyanetworkaccessfactory.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     file.h \
     filedownloadstates.h \
     imagefile.h \
+    imagelistmodel.h \
     jooyalistitem.h \
     jooyanetwork.h \
     jooyanetworkaccessfactory.h \

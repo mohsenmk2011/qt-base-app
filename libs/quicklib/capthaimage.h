@@ -5,7 +5,7 @@
 #include<QQuickPaintedItem>
 #include<QImage>
 #include<QPainter>
-#include<jooyaimage.h>
+#include<imageutility.h>
 
 class CapthaImage : public QQuickPaintedItem
 {

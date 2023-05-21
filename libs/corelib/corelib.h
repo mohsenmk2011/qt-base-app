@@ -4,7 +4,7 @@
 #include <QObject>
 #include<message.h>
 #include<jooyanetworkengine.h>
-#include<jooyaimage.h>
+#include<imageutility.h>
 #include<applicationpath.h>
 #include<jooyasettings.h>
 #include<applicationsettings.h>
@@ -40,8 +40,8 @@ public:
         qmlRegisterType<UserLoginInfo>("Jooya",1,0,"UserLoginInfo");
         qmlRegisterType<ApplicationPath>("Jooya",1,0,"ApplicationPath");
         qmlRegisterType<JooyaNetworkEngine>("Jooya",1,0,"JooyaNetworkEngine");
-        qmlRegisterType<JooyaFile>("Jooya",1,0,"JooyaFile");
-        qmlRegisterType<JooyaImage>("Jooya",1,0,"JooyaImage");
+        qmlRegisterType<FileUtility>("Jooya",1,0,"JooyaFile");
+        qmlRegisterType<ImageUtility>("Jooya",1,0,"JooyaImage");
         qmlRegisterType<JooyaSettings>("Jooya",1,0,"JooyaSettings");
         qmlRegisterType<ApplicationSettings>("Jooya",1,0,"ApplicationSettings");
         qmlRegisterType<CurrentUser>("Jooya",1,0,"CurrentUser");

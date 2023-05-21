@@ -5,7 +5,7 @@
 #include<qdebug.h>
 #include<jooyanetwork.h>
 #include<qbytearray.h>
-#include<jooyaimage.h>
+#include<imageutility.h>
 #include<QDateTime>
 #include<file.h>
 #include<applicationpath.h>

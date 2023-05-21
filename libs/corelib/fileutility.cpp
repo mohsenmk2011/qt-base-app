@@ -1,11 +1,11 @@
-#include "jooyafile.h"
+#include "fileutility.h"
 
-JooyaFile::JooyaFile(QObject *parent) : JooyaNetworkEngine(parent)
+FileUtility::FileUtility(QObject *parent) : QObject(parent)
 {
 
 }
 
-void JooyaFile::save(QByteArray bytes,QString fileName)
+void FileUtility::save(QByteArray bytes,QString fileName)
 {
     QFile file(fileName);
     if(!file.open(QIODevice::WriteOnly)){
@@ -15,7 +15,7 @@ void JooyaFile::save(QByteArray bytes,QString fileName)
     file.close();
 }
 
-QByteArray JooyaFile::load(QUrl fileName)
+QByteArray FileUtility::load(QUrl fileName)
 {
     QFile file(fileName.toLocalFile());
     if(file.open(QIODevice::ReadOnly)){

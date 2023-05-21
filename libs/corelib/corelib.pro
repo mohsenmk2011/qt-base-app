@@ -22,12 +22,13 @@ SOURCES += \
     colorlistmodel.cpp \
     corelib.cpp \
     datetimeutility.cpp \
+    fileutility.cpp \
     filewatcher.cpp \
+    htmlhelper.cpp \
+    imageutility.cpp \
     itemsvisiblestate.cpp \
     jooyaapplication.cpp \
-    jooyafile.cpp \
     jooyafont.cpp \
-    jooyaimage.cpp \
     jooyalogger.cpp \
     jooyanetworkengine.cpp \
     jooyaregexp.cpp \
@@ -51,12 +52,13 @@ HEADERS += \
     corelib.h \
     currentuser.h \
     datetimeutility.h \
+    fileutility.h \
     filewatcher.h \
+    htmlhelper.h \
+    imageutility.h \
     itemsvisiblestate.h \
     jooyaapplication.h \
-    jooyafile.h \
     jooyafont.h \
-    jooyaimage.h \
     jooyalogger.h \
     jooyanetworkengine.h \
     jooyaregexp.h \
