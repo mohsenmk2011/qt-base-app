@@ -377,5 +377,15 @@
         <file>pages/HomePage.qml</file>
         <file>AppIcon.rc</file>
         <file>items/shared/ImageItem.qml</file>
+        <file>jsf/JSUtility.js</file>
+        <file>pages/shared/ImageEditor.qml</file>
+        <file>images/common/folder-open@4x.png</file>
+        <file>images/common/folder-open@3x.png</file>
+        <file>images/common/folder-open@2x.png</file>
+        <file>images/common/folder-open.png</file>
+        <file>images/common/cut@4x.png</file>
+        <file>images/common/cut@3x.png</file>
+        <file>images/common/cut@2x.png</file>
+        <file>images/common/cut.png</file>
     </qresource>
 </RCC>
