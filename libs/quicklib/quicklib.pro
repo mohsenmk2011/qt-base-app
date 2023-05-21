@@ -20,6 +20,8 @@ SOURCES += \
     circle.cpp \
     cuttedrectangle.cpp \
     documenthandler.cpp \
+    imageeditorutility.cpp \
+    qrectfextensions.cpp \
     quickitem.cpp \
     roundedpolygon.cpp
 
@@ -29,6 +31,9 @@ HEADERS += \
     circle.h \
     cuttedrectangle.h \
     documenthandler.h \
+    imageeditorutility.h \
+    imageoperationtypes.h \
+    qrectfextensions.h \
     quickitem.h \
     quicklib.h \
     roundedpolygon.h

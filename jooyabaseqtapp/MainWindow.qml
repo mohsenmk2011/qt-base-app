@@ -54,6 +54,11 @@ Page {
 
     QmlLive.onFileChanged:{
         console.log("QmlLive.onFileChanged(in MainWindow.qml) => "+fileName);
+        if(fileName==="ImageEditor"){
+                sv.replaceEnter.enabled=false;
+                QmlLive.clearCache();
+                sv.replace("pages/shared/ImageEditor.qml");
+        }
         if(fileName==="SignupPhonePage"){
             if(sv.currentItem.objectName=="SignupPhonePage"){
                 sv.replaceEnter.enabled=false;
@@ -90,7 +95,7 @@ Page {
                 sv.push("pages/chat/ChatPage.qml");
             }
         }
-        else if(fileName==="NotifyDisplayPage"){
+        else if(fileName==="NotifyDisplayPage"||fileName==="NotifyItem"){
             if(sv.currentItem.objectName=="NotifyDisplayPage"){
                 sv.replaceEnter.enabled=false;
                 QmlLive.clearCache();
