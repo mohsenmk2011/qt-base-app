@@ -9,9 +9,9 @@ import "../../jooyaQuickControls"
 Item{
     id:imgContainer
 
-    property ImageFile imageFile: null
+    property ImageFile imageFile
     property string defaultImageUrl: "../../images/common/image-filter-hdr.png"
-    clip: true
+    property bool hasImage: imageFile != null
     Image {
         id: imgDefualt
         source:defaultImageUrl
@@ -23,9 +23,9 @@ Item{
     }
     Image {
         id:img
-        visible: imageFile!=null&&imageFile.isDownloaded
+        visible: imageFile!=null&&imageFile.isExists
         anchors.centerIn: parent
-        source: (imageFile!=null&&imageFile.isDownloaded)? imageFile.url:""
+        source: (imageFile!=null&&imageFile.isExists)? imageFile.url:""
         width: parent.width
         height: parent.height
         fillMode: Image.PreserveAspectFit
@@ -45,7 +45,7 @@ Item{
         width: 72
         height: 72
         highlighted: true
-        visible: !imageFile.isDownloaded&&!imageFile.isProcessing&&imageFile.fileId!=0&&imageFile.downloadState!=FileDownloadStates.FileNotFound
+        visible: !imageFile.isExists&&!imageFile.isProcessing&&imageFile.fileId!=0&&imageFile.downloadState!=FileDownloadStates.FileNotFound
         anchors.centerIn: parent
         Material.elevation: 1
         contentItem: Image {
