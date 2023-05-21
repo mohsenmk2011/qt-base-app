@@ -33,13 +33,9 @@ bool AndroidFileDialog::provideExistingFileName()
     {
         intent.callObjectMethod("setType", "(Ljava/lang/String;)Landroid/content/Intent;", QAndroidJniObject::fromString("image/*").object<jstring>());
         QtAndroid::startActivity(intent.object<jobject>(), 101, receiver);
-        qDebug() << "OK";
+        return true;
     }
-    else
-    {
-        qDebug() << "ERRO";
-    }
-
+    return false;
 }
 
 void AndroidFileDialog::emitAccepted(QString result)
