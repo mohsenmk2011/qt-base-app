@@ -78,8 +78,9 @@ Item {
         RoundButton{
             id:btnMenuNotify
             visible: CurrentUser.isLoggedIn&&CurrentUser.isAdmin
-            width: 63
-            height: 63
+            Layout.preferredHeight: 63
+            Layout.preferredWidth: 63
+
             highlighted: true
             anchors.top: imgContainer.bottom
             anchors.topMargin: -(height/2)
@@ -157,8 +158,7 @@ Item {
             }
             onTriggered: {
                 if(notify.type==NotificationTypes.AppIntroducing){
-                    var obj= appIntroDialogCom.createObject(mainWindow);
-                    obj.open();
+                    sv.push("../ NotifyAppIntroEditDialog.qml",{notify:notify});
                 }
                 else if(notify.type==NotificationTypes.Discount){
                     var discountCom= discountDialogCom.createObject(mainWindow);
@@ -187,11 +187,6 @@ Item {
         id:comTypeDialog
         NotificationTypeEditDialog{
             id:typeDialog
-        }
-    }
-    Component{
-        id:appIntroDialogCom
-        NotifyAppIntroEditDialog{
         }
     }
     Component{

@@ -9,37 +9,20 @@ import Jooya 1.0
 import QtQuick 2.11
 import QtQml.Models 2.11
 
-JooyaDialog {
+JooyaPage {
     id: root
     padding: 0
-    isBig: true
     font {
         family: flYekan.name
         pixelSize: 18
         bold: true
     }
-    header: Row{
-        Layout.fillWidth: true
-        ToolButton{
-            contentItem: Image {
-                source: "/images/app/window-close.png"
-                fillMode: Image.Pad
-                horizontalAlignment: Image.AlignHCenter
-                verticalAlignment: Image.AlignVCenter
-            }
-            onClicked: {
-                close();
-            }
-        }
-    }
     Component.onCompleted: {
-        notify.message=myMessage;
-        progressIndicatorVisible=notify.isProcessing;
     }
     //================================================
     Flickable{
         anchors.fill: parent
-        contentHeight: 700
+        contentHeight: mainClm.implicitHeight
         flickableDirection: Flickable.AutoFlickIfNeeded
         clip: true
         ColumnLayout{
