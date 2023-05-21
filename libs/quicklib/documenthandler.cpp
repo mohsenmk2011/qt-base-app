@@ -36,6 +36,7 @@ void DocumentHandler::setCursorPosition(int position)
 
     m_cursorPosition = position;
     qDebug()<<" DocumentHandler::setCursorPosition=>"<<position;
+    textCursor().setPosition(position);
     reset();
     emit cursorPositionChanged();
 }
@@ -112,10 +113,63 @@ Qt::Alignment DocumentHandler::alignment() const
 
 void DocumentHandler::setAlignment(Qt::Alignment alignment)
 {
+    qDebug()<<"alignment=> "<<alignment;
     QTextBlockFormat format;
-    format.setAlignment(alignment);
     QTextCursor cursor = textCursor();
+    if(alignment==Qt::AlignRight)
+    {
+        format.setLayoutDirection(Qt::RightToLeft);
+        format.setAlignment(Qt::AlignLeft);
+        //cursor.blockFormat().setLayoutDirection(Qt::RightToLeft);
+    }
+    else if(alignment==Qt::AlignLeft)
+    {
+        format.setLayoutDirection(Qt::LeftToRight);
+        format.setAlignment(Qt::AlignLeft);
+
+        //cursor.blockFormat().setLayoutDirection(Qt::LeftToRight);
+    }
+    else if(alignment==Qt::AlignHCenter)
+    {
+        format.setAlignment(alignment);
+        qDebug()<<"align to center"<<alignment;
+    }
     cursor.mergeBlockFormat(format);
+    //cursor.blockFormat().setAlignment(alignment);
+
+
+    // Determine the current text direction
+    Qt::LayoutDirection dir = cursor.block().textDirection();
+    if(dir==Qt::RightToLeft)
+    {
+        //to update the anchor of cursor
+        //temporary insert a char(e) at the end and then selected it and delete it
+        cursor.insertText(" ");
+        cursor.movePosition(QTextCursor::End);
+        cursor.movePosition(QTextCursor::Right,QTextCursor::KeepAnchor,1);
+        cursor.deleteChar();
+    }
+    else{
+        //to update the anchor of cursor
+        //temporary insert a char(e) at the end and then selected it and delete it
+        cursor.insertText(" ");
+        cursor.movePosition(QTextCursor::End);
+        cursor.movePosition(QTextCursor::Left,QTextCursor::KeepAnchor,1);
+        cursor.deleteChar();
+    }
+    //=================================
+
+       //Qt::LayoutDirection dir = cursor.block().text().blockFormat().setLayoutDirection();
+    //to update the anchor of cursor
+    //temporary insert a char(e) at the end and then selected it and delete it
+//    cursor.insertText("Me4SW2");
+//    cursor.movePosition(QTextCursor::End);
+//    cursor.movePosition(QTextCursor::Right,QTextCursor::KeepAnchor,6);
+//    if(cursor.selectedText()!="Me4SW2"){
+//        cursor.movePosition(QTextCursor::End);
+//        cursor.movePosition(QTextCursor::Left,QTextCursor::KeepAnchor,6);
+//    }
+//    cursor.deleteChar();
     emit alignmentChanged();
 }
 
@@ -223,7 +277,7 @@ void DocumentHandler::load(const QUrl &fileUrl)
 
     QQmlEngine *engine = qmlEngine(this);
     if (!engine) {
-        qDebug() << "load() called before DocumentHandler has QQmlEngine";
+        qWarning() << "load() called before DocumentHandler has QQmlEngine";
         return;
     }
 
@@ -307,18 +361,22 @@ void DocumentHandler::insertImage(QImage img){
 
 }
 
-void DocumentHandler::insertImage(QString base64Img){
+void DocumentHandler::insertImage(QString source){
     //    textCursor().insertImage(img);
     //    QTextImageFormat imgFormat;
     //    imgFormat.setHeight(img.height());
     //    imgFormat.setWidth(img.width());
     //    imgFormat.set
     //    textCursor().movePosition()
-    qDebug()<<"cursorPosition=" <<cursorPosition();
-    textCursor().insertHtml(base64Img);
-    qDebug()<<"cursorPosition=" <<cursorPosition();
 
-
+    //for fix this bug:when user goes new line and he want to insert an image with center alignment,
+    //becuase there is not char before the image ,so when new image will be inserted,
+    //it will loose it's alignment for example it will be insert with right or left alignment
+    //fo fix that: it will insert new space beofre the insertion of image
+    QTextCursor cursor = textCursor();
+    qDebug()<<"cursorPosition=" <<cursorPosition();
+    textCursor().insertHtml(HtmlHelper ::getImgTag(source));
+    qDebug()<<"cursorPosition=" <<cursorPosition();
 }
 
 QTextDocument *DocumentHandler::textDocument() const

@@ -15,7 +15,8 @@
 #include <QTextCodec>
 #include <QTextDocument>
 #include <QDebug>
-
+#include<QTextBlock>
+#include <htmlhelper.h>
 
 class DocumentHandler : public QObject
 {
@@ -81,7 +82,7 @@ public:
     QUrl fileUrl() const;
 
     Q_INVOKABLE void insertImage(QImage img);
-    Q_INVOKABLE void insertImage(QString base64Img);
+    Q_INVOKABLE void insertImage(QString source);
 public Q_SLOTS:
     void load(const QUrl &fileUrl);
     void saveAs(const QUrl &fileUrl);
