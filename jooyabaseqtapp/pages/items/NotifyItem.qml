@@ -7,8 +7,10 @@ import Jooya 1.0
 import "../../pages/manager"
 import "../../jooyaQuickControls"
 import "../shared"
+import "../../items/shared"
 
 Item {
+    id:notifyItem
     property Notify notify: null
     Connections{
         target: notify
@@ -22,80 +24,38 @@ Item {
         spacing: 18
         Rectangle{
             id:imgContainer
-            Layout.fillWidth: true
-            Layout.minimumHeight: notify.isDownloaded? img.height:270
-            clip: true
+            Layout.preferredWidth: notifyItem.width
+            Layout.preferredHeight: notifyItem.height/2
             color: MaterialStyle.backColor100
             Layout.alignment: Qt.AlignTop
-            Image {
-                id: imgDefualt
-                source: "../../images/common/image-filter-hdr.png"
-                width: 27
-                height: 27
-                visible: !img.visible
-                anchors.centerIn: parent
-                fillMode: Image.Pad
+            ImageItem{
+                id:imgItem
+                imageFile: notify
+                anchors.fill: parent
+                image.fillMode: image.width>(image.sourceSize.width/2) ? Image.PreserveAspectFit : Image.PreserveAspectCrop
             }
-            Image {
-                id:img
-                visible: notify.isDownloaded
-                anchors.centerIn: parent
-                source: notify.isDownloaded? notify.url:""
-                width: parent.width
-                fillMode: Image.PreserveAspectFit
-            }
-            ProgressBar{
-                visible: notify.isProcessing
-                from: 0
-                to: 1
-                height: 3
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                indeterminate: true
-            }
-            RoundButton {
-                id: btnDownload
-                width: 72
-                height: 72
+            RoundButton{
+                id:btnMenuNotify
+                visible: CurrentUser.isLoggedIn&&CurrentUser.isAdmin
+                width: 54
+                height: width
                 highlighted: true
-                visible: !notify.isDownloaded&&!notify.isProcessing&&notify.fileId!=0
-                anchors.centerIn: parent
-                Material.elevation: 1
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: -(height/2)
+                anchors.left: parent.left
+                anchors.leftMargin: 9
                 contentItem: Image {
                     fillMode: Image.Pad
-                    source: "../../images/common/download.png"
-                }
-                JooyaToolTip {
-                    text:"دانلود عکس"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "../../images/common/dots-vertical.png"
                 }
                 onClicked: {
-                    notify.download();
+                    mnuNotify.open();
                 }
             }
         }
 
-        RoundButton{
-            id:btnMenuNotify
-            visible: CurrentUser.isLoggedIn&&CurrentUser.isAdmin
-            Layout.preferredHeight: 63
-            Layout.preferredWidth: 63
-
-            highlighted: true
-            anchors.top: imgContainer.bottom
-            anchors.topMargin: -(height/2)
-            anchors.left: imgContainer.left
-//            anchors.leftMargin: 9
-            contentItem: Image {
-                fillMode: Image.Pad
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                source: "../../images/common/dots-vertical.png"
-            }
-            onClicked: {
-                mnuNotify.open();
-            }
-        }
         Text {
             id:introTitle
             font {
@@ -134,7 +94,7 @@ Item {
         y:btnMenuNotify.y+btnMenuNotify.height
         MenuItem{
             contentItem: Text{
-                text: qsTr("حذف");
+                text: qsTr("حذف")
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignRight
                 font{
@@ -158,7 +118,7 @@ Item {
             }
             onTriggered: {
                 if(notify.type==NotificationTypes.AppIntroducing){
-                    sv.push("../ NotifyAppIntroEditDialog.qml",{notify:notify});
+                    sv.push("../manager/NotifyAppIntroEditDialog.qml",{notify:notify});
                 }
                 else if(notify.type==NotificationTypes.Discount){
                     var discountCom= discountDialogCom.createObject(mainWindow);

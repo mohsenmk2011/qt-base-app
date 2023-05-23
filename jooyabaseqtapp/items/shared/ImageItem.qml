@@ -12,6 +12,7 @@ Item{
     property ImageFile imageFile
     property string defaultImageUrl: "../../images/common/image-filter-hdr.png"
     property bool hasImage: imageFile != null
+    property alias image: img
     Image {
         id: imgDefualt
         source:defaultImageUrl
