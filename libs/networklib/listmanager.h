@@ -33,6 +33,9 @@ public:
     bool isSearch();
     void setIsSearch(bool s);
 
+    /// will reset the values to default values
+    void resetListValues();
+
     bool selectMode();
     void setSelectMode(bool s);
 

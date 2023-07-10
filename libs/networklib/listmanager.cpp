@@ -72,6 +72,18 @@ void ListManager::setIsSearch(bool s)
     m_IsSearch=s;
 }
 
+void ListManager::resetListValues()
+{
+    m_SelectedCount=0;
+    m_LastTakedCount=0;
+    setSelectMode(false);
+
+    setSkipCount(0);
+    setTakeCount(5);
+    setIsSearch(false);
+    setListHasCompeleted(false);
+}
+
 bool ListManager::selectMode()
 {
     return m_SelectMode;
