@@ -30,7 +30,6 @@ QString Message::content()
 
 void Message::setContent(QString c, bool okMessage)
 {
-    qDebug()<<"%%%%%%%%%%% Message.content="+c+"%%%%%%%%%%%%";
     messageTimerTimeout();
     if(c.isNull()||c.isEmpty()){
         m_Content="پیام ارسال شده تهی است";

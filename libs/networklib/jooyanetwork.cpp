@@ -231,7 +231,7 @@ void JooyaNetwork::showMessage(QNetworkReply *r)
 void JooyaNetwork::showBadMessage(QByteArray replyMessage)
 {
     QString messageString =replyMessage;
-    qDebug()<<"reply.readAll()=> "<<replyMessage;
+    qDebug()<<"reply.readAll()=> "<<messageString;
     try
     {
         if(replyMessage.isNull()||replyMessage.isEmpty())
