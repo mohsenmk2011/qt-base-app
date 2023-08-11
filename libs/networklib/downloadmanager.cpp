@@ -118,16 +118,15 @@ void DownloadManager::download()
 
 void DownloadManager::downloadFiles()
 {
+    qDebug()<<"is going to download the files";
     m_CountDownloaded=0;
     m_CountToDownload=files.count();
     foreach (File* f, files) {
-        if(!f->isProcessing()&&!f->exists()){
-            connect(f,SIGNAL(bytesSentChanged()),this,SLOT(updateRatio()));
-            connect(f,SIGNAL(downloadStateChanged()),this,SLOT(updateDownloadCount()));
-            connect(f,SIGNAL(isDownloadedChanged()),this,SLOT(onSendisDownloadedToAppInstance()));
-            f->download();
-            break;
-        }
+        connect(f,SIGNAL(bytesSentChanged()),this,SLOT(updateRatio()));
+        connect(f,SIGNAL(downloadStateChanged()),this,SLOT(updateDownloadCount()));
+        connect(f,SIGNAL(isDownloadedChanged()),this,SLOT(onSendisDownloadedToAppInstance()));
+        f->download();
+        break;
     }
 }
 

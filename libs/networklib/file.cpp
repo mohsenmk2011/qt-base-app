@@ -223,11 +223,17 @@ void File::setIsExists(bool isD)
 
 void File::download()
 {
-    if(QFile::exists(url().path())){
-        setDownloadState(FileDownloadStates::FileDownloadStatesEnum::FileExists);
+    qDebug()<<"is going to download => "<<downloadLink();
+    if(downloadState()==FileDownloadStates::FileDownloadStatesEnum::IsDownloading)
+    {
+        qDebug()<<"is downloaing the file and not finished yet";
         return;
     }
-    qDebug()<<"is going to download => "<<downloadLink();
+    if(QFile::exists(url().path())){
+        setDownloadState(FileDownloadStates::FileDownloadStatesEnum::FileExists);
+        qDebug()<<"the file exists -> return";
+        return;
+    }
     if(downloadLink().isNull()||downloadLink().isEmpty()){
         setDownloadState(FileDownloadStates::FileDownloadStatesEnum::Faild);
         qWarning()<<"download link was null->return";
