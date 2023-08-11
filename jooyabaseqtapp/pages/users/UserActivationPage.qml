@@ -53,7 +53,7 @@ Page{
             spacing: 18
             Rectangle{
                 Layout.fillWidth: true
-                Layout.minimumHeight: imgFile.isDownloaded ? img.height:270
+                Layout.minimumHeight: imgFile.isExists ? img.height:270
                 clip: true
                 color: MaterialStyle.backColor100
                 Image {
@@ -67,9 +67,9 @@ Page{
                 }
                 Image {
                     id:img
-                    visible: imgFile.isDownloaded
+                    visible: imgFile.isExists
                     anchors.centerIn: parent
-                    source: imgFile.isDownloaded? imgFile.url:""
+                    source: imgFile.isExists? imgFile.url:""
                     width: parent.width
                     fillMode: Image.PreserveAspectFit
                 }
@@ -88,7 +88,7 @@ Page{
                     width: 72
                     height: 72
                     highlighted: true
-                    visible: !imgFile.isDownloaded&&!imgFile.isProcessing
+                    visible: !imgFile.isExists&&!imgFile.isProcessing
                     anchors.centerIn: parent
                     Material.elevation: 1
                     contentItem: Image {

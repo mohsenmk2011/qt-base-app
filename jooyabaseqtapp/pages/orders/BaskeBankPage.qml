@@ -109,7 +109,7 @@ JooyaPage{
 
                                     Image {
                                         fillMode: Image.PreserveAspectFit
-                                        source: img.isDownloaded? img.url:""
+                                        source: img.isExists? img.url:""
                                     }
                                 }
                             }

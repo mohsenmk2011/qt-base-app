@@ -156,10 +156,10 @@ JooyaPage{
                         fillMode: Image.Pad
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: (currentImage.isDownloaded)?"../../images/common/delete.png": "../../images/common/camera.png"
+                        source: (currentImage.isExists)?"../../images/common/delete.png": "../../images/common/camera.png"
                     }
                     JooyaToolTip {
-                        text:!currentImage.isDownloaded? "گرفتن عکس":"حذف کردن عکس"
+                        text:!currentImage.isExists? "گرفتن عکس":"حذف کردن عکس"
                     }
                     onClicked: {
                         if(userProfile.canTakePic){

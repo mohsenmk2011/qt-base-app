@@ -58,17 +58,17 @@ Page{
                         fillMode: Image.Pad
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: !currentChat.image.isDownloaded ? "../../images/common/upload.png" : "../../images/common/delete.png"
+                        source: !currentChat.image.isExists ? "../../images/common/upload.png" : "../../images/common/delete.png"
                     }
                     JooyaToolTip {
-                        text: !currentChat.image.isDownloaded ? "آپلود کردن عکس":"حذف کردن عکس"
+                        text: !currentChat.image.isExists ? "آپلود کردن عکس":"حذف کردن عکس"
                     }
                     onClicked: {
                         if(currentChat.type==ChatTypes.FrequentQuestions){
                             MessageBoard.setContent("سوالات متداول تصویر ندارد");
                             return;
                         }
-                        if(currentChat.image.isDownloaded){
+                        if(currentChat.image.isExists){
                             deleteDialog.open();
                         }
                         else{

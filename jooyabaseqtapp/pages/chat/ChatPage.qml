@@ -149,7 +149,7 @@ Page{
                id:userImage
                width: 45
                height: 45
-               source: chat.image.isDownloaded ? chat.image.url:""
+               source: chat.image.isExists ? chat.image.url:""
                sourceDefault: "../../images/common/account.png"
                Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
            }

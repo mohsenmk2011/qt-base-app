@@ -33,7 +33,7 @@ Item {
                 Layout.rightMargin: 9
                 Layout.bottomMargin: 9
 
-                source:contact.isDownloaded? contact.url:""
+                source:contact.isExists? contact.url:""
                 sourceDefault: "../../images/common/account.png"
             }
             Item {

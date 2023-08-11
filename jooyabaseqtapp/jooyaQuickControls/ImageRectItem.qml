@@ -20,15 +20,15 @@ Item{
     Image {
         id:img
         anchors.fill: parent
-        source: imageFile.isDownloaded ? imageFile.url:""
-        visible: imageFile.name!="" && imageFile.isDownloaded
+        source: imageFile.isExists ? imageFile.url:""
+        visible: imageFile.name!=="" && imageFile.isExists
     }
     RoundButton {
         id: btnDownload
         width: 72
         height: 72
         highlighted: true
-        visible: !imageFile.isDownloaded&&!imageFile.isProcessing && imageFile.name!==""
+        visible: !imageFile.isExists&&!imageFile.isProcessing && imageFile.name!==""
         anchors.centerIn: parent
         Material.elevation: 1
         contentItem: Image {

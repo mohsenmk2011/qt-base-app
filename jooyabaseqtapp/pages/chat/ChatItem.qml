@@ -58,7 +58,7 @@ Rectangle {
             width: 72
             height: 72
             Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
-            source:chat.image.isDownloaded? chat.image.url:""
+            source:chat.image.isExists? chat.image.url:""
             sourceDefault: "../../images/common/account.png"
         }
         Item {

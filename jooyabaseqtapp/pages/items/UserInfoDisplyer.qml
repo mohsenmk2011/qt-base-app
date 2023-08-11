@@ -47,7 +47,7 @@ Pane {
             width: 96
             height: 96
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-            source:  user.lastImage.isDownloaded ? user.lastImage.url:""
+            source:  user.lastImage.isExists ? user.lastImage.url:""
             sourceDefault: "../../images/common/account.png"
             MouseArea{
                 anchors.fill: parent
