@@ -166,6 +166,19 @@ public class QtAndroidService extends QtService
     }
     public void createDownloadNotification(Intent intent){
         Log.i(TAG, "***[ Is Showing Foreground Notification For Download Manager ]***");
+        //create channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                "org.jooya.rokhshid.DownloadForegroundServiceChannel",
+                "Download Foreground Service Channel",
+                NotificationManager.IMPORTANCE_LOW // Adjust importance as needed
+            );
+            // Configure additional channel settings if necessary
+            // channel.setDescription("Description");
+            // channel.setSound(...);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
         PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
 
         downloadNotification =new NotificationCompat.Builder(this,"org.jooya.jooyaqtapplication.DownloadForegroundServiceChannel")
