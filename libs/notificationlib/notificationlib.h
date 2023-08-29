@@ -13,6 +13,8 @@
 #include<notificationtypes.h>
 #include<notificationcounts.h>
 #include<notificationreceiver.h>
+#include<notifylistmodel.h>
+
 class Notificationlib
 {
 public:
@@ -27,13 +29,12 @@ public:
         qmlRegisterType<KeywordManager>("Jooya",1,0,"KeywordManager");
         qmlRegisterType<KeywordListModel>("Jooya",1,0,"KeywordListModel");
 
-
         qmlRegisterType<NotifyManager>("Jooya",1,0,"NotifyManager");
         qmlRegisterType<Notify>("Jooya",1,0,"Notify");
+        qmlRegisterType<NotifyListModel>("Jooya",1,0,"NotifyListModel");
         qmlRegisterType<NotificationTypes>("Jooya",1,0,"NotificationTypes");
         qmlRegisterType<NotificationCounts>("Jooya",1,0,"NotificationCounts");
         qmlRegisterType<NotificationReceiver>("Jooya",1,0,"NotificationReceiver");
-
     }
 
 };
