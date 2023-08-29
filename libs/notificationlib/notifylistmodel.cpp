@@ -8,11 +8,7 @@ NotifyListModel::NotifyListModel(QObject *parent) : QAbstractListModel(parent)
 QHash<int, QByteArray> NotifyListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[NotifyIdRole]="argId";
-    roles[NotifyTitleRole]="argTitle";
-    roles[NotifyDescriptionRole]="argDescription";
-    roles[NotifyImageUrlRole]="argImageUrl";
-    roles[NotifyRole]="argNotify";
+    roles[NotifyRole]="model";
     return roles;
 }
 
@@ -26,19 +22,7 @@ QVariant NotifyListModel::data(const QModelIndex &index, int role) const
         emit scrolledToEnd();
     }
     auto intro=m_Notifies.at(i);
-    if(role==NotifyIdRole){
-        return QVariant::fromValue(intro->fileId());
-    }
-    else if(role==NotifyTitleRole){
-        return QVariant::fromValue(intro->title());
-    }
-    else if(role==NotifyDescriptionRole){
-        return QVariant::fromValue(intro->description());
-    }
-    else if(role==NotifyImageUrlRole){
-        return QVariant::fromValue(intro->downloadLink());
-    }
-    else if(role==NotifyRole){
+    if(role==NotifyRole){
         return QVariant::fromValue(intro);
     }
     else {
@@ -101,7 +85,7 @@ void NotifyListModel::removeItem()
         else {
             qCritical()<<"at index "<<i<<"Was not Found and id is "<<m_Notifies.at(i)->fileId();
         }
-    }    
+    }
 }
 
 Notify *NotifyListModel::get(int index)
