@@ -14,6 +14,8 @@ public:
         Discount=1,
         AppIntroducing=2,
         AppUpdate=3,
+        Vitreen = 4,
+        Story = 5,
     };
     Q_ENUM(NotificationTypesEnum)
 };
