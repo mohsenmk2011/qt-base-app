@@ -73,6 +73,7 @@ QJsonObject ImageFile::toJson()
     QJsonObject obj;
     obj.insert("id",fileId());
     obj.insert("imageBase64",iu.base64Img());
+    obj.insert("imageUrl",downloadLink());
     return obj;
 }
 
@@ -87,4 +88,39 @@ void ImageFile::fromJson(QJsonObject obj)
 void ImageFile::deleteItem()
 {
     emit deleteSucceed();
+}
+
+QNetworkReply *ImageFile::uploadImage()
+{
+    qDebug()<<"is going to upload the image => ";
+    qDebug()<<"json=> "<<toJson();
+    QNetworkReply* r = postRequest("api/File/SaveImage",toJson());
+    return r;
+}
+
+QNetworkReply *ImageFile::deleteImage()
+{
+    qDebug()<<"is going to delete the image => ";
+    QJsonObject obj;
+    obj.insert("imageUrl",downloadLink());
+    QNetworkReply* r = postRequest("api/File/DeleteImage",obj);
+    connect(r,&QNetworkReply::finished,this,&ImageFile::deleteImageFinished);
+    return r;
+}
+
+void ImageFile::deleteImageFinished()
+{
+    QNetworkReply* r = convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError)
+    {
+        qInfo()<<"delete image finished with no error => delete local file";
+        if(remove())
+        {
+            setIsExists(false);
+        }
+    }
+    else
+    {
+        qCritical()<<"delete image finished with error";
+    }
 }

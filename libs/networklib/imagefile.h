@@ -29,11 +29,16 @@ public:
     QJsonObject toJson() override;
     void fromJson(QJsonObject obj) override;
     void deleteItem();
+
+    QNetworkReply* uploadImage();
+    QNetworkReply* deleteImage();
 signals:
     void widthChanged();
     void heightChanged();
     void isClipImageChanged();
     void deleteSucceed();
+private slots:
+    void deleteImageFinished();
 private:
     int m_Width;
     int m_Height;
