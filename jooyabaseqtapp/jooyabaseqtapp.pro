@@ -49,6 +49,7 @@ DISTFILES += \
     android/src/org/jooya/jooyaqtapplication/JSInterface.java \
     android/src/org/jooya/jooyaqtapplication/JooyaAlarmManager.java \
     android/src/org/jooya/jooyaqtapplication/JooyaApplication.java \
+    android/src/org/jooya/jooyaqtapplication/LogManager.java \
     android/src/org/jooya/jooyaqtapplication/MainActivity.java \
     android/src/org/jooya/jooyaqtapplication/NotificationClient.java \
     android/src/org/jooya/jooyaqtapplication/PackageinfoManager.java \
