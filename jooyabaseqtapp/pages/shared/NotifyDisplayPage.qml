@@ -46,7 +46,7 @@ Page {
             Repeater {
                 model: notifyManager.listModel
                 NotifyItem{
-                    notify: argNotify
+                    notify: model
                 }
             }
             onCurrentIndexChanged: {

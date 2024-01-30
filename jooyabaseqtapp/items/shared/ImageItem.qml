@@ -24,15 +24,15 @@ Item{
     }
     Image {
         id:img
-        visible: imageFile!=null&&imageFile.isExists
+        visible: hasImage&&imageFile.isExists
         anchors.centerIn: parent
-        source: (imageFile!=null&&imageFile.isExists)? imageFile.url:""
+        source: (hasImage&&imageFile.isExists)? imageFile.url:""
         width: parent.width
         height: parent.height
         fillMode: Image.PreserveAspectFit
     }
     ProgressBar{
-        visible: imageFile.isProcessing
+        visible: hasImage&&imageFile.isProcessing
         from: 0
         to: 1
         height: 3
@@ -46,7 +46,7 @@ Item{
         width: 72
         height: 72
         highlighted: true
-        visible: !imageFile.isExists&&!imageFile.isProcessing&&imageFile.fileId!=0&&imageFile.downloadState!=FileDownloadStates.FileNotFound
+        visible: hasImage&&!imageFile.isExists&&!imageFile.isProcessing&&imageFile.fileId!=0&&imageFile.downloadState!=FileDownloadStates.FileNotFound
         anchors.centerIn: parent
         Material.elevation: 1
         contentItem: Image {
