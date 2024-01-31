@@ -154,8 +154,9 @@ void FileWatcher::onFileChanged(const QString &path)
     qDebug()<<"path changed => "<<path;
     QFileInfo file(path);
     while (!file.exists()) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(18));
+        std::this_thread::sleep_for(std::chrono::milliseconds(180));
     }
+    clearCache();
     m_ChangedFileBaseName=file.baseName();
     m_ChangedFilePath=path;
 
