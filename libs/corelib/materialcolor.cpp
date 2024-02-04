@@ -39,10 +39,10 @@ void MaterialColor::setShade(MaterialShades::MaterialShadesEnum s)
 
 QColor MaterialColor::colorName()
 {
-    return color(m_Color);
+    return getColor(m_Color);
 }
 
-QColor MaterialColor::color(MaterialColors::MaterialColorsEnum color, MaterialShades::MaterialShadesEnum shade)
+QColor MaterialColor::getColor(MaterialColors::MaterialColorsEnum color, MaterialShades::MaterialShadesEnum shade)
 {
     int count = sizeof(colors) / sizeof(colors[0]);
     int intcolor=static_cast<int>(color);

@@ -129,50 +129,50 @@ void MaterialStyleHelper::refreshBackgroundColors()
     {
     case MaterialThemes::MaterialThemesEnum::Light:
         if(backgroundColor()==MaterialColors::MaterialColorsEnum::White){
-            setBackColor50(m_Color.color(primary(),MaterialShades::MaterialShadesEnum::Shade50));
-            setBackColor100(m_Color.color(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade50));
-            setBackColor200(m_Color.color(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade50));
-            setBackColor300(m_Color.color(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade50));
+            setBackColor50(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
+            setBackColor100(m_Color.getColor(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade50));
+            setBackColor200(m_Color.getColor(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade50));
+            setBackColor300(m_Color.getColor(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade50));
         }
         else {
-            setBackColor50(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade50));
-            setBackColor100(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade100));
-            setBackColor200(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade200));
-            setBackColor300(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade300));
+            setBackColor50(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade50));
+            setBackColor100(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade100));
+            setBackColor200(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade200));
+            setBackColor300(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade300));
         }
 
-        setAccent50(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade50));
-        setAccent100(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade100));
-        setAccent200(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade200));
-        setAccent300(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade300));
+        setAccent50(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
+        setAccent100(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade100));
+        setAccent200(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade200));
+        setAccent300(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade300));
 
-        setIconColor(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade500));
+        setIconColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade500));
         setPrimaryTextColor(m_Color.darkColor(primary()));
         setAccentTextColor(m_Color.darkColor(accent()));
-        setInvertedPrimaryTextColor(m_Color.color(primary(),MaterialShades::MaterialShadesEnum::Shade50));
-        setInvertedAccetTextColor(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade50));
+        setInvertedPrimaryTextColor(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
+        setInvertedAccetTextColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
         break;
     case MaterialThemes::MaterialThemesEnum::Dark:
         if(backgroundColor()==MaterialColors::MaterialColorsEnum::White){
-            setBackColor50(m_Color.color(primary(),MaterialShades::MaterialShadesEnum::Shade900));
-            setBackColor100(m_Color.color(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade800));
-            setBackColor200(m_Color.color(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade700));
-            setBackColor300(m_Color.color(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade600));
+            setBackColor50(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade900));
+            setBackColor100(m_Color.getColor(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade800));
+            setBackColor200(m_Color.getColor(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade700));
+            setBackColor300(m_Color.getColor(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade600));
         }
         else{
-            setBackColor50(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade900));
-            setBackColor100(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade800));
-            setBackColor200(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade700));
-            setBackColor300(m_Color.color(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade600));
+            setBackColor50(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade900));
+            setBackColor100(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade800));
+            setBackColor200(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade700));
+            setBackColor300(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade600));
         }
-        setAccent50(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade900));
-        setAccent100(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade800));
-        setAccent200(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade700));
-        setAccent300(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade600));
+        setAccent50(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade900));
+        setAccent100(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade800));
+        setAccent200(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade700));
+        setAccent300(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade600));
 
-        setIconColor(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade50));
-        setPrimaryTextColor(m_Color.color(primary(),MaterialShades::MaterialShadesEnum::Shade50));
-        setAccentTextColor(m_Color.color(accent(),MaterialShades::MaterialShadesEnum::Shade50));
+        setIconColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
+        setPrimaryTextColor(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
+        setAccentTextColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
         setInvertedPrimaryTextColor(m_Color.darkColor(primary()));
         setInvertedAccetTextColor(m_Color.darkColor(accent()));
         break;

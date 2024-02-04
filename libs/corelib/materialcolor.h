@@ -28,7 +28,7 @@ public:
     QColor colorName();
     static QRgb colors[20][14];
     static QRgb darkColors[20];
-    Q_INVOKABLE QColor color(MaterialColors::MaterialColorsEnum color, MaterialShades::MaterialShadesEnum shade = MaterialShades::MaterialShadesEnum::Shade500);
+    Q_INVOKABLE QColor getColor(MaterialColors::MaterialColorsEnum color, MaterialShades::MaterialShadesEnum shade = MaterialShades::MaterialShadesEnum::Shade500);
     Q_INVOKABLE QColor darkColor(MaterialColors::MaterialColorsEnum color);
 
 signals:
