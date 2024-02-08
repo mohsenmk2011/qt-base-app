@@ -20,16 +20,11 @@ void JooyaSettings::set(QString key, QVariant value)
 int JooyaSettings::getInt(QString key)
 {    
     QSettings s;
-    bool settingIsNull= false;
-    settingIsNull= s.contains(key);
-    if(settingIsNull){
-        qInfo()<<"the settings is contains " <<key;
-    }
-    else {
-        qCritical()<<"the settings is not contains " <<key;
+    if(!s.contains(key)){
+        qCritical()<<"settings is not contains " <<key;
+        return 0;
     }
     QVariant stringInt=s.value(key);
-
     return stringInt.toInt();
 }
 
