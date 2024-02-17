@@ -52,7 +52,6 @@ int main(int argc, char *argv[])
     Purchasinglib::registerTypes();
     Settingslib::registerTypes();
     Networklib::registerTypes();
-    Corelib::registerTypes();
     Quicklib::registerTypes();
     Notificationlib::registerTypes();
 //    JooyaQuickDesign::registerTypes();
