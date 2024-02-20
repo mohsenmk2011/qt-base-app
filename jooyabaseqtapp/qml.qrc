@@ -387,5 +387,7 @@
         <file>images/common/cut@3x.png</file>
         <file>images/common/cut@2x.png</file>
         <file>images/common/cut.png</file>
+        <file>items/shared/TitleItem.qml</file>
+        <file>items/shared/PaneWithTitle.qml</file>
     </qresource>
 </RCC>
