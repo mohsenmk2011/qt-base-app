@@ -251,13 +251,16 @@ bool File::remove()
     if(url().isEmpty()){
         return false;
     }
-    if(QFile::exists(url().path())){
-        QFile file(url().path());
-        return file.remove();
+    QFile file(url().path());
+    if(!file.exists()){
+        return true;
     }
-    else {
+    if(!file.remove())
+    {
         return false;
     }
+    setIsExists(false);
+    return true;
 }
 
 bool File::isVideo(QString ext)
