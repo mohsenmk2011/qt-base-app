@@ -20,7 +20,6 @@ SOURCES += \
     applicationsettings.cpp \
     apppagesmanager.cpp \
     colorlistmodel.cpp \
-    corelib.cpp \
     datetimeutility.cpp \
     fileutility.cpp \
     filewatcher.cpp \

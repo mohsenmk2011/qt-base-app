@@ -41,7 +41,7 @@ public:
         qmlRegisterType<ApplicationPath>("Jooya",1,0,"ApplicationPath");
         qmlRegisterType<JooyaNetworkEngine>("Jooya",1,0,"JooyaNetworkEngine");
         qmlRegisterType<FileUtility>("Jooya",1,0,"JooyaFile");
-        qmlRegisterType<ImageUtility>("Jooya",1,0,"JooyaImage");
+        qmlRegisterType<ImageUtility>("Jooya",1,0,"ImageUtility");
         qmlRegisterType<JooyaSettings>("Jooya",1,0,"JooyaSettings");
         qmlRegisterType<ApplicationSettings>("Jooya",1,0,"ApplicationSettings");
         qmlRegisterType<CurrentUser>("Jooya",1,0,"CurrentUser");
