@@ -16,6 +16,7 @@ CONFIG += c++17
 SOURCES += \
     downloadmanager.cpp \
     file.cpp \
+    fileexplorer.cpp \
     imagefile.cpp \
     imagelistmodel.cpp \
     jooyalistitem.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     downloadmanager.h \
     file.h \
     filedownloadstates.h \
+    fileexplorer.h \
     imagefile.h \
     imagelistmodel.h \
     jooyalistitem.h \

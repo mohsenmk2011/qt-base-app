@@ -14,6 +14,7 @@
 #include<jooyalistitem.h>
 #include<filedownloadstates.h>
 #include<websocketstates.h>
+#include<fileexplorer.h>
 
 class Networklib
 {
@@ -30,6 +31,7 @@ public:
         qmlRegisterType<WebSocketHandler>("Jooya",1,0,"WebSocketHandler");
         qmlRegisterType<WebSocketManager>("Jooya",1,0,"WebSocketManager");
         qmlRegisterType<WebSocketInfo>("Jooya",1,0,"WebSocketInfo");
+        qmlRegisterType<FileExplorer>("Jooya",1,0,"FileExplorer");
         qmlRegisterUncreatableType<WebSocketStates>("Jooya",1,0,"WebSocketStates","states of WebSocket");
 
         qmlRegisterUncreatableType<FileDownloadStates>("Jooya",1,0,"FileDownloadStates","File Download States");
