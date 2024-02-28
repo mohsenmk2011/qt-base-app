@@ -9,28 +9,25 @@ import "../../jsf/JSUtility.js" as Jsu;
 
 Page {
     id:imageEditorPage
-    property ImageFile imageFile
-    property bool imageOpened: imageFile!=null&imageFile.isExists
+    property ImageFile imageFile: null
+    property bool imageOpened: img.source !== "" && img.status === Image.Ready
     property bool clipImageSaved: false
     property size clipSize: Qt.size(100,100)
     property bool isFixedClipSize: true
+    property string orginalUrl: ""
+    property int reloadCount: 0
     Component.onCompleted: {
-
-        console.log("imageFile == null => " +(imageFile ==null));
-    }
-    Component.onDestruction: {
-
-        if(clipImageSaved){
-            imageFile.url="";
-        }
+        orginalUrl = imageFile.url;
     }
     function setimageurl(url){
-        imageFile.url = url;
+        img.source = url;
         imageEditor.clipRect = Jsu.convertToQRect(rectClip);
         imageEditor.scaledImageRect =  Jsu.convertToQRect(rectScaledImage)
         imageEditor.imagePosition =  Qt.point(img.x,img.y)
     }
-
+    ImageUtility{
+        id:imageUtility
+    }
     ImageEditorUtility{
         id:imageEditor
         onClipRectChanged: {
@@ -49,7 +46,6 @@ Page {
     }
     Image {
         id:img
-        source: imageFile.url
         fillMode: Image.PreserveAspectFit
         transform: Scale {
             id: myScale
@@ -226,12 +222,27 @@ Page {
             source: imageOpened ? "../../images/common/cut.png": "../../images/common/folder-open.png"
         }
         onClicked: {
-            console.log("imageFile == null => " +(imageFile ==null));
             if(imageOpened){
                 console.log("image.scale => " +img.scale);
                 console.log("scaled rect => "+Jsu.convertToQRect(rectScaledImage));
                 console.log("  clip rect => "+Jsu.convertToQRect(rectClip));
-                var clipImageSaved = imageFile.clipImage(img.scale,Qt.rect(rectClip.x-rectScaledImage.x,rectClip.y-rectScaledImage.y,rectClip.width,rectClip.height));
+                if(!imageUtility.loadFromPath(img.source))
+                {
+                    console.log("image is not read from path");
+                    return;
+                }
+                if(!imageUtility.clip(Qt.rect(rectClip.x-rectScaledImage.x,rectClip.y-rectScaledImage.y,rectClip.width,rectClip.height),img.scale))
+                {
+                    console.log("cropping image was not succeed");
+                    return;
+                }
+                if(!imageUtility.save(imageFile.url))
+                {
+                    console.log("cropped image was not saved");
+                    return;
+                }
+                reloadCount++;
+                imageFile.url = orginalUrl + "?reload="+reloadCount;
                 sv.pop();
             }
             else{
