@@ -18,7 +18,7 @@ public:
     QVariant data(const QModelIndex &index,int role) const;
     int rowCount(const QModelIndex &parent=QModelIndex()) const;
 
-    bool existes(int imageId);
+    bool existes(QUrl imageUrl);
 
     bool removeRows(int row=0, int count=0, const QModelIndex &parent=QModelIndex());
 

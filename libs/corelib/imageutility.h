@@ -19,8 +19,6 @@
 #include<QImageReader>
 #include<QPainter>
 
-//#include<androidpermissionmanager.h>
-
 class ImageUtility : public FileUtility
 {
     Q_OBJECT
@@ -32,14 +30,14 @@ public:
     ImageUtility(QByteArray imgBytes);
     ImageUtility(QImage img);
     ImageUtility(QString path);
-    bool save(QString path);
+    Q_INVOKABLE bool save(QUrl imageUrl);
 
     QImage image();
     int imgWidth();
     int imgHeight();
 
     void setImage(QImage img);
-    Q_INVOKABLE bool loadFromPath(QString imgPath);
+    Q_INVOKABLE bool loadFromPath(QUrl imgUrl);
     Q_INVOKABLE bool loadFromData(QByteArray base64Data);
     Q_INVOKABLE bool loadImageFromClipboard();
     Q_INVOKABLE bool loadFromBase64String(QString base64);

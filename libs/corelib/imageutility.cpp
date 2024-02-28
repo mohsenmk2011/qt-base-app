@@ -18,9 +18,12 @@ ImageUtility::ImageUtility(QString path) :ImageUtility()
 {
     loadFromPath(path);
 }
-bool ImageUtility::save(QString path)
+
+bool ImageUtility::save(QUrl imageUrl)
 {
-    return m_image.save(path);
+    qDebug()<<"image url => "<<imageUrl;
+    qDebug()<<"image path => "<<imageUrl.path();
+    return m_image.save(imageUrl.path());
 }
 
 QImage ImageUtility::image()
@@ -44,10 +47,10 @@ void ImageUtility::setImage(QImage img)
     emit imageChanged();
 }
 
-bool ImageUtility::loadFromPath(QString imgPath)
+bool ImageUtility::loadFromPath(QUrl imgUrl)
 {
     // Open the source image file
-    QImageReader reader(imgPath);
+    QImageReader reader(imgUrl.path());
     reader.setAutoTransform(true);
     m_image = reader.read();
     return !m_image.isNull();

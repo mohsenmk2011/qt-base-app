@@ -38,11 +38,11 @@ int ImageListModel::rowCount(const QModelIndex &parent) const
     return m_List.count();
 }
 
-bool ImageListModel::existes(int imageId)
+bool ImageListModel::existes(QUrl imageUrl)
 {
     int c=rowCount();
     for (int i = 0; i <c&&rowCount()>0; ++i) {
-        if(m_List.at(i)->fileId()==imageId){
+        if(m_List.at(i)->url()==imageUrl){
             return true;
         }
     }
@@ -68,7 +68,7 @@ void ImageListModel::addImage(ImageFile *u)
     if(u==nullptr){
         return;
     }
-    if(existes(u->fileId())){
+    if(existes(u->url())){
         return;
     }
     connect(u,&ImageFile::deleteSucceed,this,&ImageListModel::imageDeleted);
