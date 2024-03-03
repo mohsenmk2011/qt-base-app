@@ -17,7 +17,11 @@ Page {
     property string orginalUrl: ""
     property int reloadCount: 0
     Component.onCompleted: {
-        orginalUrl = imageFile.url;
+        console.log("imageFile.url => "+imageFile.url);
+        reloadCount = urlUtility.getQueryValueAsInt("reload",imageFile.url);
+        console.log("reloadCount => "+reloadCount);
+        orginalUrl = urlUtility.removeAllQueries(imageFile.url);
+        console.log("orginalUrl => "+orginalUrl);
     }
     function setimageurl(url){
         img.source = url;
@@ -25,6 +29,10 @@ Page {
         imageEditor.scaledImageRect =  Jsu.convertToQRect(rectScaledImage)
         imageEditor.imagePosition =  Qt.point(img.x,img.y)
     }
+    UrlUtility{
+        id:urlUtility
+    }
+
     ImageUtility{
         id:imageUtility
     }
@@ -243,6 +251,8 @@ Page {
                 }
                 reloadCount++;
                 imageFile.url = orginalUrl + "?reload="+reloadCount;
+                imageFile.uploadStatus = FileUploadStatus.NotStarted;
+                imageFile.isExists = true;
                 sv.pop();
             }
             else{
