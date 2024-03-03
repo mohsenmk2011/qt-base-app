@@ -59,7 +59,11 @@ void ImageFile::deleteItem()
 QNetworkReply *ImageFile::uploadImage()
 {
     qDebug()<<"is going to upload the image => ";
-    qDebug()<<"json=> "<<toJson();
+    if(uploadStatus() == FileUploadStatus::FileUploadStatusEnum::Unknown){
+        message()->setContent("نگاره انتخاب نشده است");
+        return nullptr;
+    }
+    setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Started);
     QNetworkReply* r = postRequest("api/File/SaveImage",toJson());
     return r;
 }

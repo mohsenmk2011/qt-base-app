@@ -50,6 +50,10 @@ void ImageUtility::setImage(QImage img)
 bool ImageUtility::loadFromPath(QUrl imgUrl)
 {
     // Open the source image file
+    if(!imgUrl.isValid())
+    {
+        return false;
+    }
     QImageReader reader(imgUrl.path());
     reader.setAutoTransform(true);
     m_image = reader.read();

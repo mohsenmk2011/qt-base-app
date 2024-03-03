@@ -4,11 +4,12 @@ File::File(QObject *parent) : JooyaNetwork (parent)
 {
     ApplicationPath u;
     setFolderPath(u.filesFolderPath());
-
+    setImageName("defaultfilename");
     setFileId(0);
     m_IsDownloaded=false;
     m_IsExists= false;
-    m_DownloadState=FileDownloadStates::FileDownloadStatesEnum::NotStarted;
+    m_DownloadState = FileDownloadStates::FileDownloadStatesEnum::NotStarted;
+    m_uploadStatus = FileUploadStatus::FileUploadStatusEnum::Unknown;
     connect(this,&File::downloadLinkChanged,this,&File::refreshPath);
     connect(this,SIGNAL(imageNameChanged()),this,SLOT(refreshPath()));
     connect(this,SIGNAL(extChanged()),this,SLOT(refreshPath()));
@@ -61,8 +62,10 @@ void File::setUrl(QUrl p)
         emit urlChanged();
         if(QFile::exists(m_Url.path())){
             setDownloadState(FileDownloadStates::FileDownloadStatesEnum::FileExists);
+            qDebug()<<"file exists";
             return;
         }
+        qCritical()<<"file not exists";
     }
 }
 
@@ -245,18 +248,30 @@ void File::download()
     connect(r,SIGNAL(downloadProgress(qint64,qint64)),this,SLOT(updownLoadingProgress(qint64,qint64)));
 }
 
+QNetworkReply* File::upload(QString url,QJsonObject obj)
+{
+    qDebug()<<"is going to upload file";
+    setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Started);
+    QNetworkReply* r = postRequest(url,obj);
+    connect(r,&QNetworkReply::finished,this,&File::onUpload);
+    connect(r,&QNetworkReply::uploadProgress,this,&File::onUploadProgress);
+    return r;
+}
+
 ///remove file from disk
 bool File::remove()
 {
-    if(url().isEmpty()){
+    if(!url().isValid()){
         return false;
     }
     QFile file(url().path());
     if(!file.exists()){
+        setIsExists(false);
         return true;
     }
     if(!file.remove())
     {
+        setIsExists(true);
         return false;
     }
     setIsExists(false);
@@ -282,6 +297,14 @@ bool File::isAudio(QString ext)
 void File::updownLoadingProgress(qint64 bytesSent,qint64 bytesTotal)
 {
     setDownloadState(FileDownloadStates::FileDownloadStatesEnum::IsDownloading);
+    setBytesSent(bytesSent);
+    setBytesTotal(bytesTotal);
+    setUpDownRatio((float)bytesSent/bytesTotal);
+}
+
+void File::onUploadProgress(qint64 bytesSent, qint64 bytesTotal)
+{
+    setUploadStatus(FileUploadStatus::FileUploadStatusEnum::IsUploding);
     setBytesSent(bytesSent);
     setBytesTotal(bytesTotal);
     setUpDownRatio((float)bytesSent/bytesTotal);
@@ -361,6 +384,21 @@ void File::refreshPath()
     setUrl(QUrl::fromLocalFile(folderPath()+imageName()+"."+ext()));
 }
 
+void File::onUpload()
+{
+    qDebug()<<"file upload finished";
+    QNetworkReply* r = convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError){
+        qInfo()<<"with no error";
+        setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Succeed);
+    }
+    else{
+        qCritical()<<"with error";
+        showBadMessage(r->readAll());
+        setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Faild);
+    }
+}
+
 void File::makeSureFolderExsists()
 {
     QDir dir(folderPath());
@@ -385,4 +423,15 @@ void File::initializeFolderPath(QString ext)
     }
 }
 
+const FileUploadStatus::FileUploadStatusEnum &File::uploadStatus() const
+{
+    return m_uploadStatus;
+}
 
+void File::setUploadStatus(const FileUploadStatus::FileUploadStatusEnum &newUploadStatus)
+{
+    if (m_uploadStatus == newUploadStatus)
+        return;
+    m_uploadStatus = newUploadStatus;
+    emit uploadStatusChanged();
+}

@@ -9,6 +9,7 @@
 #include<qdebug.h>
 #include<applicationpath.h>
 #include<filedownloadstates.h>
+#include<fileuploadstatus.h>
 #include<QUrl>
 
 class File : public JooyaNetwork
@@ -27,6 +28,7 @@ class File : public JooyaNetwork
     Q_PROPERTY(QString folderPath READ folderPath WRITE setFolderPath NOTIFY folderPathChanged)
     Q_PROPERTY(QString ext READ ext WRITE setExt NOTIFY extChanged)
     Q_PROPERTY(FileDownloadStates::FileDownloadStatesEnum downloadState READ downloadState WRITE setDownloadState NOTIFY downloadStateChanged)
+    Q_PROPERTY(FileUploadStatus::FileUploadStatusEnum uploadStatus READ uploadStatus WRITE setUploadStatus NOTIFY uploadStatusChanged)
     Q_PROPERTY(bool isDownloaded READ isDownloaded WRITE setIsDownloaded NOTIFY isDownloadedChanged)
     Q_PROPERTY(bool isExists READ isExists WRITE setIsExists NOTIFY isExistsChanged)
 
@@ -75,6 +77,7 @@ public:
     Q_INVOKABLE bool exists();
 
     Q_INVOKABLE virtual void download();
+    Q_INVOKABLE virtual QNetworkReply* upload(QString url,QJsonObject obj);
     Q_INVOKABLE bool remove();
     bool isVideo(QString ext="");
     bool isAudio(QString ext="");
@@ -83,6 +86,9 @@ public:
     QByteArray read();
 
     QUrl getUrl(QString name);
+    const FileUploadStatus::FileUploadStatusEnum &uploadStatus() const;
+    void setUploadStatus(const FileUploadStatus::FileUploadStatusEnum &newUploadStatus);
+
 signals:
  void downloadLinkChanged();
  void urlChanged();
@@ -96,10 +102,14 @@ signals:
  void downloadStateChanged();
  void isDownloadedChanged();
  void isExistsChanged();
+ void uploadStatusChanged();
+
 private slots:
  void updownLoadingProgress(qint64 bytesSent, qint64 bytesTotal);
+ void onUploadProgress(qint64 bytesSent, qint64 bytesTotal);
  void onDownloadFinishd();
  void refreshPath();
+ void onUpload();
 
 private:
     QString m_DowloadLink;
@@ -116,6 +126,7 @@ private:
     bool m_IsExists;
     void makeSureFolderExsists();
     void initializeFolderPath(QString ext);
+    FileUploadStatus::FileUploadStatusEnum m_uploadStatus;
 };
 
 #endif // FILE_H
