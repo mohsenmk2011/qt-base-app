@@ -25,6 +25,7 @@ SOURCES += \
     filewatcher.cpp \
     htmlhelper.cpp \
     imageutility.cpp \
+    isoscelestrianglemath.cpp \
     itemsvisiblestate.cpp \
     jooyaapplication.cpp \
     jooyafont.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
     filewatcher.h \
     htmlhelper.h \
     imageutility.h \
+    isoscelestrianglemath.h \
     itemsvisiblestate.h \
     jooyaapplication.h \
     jooyafont.h \

@@ -29,6 +29,7 @@
 #include<androidservice.h>
 #include<datetimeutility.h>
 #include<urlutility.h>
+#include<isoscelestrianglemath.h>
 
 class Corelib
 {
@@ -54,6 +55,7 @@ public:
         qmlRegisterType<FileWatcher>("Jooya",1,0,"FileWatcher");
         qmlRegisterType<DateTimeUtility>("Jooya",1,0,"DateTimeUtility");
         qmlRegisterType<UrlUtility>("Jooya",1,0,"UrlUtility");
+        qmlRegisterType<IsoscelesTriangleMath>("Jooya",1,0,"IsoscelesTriangleMath");
 
         qmlRegisterType<PersianDateTime>("Jooya",1,0,"PersianDateTime");
 
