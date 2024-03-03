@@ -37,6 +37,7 @@ SOURCES += \
     materialstylehelper.cpp \
     message.cpp \
     persiandatetime.cpp \
+    urlutility.cpp \
     userlogininfo.cpp \
     userloginsettings.cpp
 
@@ -76,6 +77,7 @@ HEADERS += \
     persiandatetime.h \
     persiandayofweek.h \
     qmllive.h \
+    urlutility.h \
     userlogininfo.h \
     userloginsettings.h \
     userroles.h

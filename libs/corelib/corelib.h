@@ -28,6 +28,7 @@
 #include<QQmlEngine>
 #include<androidservice.h>
 #include<datetimeutility.h>
+#include<urlutility.h>
 
 class Corelib
 {
@@ -50,8 +51,9 @@ public:
         qmlRegisterType<MessageBoard>("Jooya",1,0,"MessageBoard");
         qmlRegisterType<AppPagesManager>("Jooya",1,0,"AppPagesManager");
         qmlRegisterType<QmlLive>("Jooya",1,0,"QmlLive");
-        qmlRegisterType<FileWatcher>("Jooya",1,0,"FileWatcher");        
+        qmlRegisterType<FileWatcher>("Jooya",1,0,"FileWatcher");
         qmlRegisterType<DateTimeUtility>("Jooya",1,0,"DateTimeUtility");
+        qmlRegisterType<UrlUtility>("Jooya",1,0,"UrlUtility");
 
         qmlRegisterType<PersianDateTime>("Jooya",1,0,"PersianDateTime");
 
