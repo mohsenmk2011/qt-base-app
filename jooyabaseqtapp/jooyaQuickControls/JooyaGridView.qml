@@ -69,6 +69,16 @@ GridView{
             easing.type: Easing.OutExpo
         }
     }
+    remove: Transition
+    {
+        NumberAnimation
+        {
+            properties: "scale"
+            from: 1
+            to: 0.18
+            duration: 540
+        }
+    }
     moveDisplaced: Transition
     {
         NumberAnimation
