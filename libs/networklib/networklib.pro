@@ -34,6 +34,7 @@ HEADERS += \
     file.h \
     filedownloadstates.h \
     fileexplorer.h \
+    fileuploadstatus.h \
     imagefile.h \
     imagelistmodel.h \
     jooyalistitem.h \
