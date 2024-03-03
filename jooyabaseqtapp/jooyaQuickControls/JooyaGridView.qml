@@ -64,29 +64,27 @@ GridView{
         NumberAnimation
         {
             properties: "y"
-            from: 960
-            duration: 333
+            from: 900
+            duration: 630
             easing.type: Easing.OutExpo
         }
     }
-    move: Transition
+    moveDisplaced: Transition
     {
         NumberAnimation
         {
-            properties: "y"
-            from: 960
-            duration: 333
+            properties: "x,y"
+            duration: 900
             easing.type: Easing.OutExpo
         }
     }
-    remove: Transition
+    removeDisplaced: Transition
     {
         NumberAnimation
         {
-            properties: "x"
-            to: 999
-            duration: 90
-            easing.type: Easing.InExpo
+            properties: "x,y"
+            duration: 900
+            easing.type: Easing.OutExpo
         }
     }
     ScrollBar.vertical: ScrollBar{
