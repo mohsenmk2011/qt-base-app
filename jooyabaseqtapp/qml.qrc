@@ -390,5 +390,6 @@
         <file>items/shared/TitleItem.qml</file>
         <file>items/shared/PaneWithTitle.qml</file>
         <file>pages/shared/FileExplorerPage.qml</file>
+        <file>items/shared/NewProductLabelItem.qml</file>
     </qresource>
 </RCC>
