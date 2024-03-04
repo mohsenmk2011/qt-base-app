@@ -22,7 +22,7 @@ Rectangle{
     Label{
         id:lblTitle
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        verticalAlignment: Label.AlignVCenter
         text: title
         color: MaterialStyle.invertedPrimaryTextColor
         font{

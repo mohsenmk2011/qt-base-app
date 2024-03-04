@@ -33,7 +33,7 @@ TextField{
         radius: 3
     }
     TitleItem{
-        x:tfContent.horizontalAlignment===TextField.AlignRight ? ((tfContent.x+tfContent.width)- width ) -18 : 18
+        x:tfContent.horizontalAlignment===TextField.AlignRight ? tfContent.width - width - 18 : 18
         visible: {
             if(helpTitle!=""){
                 return tfContent.activeFocus||tfContent.text !="";

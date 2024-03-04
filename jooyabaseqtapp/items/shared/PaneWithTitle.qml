@@ -11,7 +11,7 @@ Pane{
     //=================< new properties >===================
     property string title: ""
     TitleItem{
-        x: titleHorizontalAlignment === Label.AlignRight ? ((rectContainer.x+rectContainer.width)- width ) -45 : 18
+        x: titleHorizontalAlignment === Label.AlignRight ? rectContainer.width - width - 18 : 18
         visible: rectContainer.text!==""
         title: rectContainer.title
     }
