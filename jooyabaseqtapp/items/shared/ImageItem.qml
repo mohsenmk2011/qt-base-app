@@ -58,7 +58,7 @@ Item{
         width: 72
         height: 72
         highlighted: true
-        visible: hasImage&&!imageFile.isExists&&!imageFile.isProcessing&&imageFile.fileId!=0&&imageFile.downloadState!=FileDownloadStates.FileNotFound
+        visible: hasImage&&!imageFile.isExists&&!imageFile.isProcessing&&imageFile.fileId!=0&&(imageFile.downloadState===FileDownloadStates.Faild||imageFile.downloadState===FileDownloadStates.ErrorInSaving)
         anchors.centerIn: parent
         Material.elevation: 1
         contentItem: Image {
