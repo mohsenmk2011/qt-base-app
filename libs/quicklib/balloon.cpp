@@ -15,8 +15,7 @@ void Balloon::paint(QPainter *painter)
     QBrush brush(color());
     painter->setBrush(brush);
     painter->setPen(Qt::NoPen);
-    //painter->setRenderHint(QPainter::Antialiasing);
-    painter->setRenderHint(QPainter::HighQualityAntialiasing);
+    painter->setRenderHint(QPainter::Antialiasing);
     painter->drawPath(getRoundedPath().GetPath());
 }
 
