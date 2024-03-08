@@ -20,7 +20,7 @@ public:
     static QString removeP_Br_NewLines(const QString &html)
     {
         // Regular expression to match <p>, <br />, and \n
-        QRegularExpression regex("<[pP]>|</[pP]>|<br\\s*/>|\\n");
+        QRegularExpression regex("<[pP][^>]*>|</[pP]>|<br\\s*/>|\\n");
         QString result = html;
 
         // Replace matches with an empty string
