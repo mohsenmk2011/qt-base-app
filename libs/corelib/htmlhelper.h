@@ -17,6 +17,15 @@ public:
         result.replace(regex, "<p\\1\\3>");
         return result;
     }
+    static QString removeP_Br_NewLines(const QString &html)
+    {
+        // Regular expression to match <p>, <br />, and \n
+        QRegularExpression regex("<[pP]>|</[pP]>|<br\\s*/>|\\n");
+        QString result = html;
+
+        // Replace matches with an empty string
+        return result.replace(regex, "");
+    }
 
     static QString extractBodyHtml(const QString &html)
     {
