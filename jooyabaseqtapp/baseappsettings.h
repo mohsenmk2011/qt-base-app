@@ -12,9 +12,6 @@ class BaseAppSettings : public ApplicationSettings
 public:
     explicit BaseAppSettings(QObject *parent = nullptr);
 
-    Q_INVOKABLE void setLastSelectedExercise(int index);
-    Q_INVOKABLE int lastSelectedExercise();
-
     int userScore();
     void setUserScore(int n);
 
