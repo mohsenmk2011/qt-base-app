@@ -16,6 +16,7 @@ CONFIG += c++17
 SOURCES += \
     androidmanager.cpp \
     androidservicemanager.cpp \
+    applicationinfohelper.cpp \
     applicationpath.cpp \
     applicationsettings.cpp \
     apppagesmanager.cpp \
@@ -46,6 +47,8 @@ HEADERS += \
     androidmanager.h \
     androidservice.h \
     androidservicemanager.h \
+    applicationinfo.h \
+    applicationinfohelper.h \
     applicationpath.h \
     applicationsettings.h \
     apppagesmanager.h \

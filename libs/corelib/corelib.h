@@ -30,6 +30,8 @@
 #include<datetimeutility.h>
 #include<urlutility.h>
 #include<isoscelestrianglemath.h>
+#include<applicationinfo.h>
+#include<applicationinfohelper.h>
 
 class Corelib
 {
@@ -62,6 +64,10 @@ public:
         qmlRegisterType<MaterialStyleHelper>("JooyaQuick.Controls.Material",1,0,"MaterialStyleHelper");
         qmlRegisterType<MaterialStyle>("JooyaQuick.Controls.Material",1,0,"MaterialStyle");
         qmlRegisterType<MaterialColor>("JooyaQuick.Controls.Material",1,0,"MaterialColor");
+
+
+        qmlRegisterType<ApplicationInfo>("Jooya",1,0,"ApplicationInfo");
+        qmlRegisterType<ApplicationInfoHelper>("Jooya",1,0,"ApplicationInfoHelper");
 
         qmlRegisterUncreatableType<OperationTypes>("Jooya",1,0,"OperationTypes","Operation Types");
 

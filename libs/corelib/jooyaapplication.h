@@ -7,6 +7,7 @@
 #include<materialstylehelper.h>
 #include<applicationsettings.h>
 #include<QGuiApplication>
+#include<applicationinfohelper.h>
 
 class JooyaApplication : public JooyaNetworkEngine
 {
@@ -14,9 +15,11 @@ class JooyaApplication : public JooyaNetworkEngine
 public:
     explicit JooyaApplication(QObject *parent = nullptr);
     explicit JooyaApplication(QString organization,QString organizationDomain, QString applicationName);
+    void setApplicationName(QString name);
 
     static MaterialStyleHelper* m_MaterialStyleHelper;
     static bool m_IsDesignMode;
+    static ApplicationInfoHelper* m_AppInfo;
     void processQmlLiveCommandLine(QGuiApplication *app);
     bool isDesignMode();
     void setDefaultTheme(MaterialThemes::MaterialThemesEnum theme, MaterialColors::MaterialColorsEnum primary, MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor);

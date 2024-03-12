@@ -3,6 +3,7 @@
 JooyaApplication::JooyaApplication(QObject *parent) : JooyaNetworkEngine(parent)
 {
     m_MaterialStyleHelper=new MaterialStyleHelper();
+    m_AppInfo = new ApplicationInfoHelper();
 }
 
 void JooyaApplication::processQmlLiveCommandLine(QGuiApplication *app)
@@ -32,6 +33,11 @@ JooyaApplication::JooyaApplication(QString organization, QString organizationDom
     loginInfo()->initialState();
 }
 
+void JooyaApplication::setApplicationName(QString name)
+{
+    m_AppInfo->setName(name);
+}
+
 void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,MaterialColors::MaterialColorsEnum primary,MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor)
 {
     ApplicationSettings s;
@@ -49,3 +55,5 @@ void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,
 
 MaterialStyleHelper* JooyaApplication::m_MaterialStyleHelper;//=new MaterialStyleHelper();
 bool JooyaApplication::m_IsDesignMode=false;
+
+ApplicationInfoHelper* JooyaApplication::m_AppInfo;
