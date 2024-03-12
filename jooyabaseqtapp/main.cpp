@@ -36,8 +36,8 @@
 
 int main(int argc, char *argv[])
 {
-    //TODO: Change this after creating new branch from master branch
     JooyaApplication japp("Jooya","www.jooyabash.ir","JooyaQtBaseApplication");
+    japp.setApplicationName("اپلیکیشن جویا");
     japp.setDefaultTheme(MaterialThemes::MaterialThemesEnum::Light,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink);
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
