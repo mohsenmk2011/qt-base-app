@@ -107,9 +107,7 @@ JooyaPage{
         clip: true
         ColumnLayout {
             id: mainClm
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.fill: parent
             spacing: 9
             Pane{
                 id:pnContainer
@@ -142,7 +140,7 @@ JooyaPage{
                     }
                 }
                 RoundButton {
-                    id: btnTakePicDeleteUserImage
+                    id: rbtnUserImage
                     Material.elevation: 2
                     width: 72
                     height: 72
@@ -182,18 +180,27 @@ JooyaPage{
                 count: svUserImages.count
                 currentIndex: svUserImages.currentIndex
             }
-            JooyaTextField{
+            TextFieldLabeld{
                 id: tfDisplayName
                 Layout.topMargin: 36
-                placeholderText: "نام شما در رخشید"
-                Layout.fillWidth: true
+                title: "نام شما در " + ApplicationInfo.name
+                placeholderText:  "نام شما در " + ApplicationInfo.name
                 text: userProfile.displayName
+                Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
             }
             CheckBox{
                 id:chkboxIsSupporter
                 visible: CurrentUser.isAnyAdmin
                 checked: userProfile.isSupporter
-                text: "آیا پشتیبان رخشید است"
+                Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
+                LayoutMirroring.enabled: true
+                text: "آیا این کاربر در اپلیکیشن "+ ApplicationInfo.name +" پشتیبان است"
                 font{
                     family: flYekan.name
                 }
@@ -201,26 +208,45 @@ JooyaPage{
                     userProfile.setAsSupporter(checked);
                 }
             }
-            JooyaTextField{
+            TextFieldLabeld{
                 id: tfUserName
-                Layout.topMargin: 36
+                title: "نام کاربری"
                 placeholderText: "نام کاربری"
                 Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
                 text: userProfile.userName
-                enabled: false
             }
-            JooyaTextField{
+            TextFieldLabeld{
                 id: tfEmail
-                Layout.topMargin: 36
-                placeholderText: "ایمیل"
+                title: "ایمیل"
+                placeholderText: "ایمیل"                
                 Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
                 text: userProfile.email
             }
-            JooyaTextField{
+            TextFieldLabeld{
+                id: tfPhoneNumber
+                title: "شماره موبایل"
+                placeholderText: "شماره موبایل"
+                Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
+                text: userProfile.phoneNumber
+                inputMethodHints: Qt.ImhDigitsOnly
+            }
+            TextFieldLabeld{
                 id: tfUserScore
-                Layout.topMargin: 36
+                title: "امتیاز کاربر"
                 placeholderText: "امتیاز کاربر"
                 Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
                 text: userProfile.score
                 enabled: false
                 onFocusChanged: {

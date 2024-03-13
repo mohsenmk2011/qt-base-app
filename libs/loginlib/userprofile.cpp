@@ -202,7 +202,7 @@ void UserProfile::fromJson(QJsonObject obj){
 
 //    setLastName(obj.value("lastName").toString());
 //    setGender(obj.value("gender").toBool());
-//    setPhoneNumber(obj.value("phoneNumber").toString());
+    setPhoneNumber(obj.value("phoneNumber").toString());
     setEmail(obj.value("email").toString());
     setUserName(obj.value("userName").toString());
 
