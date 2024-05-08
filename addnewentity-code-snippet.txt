@@ -1,0 +1,10 @@
+void $%{CurrentDocument:FileBaseName}:c$::addNew$entity:c$()
+{
+    $EntityClassName$* $entity$ = m_$entity$s.getEntity("");
+    if($entity$ == nullptr)
+    {
+        $entity$ = new $EntityClassName$(websiteId());
+        m_$entity$s.appendEntity($entity$);
+    }
+    emit new$entity:c$Added($entity$);
+}

@@ -1,0 +1,9 @@
+QJsonObject $%{CurrentDocument:FileBaseName}:c$::toJson()
+{
+    QJsonObject obj;
+    obj.insert("$%{CurrentDocument:FileBaseName}$Id",$%{CurrentDocument:FileBaseName}$Id());
+    obj.insert("$PropertyName2$",$PropertyName2$());
+    obj.insert("$PropertyName3$",$PropertyName3$());
+    obj.insert("$PropertyName4$",$PropertyName4$());
+    return obj;
+}

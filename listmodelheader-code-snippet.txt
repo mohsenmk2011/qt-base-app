@@ -1,0 +1,39 @@
+#ifndef $className:u$LISTMODEL_H
+#define $className:u$LISTMODEL_H
+
+#include <QObject>
+#include<QAbstractListModel>
+#include<$className:l$.h>
+
+class $className:c$ListModel : public QAbstractListModel
+{
+    Q_OBJECT
+public:
+    explicit $className:c$ListModel(QObject *parent = nullptr);
+    enum EntityRoles{
+        EntityRole=Qt::UserRole+1
+    };
+
+    QHash<int,QByteArray> roleNames() const;
+    QVariant data(const QModelIndex &index,int role) const;
+    int rowCount(const QModelIndex &parent=QModelIndex()) const;
+
+    bool removeRows(int row=0, int count=0, const QModelIndex &parent=QModelIndex());
+
+    void insertEntity($className:c$* e,int index=0);
+    $className:c$* getEntity(QString id);
+    $className:c$* at(int index);
+
+    QList<$className:c$*> list();
+    void appendEntity($className:c$ *e);
+signals:
+    void scrolledToEnd() const;
+public slots:
+    void onDeleteSucceed();
+private:
+    QList<$className:c$*> m_Entities;
+
+};
+
+#endif // $className:u$LISTMODEL_H
+

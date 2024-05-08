@@ -1,0 +1,111 @@
+#include "$className:l$listmodel.h"
+
+$className:c$ListModel::$className:c$ListModel(QObject *parent)
+    : QAbstractListModel{parent}
+{
+    m_Entities={};
+}
+
+QHash<int, QByteArray> $className:c$ListModel::roleNames() const
+{
+    QHash<int,QByteArray> roles;
+    roles[EntityRole]="model";
+    return roles;
+}
+
+QVariant $className:c$ListModel::data(const QModelIndex &index, int role) const
+{
+    int i=index.row();
+    if(i<0||i>=m_Entities.size())
+    {
+        return QVariant(QVariant::Invalid);
+    }
+    else if(i==m_Entities.count()-1){
+        emit scrolledToEnd();
+    }
+
+    $className:c$ *entity =m_Entities[i];
+    if(role==EntityRole){
+        return QVariant::fromValue(entity);
+    }
+    else {
+        return QVariant();
+    }
+}
+
+int $className:c$ListModel::rowCount(const QModelIndex &parent) const
+{
+    return m_Entities.count();
+}
+
+bool $className:c$ListModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    int c=rowCount();
+    if(c<=0){
+        return  true;
+    }
+    beginRemoveRows(QModelIndex(),0,c-1);
+    for (int i = 0; i <c&&rowCount()>0 ; ++i) {
+        m_Entities.removeAt(0);
+    }
+    endRemoveRows();
+    return true;
+}
+
+void $className:c$ListModel::insertEntity($className:c$ *e, int index)
+{
+    beginInsertRows(QModelIndex(),rowCount(),rowCount());
+    m_Entities.insert(index,e);
+    endInsertRows();
+    connect(e,&$className:c$::deleteSucceed,this,&$className:c$ListModel::onDeleteSucceed);
+}
+
+void $className:c$ListModel::appendEntity($className:c$ *e)
+{
+    beginInsertRows(QModelIndex(),rowCount(),rowCount());
+    m_Entities.append(e);
+    endInsertRows();
+    connect(e,&$className:c$::deleteSucceed,this,&$className:c$ListModel::onDeleteSucceed);
+}
+
+$className:c$ *$className:c$ListModel::at(int index)
+{
+    if(index< 0)
+    {
+        return nullptr;
+    }
+    return list().at(index);
+}
+
+void $className:c$ListModel::onDeleteSucceed()
+{
+    int c=rowCount();
+    if(c<=0){
+        return;
+    }
+    $className:c$* current$className:c$=qobject_cast<$className:c$*>(sender());
+    int index = m_Entities.indexOf(current$className:c$);
+    if(index== -1)
+    {
+        return;
+    }
+    beginRemoveRows(QModelIndex(),index,index);
+    m_Entities.removeAt(index);
+    endRemoveRows();
+}
+
+$className:c$ *$className:c$ListModel::getEntity(QString id)
+{
+    for (int i = 0; i <rowCount(); ++i) {
+        if(m_Entities.at(i)->$className$Id()==id){
+            return m_Entities.at(i);
+        }
+    }
+    return nullptr;
+}
+
+QList<$className:c$ *> $className:c$ListModel::list()
+{
+    return m_Entities;
+}
+

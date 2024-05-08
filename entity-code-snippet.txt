@@ -1,0 +1,57 @@
+#include "$classname:l$.h"
+
+$classname:c$::$classname:c$(QObject *parent)
+    : JooyaNetwork{parent}
+{
+
+}
+
+$classname:c$::$classname:c$(QJsonObject obj):$classname:c$()
+{
+    fromJson(obj);
+}
+
+const QString &$classname:c$::$classname$Id() const
+{
+    return m_$classname:c$Id;
+}
+
+void $classname:c$::set$classname:c$Id(const QString &new$classname:c$Id)
+{
+    if (m_$classname:c$Id == new$classname:c$Id)
+        return;
+    m_$classname:c$Id = new$classname:c$Id;
+    emit $classname$IdChanged();
+}
+
+void $classname:c$::save()
+{
+    postAndReturnObject("api2/$classname:c$",toJson());
+    connect(this,&$classname:c$::requestSucceedWithObject,this,&$classname:c$::onSave);
+}
+
+void $classname:c$::onSave(QJsonObject obj)
+{
+    fromJson(obj);
+}
+
+void $classname:c$::remove()
+{
+    if($classname$Id().isNull()||$classname$Id().isEmpty()){
+        emit deleteSucceed();
+        return;
+    }
+    QNetworkReply* r = deleteRequest("api2/$classname:c$/"+$classname$Id());
+    connect(r,&QNetworkReply::finished,this,&$classname:c$::onRemove);
+}
+
+void $classname:c$::onRemove()
+{
+    QNetworkReply* r = convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError)
+    {
+        emit deleteSucceed();
+    }
+    showMessage(r);
+}
+

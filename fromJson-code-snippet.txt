@@ -1,0 +1,14 @@
+
+void $%{CurrentDocument:FileBaseName}:c$::fromJson(QJsonObject obj)
+{
+    set$%{CurrentDocument:FileBaseName}:c$Id(obj.value("id").toString());
+    QString mess = obj.value("message").toString();
+    if(!mess.isEmpty())
+    {
+        message()->setContent(mess,true);
+        return;
+    }
+    set$PROPERTY1:c$(obj.value("$PROPERTY1$").toString());
+    set$PROPERTY2:c$(obj.value("$PROPERTY2$").toString());
+    set$PROPERTY3:c$(obj.value("$PROPERTY3$").toString());
+}
