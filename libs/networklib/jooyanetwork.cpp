@@ -90,6 +90,17 @@ QNetworkReply* JooyaNetwork::getRequest(QString url, bool useIdentityUrl, bool i
     return r;
 }
 
+void JooyaNetwork::getAndReturnObject(QString url)
+{
+    if(url.isEmpty()||url.isNull()){
+        return;
+    }
+    setIsProcssing(true);
+    setUrl(url);
+    QNetworkReply* r= m_NetworkManager.get(m_Request);
+    connect(r,&QNetworkReply::finished,this,&JooyaNetwork::onRequestFinished);
+}
+
 QNetworkReply* JooyaNetwork::deleteRequest(QString url, bool useIdentityUrl)
 {
     setIsProcssing(true);
@@ -104,6 +115,22 @@ QNetworkReply* JooyaNetwork::postRequest(QString url, QJsonObject obj, bool useI
     setUrl(url,useIdentityUrl,isFullUrl);
     QNetworkReply* r=m_NetworkManager.post(m_Request,QJsonDocument(obj).toJson());
     return r;
+}
+
+void JooyaNetwork::post(QString url, QJsonObject obj)
+{
+    setIsProcssing(true);
+    setUrl(url);
+    QNetworkReply* r=m_NetworkManager.post(m_Request,QJsonDocument(obj).toJson());
+    connect(r,&QNetworkReply::finished,this,&JooyaNetwork::onRequestFinished);
+}
+
+void JooyaNetwork::postAndReturnObject(QString url, QJsonObject obj)
+{
+    setIsProcssing(true);
+    setUrl(url);
+    QNetworkReply* r=m_NetworkManager.post(m_Request,QJsonDocument(obj).toJson());
+    connect(r,&QNetworkReply::finished,this,&JooyaNetwork::onRequestFinishedReturnObject);
 }
 QNetworkReply* JooyaNetwork::postRequest(QString url, QUrlQuery query, bool useIdentityUrl, bool isFullUrl)
 {
@@ -145,6 +172,24 @@ void JooyaNetwork::currentReplyFinished(QNetworkReply* r)
     setDisplayCommonErrorMessage(true);
     setOperationType(OperationTypes::OperationTypesEnum::NoOperation);
     emit requestFinished(r->error()==QNetworkReply::NoError);
+}
+
+void JooyaNetwork::onRequestFinished()
+{
+    showMessage(sender());
+}
+
+void JooyaNetwork::onRequestFinishedReturnObject()
+{
+    QNetworkReply* r = convertToReply(sender());
+    if(r->error()== QNetworkReply::NoError)
+    {
+        emit requestSucceedWithObject(jsonUtility()->convertToJsonObject(r));
+    }
+    else
+    {
+        showBadMessage(r->readAll());
+    }
 }
 
 void JooyaNetwork::showMessage(QObject* obj)

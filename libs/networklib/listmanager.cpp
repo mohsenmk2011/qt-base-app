@@ -33,6 +33,53 @@ QJsonArray ListManager::fromJsonFile(QString name)
     }
 }
 
+QNetworkReply *ListManager::getListAndReturnArray(QString url)
+{
+    qDebug()<<"is going to get list of entity";
+    QNetworkReply* reply= getRequest(QString(url+"?skipcount=%1&count=%2").arg(skipCount()).arg(takeCount()));
+    connect(reply,&QNetworkReply::finished,this,&ListManager::onGetList);
+    return reply;
+}
+
+bool ListManager::canGetList()
+{
+    //TODO: if isSearch() may be should return false here
+    if(isProcessing())
+    {
+        qDebug()<<"isProcessing -> return";
+        return false;
+    }
+    if(listHasCompeleted())
+    {
+        qDebug()<<"there is no more entity !!! -> return";
+        return false;
+    }
+    return true;
+}
+
+void ListManager::onGetList()
+{
+    QNetworkReply* r=convertToReply(sender());
+    qDebug()<<"getting list of entity finished";
+    if(r->error()==QNetworkReply::NoError)
+    {
+        qInfo()<<"with no error";
+        QJsonArray array=jsonUtility()->convertToJsonArray(r->readAll());
+        setLastTakedCount(array.count());
+        emit requestSucceedWithArray(array);
+    }
+    else if(isNotFound(r))
+    {
+        qInfo()<<"entities list finished";
+        setListHasCompeleted(true);
+        emit noMoreEntity();
+    }
+    else
+    {
+        showMessage(r);
+    }
+}
+
 void ListManager::deselectAll()
 {
 

@@ -43,10 +43,14 @@ public:
     void setSelectedCount(int s);
     void toJsonFile(QString fileName,QJsonArray array);
     QJsonArray fromJsonFile(QString name);
+    QNetworkReply* getListAndReturnArray(QString url);
+    bool canGetList();
 signals:
+    void noMoreEntity();
     void selectModeChanged();
     void selectedCountChanged();
 public slots:
+    void onGetList();
 private:
     bool m_SelectMode;
     int m_SelectedCount;

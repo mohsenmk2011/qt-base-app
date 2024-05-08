@@ -36,6 +36,7 @@ public:
     void showMessage(QObject* obj);
 
     QNetworkReply* getRequest(QString url, bool useIdentityUrl=false, bool isFullUrl=false);
+    void getAndReturnObject(QString url);
 
     void initializeRequestHeader(bool withJsonHeader=true);
 
@@ -45,6 +46,8 @@ public:
     bool isNotFound(QNetworkReply *r);
 //    QNetworkReply *postRequest(QString url, QByteArray data);
     QNetworkReply *postRequest(QString url, QJsonObject obj, bool useIdentityUrl=false, bool isFullUrl=false);
+    void post(QString url, QJsonObject obj);
+    void postAndReturnObject(QString url, QJsonObject obj);
     QNetworkReply *postRequest(QString url, QUrlQuery query, bool useIdentityUrl=false, bool isFullUrl=false);
     QNetworkReply *deleteRequest(QString url,bool useIdentityUrl=false);
     QNetworkReply *putRequest(QString url, QJsonObject obj);
@@ -59,6 +62,8 @@ signals:
     void connectionError();
     void pageManagerChanged();
     void requestFinished(bool isSucceed);
+    void requestSucceedWithObject(QJsonObject obj);
+    void requestSucceedWithArray(QJsonArray array);
 
 private:
     void checkCommonErrors(QNetworkReply *r);
@@ -68,6 +73,8 @@ private:
 private slots:
     void addTokenToRequestHeader();
     virtual void currentReplyFinished(QNetworkReply *r);
+    void onRequestFinished();
+    void onRequestFinishedReturnObject();
 };
 
 #endif // NETWORKMANAGER_H
