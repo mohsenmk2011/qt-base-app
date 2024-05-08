@@ -16,7 +16,6 @@ ApplicationWindow {
     Material.accent: MaterialStyle.accent
     Material.primary: MaterialStyle.primary
     Material.theme:MaterialStyle.theme
-    Material.background:MaterialStyle.backColor50
     onClosing: {
         WebSocketManager.close();
     }
