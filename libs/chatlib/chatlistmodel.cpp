@@ -98,20 +98,19 @@ Chat *ChatListModel::find(QString chatId)
     return nullptr;
 }
 
-bool ChatListModel::onDeleteSucceed()
+void ChatListModel::onDeleteSucceed()
 {
     int c=rowCount();
     if(c<=0){
-        return  true;
+        return;
     }
-    QString id=qobject_cast<Chat*>(sender())->chatId();
-    for (int i = 0; i <c&&rowCount()>0 ; ++i) {
-        if(m_List.at(i)->chatId()==id){
-            beginRemoveRows(QModelIndex(),i,i);
-            m_List.removeAt(i);
-            endRemoveRows();
-            break;
-        }
+    Chat* currentChat=qobject_cast<Chat*>(sender());
+    int index = m_List.indexOf(currentChat);
+    if(index== -1)
+    {
+        return;
     }
-    return true;
+    beginRemoveRows(QModelIndex(),index,index);
+    m_List.removeAt(index);
+    endRemoveRows();
 }

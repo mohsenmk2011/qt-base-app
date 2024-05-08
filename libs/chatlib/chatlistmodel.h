@@ -28,7 +28,7 @@ signals:
     void scrolledToEnd() const;
 
 private slots:
-    bool onDeleteSucceed();
+    void onDeleteSucceed();
 
 private:
     QList<Chat*> m_List;
