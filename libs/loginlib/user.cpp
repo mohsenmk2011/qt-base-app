@@ -274,6 +274,38 @@ void User::getReferralCode()
     connect(r,SIGNAL(finished()),this,SLOT(onGetReferralCode()));
 }
 
+void User::signup()
+{
+    if(isProcessing()){
+        return;
+    }
+    if(phoneNumber().isNull()||phoneNumber().isEmpty())
+    {
+        message()->setContent("شماره تلفن همراه را وارد کنید");
+        return;
+    }
+
+    QJsonObject jObj;
+    jObj.insert("phoneNumber",phoneNumber());
+
+    QNetworkReply* reply= postRequest("api/User",jObj);
+    connect(reply,&QNetworkReply::finished ,this,&User::onSignup);
+}
+
+void User::onSignup()
+{
+    QNetworkReply* r=convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError){
+        QJsonObject obj= jsonUtility()->convertToJsonObject(r->readAll());
+        setUserId(obj.value("id").toString());
+        emit signupSucceed(userId());
+        message()->setContent(obj.value("message").toString(),true);
+    }
+    else {
+        showMessage(r);
+    }
+}
+
 void User::onGetReferralCode()
 {
     QNetworkReply* r=convertToReply(sender());

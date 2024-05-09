@@ -86,6 +86,7 @@ public:
     Q_INVOKABLE void setAsSupporter(bool isSupporter);
 
     Q_INVOKABLE void getReferralCode();
+    Q_INVOKABLE void signup();
 signals:
     void userIdChanged();
     void userNameChanged();
@@ -102,12 +103,14 @@ signals:
     void profileChanged();
     void imageChanged();
     void referralInfoIsReady(QString referralLink,int clicks,int signedUps);
+    void signupSucceed(QString userId);
 private slots:
     void getRolesFinished();
     void addToRoleFinished();
     void removeFromRoleFinished();
     void onGetReferralCode();
     void onSetAsSupporter();
+    void onSignup();
 private:
     ///کاربر را از رشته جی سون مقدار دهی می کند
     void setFromJson(QString jsonUser);
