@@ -15,6 +15,8 @@ Dialog{
     property int fontSize: 18
     property bool yesHighlighted: false
     property bool noHighlighted: true
+    property string yesButtonText: "آری"
+    property string noButtonText: "خیر"
     parent:  Overlay.overlay
 
     x: (rootWidth-width)/2
@@ -61,7 +63,7 @@ Dialog{
         Button{
             Layout.fillWidth: true
             highlighted: yesHighlighted
-            text: "آری"
+            text: yesButtonText
             onClicked: {
                 yesClicked();
                 root.close();
@@ -70,7 +72,7 @@ Dialog{
         Button{
             Layout.fillWidth: true
             highlighted: noHighlighted
-            text: "خیر"
+            text: noButtonText
 
             onClicked: {
                 noClicked()
