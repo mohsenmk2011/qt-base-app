@@ -9,7 +9,6 @@ import Jooya 1.0
 JooyaFlickable{
     id: root
     objectName: "signup"
-    property alias rootWidth: root.width
     LoginManager {
         id:loginManager
         onIsProcessingChanged: {
@@ -55,22 +54,36 @@ JooyaFlickable{
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        width: Bs.bootSize(rootWidth,"xs-11 sm-10 md-8 lg-6 xl-4")
+        width: Bs.bootSize(root.width,"xs-11 sm-10 md-8 lg-6 xl-4")
         anchors.topMargin: 25
         spacing: 20
-        JooyaTextField{
+        TextFieldLabeld{
             id: tfUserName
+            title: "نام کاربری"
             placeholderText: "نام کاربری"
+            Layout.fillWidth: true
+            Layout.preferredHeight: 54
+            Layout.leftMargin: 18
+            Layout.rightMargin: 18
         }
-        JooyaTextField{
+        TextFieldLabeld{
             id: tfPassword
-            placeholderText: "کلمه عبور"
-            echoMode: TextInput.Password
+            title: "گذر واژه"
+            placeholderText: "گذر واژه"
+            Layout.fillWidth: true
+            Layout.preferredHeight: 54
+            Layout.leftMargin: 18
+            Layout.rightMargin: 18
         }
-        JooyaTextField{
+        TextFieldLabeld{
             id: tfPasswordRe
-            placeholderText: "تکرار کلمه عبور"
-            echoMode: TextInput.Password
+            title: "تکرار گذر واژه"
+            placeholderText: "تکرار گذر واژه"
+            Layout.fillWidth: true
+            Layout.preferredHeight: 54
+            Layout.leftMargin: 18
+            Layout.rightMargin: 18
+            inputMethodHints: Qt.ImhDigitsOnly
         }
         JooyaTextField{
             id: tfCaptha
