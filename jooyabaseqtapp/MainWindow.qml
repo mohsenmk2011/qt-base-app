@@ -1,20 +1,19 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.15
-import JooyaQuick.Controls.Material 1.0
-import QtQuick.Layouts 1.12
-import QtQuick.Controls.Styles 1.4
-import QtQuick.Dialogs 1.2
-import Jooya 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import JooyaQuick.Controls.Material
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import Jooya
 import "pages"
 import "pages/items"
 import "jooyaQuickControls"
 import "pages/manager"
 import "pages/shared"
 import "./pages/users"
-import QtGraphicalEffects 1.0
-import QtMultimedia 5.15
-import QtWebSockets 1.3
+import QtMultimedia
+import QtWebSockets
+import QtWebView
 
 Page {
     id:mainPage
@@ -216,12 +215,12 @@ Page {
         id:order
 
     }
-
-    Audio{
+    MediaPlayer {
         id:aPlayer
+        audioOutput: AudioOutput {}
     }
     LoginManager{
-        id: loginManager       
+        id: loginManager
     }
     NotifyManager{
         id:notifyManager
@@ -680,12 +679,13 @@ Page {
                     RowLayout{
                         anchors.fill: parent
                         anchors.leftMargin: 18
-                        ImageOverlay {
+                        IconImage {
                             id:imgIcon
                             width: 27
                             height: 27
                             Layout.alignment: Qt.AlignVCenter
                             source: model.source
+                            color: MaterialStyle.iconColor
                         }
                         Text{
                             text: model.title
@@ -831,11 +831,12 @@ Page {
             width: 63
             height: 63
             Material.background: MaterialStyle.backColor50
-            contentItem: ImageOverlay {
+            contentItem: IconImage {
                 width: 27
                 height: 27
                 fillMode: Image.Pad
                 source: "images/common/window-close.png"
+                color: MaterialStyle.iconColor
             }
             onClicked: {
                 drawerPaymentResult.close();
