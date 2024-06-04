@@ -114,19 +114,19 @@ bool ImageUtility::clip(QRectF rect,double scale)
     return !m_image.isNull();
 }
 
-void ImageUtility::rotate(int angel)
-{
-    if(angel==0||angel==360){
-        return;
-    }
-    QPoint center = image().rect().center();
-    QMatrix matrix;
-    matrix.translate(center.x(), center.y());
-    matrix.rotate(angel);
-    QImage dstImg = image().transformed(matrix);
-    setImage(dstImg);
-    //    QPixmap dstPix = QPixmap::fromImage(dstImg);
-}
+// void ImageUtility::rotate(int angel)
+// {
+//     if(angel==0||angel==360){
+//         return;
+//     }
+//     QPoint center = image().rect().center();
+//     QMatrix matrix;
+//     matrix.translate(center.x(), center.y());
+//     matrix.rotate(angel);
+//     QImage dstImg = image().transformed(matrix);
+//     setImage(dstImg);
+//     //    QPixmap dstPix = QPixmap::fromImage(dstImg);
+// }
 
 void ImageUtility::resize(int width, int height)
 {

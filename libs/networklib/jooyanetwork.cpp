@@ -50,7 +50,7 @@ QUrl JooyaNetwork::setUrl(QString url, bool useIdentityUrl, bool isFullUrl){
         currentUrl=url;
     }
     else {
-        if(url.at(0)=="/"){
+        if(url.at(0)=='/'){
             url= url.remove(0,1);
         }
         if(useIdentityUrl){

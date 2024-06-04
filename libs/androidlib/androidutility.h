@@ -2,7 +2,7 @@
 #define ANDROIDUTILITY_H
 
 #include <QObject>
-#include<QNetworkInterface>
+#include<QtNetwork/QNetworkInterface>
 
 #if defined (Q_OS_ANDROID)
 #include<QtAndroid>

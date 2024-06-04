@@ -9,7 +9,6 @@
 #include <QDebug>
 #include <QString>
 #include<QDirIterator>
-#include<QRegExp>
 #include<QUrl>
 #include<QCoreApplication>
 #include<QtQml>

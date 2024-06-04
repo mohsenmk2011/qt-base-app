@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QtDebug>
-#include<QtQml>
+// #include<QtQml>
 #if defined(Q_OS_ANDROID)
 #include <QtAndroid>
 #include <QAndroidIntent>

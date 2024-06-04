@@ -125,7 +125,7 @@ QDateTime Chat::date()
 
 void Chat::setDate(QDateTime d)
 {
-    if(m_Date.operator!=(d)){
+    if(m_Date!=d){
         m_Date=d;
         emit dateChanged();
     }

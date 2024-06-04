@@ -1,21 +1,18 @@
-import QtQuick 2.12
-import QtQuick.Layouts 1.12
-import QtGraphicalEffects 1.0
-import Jooya 1.0
-import QtQuick.Controls.Material 2.15
-import JooyaQuick.Controls.Material 1.0
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 Item {
-    id:circleImage
+    id: circleImage
     property alias source: img.source
     property alias sourceDefault: imgDefault.source
+
     Rectangle {
         anchors.fill: parent
-        radius: parent.width/2
-//        border.color: MaterialStyle.backColor200
-//        border.width: 1
-        color: Material.color(Material.Grey,Material.Shade300)
+        radius: parent.width / 2
+        color: "lightgrey"
     }
+
     Image {
         id: imgDefault
         anchors.centerIn: parent
@@ -24,27 +21,37 @@ Item {
         height: 27
         visible: !img.visible
     }
+
+    ShaderEffect {
+        anchors.fill: parent
+        visible: img.visible
+        property var source: ShaderEffectSource {
+            sourceItem: img
+        }
+        fragmentShader: "
+            varying vec2 qt_TexCoord0;
+            uniform sampler2D source;
+
+            void main() {
+                vec2 center = vec2(0.5, 0.5);
+                float radius = 0.5;
+                vec2 coord = qt_TexCoord0 - center;
+                float dist = length(coord);
+
+                if (dist < radius) {
+                    gl_FragColor = texture(source, qt_TexCoord0);
+                } else {
+                    discard;
+                }
+            }
+        "
+    }
+
     Image {
         id: img
-        //        Layout.preferredWidth: parent.width
-        //        Layout.preferredHeight: parent.height
-        anchors.centerIn: parent
-        fillMode: Image.PreserveAspectCrop
-        width: circleImage.width
-        height: circleImage.height
-        smooth: true
-        visible: false
-    }
-    Rectangle{
-        id: mask
         anchors.fill: parent
-        radius: parent.width/2
+        fillMode: Image.PreserveAspectCrop
         smooth: true
-        visible: false
-    }
-    OpacityMask{
-        anchors.fill: img
-        source: img
-        maskSource: mask
+        visible: true // Ensure the image is visible by default for testing
     }
 }

@@ -1,0 +1,506 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(jooyabaseqtapp VERSION 1.0 LANGUAGES CXX)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Widgets Quick QuickControls2 Qml Network WebSockets Multimedia WebView)
+if(ANDROID)
+    find_package(Qt6 REQUIRED COMPONENTS AndroidExtras)
+endif()
+qt_standard_project_setup()
+qt_policy(SET QTP0001 NEW)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(SOURCES
+    main.cpp
+    applicationversioninfo.cpp
+    baseapppath.cpp
+    baseappsettings.cpp
+)
+
+set(HEADERS
+    applicationversioninfo.h
+    baseapppath.h
+    baseappsettings.h
+    version.h
+)
+qt_add_executable(jooyabaseqtapp
+    ${SOURCES} ${HEADERS}
+)
+
+qt_add_qml_module(jooyabaseqtapp
+    URI jooyabaseqtapp
+    VERSION 1.0
+    QML_FILES
+    main.qml
+)
+
+# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
+# If you are developing for iOS or macOS you should consider setting an
+# explicit, fixed bundle identifier manually though.
+set_target_properties(jooyabaseqtapp PROPERTIES
+    #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.jooyabaseqtapp
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
+
+target_link_libraries(jooyabaseqtapp PRIVATE
+    Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Quick Qt6::QuickControls2 Qt6::Qml Qt6::Network Qt6::WebSockets Qt6::Multimedia Qt6::WebView
+    jsgeneratorlib androidlib corelib networklib chatlib notificationlib quicklib managerlib settingslib purchasinglib loginlib
+)
+target_include_directories(jooyabaseqtapp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/libs/jsgeneratorlib ${CMAKE_SOURCE_DIR}/libs/androidlib
+    ${CMAKE_SOURCE_DIR}/libs/corelib ${CMAKE_SOURCE_DIR}/libs/networklib ${CMAKE_SOURCE_DIR}/libs/chatlib
+    ${CMAKE_SOURCE_DIR}/libs/notificationlib ${CMAKE_SOURCE_DIR}/libs/quicklib ${CMAKE_SOURCE_DIR}/libs/managerlib
+    ${CMAKE_SOURCE_DIR}/libs/settingslib ${CMAKE_SOURCE_DIR}/libs/purchasinglib ${CMAKE_SOURCE_DIR}/libs/loginlib
+)
+
+if(ANDROID)
+    target_link_libraries(jooyabaseqtapp PRIVATE Qt6::AndroidExtras)
+endif()
+
+include(GNUInstallDirs)
+install(TARGETS jooyabaseqtapp
+    BUNDLE DESTINATION /opt/${PROJECT_NAME}/bin
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+qt_add_resources(jooyabaseqtapp "commonqmlfiles"
+    PREFIX "/"
+    FILES
+    pages/HomePage.qml
+    MainWindow.qml
+    pages/users/SignupPhonePage.qml
+    pages/users/UserActivationPage.qml
+    pages/users/LoginPage.qml
+    pages/users/SignupPage.qml
+    pages/users/UserImageItem.qml
+    pages/users/UserItem.qml
+    pages/users/UserPicturePage.qml
+    pages/orders/BaskeBankPage.qml
+    pages/orders/OrderPaymentResultDlg.qml
+    pages/orders/OrderTransactionItem.qml
+    pages/orders/OrderTransactionsPage.qml
+    pages/shared/SharePage.qml
+    pages/DownloadDialog.qml
+    pages/TakePicturePage.qml
+    pages/chat/ChatPage.qml
+    pages/users/UserDisplayNamePage.qml
+    pages/chat/ContactItem.qml
+    pages/chat/ChatsPage.qml
+    pages/shared/SettingsPage.qml
+    pages/shared/DatePickerDialog.qml
+    pages/shared/NotifyDisplayPage.qml
+    pages/shared/AddKeywordToTypesDialog.qml
+    pages/shared/NotificationTypeEditDialog.qml
+    pages/shared/AboutUsPage.qml
+    pages/shared/FrequentQuestionsPage.qml
+    pages/shared/FileExplorerPage.qml
+    pages/chat/ContactsDialog.qml
+    TestAndroidService.qml
+    pages/chat/ChatAddPage.qml
+    pages/chat/PostItem.qml
+    pages/chat/ChatItem.qml
+    pages/chat/TalkItem.qml
+    pages/shared/ImageEditor.qml
+    pages/items/WorkoutItem.qml
+    pages/items/PracticeItem.qml
+    pages/items/ExerciseCommandItem.qml
+    pages/items/ExerciseItem.qml
+    pages/items/MovementItem.qml
+    pages/items/SoundItem.qml
+    pages/items/UserInfoDisplyer.qml
+    pages/items/NotifyItem.qml
+    items/shared/ImageItem.qml
+    items/shared/TitleItem.qml
+    items/shared/PaneWithTitle.qml
+    items/shared/RectWithTitle.qml
+    items/shared/NewProductLabelItem.qml
+)
+qt_add_resources(jooyabaseqtapp "currentappqmlfiles"
+    PREFIX "/"
+    FILES
+)
+qt_add_resources(jooyabaseqtapp "customqmltypes"
+    PREFIX "/"
+    FILES
+    jooyaQuickControls/CircleImage.qml
+    jooyaQuickControls/CirclePercentIndicator.qml
+    jooyaQuickControls/CircleSecondIndicator.qml
+    jooyaQuickControls/ConfirmationDialog.qml
+    jooyaQuickControls/FontLoaderYekan.qml
+    jooyaQuickControls/IranSanseFontLoader.qml
+    jooyaQuickControls/JooyaButton.qml
+    jooyaQuickControls/JooyaCursor.qml
+    jooyaQuickControls/JooyaDialog.qml
+    jooyaQuickControls/JooyaFlickable.qml
+    jooyaQuickControls/JooyaGridView.qml
+    jooyaQuickControls/JooyaLabel.qml
+    jooyaQuickControls/JooyaListView.qml
+    jooyaQuickControls/JooyaMenu.qml
+    jooyaQuickControls/JooyaMenuItem.qml
+    jooyaQuickControls/JooyaMenuSeparator.qml
+    jooyaQuickControls/JooyaPage.qml
+    jooyaQuickControls/JooyaProgressBar.qml
+    jooyaQuickControls/JooyaTextField.qml
+    jooyaQuickControls/JooyaToolTip.qml
+    jooyaQuickControls/LabelTextField.qml
+    jooyaQuickControls/MessageBar.qml
+    jooyaQuickControls/MessageBox.qml
+    jooyaQuickControls/ProgressIndicator.qml
+    jooyaQuickControls/PropertyItemRow.qml
+    jooyaQuickControls/ScrollablePage.qml
+    jooyaQuickControls/TextFieldLabeld.qml
+    jooyaQuickControls/KeywordPane.qml
+    jooyaQuickControls/DatePicker.qml
+    jooyaQuickControls/MessageBar2.qml
+    jooyaQuickControls/Separator.qml
+    jooyaQuickControls/ImageOverlay.qml
+    jooyaQuickControls/ProIndicator.qml
+    jooyaQuickControls/ImageRectItem.qml
+    jooyaQuickControls/TagItem.qml
+)
+qt_add_resources(jooyabaseqtapp "managerqmlfiles"
+    PREFIX "/"
+    FILES
+    pages/manager/app/ExercisAddPage.qml
+    pages/manager/app/JooyaEditSoundPosition.qml
+    pages/manager/app/SoundEditPage.qml
+    pages/manager/app/TutorialTextEditPage.qml
+    pages/manager/app/TutorialVideoEditPage.qml
+    pages/manager/app/TutorialVideoSoundAddPage.qml
+    pages/manager/HttpRequestTypePage.qml
+    pages/manager/ManagerDialog.qml
+    pages/manager/ManagerPrivateKeyPage.qml
+    pages/manager/ManagingItem.qml
+    pages/manager/RoleAddPage.qml
+    pages/manager/RoleItem.qml
+    pages/manager/RolePage.qml
+    pages/manager/SettingBehpardakhtPage.qml
+    pages/manager/SettingSmsPage.qml
+    pages/manager/UsersPage.qml
+    pages/manager/UserRolesPage.qml
+    pages/manager/KeywordItem.qml
+    pages/manager/KeywordPage.qml
+    pages/manager/KeywordAddPage.qml
+    pages/manager/NotifyDiscountEditDialog.qml
+    pages/manager/NotifyAppIntroEditDialog.qml
+)
+qt_add_resources(jooyabaseqtapp "appresources"
+    PREFIX "/"
+    FILES
+    fonts/IRANSans.ttf
+    fonts/Yekan.ttf
+    jsf/Bootstrap.js
+    jsf/JSUtility.js
+    AppIcon.rc
+)
+qt_add_resources(jooyabaseqtapp "managerimages"
+    PREFIX "/"
+    FILES
+    images/manager/behpardakht.png
+    images/manager/behpardakht@2x.png
+    images/manager/behpardakht@3x.png
+    images/manager/behpardakht@4x.png
+    images/manager/cryptography.png
+    images/manager/cryptography@2x.png
+    images/manager/cryptography@3x.png
+    images/manager/cryptography@4x.png
+    images/manager/http.png
+    images/manager/http@2x.png
+    images/manager/http@3x.png
+    images/manager/http@4x.png
+    images/manager/role.png
+    images/manager/role@2x.png
+    images/manager/role@3x.png
+    images/manager/role@4x.png
+    images/manager/search-profile.png
+    images/manager/search-profile@2x.png
+    images/manager/search-profile@3x.png
+    images/manager/search-profile@4x.png
+    images/manager/smartphone.png
+    images/manager/smartphone@2x.png
+    images/manager/smartphone@3x.png
+    images/manager/smartphone@4x.png
+    images/manager/keyword.png
+    images/manager/keyword@2x.png
+    images/manager/keyword@3x.png
+    images/manager/keyword@4x.png
+    images/manager/account-cog@4x.png
+    images/manager/account-cog@3x.png
+    images/manager/account-cog@2x.png
+    images/manager/account-cog.png
+)
+
+qt_add_resources(jooyabaseqtapp "commonimages"
+    PREFIX "/"
+    FILES
+    images/icon.ico
+    images/common/account.png
+    images/common/account@2x.png
+    images/common/account@3x.png
+    images/common/account@4x.png
+    images/common/back.png
+    images/common/back@2x.png
+    images/common/back@3x.png
+    images/common/back@4x.png
+    images/common/bell.png
+    images/common/bell@2x.png
+    images/common/bell@3x.png
+    images/common/bell@4x.png
+    images/common/brightness-6.png
+    images/common/brightness-6@2x.png
+    images/common/brightness-6@3x.png
+    images/common/brightness-6@4x.png
+    images/common/camera-retake.png
+    images/common/camera-retake@2x.png
+    images/common/camera-retake@3x.png
+    images/common/camera-retake@4x.png
+    images/common/camera-switch.png
+    images/common/camera-switch@2x.png
+    images/common/camera-switch@3x.png
+    images/common/camera-switch@4x.png
+    images/common/camera.png
+    images/common/camera@2x.png
+    images/common/camera@3x.png
+    images/common/camera@4x.png
+    images/common/cart.png
+    images/common/cart@2x.png
+    images/common/cart@3x.png
+    images/common/cart@4x.png
+    images/common/cellphone-arrow-down.png
+    images/common/cellphone-arrow-down@2x.png
+    images/common/cellphone-arrow-down@3x.png
+    images/common/cellphone-arrow-down@4x.png
+    images/common/chevron-left.png
+    images/common/chevron-left@2x.png
+    images/common/chevron-left@3x.png
+    images/common/chevron-left@4x.png
+    images/common/cog.png
+    images/common/cog@2x.png
+    images/common/cog@3x.png
+    images/common/cog@4x.png
+    images/common/delete.png
+    images/common/delete@2x.png
+    images/common/delete@3x.png
+    images/common/delete@4x.png
+    images/common/dots-vertical.png
+    images/common/dots-vertical@2x.png
+    images/common/dots-vertical@3x.png
+    images/common/dots-vertical@4x.png
+    images/common/download.png
+    images/common/download@2x.png
+    images/common/download@3x.png
+    images/common/download@4x.png
+    images/common/frequently-asked-questions.png
+    images/common/frequently-asked-questions@2x.png
+    images/common/frequently-asked-questions@3x.png
+    images/common/frequently-asked-questions@4x.png
+    images/common/image-filter-hdr.png
+    images/common/image-filter-hdr@2x.png
+    images/common/image-filter-hdr@3x.png
+    images/common/image-filter-hdr@4x.png
+    images/common/information.png
+    images/common/information@2x.png
+    images/common/information@3x.png
+    images/common/information@4x.png
+    images/common/logout.png
+    images/common/logout@2x.png
+    images/common/logout@3x.png
+    images/common/logout@4x.png
+    images/common/menu.png
+    images/common/menu@2x.png
+    images/common/menu@3x.png
+    images/common/menu@4x.png
+    images/common/palette.png
+    images/common/palette@2x.png
+    images/common/palette@3x.png
+    images/common/palette@4x.png
+    images/common/phone.png
+    images/common/phone@2x.png
+    images/common/phone@3x.png
+    images/common/phone@4x.png
+    images/common/plus.png
+    images/common/plus@2x.png
+    images/common/plus@3x.png
+    images/common/plus@4x.png
+    images/common/sale.png
+    images/common/sale@2x.png
+    images/common/sale@3x.png
+    images/common/sale@4x.png
+    images/common/share-variant.png
+    images/common/share-variant@2x.png
+    images/common/share-variant@3x.png
+    images/common/share-variant@4x.png
+    images/common/upload.png
+    images/common/upload@2x.png
+    images/common/upload@3x.png
+    images/common/upload@4x.png
+    images/common/weather-night.png
+    images/common/weather-night@2x.png
+    images/common/weather-night@3x.png
+    images/common/weather-night@4x.png
+    images/common/white-balance-sunny.png
+    images/common/white-balance-sunny@2x.png
+    images/common/white-balance-sunny@3x.png
+    images/common/white-balance-sunny@4x.png
+    images/common/window-close.png
+    images/common/window-close@2x.png
+    images/common/window-close@3x.png
+    images/common/window-close@4x.png
+    images/common/magnify@4x.png
+    images/common/magnify@3x.png
+    images/common/magnify@2x.png
+    images/common/magnify.png
+    images/common/refresh@4x.png
+    images/common/refresh@3x.png
+    images/common/refresh@2x.png
+    images/common/refresh.png
+    images/common/rectangle@4x.png
+    images/common/rectangle@3x.png
+    images/common/rectangle@2x.png
+    images/common/rectangle.png
+    images/common/lan-disconnect@4x.png
+    images/common/lan-disconnect@3x.png
+    images/common/lan-disconnect@2x.png
+    images/common/lan-disconnect.png
+    images/common/lan-connect@4x.png
+    images/common/lan-connect@3x.png
+    images/common/lan-connect@2x.png
+    images/common/lan-connect.png
+    images/common/pencil@4x.png
+    images/common/pencil@3x.png
+    images/common/pencil@2x.png
+    images/common/pencil.png
+    images/common/folder-open@4x.png
+    images/common/folder-open@3x.png
+    images/common/folder-open@2x.png
+    images/common/folder-open.png
+    images/common/cut@4x.png
+    images/common/cut@3x.png
+    images/common/cut@2x.png
+    images/common/cut.png
+)
+
+qt_add_resources(jooyabaseqtapp "chatimages"
+    PREFIX "/"
+    FILES
+    images/chat/message-reply-text@4x.png
+    images/chat/message-reply-text@3x.png
+    images/chat/message-reply-text@2x.png
+    images/chat/message-reply-text.png
+    images/chat/check-all@4x.png
+    images/chat/check-all@3x.png
+    images/chat/check-all@2x.png
+    images/chat/check-all.png
+    images/chat/check@4x.png
+    images/chat/check@3x.png
+    images/chat/check@2x.png
+    images/chat/check.png
+    images/chat/clock-time-three-outline@4x.png
+    images/chat/clock-time-three-outline@3x.png
+    images/chat/clock-time-three-outline@2x.png
+    images/chat/clock-time-three-outline.png
+    images/chat/pin-off@4x.png
+    images/chat/pin-off@3x.png
+    images/chat/pin-off@2x.png
+    images/chat/pin-off.png
+    images/chat/pin@4x.png
+    images/chat/pin@3x.png
+    images/chat/pin@2x.png
+    images/chat/pin.png
+    images/chat/eye@4x.png
+    images/chat/eye@3x.png
+    images/chat/eye@2x.png
+    images/chat/eye.png
+    images/chat/message.png
+    images/chat/message@2x.png
+    images/chat/message@3x.png
+    images/chat/message@4x.png
+    images/chat/arrow-left@4x.png
+    images/chat/arrow-left@3x.png
+    images/chat/arrow-left@2x.png
+    images/chat/arrow-left.png
+    images/chat/send@4x.png
+    images/chat/send@3x.png
+    images/chat/send@2x.png
+    images/chat/send.png
+    images/chat/chevron-down@4x.png
+    images/chat/chevron-down@3x.png
+    images/chat/chevron-down@2x.png
+    images/chat/chevron-down.png
+)
+
+qt_add_resources(jooyabaseqtapp "mediaimages"
+    PREFIX "/"
+    FILES
+    images/media/pause.png
+    images/media/pause@2x.png
+    images/media/pause@3x.png
+    images/media/pause@4x.png
+    images/media/play.png
+    images/media/play@2x.png
+    images/media/play@3x.png
+    images/media/play@4x.png
+    images/media/skip-backward.png
+    images/media/skip-backward@2x.png
+    images/media/skip-backward@3x.png
+    images/media/skip-backward@4x.png
+    images/media/skip-forward.png
+    images/media/skip-forward@2x.png
+    images/media/skip-forward@3x.png
+    images/media/skip-forward@4x.png
+    images/media/skip-next.png
+    images/media/skip-next@2x.png
+    images/media/skip-next@3x.png
+    images/media/skip-next@4x.png
+    images/media/skip-previous.png
+    images/media/skip-previous@2x.png
+    images/media/skip-previous@3x.png
+    images/media/skip-previous@4x.png
+    images/media/stop.png
+    images/media/stop@2x.png
+    images/media/stop@3x.png
+    images/media/stop@4x.png
+    images/media/volume-high.png
+    images/media/volume-high@2x.png
+    images/media/volume-high@3x.png
+    images/media/volume-high@4x.png
+    images/media/volume-mute.png
+    images/media/volume-mute3x.png
+    images/media/volume-mute4x.png
+    images/media/volume-mute@2x.png
+)
+qt_add_resources(jooyabaseqtapp "currentappimages"
+    PREFIX "/"
+    FILES
+    images/icon.png
+    images/app/check-bold.png
+    images/app/check-bold@2x.png
+    images/app/check-bold@3x.png
+    images/app/check-bold@4x.png
+    images/app/description.png
+    images/app/description@2x.png
+    images/app/description@3x.png
+    images/app/description@4x.png
+    images/app/ManualPaid-256.png
+    images/app/Paid-256.png
+    images/app/start.png
+    images/app/start@2x.png
+    images/app/start@3x.png
+    images/app/start@4x.png
+    images/app/study.png
+    images/app/study@2x.png
+    images/app/study@3x.png
+    images/app/study@4x.png
+    images/app/tutorial.png
+    images/app/tutorial@2x.png
+    images/app/tutorial@3x.png
+    images/app/tutorial@4x.png
+)

@@ -78,3 +78,6 @@ DEPENDPATH += $$PWD/../networklib
 
 INCLUDEPATH += $$PWD/../androidlib
 DEPENDPATH += $$PWD/../androidlib
+
+DISTFILES += \
+    CMakeLists.txt

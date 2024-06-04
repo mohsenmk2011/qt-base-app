@@ -86,6 +86,7 @@ HEADERS += \
     userlogininfo.h \
     userloginsettings.h \
     userroles.h
+
 android{
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../androidlib/release/ -landroidlib_armeabi-v7a
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../androidlib/debug/ -landroidlib_armeabi-v7a
@@ -99,3 +100,6 @@ else:unix: LIBS += -L$$OUT_PWD/../androidlib/ -landroidlib
 
 INCLUDEPATH += $$PWD/../androidlib
 DEPENDPATH += $$PWD/../androidlib
+
+DISTFILES += \
+    CMakeLists.txt

@@ -27,3 +27,6 @@ HEADERS += \
     javascriptdocument.h \
     javascriptgenerator.h \
     javascriptgeneratorlib.h
+
+DISTFILES += \
+    CMakeLists.txt

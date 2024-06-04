@@ -77,7 +77,7 @@ QDateTime PostBase::date()
 
 void PostBase::setDate(QDateTime d)
 {
-    if(m_Date.operator!=(d)){
+    if(m_Date!=d){
         m_Date=d;
         updatedateText();
         m_PersianDateTime->setDate(d);

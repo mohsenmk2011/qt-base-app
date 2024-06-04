@@ -43,7 +43,7 @@ public:
     Q_INVOKABLE bool loadFromBase64String(QString base64);
     QString decodeBase64(QString base64);
     Q_INVOKABLE bool clip(QRectF rect, double scale=1);
-    Q_INVOKABLE void rotate(int angel);
+    // Q_INVOKABLE void rotate(int angel);
     Q_INVOKABLE void resize(int width,int height);
     QByteArray imageBytes();
 

@@ -2,7 +2,7 @@
 #define JOOYAREGEXP_H
 
 #include <QObject>
-#include<QRegExp>
+#include<QRegularExpression>
 
 class JooyaRegExp : public QObject
 {

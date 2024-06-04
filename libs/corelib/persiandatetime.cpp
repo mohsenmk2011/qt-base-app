@@ -13,7 +13,7 @@ PersianDateTime::PersianDateTime(QDateTime dateTime):PersianDateTime()
 
 PersianDateTime::PersianDateTime(int persianYear, int persianMonth, int persianDay):PersianDateTime()
 {
-    m_DateTime=QDateTime(m_Calendar.dateFromParts(persianYear,persianMonth,persianDay));
+    m_DateTime=QDateTime(m_Calendar.dateFromParts(persianYear,persianMonth,persianDay),QTime());
     qInfo()<<"Date=> 2464 "<<m_DateTime.toString();
 }
 
@@ -172,7 +172,7 @@ void PersianDateTime::setDate(QDateTime d)
     if(!d.isValid()&&d.isNull()){
         return;
     }
-    if(m_DateTime.operator!=(d)){
+    if(m_DateTime!=d){
         m_DateTime=d;
         emit dateChanged();
     }

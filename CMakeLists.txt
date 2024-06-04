@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(jooyaqtquickapplication VERSION 1.0 LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+
+add_subdirectory(libs/jsgeneratorlib)
+add_subdirectory(libs/androidlib)
+add_subdirectory(libs/corelib)
+add_subdirectory(libs/networklib)
+add_subdirectory(libs/chatlib)
+add_subdirectory(libs/notificationlib)
+add_subdirectory(libs/quicklib)
+add_subdirectory(libs/managerlib)
+add_subdirectory(libs/settingslib)
+add_subdirectory(libs/purchasinglib)
+add_subdirectory(libs/loginlib)
+add_subdirectory(jooyabaseqtapp)
+# if(ANDROID)
+#     add_subdirectory(jooyabaseqtappAndroidService)
+# endif()

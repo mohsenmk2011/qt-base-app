@@ -56,3 +56,6 @@ DEPENDPATH += $$PWD/../corelib
 INCLUDEPATH += $$PWD/../networklib
 DEPENDPATH += $$PWD/../networklib
 
+DISTFILES += \
+    CMakeLists.txt
+

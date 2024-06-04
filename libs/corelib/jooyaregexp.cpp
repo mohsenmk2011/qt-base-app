@@ -7,8 +7,8 @@ JooyaRegExp::JooyaRegExp(QObject *parent) : QObject(parent)
 
 bool JooyaRegExp::isDigit(QString str)
 {
-    QRegExp re("\\d*");  // a digit (\d), zero or more times (*)
-    if (re.exactMatch(str))
+    QRegularExpression re("\\d*");  // a digit (\d), zero or more times (*)
+    if (re.match(str).hasMatch())
     {
         return true;
     }

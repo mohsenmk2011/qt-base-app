@@ -74,4 +74,7 @@ DEPENDPATH += $$PWD/../androidlib
 INCLUDEPATH += $$PWD/../corelib
 DEPENDPATH += $$PWD/../corelib
 
+DISTFILES += \
+    CMakeLists.txt
+
 

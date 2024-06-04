@@ -12,7 +12,7 @@
 #include <QQmlFileSelector>
 #include <QQuickTextDocument>
 #include <QTextCharFormat>
-#include <QTextCodec>
+// #include <QTextCodec>
 #include <QTextDocument>
 #include <QDebug>
 #include<QTextBlock>
@@ -84,7 +84,7 @@ public:
     Q_INVOKABLE void insertImage(QImage img);
     Q_INVOKABLE void insertImage(QString source);
 public Q_SLOTS:
-    void load(const QUrl &fileUrl);
+    // void load(const QUrl &fileUrl);
     void saveAs(const QUrl &fileUrl);
 
 Q_SIGNALS:
