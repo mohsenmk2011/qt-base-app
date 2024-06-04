@@ -40,12 +40,8 @@ int main(int argc, char *argv[])
     japp.setApplicationName("اپلیکیشن جویا");
     japp.setDefaultTheme(MaterialThemes::MaterialThemesEnum::Light,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink);
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QtWebView::initialize();
     JooyaLogger jl;
-
-    //    JooyaFont jf;
-    //    jf.installDefaultFont(":/fonts/Yekan.ttf");
 
     Corelib::registerTypes();
     Androidlib::registerTypes();
@@ -54,11 +50,9 @@ int main(int argc, char *argv[])
     Networklib::registerTypes();
     Quicklib::registerTypes();
     Notificationlib::registerTypes();
-//    JooyaQuickDesign::registerTypes();
     Loginlib::registerTypes();
     Managerlib::registerTypes();
     Chatlib::registerTypes();
-
     qmlRegisterType<BaseAppSettings>("Jooya",1,0,"BaseAppSettings");
     qmlRegisterType<ApplicationVersionInfo>("Jooya",1,0,"ApplicationVersionInfo");
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
