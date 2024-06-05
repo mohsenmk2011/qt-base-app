@@ -1,6 +1,6 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import Jooya 1.0
+import QtQuick
+import QtQuick.Controls
+import Jooya
 
 Page {
 

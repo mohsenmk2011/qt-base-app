@@ -1,13 +1,13 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.15
-import QtQuick.Dialogs 1.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Controls.Material
+import QtQuick.Dialogs
 import "../../jooyaQuickControls"
 import "../users"
 import "../../jsf/Bootstrap.js" as Bs
-import Jooya 1.0
-import JooyaQuick.Controls.Material 1.0
+import Jooya
+import JooyaQuick.Controls.Material
 
 Page{
     id: root

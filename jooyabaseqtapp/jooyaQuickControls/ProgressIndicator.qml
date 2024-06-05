@@ -1,7 +1,7 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.15
-import Jooya 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import Jooya
 
 Pane {
     Material.elevation: 5

@@ -1,5 +1,5 @@
-import QtQuick 2.15
-import JooyaQuick.Controls.Material 1.0
+import QtQuick
+import JooyaQuick.Controls.Material
 
 Item {
     id:root

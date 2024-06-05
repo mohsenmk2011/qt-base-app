@@ -1,13 +1,13 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import QtQuick.Window 2.2
-import Qt.labs.calendar 1.0
-import QtQuick.Layouts 1.12
-import QtQuick.Controls.Material 2.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import Qt.labs.calendar
+import QtQuick.Layouts
+import QtQuick.Controls.Material
 import "../../jsf/Bootstrap.js" as Bs
-import Jooya 1.0
+import Jooya
 import "../../jooyaQuickControls"
-import QtQml 2.15
+import QtQml
 
 JooyaDialog {
     id: mainForm

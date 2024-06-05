@@ -1,10 +1,10 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Controls
 import "../../jsf/Bootstrap.js" as Bs
 import "../../jooyaQuickControls"
-import QtQuick.Layouts 1.12
-import QtQuick.Controls.Material 2.2
-import Jooya 1.0
+import QtQuick.Layouts
+import QtQuick.Controls.Material
+import Jooya
 
 JooyaFlickable{
     id: root

@@ -1,9 +1,9 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.15
-import JooyaQuick.Controls.Material 1.0
-import QtQuick.Dialogs 1.3
-import Jooya 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import JooyaQuick.Controls.Material
+import QtQuick.Dialogs
+import Jooya
 import "../../items/shared"
 import "../../jsf/JSUtility.js" as Jsu;
 

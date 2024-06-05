@@ -1,8 +1,8 @@
-import QtQuick 2.9
-import QtQuick.Controls.Material 2.15
-import JooyaQuick.Controls.Material 1.0
-import QtQuick.Controls 2.2
-import QtMultimedia 5.9
+import QtQuick
+import QtQuick.Controls.Material
+import JooyaQuick.Controls.Material
+import QtQuick.Controls
+import QtMultimedia
 
 Item {
     id: root

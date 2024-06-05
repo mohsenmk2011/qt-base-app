@@ -1,9 +1,9 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.2
-import Jooya 1.0
-import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.15
-import JooyaQuick.Controls.Material 1.0
+import QtQuick
+import QtQuick.Controls
+import Jooya
+import QtQuick.Layouts
+import QtQuick.Controls.Material
+import JooyaQuick.Controls.Material
 
 Item{
     id:itemimg

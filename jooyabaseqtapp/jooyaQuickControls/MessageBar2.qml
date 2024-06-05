@@ -1,9 +1,9 @@
-import QtQuick 2.15
-import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.15
-import Jooya 1.0
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import Jooya
+import QtQuick.Layouts
 
 Window {
     flags:  Qt.Window | Qt.WindowStaysOnTopHint

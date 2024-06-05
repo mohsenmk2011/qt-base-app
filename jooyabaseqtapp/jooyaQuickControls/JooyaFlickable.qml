@@ -1,8 +1,8 @@
-import QtQuick 2.9
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.2
-import JooyaQuick.Controls.Material 1.0
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import JooyaQuick.Controls.Material
 
 Flickable {
     id: view

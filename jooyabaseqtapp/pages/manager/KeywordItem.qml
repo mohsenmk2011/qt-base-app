@@ -1,10 +1,10 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Controls.Material 2.12
-import JooyaQuick.Controls.Material 1.0
-import QtQuick.Layouts 1.12
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import JooyaQuick.Controls.Material
+import QtQuick.Layouts
 import "../../jsf/Bootstrap.js" as Bs
-import Jooya 1.0
+import Jooya
 import "../../jooyaQuickControls"
 
 Item{

@@ -1,10 +1,10 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
-import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import QtGraphicalEffects
 import "../../jsf/Bootstrap.js" as Bs
-import Jooya 1.0
+import Jooya
 import "../../jooyaQuickControls"
 
 Rectangle{

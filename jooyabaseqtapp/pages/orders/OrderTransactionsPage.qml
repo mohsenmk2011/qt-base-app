@@ -1,11 +1,11 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Controls
 import "../../jsf/Bootstrap.js" as Bs
 import "../../jooyaQuickControls"
-import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.2
-import QtQuick.Window 2.3
-import Jooya 1.0
+import QtQuick.Layouts
+import QtQuick.Controls.Material
+import QtQuick.Window
+import Jooya
 
 Page{
     property PaymentManager pm

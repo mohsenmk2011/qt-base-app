@@ -1,13 +1,13 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import "../../jooyaQuickControls"
-import Jooya 1.0
-import QtQuick.Controls.Material 2.15
-import JooyaQuick.Controls.Material 1.0
-import QtMultimedia 5.15
-import QtQuick.Controls.Material.impl 2.12
-import QtQuick.Shapes 1.15
+import Jooya
+import QtQuick.Controls.Material
+import JooyaQuick.Controls.Material
+import QtMultimedia
+import QtQuick.Controls.Material.impl
+import QtQuick.Shapes
 import "../chat"
 
 Page{
