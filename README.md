@@ -38,5 +38,9 @@
 * press Ctrl+K V for preview side by side (and real time)
 * press Ctrl+Shift+V preview in new tab
 ---
+## How build shader files(*.frag) to qsb files?
+1. doc link : https://doc.qt.io/qt-6/qtshadertools-index.html
+2. qsb path : Qt/6.7.1/gcc_64/bin/qsb
+2. using this command build *.frag file: ./qsb --qt6 ~/QtProjects/qtprojects/rokhshid/rokhshid/shaders/maskshader.frag -o ~/QtProjects/qtprojects/rokhshid/rokhshid/shaders/maskshader.qsb
 
 

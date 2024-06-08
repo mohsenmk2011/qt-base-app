@@ -200,6 +200,7 @@ qt_add_resources(jooyabaseqtapp "appresources"
     jsf/Bootstrap.js
     jsf/JSUtility.js
     AppIcon.rc
+    shaders/maskshader.qsb
 )
 qt_add_resources(jooyabaseqtapp "managerimages"
     PREFIX "/"
