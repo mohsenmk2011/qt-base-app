@@ -233,19 +233,20 @@ void MaterialStyleHelper::setIconColor(QColor c)
 
 void MaterialStyleHelper::invertTheme()
 {
-    qInfo()<<"showAnimation()=> "<<showAnimation();
     if(showAnimation()){
-        qInfo()<<"=> grabWindow()=> "<<showAnimation();
-        //FIXME: clean 1 line below
-        setWindowCapturedImgPath(QUrl());
+        qInfo()<<"showAnimation is enabled so => grabWindow";
         QString newpath=getGrabbedImgPath(theme()).path();
         QFileInfo file=QFileInfo(newpath);
         if(file.exists()){
             QFile::remove(newpath);
         }
-        m_PageManager.grabWindow(newpath);
+        if(!m_PageManager.grabWindow(newpath)){
+            qCritical()<<"grab window faild so invert them with no animation";
+            setTheme(targetTheme());
+        }
     }
     else {
+        qInfo()<<"showAnimation is disabled so => invert them with no animation";
         setTheme(targetTheme());
     }
 //#if defined(Q_OS_ANDROID)

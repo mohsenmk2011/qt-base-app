@@ -239,7 +239,7 @@ Page {
         console.info("#########################################################################")
         console.info("###### Component.onCompleted ="+CurrentUser.isLoggedIn+" ######")
         console.info("#########################################################################")
-        setAnimationEnabling(false);
+        themChangeAnimator.setAnimationEnabling(false);
         if(CurrentUser.isLoggedIn){
             //check deep link here
             //in rokhshid it inserted after loading exercises
@@ -930,127 +930,16 @@ Page {
             console.log("show theme animation is disabled ");
             return;
         }
-        displayBackground();
+        themChangeAnimator.displayBackground();
     }
     MaterialStyle.onWindowCaptureSucceed:{
         console.log("Window Capture Succeed =>");
-        displayWindowCapturedImg();
+        themChangeAnimator.displayWindowCapturedImg();
     }
+    ThemChangeAnimator{
+        id: themChangeAnimator
 
-    function displayBackground()
-    {
-        setAnimationEnabling(true);
-        console.log("inerMask.visible"+inerMask.visible);
-        if(MaterialStyle.isDark){
-            inerMask.y=0;
-        }
-        else{
-            inerMask.height=mainWindow.height;
-        }
-    }
-    function displayWindowCapturedImg()
-    {
-        setAnimationEnabling(false);
-        if(MaterialStyle.isDark)
-        {
-            inerMask.height=mainWindow.height;
-            inerMask.y=mainWindow.height;
-        }
-        else
-        {
-            inerMask.height=0;
-            inerMask.y=0;
-        }
-    }
-    function setAnimationEnabling(enable)
-    {
-        animationOnHeight.enabled=enable;
-        animationOnY.enabled=enable;
-    }
-
-    property alias inerMaskY: inerMask.y
-    property alias inerMaskHeight: inerMask.height
-    Rectangle{
-        id: windowimg
-        parent: ApplicationWindow.overlay
-        x:0
-        y:0
-        width: mainWindow.width
-        height: mainWindow.height
-        opacity: 0.0
-        layer.enabled: true
-        layer.smooth: true
-        z:99999
-        Image {
-            anchors.fill: parent
-            source:MaterialStyle.windowCapturedImgPath
-            fillMode: Image.PreserveAspectCrop
-            clip: true
-            cache: false
-        }
-    }
-
-    Rectangle {
-        id: mask
-        parent: ApplicationWindow.overlay
-        anchors.fill: windowimg
-        color: "transparent"
-        visible: true
-        Rectangle {
-            id: inerMask
-            x:0
-            width: windowimg.width
-            height: mainWindow.height
-            opacity: 1.0
-            Behavior on height {
-                id:animationOnHeight
-                NumberAnimation {
-                    duration: 1800 ;
-                    easing.type: Easing.OutQuart
-                    onStarted: {
-                        windowimg.visible=true;
-                        inerMask.visible=true;
-                        mask.visible=true;
-                    }
-                    onFinished: {
-                        windowimg.visible=false;
-                        inerMask.visible=false;
-                        mask.visible=false;
-                    }
-                }
-            }
-            Behavior on y {
-                id:animationOnY
-                NumberAnimation {
-                    duration: 1800
-                    easing.type: Easing.OutQuart
-                    onStarted: {
-                        windowimg.visible=true;
-                        inerMask.visible=true;
-                        mask.visible=true;
-                    }
-                    onFinished: {
-                        windowimg.visible=false;
-                        inerMask.visible=false;
-                        mask.visible=false;
-                    }
-                }
-            }
-        }
-        z:99999
-        layer.enabled: true
-        layer.samplerName: "maskSource"
-        layer.effect: ShaderEffect {
-            property variant source: windowimg
-            fragmentShader: "
-                            varying highp vec2 qt_TexCoord0;
-                            uniform highp float qt_Opacity;
-                            uniform lowp sampler2D source;
-                            uniform lowp sampler2D maskSource;
-                            void main(void) {
-                                gl_FragColor = texture2D(source, qt_TexCoord0.st) * (1.0-texture2D(maskSource, qt_TexCoord0.st).a) * qt_Opacity;
-                            }
-                        "
-        }
+        windowHeight: mainWindow.height
+        windowWidth: mainWindow.width
     }
 }

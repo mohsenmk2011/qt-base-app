@@ -202,16 +202,18 @@ void AppPagesManager::loadQQmlApplicationEngine(QQmlApplicationEngine* obj)
 
 bool AppPagesManager::grabWindow(QString path)
 {
-    qInfo()<<"path to save grabbed image=> "<<path;
+    qInfo()<<"is going to grabbed image and save in => "<<path;
     QImage img=grabWindow();
     if(img.isNull()){
+        qWarning()<<"grabbed image faild";
         return false;
     }
     bool saved=img.save(path);
     if(!saved){
+        qWarning()<<"grabbed image faild";
         return false;
     }
-    qInfo()<<"image saved=> "<<saved;
+    qInfo()<<"grabbed image succeed";
     emit grabbedWindowFinished(true);
     return true;
 }

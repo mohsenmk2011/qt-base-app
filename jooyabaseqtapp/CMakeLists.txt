@@ -164,6 +164,7 @@ qt_add_resources(jooyabaseqtapp "customqmltypes"
     jooyaQuickControls/ProIndicator.qml
     jooyaQuickControls/ImageRectItem.qml
     jooyaQuickControls/TagItem.qml
+    jooyaQuickControls/ThemChangeAnimator.qml
 )
 qt_add_resources(jooyabaseqtapp "managerqmlfiles"
     PREFIX "/"
