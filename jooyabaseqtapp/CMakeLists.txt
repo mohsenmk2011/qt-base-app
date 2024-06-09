@@ -161,7 +161,6 @@ qt_add_resources(jooyabaseqtapp "customqmltypes"
     jooyaQuickControls/DatePicker.qml
     jooyaQuickControls/MessageBar2.qml
     jooyaQuickControls/Separator.qml
-    jooyaQuickControls/ImageOverlay.qml
     jooyaQuickControls/ProIndicator.qml
     jooyaQuickControls/ImageRectItem.qml
     jooyaQuickControls/TagItem.qml

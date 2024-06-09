@@ -4,7 +4,6 @@ import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 import QtQuick.Layouts
 import "../../jooyaQuickControls"
-import QtGraphicalEffects
 import Jooya
 
 Flickable {
@@ -75,12 +74,12 @@ Flickable {
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     spacing: 9
-                    ImageOverlay {
-
+                    IconImage {
                         width: 27
                         height: 27
                         Layout.alignment: Qt.AlignVCenter
                         source: "../../images/common/bell.png"
+                        color: MaterialStyle.iconColor
                     }
                     Text {
                         text: qsTr("نوع هشدار")
@@ -315,12 +314,12 @@ Flickable {
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     spacing: 9
-                    ImageOverlay {
-
+                    IconImage {
                         width: 27
                         height: 27
                         Layout.alignment: Qt.AlignVCenter
                         source: "../../images/common/brightness-6.png"
+                        color: MaterialStyle.iconColor
                     }
                     Text {
                         text: qsTr("تم")
@@ -377,11 +376,12 @@ Flickable {
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     spacing: 9
-                    ImageOverlay {
+                    IconImage {
                         width: 27
                         height: 27
                         Layout.alignment: Qt.AlignVCenter
                         source: "../../images/common/rectangle.png"
+                        color: MaterialStyle.iconColor
                     }
                     Text {
                         text: qsTr("پس زمینه")
@@ -438,11 +438,12 @@ Flickable {
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     spacing: 9
-                    ImageOverlay {
+                    IconImage {
                         width: 27
                         height: 27
                         Layout.alignment: Qt.AlignVCenter
                         source: "../../images/common/palette.png"
+                        color: MaterialStyle.iconColor
                     }
                     Text {
                         text: qsTr("رنگ اصلی")
@@ -500,11 +501,12 @@ Flickable {
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     spacing: 9
-                    ImageOverlay {
+                    IconImage {
                         width: 27
                         height: 27
                         Layout.alignment: Qt.AlignVCenter
                         source: "../../images/common/palette.png"
+                        color: MaterialStyle.iconColor
                     }
                     Text {
                         text: qsTr("رنگ دوم")
@@ -563,11 +565,12 @@ Flickable {
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     spacing: 9
-                    ImageOverlay {
+                    IconImage {
                         width: 27
                         height: 27
                         Layout.alignment: Qt.AlignVCenter
                         source: "../../images/common/refresh.png"
+                        color: MaterialStyle.iconColor
                     }
                     TabButton {
                         text: qsTr("بازگردانی به حالت پیش فرض")
