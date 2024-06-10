@@ -36,7 +36,7 @@ JooyaPage{
     }
     Order {
         id:order
-        onIsProcessingChanged: {
+        onIsProcessingChanged:(isProcessing)=> {
             progressIndicator.visible=isProcessing;
         }
 
@@ -71,7 +71,7 @@ JooyaPage{
                 btnPay.enabled=true;
             }
         }
-        onIsProcessingChanged: {
+        onIsProcessingChanged:(isProcessing)=> {
             progressIndicator.visible=isProcessing;
         }
     }

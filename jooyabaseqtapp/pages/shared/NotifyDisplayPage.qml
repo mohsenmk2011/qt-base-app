@@ -7,7 +7,6 @@ import QtQuick
 import QtQml.Models
 import "../../jooyaQuickControls"
 import "../items"
-import "../manager/app"
 import "../manager"
 
 Page {
@@ -88,7 +87,6 @@ Page {
             }
             Button{
                 id: btnNext
-
                 text: isLastItem?"بستن": "بعدی"
                 highlighted: true
                 Layout.fillWidth: true

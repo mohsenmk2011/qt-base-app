@@ -124,10 +124,11 @@ Rectangle{
                         }
                         color: MaterialStyle.primaryTextColor
                     }
-                    ImageOverlay {
+                    IconImage {
                         id:imgStatus
                         width: 18
                         height: 18
+                        color: MaterialStyle.iconColor
                         visible: post.fromMe && !talkBusyIndicator.visible
                         source:{
                             if(post.status===TalkStates.NotSend){

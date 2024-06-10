@@ -15,7 +15,7 @@ void NotifyManager::setCurrentType(NotificationTypes::NotificationTypesEnum type
     if(m_CurrentType!=type){
         m_CurrentType=type;
         emit currentTypeChanged();
-        qWarning()<<"current type changed to =>"<<type;
+        qDebug()<<"current type changed to =>"<<type;
     }
 }
 

@@ -24,7 +24,7 @@ Flickable {
     RoundButton{
         id: swatch
 //        parent: Overlay.overlay
-        parent: ApplicationWindow.overlay
+        parent: Overlay.overlay
 
         anchors.horizontalCenter: parent.horizontalCenter
         Material.elevation: 2

@@ -18,7 +18,7 @@ import QtWebView
 Page {
     id:mainPage
 
-    WebSocketManager.onNewInfoReceived: {
+    WebSocketManager.onNewInfoReceived:(newInfo)=> {
         console.log("*****[ New Information ]*****");
         if(newInfo.type === "BadMessage"){            
             MessageBoard.content=newInfo.information;
@@ -231,7 +231,7 @@ Page {
 
             rSettings.seenAppIntroducing=true;
         }
-        onIsProcessingChanged: {
+        onIsProcessingChanged:(isProcessing)=> {
             progressIndicator.visible=isProcessing;
         }
     }
@@ -326,23 +326,6 @@ Page {
                 onClicked: {
                     if(!isBasketVisible){
                         sv.push("pages/orders/BaskeBankPage.qml");
-                    }
-                }
-            }
-            ToolButton {
-                id: tbtnTakePicture
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    width: 27
-                    height: 27
-                    source:  "images/common/camera.png"
-                }
-                visible:sv.depth==1 && CurrentUser.isLoggedIn&& !isUserPircturePageVisible
-                onClicked: {
-                    if(!isUserPircturePageVisible){
-                        sv.push("pages/users/UserPicturePage.qml",{baseUser:baseUser});
                     }
                 }
             }

@@ -220,11 +220,12 @@ Page{
 
         height: btnNewChat.height+btnNewChat.anchors.bottomMargin
         color:MaterialStyle.backColor100
-        ImageOverlay {
+        IconImage {
             id: imgLeftArrow           
             source: "../../images/chat/arrow-left.png"
             anchors.right: txtStartChat.left
             anchors.verticalCenter: parent.verticalCenter
+            color: MaterialStyle.iconColor
             SequentialAnimation {
                 loops: Animation.Infinite
                 running: true

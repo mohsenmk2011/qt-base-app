@@ -4,7 +4,7 @@ import QtQuick.Controls
 import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 import Jooya
-import "../../pages/manager"
+import "../manager"
 import "../../jooyaQuickControls"
 import "../shared"
 import "../../items/shared"

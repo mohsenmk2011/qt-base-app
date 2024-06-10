@@ -8,6 +8,7 @@ import "../shared"
 import Jooya
 import QtQuick
 import QtQml.Models
+import QtCore
 
 JooyaDialog {
     id: root
@@ -97,10 +98,10 @@ JooyaDialog {
                         FileDialog {
                             id: fileDialog
                             title: "Please choose a file"
-                            folder: shortcuts.home
+                            currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
                             nameFilters: ["Picture Files(*.jpg *.png)"]
                             onAccepted: {
-                                notify.loadImageFromFile(fileUrl)
+                                notify.loadImageFromFile(selectedFile)
                             }
                             onRejected: {
                                 close();
@@ -213,17 +214,17 @@ JooyaDialog {
                             }
                         }
                     }
-                    DatePickerDialog{
-                        id:datePicker
-                        onCurrentDateChanged: {
-                            if(isSettingStartDate){
-                                notify.date=currentDate;
-                            }
-                            else{
-                                notify.endDate=currentDate;
-                            }
-                        }
-                    }
+                    // DatePickerDialog{
+                    //     id:datePicker
+                    //     onCurrentDateChanged: {
+                    //         if(isSettingStartDate){
+                    //             notify.date=currentDate;
+                    //         }
+                    //         else{
+                    //             notify.endDate=currentDate;
+                    //         }
+                    //     }
+                    // }
                     RowLayout{
                         Layout.fillWidth: true
                         Switch{

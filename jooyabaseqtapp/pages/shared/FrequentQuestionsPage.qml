@@ -455,8 +455,9 @@ Page{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.rightMargin: 9
-        contentItem: ImageOverlay {
+        contentItem: IconImage {
             fillMode: Image.Pad
+            color: MaterialStyle.iconColor
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             source: "../../images/chat/chevron-down.png"
