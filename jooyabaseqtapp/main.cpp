@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
     JooyaNetworkEngine::m_FileWather->setDirectory(projectDirectory.absolutePath());
     JooyaNetworkEngine::m_FileWather->writepathcounts();
     //----------------------------------------------------------
-#if defined(QT_DEBUG)
+#if defined(QT_DEBUG) && !defined(Q_OS_ANDROID)
         //use below line instead above line for qml live be working
         engine.load(QUrl(projectDirectory.absolutePath()+"/main.qml"));
 #else
