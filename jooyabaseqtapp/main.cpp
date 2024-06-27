@@ -24,7 +24,6 @@
 #include<jooyafont.h>
 #include<jooyanetworkengine.h>
 #include<jooyalogger.h>
-#include<jooyaandroid.h>
 
 #include<chatmanager.h>
 #include<websockethandler.h>
@@ -165,7 +164,7 @@ int main(int argc, char *argv[])
         else {
         }
     //-----------------------------------------------
-       JooyaAndroid::hideSplashScreen();
+        QNativeInterface::QAndroidApplication::hideSplashScreen();
 
     return app.exec();
 }
