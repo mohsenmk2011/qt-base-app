@@ -5,7 +5,9 @@
 #include<jooyaandroidcontext.h>
 
 #if defined(Q_OS_ANDROID)
-#include <QtAndroid>
+#include <QCoreApplication>
+#include<QJniEnvironment>
+#include<QJniObject>
 #endif
 
 class NotificationClient : public QObject

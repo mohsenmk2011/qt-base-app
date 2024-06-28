@@ -7,11 +7,10 @@ AndroidUtility::AndroidUtility(QObject *parent) : QObject(parent)
 
 void AndroidUtility::keepScreenOn(bool on)
 {
-#if defined (Q_OS_ANDROID)
-      QtAndroid::runOnAndroidThread([on]{
-        QAndroidJniObject activity = QtAndroid::androidActivity();
+#if defined (Q_OS_ANDROID) 
+        QJniObject activity =  QJniObject(QNativeInterface::QAndroidApplication::context());
         if (activity.isValid()) {
-          QAndroidJniObject window =
+          QJniObject window =
               activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
 
           if (window.isValid()) {
@@ -23,11 +22,10 @@ void AndroidUtility::keepScreenOn(bool on)
             }
           }
         }
-        QAndroidJniEnvironment env;
+        QJniEnvironment env;
         if (env->ExceptionCheck()) {
           env->ExceptionClear();
-        }
-      });
+        }      
 #endif
 
 }

@@ -7,8 +7,9 @@
 #include<QGuiApplication>
 
 #if defined(Q_OS_ANDROID)
-#include<qandroidjniobject.h>
-#include<QAndroidJniEnvironment>
+#include<QJniObject>
+#include<QJniEnvironment>
+#include <QCoreApplication>
 #endif
 class ShareManager : public QObject
 {

@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Quick Core Qml Gui Network WebSockets)
 if(ANDROID)
-    find_package(Qt6 REQUIRED COMPONENTS AndroidExtras)
+    
 endif()
 
 add_library(networklib SHARED
@@ -48,13 +48,10 @@ add_library(networklib SHARED
     websocketstates.h
 )
 
-target_include_directories(networklib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/libs/corelib)
+target_include_directories(networklib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/libs/androidlib ${CMAKE_SOURCE_DIR}/libs/corelib)
 
 
 target_link_libraries(networklib PRIVATE
     Qt6::Core Qt6::Quick Qt6::Qml Qt6::Gui Qt6::Network Qt6::WebSockets
-    corelib
+    androidlib corelib
 )
-if(ANDROID)
-    target_link_libraries(networklib PRIVATE Qt6::AndroidExtras)
-endif()

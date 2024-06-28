@@ -5,8 +5,9 @@
 #include<QtNetwork/QNetworkInterface>
 
 #if defined (Q_OS_ANDROID)
-#include<QtAndroid>
-#include<QAndroidJniEnvironment>
+#include<QCoreApplication>
+#include<QJniEnvironment>
+#include<QJniObject>
 #endif
 class AndroidUtility : public QObject
 {

@@ -1,7 +1,6 @@
 #ifndef ANDROIDLIB_H
 #define ANDROIDLIB_H
 
-#include<androidfiledialog.h>
 #include<QtQml/QQmlApplicationEngine>
 #include<androidpermissionmanager.h>
 #include<notificationclient.h>
@@ -18,7 +17,6 @@ class Androidlib
 public:
     static void registerTypes()
     {
-        qmlRegisterType<AndroidFileDialog>("Jooya",1,0,"AndroidFileDialog");
         qmlRegisterType<AndroidUtility>("Jooya",1,0,"AndroidUtility");
         qmlRegisterType<AndroidPermissionManager>("Jooya",1,0,"AndroidPermissionManager");
         qmlRegisterType<NotificationClient>("Jooya",1,0,"NotificationClient");

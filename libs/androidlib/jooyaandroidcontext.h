@@ -3,7 +3,7 @@
 
 #include <QObject>
 #if defined(Q_OS_ANDROID)
-#include<QtAndroid>
+#include<QCoreApplication>
 #endif
 
 class JooyaAndroidContext : public QObject

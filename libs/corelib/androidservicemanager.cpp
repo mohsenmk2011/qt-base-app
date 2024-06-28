@@ -30,27 +30,31 @@ void AndroidServiceManager::sendToService(const QString &name)
 #if defined(Q_OS_ANDROID)
     if(!isInService())
     {
-        QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-                                     "org/jooya/jooyaqtapplication/QtAndroidService");
-        serviceIntent.putExtra("MessageFromQt", name.toUtf8());
-        QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
-                    "startService",
-                    "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-                    serviceIntent.handle().object());
+        QJniObject context = QNativeInterface::QAndroidApplication::context();
+        QJniObject serviceIntent("android/content/Intent");
+        QJniObject className("org/jooya/jooyaqtapplication/QtAndroidService");
+
+        serviceIntent.callObjectMethod("setClassName", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;",
+                                       context.object(), className.object<jstring>());
+
+        serviceIntent.callObjectMethod("putExtra", "(Ljava/lang/String;[B)Landroid/content/Intent;",
+                                       QJniObject::fromString("MessageFromQt").object<jstring>(), QJniObject::fromString(name.toUtf8()).object<jbyteArray>());
+
+        QJniObject result = context.callObjectMethod("startService", "(Landroid/content/Intent;)Landroid/content/ComponentName;", serviceIntent.object());
     }
     else
     {
-        QAndroidIntent serviceIntent(QtAndroid::androidService().object(),"org/jooya/jooyaqtapplication/QtAndroidService");
-        if(serviceIntent.handle().isValid()){
-            serviceIntent.putExtra("MessageFromQt", name.toUtf8());
-            QAndroidJniObject result = QtAndroid::androidService().callObjectMethod(
-                        "startService",
-                        "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-                        serviceIntent.handle().object());
-        }
-        else{
-            qCritical()<<"&&&[ QAndroidIntent QtAndroidService is not valid ]&&&";
-        }
+        // QAndroidIntent serviceIntent(QNativeInterface::QAndroidApplication::context(),"org/jooya/jooyaqtapplication/QtAndroidService");
+        // if(serviceIntent.handle().isValid()){
+        //     serviceIntent.putExtra("MessageFromQt", name.toUtf8());
+        //     QJniObject result = QJniObject(QNativeInterface::QAndroidApplication::context()).callObjectMethod(
+        //                 "startService",
+        //                 "(Landroid/content/Intent;)Landroid/content/ComponentName;",
+        //                 serviceIntent.handle().object());
+        // }
+        // else{
+        //     qCritical()<<"&&&[ QAndroidIntent QtAndroidService is not valid ]&&&";
+        // }
     }
 #endif
 }
@@ -58,8 +62,8 @@ void AndroidServiceManager::sendToService(const QString &name)
 void AndroidServiceManager::sendMessage(const QString &message)
 {
 #if defined (Q_OS_ANDROID)
-    QAndroidJniObject javaMessage = QAndroidJniObject::fromString(message);
-    QAndroidJniObject activity = QtAndroid::androidActivity();
+    QJniObject javaMessage = QJniObject::fromString(message);
+    QJniObject activity = QNativeInterface::QAndroidApplication::context();
     if (activity.isValid()) {
         activity.callObjectMethod("printFromJava", "org/jooya/jooyaqtapplication/QtAndroidService", javaMessage.object<jstring>());
 
@@ -75,12 +79,11 @@ void AndroidServiceManager::sendMessage(const QString &message)
 void AndroidServiceManager::startService()
 {
 #if defined(Q_OS_ANDROID)
-    //    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
-    //                                 "org/jooya/jooyaqtapplication/QtAndroidService");
-    //    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
-    //                "startService",
-    //                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-    //                serviceIntent.handle().object())
+    // QJniObject::callStaticMethod<void>(
+    //     "org/jooya/jooyaqtapplication/QtAndroidService",
+    //     "startQtAndroidService",
+    //     "(Landroid/content/Context;)V",
+    //     QNativeInterface::QAndroidApplication::context());
     sendToService("StartService");
 #endif
 }
@@ -91,7 +94,7 @@ void AndroidServiceManager::stopService()
 
     //    QAndroidIntent serviceIntent(QtAndroid::androidActivity().object(),
     //                                 "org/jooya/jooyaqtapplication/QtAndroidService");
-    //    QAndroidJniObject result = QtAndroid::androidActivity().callObjectMethod(
+    //    QJniObject result = QtAndroid::androidActivity().callObjectMethod(
     //                "stopService",
     //                "(Landroid/content/Intent;)Landroid/content/ComponentName;",
     //                serviceIntent.handle().object());
@@ -116,9 +119,8 @@ void AndroidServiceManager::registerNativesOfApp()
     JNINativeMethod methods[] {
         {"sendToQtApp", "(Ljava/lang/String;)V", reinterpret_cast<void *>(appMessagereceivedFromAndroidService)},
     };
-    QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/AppBroadcastUtility");
-
-    QAndroidJniEnvironment env;
+    QJniObject javaClass("org/jooya/jooyaqtapplication/AppBroadcastUtility");
+    QJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
     env->RegisterNatives(objectClass,
                          methods,
@@ -133,9 +135,9 @@ void AndroidServiceManager::registerNativesOfService()
     JNINativeMethod methods[] {
         {"sendToCPPService", "(Ljava/lang/String;)V", reinterpret_cast<void *>(serviceMessagereceivedFromAndroidService)},
     };
-    QAndroidJniObject javaClass("org/jooya/jooyaqtapplication/ServiceBroadcastUtility");
+    QJniObject javaClass("org/jooya/jooyaqtapplication/ServiceBroadcastUtility");
 
-    QAndroidJniEnvironment env;
+    QJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
     env->RegisterNatives(objectClass,
                          methods,
@@ -147,25 +149,25 @@ void AndroidServiceManager::registerNativesOfService()
 void AndroidServiceManager::registerAppBroadcastReceiver()
 {
 #if defined(Q_OS_ANDROID)
-    QAndroidJniEnvironment env;
+    QJniEnvironment env;
     jclass javaClass = env.findClass("org/jooya/jooyaqtapplication/AppBroadcastUtility");
-    QAndroidJniObject classObject(javaClass);
+    QJniObject classObject(javaClass);
 
     classObject.callMethod<void>("registerServiceBroadcastReceiver",
                                  "(Landroid/content/Context;)V",
-                                 QtAndroid::androidContext().object());
+                                 QNativeInterface::QAndroidApplication::context());
 #endif
 }
 
 void AndroidServiceManager::registerServiceBroadcastReceiver()
 {
 #if defined(Q_OS_ANDROID)
-    QAndroidJniEnvironment env;
+    QJniEnvironment env;
     jclass javaClass = env.findClass("org/jooya/jooyaqtapplication/ServiceBroadcastUtility");
-    QAndroidJniObject classObject(javaClass);
+    QJniObject classObject(javaClass);
 
     classObject.callMethod<void>("registerServiceBroadcastReceiver",
                                  "(Landroid/content/Context;)V",
-                                 QtAndroid::androidContext().object());
+                                 QNativeInterface::QAndroidApplication::context());
 #endif
 }

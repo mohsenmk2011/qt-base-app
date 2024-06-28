@@ -4,9 +4,10 @@
 #include <QObject>
 #include<qdebug.h>
 #include<permissiontypes.h>
+#include <QPermissions>
 
 #if defined(Q_OS_ANDROID)
-#include<QtAndroid>
+#include<QCoreApplication>
 #endif
 class AndroidPermissionManager : public QObject
 {

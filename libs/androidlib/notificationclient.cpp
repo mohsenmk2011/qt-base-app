@@ -24,8 +24,8 @@ void NotificationClient::setNotification(QString n)
 void NotificationClient::updateAndroidNotification()
 {
 #if defined(Q_OS_ANDROID)
-    QAndroidJniObject javaNotification = QAndroidJniObject::fromString(m_Notification);
-    QAndroidJniObject::callStaticMethod<void>(
+    QJniObject javaNotification = QJniObject::fromString(m_Notification);
+    QJniObject::callStaticMethod<void>(
                 m_NotificationJavaClassName.toUtf8(),
                 "notify",
                 "(Ljava/lang/String;Ljava/lang/String;)V",

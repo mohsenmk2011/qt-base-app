@@ -6,9 +6,9 @@
 #include<QDateTime>
 #include<alarminfo.h>
 #if defined(Q_OS_ANDROID)
-#include<qandroidjniobject.h>
-#include<QAndroidJniEnvironment>
-#include<QtAndroid>
+#include<QJniObject>
+#include<QJniEnvironment>
+#include<QCoreApplication>
 #endif
 
 class AlarmManager : public QObject

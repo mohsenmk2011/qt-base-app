@@ -11,18 +11,18 @@ QString PackageInfoManager::getAppSign()
     qInfo()<<"is going to get the application sign";
 #if defined(Q_OS_ANDROID)
     {
-        QAndroidJniEnvironment env;
-        QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+        QJniEnvironment env;
+        QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
         if (activity.isValid())
         {
-            QAndroidJniObject context = QtAndroid::androidContext();
+            QJniObject context = QNativeInterface::QAndroidApplication::context();
             QString className= QString("org/jooya/jooyaqtapplication/PackageinfoManager");
 
 
-            QAndroidJniObject  t= QAndroidJniObject::callStaticObjectMethod(className.toStdString().c_str(),"getAppSign","(Landroid/content/Context;)Ljava/lang/String;", context.object<jobject>());
+            QJniObject  t= QJniObject::callStaticObjectMethod(className.toStdString().c_str(),"getAppSign","(Landroid/content/Context;)Ljava/lang/String;", context.object<jobject>());
 
             if (env->ExceptionCheck()) {
                 env->ExceptionClear();

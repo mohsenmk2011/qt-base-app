@@ -4,10 +4,9 @@
 #include <QObject>
 #include <QtDebug>
 #if defined(Q_OS_ANDROID)
-#include <QtAndroid>
-#include <QAndroidIntent>
-#include <QAndroidJniEnvironment>
-#include <QAndroidIntent>
+#include<QJniObject>
+#include<QJniEnvironment>
+#include <QCoreApplication>
 #endif
 
 class SmsManager : public QObject

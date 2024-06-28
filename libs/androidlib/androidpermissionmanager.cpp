@@ -71,15 +71,16 @@ QString AndroidPermissionManager::convertToString(PermissionTypes::PermissionTyp
 
 bool AndroidPermissionManager::isPermissionGranted(PermissionTypes::PermissionTypesEnum permission){
 #if defined(Q_OS_ANDROID)
-    QtAndroid::PermissionResult r= QtAndroid::checkPermission(convertToString(permission));
-    if(r==QtAndroid::PermissionResult::Denied){
-        qWarning()<<" permission was not greanted";
-        return false;
-    }
-    else {
-        qInfo()<<" permission was greanted";
-        return true;
-    }
+    // QtAndroid::PermissionResult r= QtAndroid::checkPermission(convertToString(permission));
+    // if(r==QtAndroid::PermissionResult::Denied){
+    //     qWarning()<<" permission was not greanted";
+    //     return false;
+    // }
+    // else {
+    //     qInfo()<<" permission was greanted";
+    //     return true;
+    // }
+    return true;
 #else
     return  true;
 #endif
@@ -145,17 +146,17 @@ bool AndroidPermissionManager::requestSetAlertWindow()
 bool AndroidPermissionManager::requestPermissions()
 {
 #if defined(Q_OS_ANDROID)
-    QtAndroid::PermissionResultMap rs= QtAndroid::requestPermissionsSync(m_PermissionList);
-    for (QHash<QString,QtAndroid::PermissionResult>::iterator r=rs.begin();r!=rs.end();r++) {
+    // QtAndroid::PermissionResultMap rs= QtAndroid::requestPermissionsSync(m_PermissionList);
+    // for (QHash<QString,QtAndroid::PermissionResult>::iterator r=rs.begin();r!=rs.end();r++) {
 
 
-        if(r.value()==QtAndroid::PermissionResult::Denied){
-             qWarning()<<r.key()<<" => "<<"Denied";
-        }
-        else{
-            qInfo()<<r.key()<<" => "<<"Greanted";
-        }
-    }
+    //     if(r.value()==QtAndroid::PermissionResult::Denied){
+    //          qWarning()<<r.key()<<" => "<<"Denied";
+    //     }
+    //     else{
+    //         qInfo()<<r.key()<<" => "<<"Greanted";
+    //     }
+    // }
     return  true;
 #else
     return  true;

@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Quick Core Qml Gui)
 if(ANDROID)
-    find_package(Qt6 REQUIRED COMPONENTS AndroidExtras)
+    
 endif()
 
 add_library(corelib SHARED
@@ -86,11 +86,8 @@ add_library(corelib SHARED
     userroles.h
 )
 
-target_include_directories(corelib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/libs/androidlib)
+target_include_directories(corelib PRIVATE . ../androidlib/.)
 target_link_libraries(corelib PRIVATE
     Qt6::Core Qt6::Quick Qt6::Qml Qt6::Gui
     androidlib
 )
-if(ANDROID)
-    target_link_libraries(corelib PRIVATE Qt6::AndroidExtras)
-endif()

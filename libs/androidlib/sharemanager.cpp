@@ -11,14 +11,14 @@ void ShareManager::share(QString message)
     qInfo()<<"share this message=> "<<message;
 #if defined(Q_OS_ANDROID)
     {
-    QAndroidJniEnvironment _env;
-    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+    QJniEnvironment _env;
+    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
     if (_env->ExceptionCheck()) {
         _env->ExceptionClear();
     }
     if (activity.isValid() )
     {
-        QAndroidJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/ShareManager","share","(Landroid/app/Activity;Ljava/lang/String;)V",activity.object<jobject>(),QAndroidJniObject::fromString(message).object<jstring>());
+        QJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/ShareManager","share","(Landroid/app/Activity;Ljava/lang/String;)V",activity.object<jobject>(),QJniObject::fromString(message).object<jstring>());
         if (_env->ExceptionCheck()) {
             _env->ExceptionClear();
         }

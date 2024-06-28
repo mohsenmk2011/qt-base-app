@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Core Quick Qml Network Multimedia)
 if(ANDROID)
-    find_package(Qt6 REQUIRED COMPONENTS AndroidExtras)
+    
 endif()
 
 add_library(quicklib SHARED
@@ -43,6 +43,3 @@ target_link_libraries(quicklib PRIVATE
     Qt6::Core Qt6::Quick Qt6::Qml Qt6::Network Qt6::Multimedia
     androidlib corelib networklib
 )
-if(ANDROID)
-    target_link_libraries(quicklib PRIVATE Qt6::AndroidExtras)
-endif()

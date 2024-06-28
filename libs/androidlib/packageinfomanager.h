@@ -5,10 +5,9 @@
 #include<QDebug>
 #include<jooyaandroidcontext.h>
 #if defined(Q_OS_ANDROID)
-#include<qandroidjniobject.h>
-#include<QAndroidJniEnvironment>
-#include<QtAndroid>
-#include<QtAndroidExtras>
+#include<QJniObject>
+#include<QJniEnvironment>
+#include <QCoreApplication>
 #endif
 
 class PackageInfoManager : public QObject

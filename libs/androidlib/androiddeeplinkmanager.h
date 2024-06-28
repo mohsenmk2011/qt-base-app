@@ -5,10 +5,9 @@
 #include <QtDebug>
 // #include<QtQml>
 #if defined(Q_OS_ANDROID)
-#include <QtAndroid>
-#include <QAndroidIntent>
-#include <QAndroidJniEnvironment>
-#include <QAndroidIntent>
+#include <QCoreApplication>
+#include <QJniEnvironment>
+#include <QJniObject>
 #endif
 
 class AndroidDeepLinkManager : public QObject

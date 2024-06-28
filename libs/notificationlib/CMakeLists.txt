@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Core Quick Qml)
 if(ANDROID)
-    find_package(Qt6 REQUIRED COMPONENTS AndroidExtras)
+    
 endif()
 
 add_library(notificationlib SHARED
@@ -51,6 +51,3 @@ target_include_directories(notificationlib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} $
 
 
 target_link_libraries(notificationlib PRIVATE Qt6::Core Qt6::Quick Qt6::Qml androidlib corelib networklib)
-if(ANDROID)
-    target_link_libraries(notificationlib PRIVATE Qt6::AndroidExtras)
-endif()
