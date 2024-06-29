@@ -10,15 +10,16 @@ import android.app.NotificationChannel;
 import android.os.Bundle;
 import android.util.Log;
 import org.jooya.jooyaqtapplication.R;
-import org.qtproject.qt5.android.bindings.QtActivity;
+import org.qtproject.qt.android.bindings.QtActivity;
 import android.net.Uri;
 
 public class MainActivity extends QtActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Log.e("jooya", " ================== < onCreate > ================== ");
+        super.onCreate(savedInstanceState);
+        Log.e("jooya", " ================== < onCreate 222> ================== ");
         handleIntent(getIntent());
     }
 

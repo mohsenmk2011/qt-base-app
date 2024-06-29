@@ -11,7 +11,7 @@ import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import android.app.NotificationChannel;
 import org.jooya.jooyaqtapplication.R;
-import org.qtproject.qt5.android.bindings.QtApplication;
+import org.qtproject.qt.android.bindings.QtApplication;
 
 public class JooyaApplication extends QtApplication{
     public static final String CHANNEL_ID = "org.jooya.jooyaqtapplication.ForegroundServiceChannel";

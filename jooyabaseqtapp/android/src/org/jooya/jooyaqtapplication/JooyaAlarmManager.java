@@ -8,7 +8,6 @@ import android.app.PendingIntent;
 import android.graphics.Color;
 import android.graphics.BitmapFactory;
 import org.jooya.jooyaqtapplication.R;
-import org.qtproject.qt5.android.QtNative;
 import android.widget.Toast;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
@@ -38,7 +37,7 @@ import androidx.work.WorkerParameters;
 import java.util.Calendar;
 import android.os.Vibrator;
 
-import org.qtproject.qt5.android.bindings.QtActivity;
+import org.qtproject.qt.android.bindings.QtActivity;
 import android.provider.Settings;
 
 
@@ -309,4 +308,3 @@ public class JooyaAlarmManager
         return true;
     }
 }
-

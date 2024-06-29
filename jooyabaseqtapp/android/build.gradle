@@ -1,17 +1,17 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'com.android.tools.build:gradle:7.4.1'
     }
 }
 
 repositories {
     google()
-    jcenter()
+    mavenCentral()
 }
 
 apply plugin: 'com.android.application'
@@ -20,9 +20,9 @@ dependencies {
     def work_version = "2.7.1"
     implementation "androidx.work:work-runtime:$work_version"
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'com.android.support:support-compat:27.1.1'
 
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "androidx.core:core:1.6.0"
 }
 
 android {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.os.IBinder;
 import android.content.IntentFilter;
-import org.qtproject.qt5.android.bindings.QtService;
 import android.widget.Toast;
 
 //import android.view.WindowManager;

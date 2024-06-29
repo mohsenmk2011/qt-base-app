@@ -38,13 +38,13 @@ qt_add_qml_module(jooyabaseqtapp
 )
 if(ANDROID)
 
-    set_property(TARGET rokhshid PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+    set_property(TARGET jooyabaseqtapp PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
         "${CMAKE_CURRENT_SOURCE_DIR}/android")
     set(ANDROID_ABIS "armeabi-v7a")
 
     # cloned from https://github.com/KDAB/android_openssl.git
     include(${CMAKE_SOURCE_DIR}/../../../sdk/android_openssl/android_openssl.cmake)
-    add_android_openssl_libraries(rokhshid)
+    add_android_openssl_libraries(jooyabaseqtapp)
 
 endif()
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
