@@ -9,9 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Widgets Quick QuickControls2 Qml Network WebSockets Multimedia WebView)
-if(ANDROID)
-    find_package(Qt6 REQUIRED COMPONENTS AndroidExtras)
-endif()
+
 qt_standard_project_setup()
 qt_policy(SET QTP0001 NEW)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -38,7 +36,17 @@ qt_add_qml_module(jooyabaseqtapp
     QML_FILES
     main.qml
 )
+if(ANDROID)
 
+    set_property(TARGET rokhshid PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+        "${CMAKE_CURRENT_SOURCE_DIR}/android")
+    set(ANDROID_ABIS "armeabi-v7a")
+
+    # cloned from https://github.com/KDAB/android_openssl.git
+    include(${CMAKE_SOURCE_DIR}/../../../sdk/android_openssl/android_openssl.cmake)
+    add_android_openssl_libraries(rokhshid)
+
+endif()
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
@@ -61,10 +69,6 @@ target_include_directories(jooyabaseqtapp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/libs/settingslib ${CMAKE_SOURCE_DIR}/libs/purchasinglib ${CMAKE_SOURCE_DIR}/libs/loginlib
 )
 
-if(ANDROID)
-    target_link_libraries(jooyabaseqtapp PRIVATE Qt6::AndroidExtras)
-endif()
-
 include(GNUInstallDirs)
 install(TARGETS jooyabaseqtapp
     BUNDLE DESTINATION /opt/${PROJECT_NAME}/bin
@@ -74,6 +78,7 @@ install(TARGETS jooyabaseqtapp
 qt_add_resources(jooyabaseqtapp "commonqmlfiles"
     PREFIX "/"
     FILES
+    main.qml
     pages/HomePage.qml
     MainWindow.qml
     pages/users/SignupPhonePage.qml
