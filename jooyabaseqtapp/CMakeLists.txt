@@ -37,10 +37,10 @@ qt_add_qml_module(jooyabaseqtapp
     main.qml
 )
 if(ANDROID)
-
-    set_property(TARGET jooyabaseqtapp PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+    set_property(TARGET jooyabaseqtapp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
         "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    set(ANDROID_ABIS "armeabi-v7a")
+    # set(ANDROID_ABIS "armeabi-v7a")
+    set(CMAKE_ANDROID_ARCH_ABI "armeabi-v7a")
 
     # cloned from https://github.com/KDAB/android_openssl.git
     include(${CMAKE_SOURCE_DIR}/../../../sdk/android_openssl/android_openssl.cmake)
@@ -69,6 +69,15 @@ target_include_directories(jooyabaseqtapp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/libs/settingslib ${CMAKE_SOURCE_DIR}/libs/purchasinglib ${CMAKE_SOURCE_DIR}/libs/loginlib
 )
 
+if(ANDROID)
+
+    target_link_libraries(jooyabaseqtapp PRIVATE
+        service
+    )
+    target_include_directories(jooyabaseqtapp PRIVATE
+        ${CMAKE_SOURCE_DIR}/service
+    )
+endif()
 include(GNUInstallDirs)
 install(TARGETS jooyabaseqtapp
     BUNDLE DESTINATION /opt/${PROJECT_NAME}/bin
