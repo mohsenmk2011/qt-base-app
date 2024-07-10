@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
-
-project(loginlib VERSION 1.0 LANGUAGES CXX)
+set(PROJECT_NAME loginlib)
+project(${PROJECT_NAME} VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -13,7 +13,7 @@ if(ANDROID)
     
 endif()
 
-add_library(loginlib SHARED
+add_library(${PROJECT_NAME} SHARED
     baseuser.cpp
     capthamanager.cpp
     loginlib.cpp
@@ -44,12 +44,16 @@ add_library(loginlib SHARED
     userprofile.h
 )
 
-target_include_directories(loginlib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/libs/androidlib ${CMAKE_SOURCE_DIR}/libs/corelib ${CMAKE_SOURCE_DIR}/libs/networklib
 )
 
 
-target_link_libraries(loginlib PRIVATE
-    Qt6::Core Qt6::Quick Qt6::Qml Qt6::Network Qt6::Multimedia
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt6::Core Qt6::CorePrivate Qt6::Quick Qt6::Qml Qt6::Network Qt6::Multimedia
     androidlib corelib networklib
 )
+
+if(ANDROID)
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_NAME}_${CMAKE_ANDROID_ARCH_ABI}")
+endif()

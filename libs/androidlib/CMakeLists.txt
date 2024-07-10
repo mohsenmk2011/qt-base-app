@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
+set(PROJECT_NAME androidlib)
 
-project(androidlib VERSION 1.0 LANGUAGES CXX)
+project(${PROJECT_NAME} VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -9,11 +10,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml)
-if(ANDROID)
-    
-endif()
 
-add_library(androidlib SHARED
+add_library(${PROJECT_NAME} SHARED
     alarminfo.cpp
     alarmmanager.cpp
     androiddeeplinkmanager.cpp
@@ -47,8 +45,11 @@ add_library(androidlib SHARED
     smsmanager.h
 )
 
-target_include_directories(androidlib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(androidlib
-    PRIVATE Qt6::Core Qt6::Gui Qt6::Qml
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE Qt6::Core Qt6::CorePrivate Qt6::Gui Qt6::Qml
 )
+if(ANDROID)
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_NAME}_${CMAKE_ANDROID_ARCH_ABI}")
+endif()

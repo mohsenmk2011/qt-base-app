@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
-
-project(notificationlib VERSION 1.0 LANGUAGES CXX)
+set(PROJECT_NAME notificationlib)
+project(${PROJECT_NAME} VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -13,7 +13,7 @@ if(ANDROID)
     
 endif()
 
-add_library(notificationlib SHARED
+add_library(${PROJECT_NAME} SHARED
     keyword.cpp
     keywordlistmodel.cpp
     keywordmanager.cpp
@@ -45,9 +45,13 @@ add_library(notificationlib SHARED
     usernotificationinfo.h
 )
 
-target_include_directories(notificationlib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/libs/androidlib
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/libs/androidlib
     ${CMAKE_SOURCE_DIR}/libs/corelib ${CMAKE_SOURCE_DIR}/libs/networklib
 )
 
 
-target_link_libraries(notificationlib PRIVATE Qt6::Core Qt6::Quick Qt6::Qml androidlib corelib networklib)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::CorePrivate Qt6::Quick Qt6::Qml androidlib corelib networklib)
+
+if(ANDROID)
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_NAME}_${CMAKE_ANDROID_ARCH_ABI}")
+endif()
