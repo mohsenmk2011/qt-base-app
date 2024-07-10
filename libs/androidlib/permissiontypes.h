@@ -30,7 +30,8 @@ public:
         SEND_SMS,
         RECEIVE_MMS,
         RECEIVE_WAP_PUSH,
-
+        USE_FULL_SCREEN_INTENT,
+        POST_NOTIFICATIONS,
         SET_ALARM,
         WAKE_LOCK,
         REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,

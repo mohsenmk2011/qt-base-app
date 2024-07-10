@@ -8,6 +8,7 @@
 
 #if defined(Q_OS_ANDROID)
 #include<QCoreApplication>
+#include <QtCore/private/qandroidextras_p.h>
 #endif
 class AndroidPermissionManager : public QObject
 {

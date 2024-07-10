@@ -54,6 +54,10 @@ QString AndroidPermissionManager::convertToString(PermissionTypes::PermissionTyp
         return "android.permission.SCHEDULE_EXACT_ALARM";
     case PermissionTypes::PermissionTypesEnum::WAKE_LOCK:
         return "android.permission.WAKE_LOCK";
+    case PermissionTypes::PermissionTypesEnum::POST_NOTIFICATIONS:
+        return "android.permission.POST_NOTIFICATIONS";
+    case PermissionTypes::PermissionTypesEnum::USE_FULL_SCREEN_INTENT:
+        return "android.permission.USE_FULL_SCREEN_INTENT";
     case PermissionTypes::PermissionTypesEnum::REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:
         return "android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS";
     case PermissionTypes::PermissionTypesEnum::VIBRATE:
@@ -71,15 +75,15 @@ QString AndroidPermissionManager::convertToString(PermissionTypes::PermissionTyp
 
 bool AndroidPermissionManager::isPermissionGranted(PermissionTypes::PermissionTypesEnum permission){
 #if defined(Q_OS_ANDROID)
-    // QtAndroid::PermissionResult r= QtAndroid::checkPermission(convertToString(permission));
-    // if(r==QtAndroid::PermissionResult::Denied){
-    //     qWarning()<<" permission was not greanted";
-    //     return false;
-    // }
-    // else {
-    //     qInfo()<<" permission was greanted";
-    //     return true;
-    // }
+    QtAndroidPrivate::PermissionResult r= QtAndroidPrivate::checkPermission(convertToString(permission)).result();
+    if(r==QtAndroidPrivate::PermissionResult::Denied){
+        qCritical()<<" permission was not greanted";
+        return false;
+    }
+    else {
+        qInfo()<<" permission was greanted";
+        return true;
+    }
     return true;
 #else
     return  true;
@@ -120,6 +124,8 @@ bool AndroidPermissionManager::requestCamera()
 bool AndroidPermissionManager::requestSetAlarm()
 {
     AndroidPermissionManager pm;
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::USE_FULL_SCREEN_INTENT);//
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::POST_NOTIFICATIONS);//
     pm.addPermission(PermissionTypes::PermissionTypesEnum::WAKE_LOCK);//
     pm.addPermission(PermissionTypes::PermissionTypesEnum::REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
     pm.addPermission(PermissionTypes::PermissionTypesEnum::VIBRATE);//
@@ -130,7 +136,7 @@ bool AndroidPermissionManager::requestSetAlarm()
     //if your app targets api 31(anndroid 12(S)) and later you need to grantd
     //https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM
     pm.addPermission(PermissionTypes::PermissionTypesEnum::SCHEDULE_EXACT_ALARM);
-    //pm.addPermission(PermissionTypes::PermissionTypesEnum::USE_EXACT_ALARM);//android 13 and later
+    pm.addPermission(PermissionTypes::PermissionTypesEnum::USE_EXACT_ALARM);//android 13 and later
     return pm.requestPermissions();
 }
 
@@ -146,17 +152,18 @@ bool AndroidPermissionManager::requestSetAlertWindow()
 bool AndroidPermissionManager::requestPermissions()
 {
 #if defined(Q_OS_ANDROID)
-    // QtAndroid::PermissionResultMap rs= QtAndroid::requestPermissionsSync(m_PermissionList);
-    // for (QHash<QString,QtAndroid::PermissionResult>::iterator r=rs.begin();r!=rs.end();r++) {
 
+    for (int i = 0; i < m_PermissionList.count(); ++i) {
+        QtAndroidPrivate::PermissionResult rs= QtAndroidPrivate::requestPermission(m_PermissionList.at(i)).result();
 
-    //     if(r.value()==QtAndroid::PermissionResult::Denied){
-    //          qWarning()<<r.key()<<" => "<<"Denied";
-    //     }
-    //     else{
-    //         qInfo()<<r.key()<<" => "<<"Greanted";
-    //     }
-    // }
+        if(rs==QtAndroidPrivate::PermissionResult::Denied){
+            qCritical()<<m_PermissionList.at(i)<<" => "<<"Denied";
+            return false;
+        }
+        else{
+            qInfo()<<m_PermissionList.at(i)<<" => "<<"Greanted";
+        }
+    }
     return  true;
 #else
     return  true;
