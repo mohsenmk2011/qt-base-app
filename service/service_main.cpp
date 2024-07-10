@@ -33,8 +33,6 @@ int main(int argc, char *argv[])
     //    WebSocketHandler::setUrl("ws://localhost:5000/ws");
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
-   TestTimer tt;
-   DownloadManager dm;
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
@@ -44,13 +42,11 @@ int main(int argc, char *argv[])
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
 #if defined(Q_OS_ANDROID)
     QAndroidService app(argc, argv);
-    jne.androidService()->setIsInService(true);
-    qInfo() << "%%%%%%%%[ qtAndroidService->registerNativesOfService();  ]%%%%%%%%%%%%";
-    jne.androidService()->registerNativesOfService();
-    qInfo() << "%%%%%%%%[ => qtAndroidService->sendMessage(Hi from service);  ]%%%%%%%%%%%%";
-//    qtAndroidService->sendToService("CurrentTime/"+QDateTime::currentDateTime().toString("h:m:s ap"));
-    jne.androidService()->registerServiceBroadcastReceiver();
+    jne.androidService()->registerNativeMethodsAndBroadcastReceiver(true);
+
+    TestTimer tt;
     tt.setAndroidService(jne.androidService());
+    DownloadManager dm;
     return app.exec();
 
 #endif
