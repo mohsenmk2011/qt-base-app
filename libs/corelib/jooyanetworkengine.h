@@ -13,7 +13,6 @@
 #include<jsonutility.h>
 #include<datetimeutility.h>
 #include<androidservicemanager.h>
-#include<androidmanager.h>
 
 class JooyaNetworkEngine : public QObject
 {
@@ -39,7 +38,6 @@ public:
 
     UserLoginInfo* loginInfo();
     static UserLoginInfo* m_loginInfo;
-    static AndroidManager* m_AndroidManager;
     static AndroidServiceManager* m_AndroidServiceManager;
     AndroidServiceManager* androidService();
     static FileWatcher* m_FileWather;
