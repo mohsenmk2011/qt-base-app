@@ -8,6 +8,7 @@
 #include<QJniObject>
 #include<QJniEnvironment>
 #include <QCoreApplication>
+#include <QtCore/private/qandroidextras_p.h>
 #endif
 
 class AndroidServiceManager : public QObject
@@ -18,7 +19,6 @@ public:
     AndroidServiceManager(QObject *parent = nullptr);
 
     static AndroidServiceManager *instance() { return m_instance; }
-    /// fromApp :wheh you call this method from qt app set fromApp to true,if you call this from service(c++) set to false
     Q_INVOKABLE void sendToService(const QString &name="StartQtService");
     Q_INVOKABLE void sendMessage(const QString &message);
     Q_INVOKABLE void startService();
@@ -31,6 +31,8 @@ public:
     void registerNativesOfService();
     void registerAppBroadcastReceiver();
     void registerServiceBroadcastReceiver();
+    // will register native methods and broadcast receiver based that is running on service or app
+    void registerNativeMethodsAndBroadcastReceiver(bool isInService = false);
 
 signals:
     void appMessageReceived(const QString &appMessage);

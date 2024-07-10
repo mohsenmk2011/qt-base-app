@@ -8,6 +8,11 @@ static void appMessagereceivedFromAndroidService(JNIEnv *env, jobject /*thiz*/, 
     QString message=env->GetStringUTFChars(value, nullptr);
     qInfo()<<"***[ Application Message Received From Service ]***";
     qInfo()<<"***[ the message=> ]***"<<message;
+    if(AndroidServiceManager::instance()==nullptr)
+    {
+        qCritical()<<"***[ AndroidServiceManager::instance() was null]***";
+        return;
+    }
     emit AndroidServiceManager::instance()->appMessageReceived(message);
 }
 
@@ -16,6 +21,11 @@ static void serviceMessagereceivedFromAndroidService(JNIEnv *env, jobject /*thiz
     QString message=env->GetStringUTFChars(value, nullptr);
     qInfo()<<"***[ Service Message Received From Service ]***";
     qInfo()<<"***[ the message=> ]***"<<message;
+    if(AndroidServiceManager::instance()==nullptr)
+    {
+        qCritical()<<"***[ AndroidServiceManager::instance() was null]***";
+        return;
+    }
     emit AndroidServiceManager::instance()->serviceMessageReceived(message);
 }
 #endif
@@ -28,34 +38,18 @@ AndroidServiceManager::AndroidServiceManager(QObject *parent) : QObject(parent)
 void AndroidServiceManager::sendToService(const QString &name)
 {
 #if defined(Q_OS_ANDROID)
-    if(!isInService())
-    {
-        QJniObject context = QNativeInterface::QAndroidApplication::context();
-        QJniObject serviceIntent("android/content/Intent");
-        QJniObject className("org/jooya/jooyaqtapplication/QtAndroidService");
+    qDebug()<<"is sending message => "<< name;
+    qDebug()<<"isInService() => "<<isInService();
+    qDebug()<<"QNativeInterface::QAndroidApplication::isActivityContext() => "<<QNativeInterface::QAndroidApplication::isActivityContext();
 
-        serviceIntent.callObjectMethod("setClassName", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;",
-                                       context.object(), className.object<jstring>());
-
-        serviceIntent.callObjectMethod("putExtra", "(Ljava/lang/String;[B)Landroid/content/Intent;",
-                                       QJniObject::fromString("MessageFromQt").object<jstring>(), QJniObject::fromString(name.toUtf8()).object<jbyteArray>());
-
-        QJniObject result = context.callObjectMethod("startService", "(Landroid/content/Intent;)Landroid/content/ComponentName;", serviceIntent.object());
-    }
-    else
-    {
-        // QAndroidIntent serviceIntent(QNativeInterface::QAndroidApplication::context(),"org/jooya/jooyaqtapplication/QtAndroidService");
-        // if(serviceIntent.handle().isValid()){
-        //     serviceIntent.putExtra("MessageFromQt", name.toUtf8());
-        //     QJniObject result = QJniObject(QNativeInterface::QAndroidApplication::context()).callObjectMethod(
-        //                 "startService",
-        //                 "(Landroid/content/Intent;)Landroid/content/ComponentName;",
-        //                 serviceIntent.handle().object());
-        // }
-        // else{
-        //     qCritical()<<"&&&[ QAndroidIntent QtAndroidService is not valid ]&&&";
-        // }
-    }
+    QJniObject activity = QJniObject(QNativeInterface::QAndroidApplication::context());
+    QAndroidIntent serviceIntent(activity.object(),
+                                 "org/jooya/jooyaqtapplication/QtAndroidService");
+    serviceIntent.putExtra("MessageFromQt", name.toUtf8());
+    QJniObject result = activity.callObjectMethod(
+        "startService",
+        "(Landroid/content/Intent;)Landroid/content/ComponentName;",
+        serviceIntent.handle().object());
 #endif
 }
 
@@ -169,5 +163,30 @@ void AndroidServiceManager::registerServiceBroadcastReceiver()
     classObject.callMethod<void>("registerServiceBroadcastReceiver",
                                  "(Landroid/content/Context;)V",
                                  QNativeInterface::QAndroidApplication::context());
+#endif
+}
+
+void AndroidServiceManager::registerNativeMethodsAndBroadcastReceiver(bool isInService)
+{
+//if the os is android register native methods
+
+//------------------------ ANDROID SERVICE-----------------------
+#if defined(Q_OS_ANDROID)
+    qDebug()<<" isInService => "<<isInService;
+    setIsInService(isInService);
+    if(isInService)
+    {
+        qInfo() << "%%%%%%%%[ registerNativesOfService();  ]%%%%%%%%%%%%";
+        registerNativesOfService();
+        qInfo() << "%%%%%%%%[ => registerServiceBroadcastReceiver  ]%%%%%%%%%%%%";
+        registerServiceBroadcastReceiver();
+    }
+    else
+    {
+        qInfo() << "%%%%%%%%[ registerNativesOfApp();  ]%%%%%%%%%%%%";
+        registerNativesOfApp();
+        qInfo() << "%%%%%%%%[ registerAppBroadcastReceiver();  ]%%%%%%%%%%%%";
+        registerAppBroadcastReceiver();
+    }
 #endif
 }
