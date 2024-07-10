@@ -10,7 +10,8 @@
 #include<jooyaapplication.h>
 #include<jooyalogger.h>
 #if defined(Q_OS_ANDROID)
-#include <QAndroidService>
+#include <QtCore/private/qandroidextras_p.h>
+
 #endif
 
 int main(int argc, char *argv[])

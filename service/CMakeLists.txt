@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(service VERSION 1.0 LANGUAGES CXX)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Widgets Quick QuickControls2 Qml Network WebSockets Multimedia WebView)
+if(ANDROID)
+    
+endif()
+
+add_library(service SHARED
+    service_main.cpp
+    testtimer.cpp
+    testtimer.h
+)
+
+target_include_directories(service PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/libs/androidlib
+    ${CMAKE_SOURCE_DIR}/libs/corelib ${CMAKE_SOURCE_DIR}/libs/networklib ${CMAKE_SOURCE_DIR}/libs/chatlib
+    ${CMAKE_SOURCE_DIR}/libs/notificationlib ${CMAKE_SOURCE_DIR}/libs/quicklib ${CMAKE_SOURCE_DIR}/libs/managerlib
+    ${CMAKE_SOURCE_DIR}/libs/settingslib ${CMAKE_SOURCE_DIR}/libs/purchasinglib ${CMAKE_SOURCE_DIR}/libs/loginlib
+)
+
+target_link_libraries(service PRIVATE
+    Qt6::Core Qt6::CorePrivate Qt6::Gui Qt6::Widgets Qt6::Quick Qt6::QuickControls2 Qt6::Qml Qt6::Network Qt6::WebSockets Qt6::Multimedia Qt6::WebView
+    androidlib corelib networklib chatlib notificationlib quicklib managerlib settingslib purchasinglib loginlib
+)
+
