@@ -187,7 +187,6 @@ Flickable {
                                 anchors.bottom: parent.bottom
                                 model: 24
                                 delegate: delegateComponent
-                                wrap: false
                                 visibleItemCount: 3
                                 font{
                                     family: flYekan.name
@@ -206,7 +205,6 @@ Flickable {
                                 anchors.bottom: parent.bottom
                                 model: 60
                                 delegate: delegateComponent
-                                wrap: false
                                 visibleItemCount: 3
                                 font{
                                     family: flYekan.name
@@ -246,6 +244,10 @@ Flickable {
                             if(!alarmManager.isUpAndRunning)
                             {
                                 if(!androidPermissionManager.requestSetAlarm()){
+                                    return;
+                                }
+                                if(!alarmManager.checkBatteryOptimization())
+                                {
                                     return;
                                 }
                                 if(combxAlarmType.currentIndex==0)
