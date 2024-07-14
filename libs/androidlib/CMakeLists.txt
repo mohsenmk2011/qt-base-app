@@ -43,6 +43,7 @@ add_library(${PROJECT_NAME} SHARED
     sharemanager.h
     androidpermissionmanager.h
     smsmanager.h
+    intervalunits.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
