@@ -401,6 +401,14 @@ qt_add_resources(jooyabaseqtapp "commonimages"
     images/common/cut@3x.png
     images/common/cut@2x.png
     images/common/cut.png
+    images/common/clock-time-nine.png
+    images/common/clock-time-nine@2x.png
+    images/common/clock-time-nine@3x.png
+    images/common/clock-time-nine@4x.png
+    images/common/repeat@4x.png
+    images/common/repeat@3x.png
+    images/common/repeat@2x.png
+    images/common/repeat.png
 )
 
 qt_add_resources(jooyabaseqtapp "chatimages"
