@@ -6,8 +6,20 @@ DownloadManager::DownloadManager(QObject *parent) : JooyaNetwork(parent)
     m_CountFailed=0;
     m_CountDownloaded=0;
     m_CountToDownload=0;
-    connect(androidService(),&AndroidServiceManager::serviceMessageReceived,this,&DownloadManager::onNewServiceMessage);
-    connect(androidService(),&AndroidServiceManager::appMessageReceived,this,&DownloadManager::onNewAppeMessage);
+    if(androidService()==nullptr)
+    {
+        qCritical()<<"*** [ AndroidServiceManager is null => return ] ***";
+        return;
+    }
+    if(androidService()->isInService())
+    {
+        qDebug()<<"*** [is In Service => connect AndroidServiceManager.serviceMessageReceived signal to  DownloadManager.onNewServiceMessage slot ] ***";
+        connect(androidService(),&AndroidServiceManager::serviceMessageReceived,this,&DownloadManager::onNewServiceMessage);
+    }
+    else{
+        qDebug()<<"*** [is In App => connect AndroidServiceManager.appMessageReceived signal to  DownloadManager.onNewAppeMessage slot ] ***";
+        connect(androidService(),&AndroidServiceManager::appMessageReceived,this,&DownloadManager::onNewAppeMessage);
+    }
 }
 
 QString DownloadManager::downloadCountMessage()
