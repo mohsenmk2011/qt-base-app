@@ -149,6 +149,27 @@ bool AndroidPermissionManager::requestSetAlertWindow()
     return pm.requestPermissions();
 }
 
+bool AndroidPermissionManager::requestIgnoringBatteryOptimizations()
+{
+    bool isIgnored=false;
+    qInfo()<<"***[ check Battery Optimization ]***";
+#if defined(Q_OS_ANDROID)
+    QJniEnvironment env;
+    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+    if (env->ExceptionCheck()) {
+        env->ExceptionClear();
+    }
+    if (activity.isValid())
+    {
+        isIgnored = (bool) QJniObject::callStaticMethod<jboolean>("org/jooya/rokhshid/PermissionManager","requestIgnoringBatteryOptimizations","(Landroid/content/Context;)Z",QNativeInterface::QAndroidApplication::context());
+        if (env->ExceptionCheck()) {
+            env->ExceptionClear();
+        }
+    }
+#endif
+    return isIgnored;
+}
+
 bool AndroidPermissionManager::requestPermissions()
 {
 #if defined(Q_OS_ANDROID)
