@@ -79,4 +79,6 @@ android {
         minSdkVersion = qtMinSdkVersion
         targetSdkVersion = qtTargetSdkVersion
     }
+    println "==================[ Minimum SDK Version: $qtMinSdkVersion ]=============================="
+    println "==================[ Target SDK Version: $qtTargetSdkVersion ]=============================="
 }
