@@ -8,6 +8,8 @@
 #include<applicationsettings.h>
 #include<QGuiApplication>
 #include<applicationinfohelper.h>
+#include<applicationalarmsettingshelper.h>
+#include<alarmclasses.h>
 
 class JooyaApplication : public JooyaNetworkEngine
 {
@@ -16,8 +18,10 @@ public:
     explicit JooyaApplication(QObject *parent = nullptr);
     explicit JooyaApplication(QString organization,QString organizationDomain, QString applicationName);
     void setApplicationName(QString name);
+    void setDefaultAlarmSettings(bool hasAlarm, AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat);
 
     static MaterialStyleHelper* m_MaterialStyleHelper;
+    static ApplicationAlarmSettingsHelper* m_ApplicationAlarmSettingsHelper;
     static bool m_IsDesignMode;
     static ApplicationInfoHelper* m_AppInfo;
     void processQmlLiveCommandLine(QGuiApplication *app);

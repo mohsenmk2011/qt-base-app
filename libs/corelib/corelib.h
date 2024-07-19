@@ -32,6 +32,9 @@
 #include<isoscelestrianglemath.h>
 #include<applicationinfo.h>
 #include<applicationinfohelper.h>
+#include<alarmclasses.h>
+#include<applicationalarmsettings.h>
+#include<applicationalarmsettingshelper.h>
 
 class Corelib
 {
@@ -70,6 +73,10 @@ public:
         qmlRegisterType<ApplicationInfoHelper>("Jooya",1,0,"ApplicationInfoHelper");
 
         qmlRegisterUncreatableType<OperationTypes>("Jooya",1,0,"OperationTypes","Operation Types");
+        qmlRegisterType<AlarmClasses>("Jooya",1,0,"AlarmClasses");
+        qmlRegisterUncreatableType<AlarmClasses::AlarmClassesEnum>("Jooya",1,0,"AlarmClasses::AlarmClassesEnum","Alarm Classes");
+        qmlRegisterType<ApplicationAlarmSettingsHelper>("Jooya",1,0,"ApplicationAlarmSettingsHelper");
+        qmlRegisterType<ApplicationAlarmSettings>("Jooya",1,0,"ApplicationAlarmSettings");
 
         qmlRegisterUncreatableType<MaterialColors>("JooyaQuick.Controls.Material",1,0,"MaterialColors","Material Colors");
         qmlRegisterUncreatableType<MaterialShades>("JooyaQuick.Controls.Material",1,0,"MaterialShades","Material Shades");

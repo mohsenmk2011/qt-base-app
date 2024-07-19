@@ -84,6 +84,10 @@ add_library(${PROJECT_NAME} SHARED
     userlogininfo.h
     userloginsettings.h
     userroles.h
+    applicationalarmsettings.h
+    applicationalarmsettingshelper.h
+    applicationalarmsettingshelper.cpp
+    alarmclasses.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE . ../androidlib/.)

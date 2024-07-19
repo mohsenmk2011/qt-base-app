@@ -4,6 +4,7 @@ JooyaApplication::JooyaApplication(QObject *parent) : JooyaNetworkEngine(parent)
 {
     m_MaterialStyleHelper=new MaterialStyleHelper();
     m_AppInfo = new ApplicationInfoHelper();
+    m_ApplicationAlarmSettingsHelper = new ApplicationAlarmSettingsHelper();
 }
 
 void JooyaApplication::processQmlLiveCommandLine(QGuiApplication *app)
@@ -38,6 +39,13 @@ void JooyaApplication::setApplicationName(QString name)
     m_AppInfo->setName(name);
 }
 
+void JooyaApplication::setDefaultAlarmSettings(bool hasAlarm,AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat)
+{
+    m_ApplicationAlarmSettingsHelper->setHasAlarm(hasAlarm);
+    m_ApplicationAlarmSettingsHelper->setHasRepeat(hasRepeat);
+    m_ApplicationAlarmSettingsHelper->setAlarmClass(alarmClass);
+}
+
 void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,MaterialColors::MaterialColorsEnum primary,MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor)
 {
     ApplicationSettings s;
@@ -54,6 +62,7 @@ void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,
 }
 
 MaterialStyleHelper* JooyaApplication::m_MaterialStyleHelper;//=new MaterialStyleHelper();
+ApplicationAlarmSettingsHelper* JooyaApplication::m_ApplicationAlarmSettingsHelper;
 bool JooyaApplication::m_IsDesignMode=false;
 
 ApplicationInfoHelper* JooyaApplication::m_AppInfo;
