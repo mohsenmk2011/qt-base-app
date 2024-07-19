@@ -37,15 +37,15 @@ public class AlarmActivity extends Activity{
             setShowWhenLocked(true);
             setTurnScreenOn(true);
             KeyguardManager km=(KeyguardManager) getSystemService(this.KEYGUARD_SERVICE);
-            km.requestDismissKeyguard(this,null);
+            if (km != null) {
+                km.requestDismissKeyguard(this, null);
+            }
         }
-        else
-        {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|
-                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD|
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
-                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD|
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
+                WindowManager.LayoutParams.FLAG_FULLSCREEN|
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         Timer timer = new Timer();
         TimerTask t = new TimerTask() {
             @Override
