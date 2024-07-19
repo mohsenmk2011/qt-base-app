@@ -48,113 +48,19 @@ public class JooyaAlarmManager
 
     private static final String TAG = "JooyaAlarmManager";    
     private static final int ALARMPENDIGID = 4972563;
-    private static final String ALARMID = "org.jooya.jooyaqtapplication.exercisealarm";
-
-
-    public static void setAlarm(Context context,String hm) {
-        Log.i(TAG, "***[ setAlarm ]***");
-
-//        Data data=new Data.Builder()
-//                    .putInt("number",10)
-//                    .build();
-        Constraints con=new Constraints.Builder()
-//        .setRequiredNetworkType(NetworkType.CONNECTED)
-            .setRequiresDeviceIdle(false)
-        .build();
-
-        //==================================for download file=========================================================
-//        OneTimeWorkRequest downloadRequest = new OneTimeWorkRequest.Builder(AlarmWorker.class)
-//            .setInputData(data)
-//            .setConstraints(con)
-//            .setInitialDelay(1,TimeUnit.MINUTES)
-//              .setId(ALARMID);
-//            .build();
-
-//        WorkManager.getInstance(context)
-//                         .enqueue(downloadRequest);
-
-         //===========================================================================================
-         //split input datetime with ':' input is like 14:00
-        String[] separated=hm.split(":");
-        int hour=Integer.parseInt(separated[0]);
-        int minute=Integer.parseInt(separated[1]);
-        Log.i(TAG, "hour => "+hour);
-        Log.i(TAG, "minute => "+minute);
-       // get datetime now and set input datetime
-       Calendar now = Calendar.getInstance();
-       Calendar dt = Calendar.getInstance();
-       dt.set(Calendar.HOUR_OF_DAY, hour);
-       dt.set(Calendar.MINUTE, minute);
-
-       //============================[ find diffrence between two date time ]==================================
-       long diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;
-        // if dt > now so diff is positive => diff = dt   - now
-        //                                    600 = 11:00 - 10:50
-       Log.i(TAG, "diffSeconds => "+diffSeconds);
-       // if dt < now so diff is negetive => diff = dt    - now
-       //                                    -600 = 11:10 - 11:00
-       // so add one day to dt
-       if(diffSeconds<0){//time is passed
-           dt.add(Calendar.DAY_OF_MONTH, 1);
-           diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;
-           Log.i(TAG, "is pass so => new diffSeconds is => "+diffSeconds);
-       }
-   //======================================[alarm request]====================================================
-
-           OneTimeWorkRequest alarmRequest = new OneTimeWorkRequest.Builder(AlarmWorker.class)
-             //  .setInputData(data) //read time from json file and send as data here
-               .setConstraints(con)
-               .setInitialDelay(diffSeconds,TimeUnit.SECONDS)
-                 .addTag(ALARMID)
-                // .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-               .build();
-
-           WorkManager.getInstance(context)
-                            .enqueue(alarmRequest);
-
-//        PeriodicWorkRequest alarmRequest=new PeriodicWorkRequest.Builder(AlarmWorker.class,15,TimeUnit.MINUTES)
-////                    .setInputData(data)
-//                    .addTag(ALARMID)
-////                    .setConstraints(con)
-//                    .setInitialDelay(-diffSeconds,TimeUnit.SECONDS)
-//                    .build();
-
-//        WorkManager.getInstance(context)
-//                         .enqueue(alarmRequest);
-
-         //get result of work in here and send to qt application
-//         WorkManager.getInstance(context).getWorkInfoByIdLiveData(alarmRequest.getId()).observe(context,
-//         new Observer<WorkInfo>(){
-//             @Override
-//             public void onChanged(WorkInfo workInfo){
-//                 Log.i(TAG, "onChaged  => workInfo"+workInfo.getState());
-//                 }
-//             });
-
-        Log.i(TAG, "***[ Alarm set succeed ]***");
-    }
 
     public static void cancelAlarm(Context context) {
 
         Log.i(TAG, "***[ cancel Alarm ]***");
-//        PeriodicWorkRequest alarmRequest=new PeriodicWorkRequest.Builder(AlarmWorker.class,1,TimeUnit.DAYS)
-//                    .addTag(ALARMID)
-//                    .build();
-
-        //WorkManager.getInstance(context).cancelWorkById(alarmRequest.getId());
-        //WorkManager.getInstance(context).cancelAllWorkByTag(ALARMID);
-
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
          Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-         intent.setAction("org.jooya.jooyaqtapplication.EXERCISEALARM");
-         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE);
+         intent.setAction(ReminderBroadcastReceiver.BROADCAST_ACTION_NAME);
+         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
          alarmManager.cancel(pendingIntent);
          pendingIntent.cancel();
     }
     public static void displayAlarmPage(Context context,String alarmType)
     {
-        //Display alarm activy page
-
         Log.i(TAG, "displayAlarmPage");
         Log.i(TAG, "alarmType=>"+alarmType);
         //alarmType => {Page,Notification}
@@ -167,32 +73,39 @@ public class JooyaAlarmManager
         else if(alarmType.equals("Notification"))
         {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(900);
-            //TODO: Change this after creating new branch from master branch
-            NotificationClient.notify(context,"اپلیکیشن جویا","زمان انجام تمرینات");
+            vibrator.vibrate(2700);
+            JooyaNotificationManager.notify(context,"اپلیکیشن جویا","زمان انجام تمرینات");
         }
     }
     public static boolean isAlarmUp(Context context)
     {
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-        intent.setAction("org.jooya.jooyaqtapplication.EXERCISEALARM");
-        boolean alarmUp = (PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE) != null);
-        Log.i(TAG, "isAlarmUp=> "+alarmUp);
+        intent.setAction(ReminderBroadcastReceiver.BROADCAST_ACTION_NAME);
+        boolean alarmUp = (PendingIntent.getBroadcast(context,ALARMPENDIGID,intent,PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE) != null);
+        Log.i(TAG, "***[ Is Alarm Up => " + alarmUp + " ]***");
         return alarmUp;
     }
-    public static int startAlarmWithAlamManager(Context context,String hm,String alarmType)
+
+    public static boolean setExact(Context context,String hm,String alarmType,String interval)
     {
-        Log.i(TAG, "JooyaAlarmManager.startAlarmWithAlamManager");
-        Log.i(TAG, "alarmType=>"+alarmType);
-        Log.i(TAG, "ACTION_REQUEST_SCHEDULE_EXACT_ALARM => "+Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+        Log.i(TAG, "*********[  JooyaAlarmManager.setExact  ]*********");
+        Log.i(TAG, "alarm time => "+hm);
+        Log.i(TAG, "alarmType => "+alarmType);
+        Log.i(TAG, "interval => "+interval);
         //alarmType => {Page,Notification}
 
         Intent intent=new Intent(context,ReminderBroadcastReceiver.class);
-        intent.setAction("org.jooya.jooyaqtapplication.EXERCISEALARM");
+        intent.setAction(ReminderBroadcastReceiver.BROADCAST_ACTION_NAME);
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         intent.putExtra("type",alarmType);
         intent.putExtra("time",hm);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        intent.putExtra("interval",interval);
+        PendingIntent pendingIntent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
         //=====================================================
         String[] separated=hm.split(":");
         int hour=Integer.parseInt(separated[0]);
@@ -208,18 +121,13 @@ public class JooyaAlarmManager
         dt.set(Calendar.MILLISECOND, 0);
 
         //============================[ find diffrence between two date time ]==================================
-        long diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;
-         // if dt > now so diff is positive => diff = dt   - now
-         //                                    600 = 11:00 - 10:50
-        Log.i(TAG, "diffSeconds => "+diffSeconds);
-        // if dt < now so diff is negetive => diff = dt    - now
-        //                                    -600 = 11:10 - 11:00
+         long diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;
+        //  // if dt > now so diff is positive => diff = dt   - now
+        //  //                                    600 = 11:00 - 10:50
+        // Log.i(TAG, "diffSeconds => "+diffSeconds);
+        // // if dt < now so diff is negetive => diff = dt    - now
+        // //                                    -600 = 11:10 - 11:00
         // so add one day to dt
-        Log.i(TAG, "Build.VERSION_CODES.S => "+Build.VERSION_CODES.S);
-        if(diffSeconds>=0&&diffSeconds<=15*60/*&&now.day()==dt.day()*/)
-        {
-            return 3;
-        }
         if(diffSeconds<0){//time is passed
             dt.add(Calendar.DAY_OF_MONTH, 1);
             diffSeconds = (dt.getTimeInMillis() - now.getTimeInMillis())/1000;
@@ -248,63 +156,23 @@ public class JooyaAlarmManager
         //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Log.i(TAG, "is bigger than marshall");
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            Intent pmIntent = new Intent();
-            Log.i(TAG, "pm.isIgnoringBatteryOptimizations() => "+pm.isIgnoringBatteryOptimizations(context.getPackageName()));
-            if(pm.isIgnoringBatteryOptimizations(context.getPackageName()))
-            {
-                //pmIntent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);//for disable doze mode
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
-            }
-            else
-            {
-                pmIntent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);//for enable doze mode
-                pmIntent.setData(Uri.parse("package:" +context.getPackageName()));
-            }
-            context.startActivity(pmIntent);
+            Log.i(TAG, "is bigger than marshall => Battery Optimizations is Ignored by user in checkBatteryOptimization method");
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
         }
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Log.i(TAG, "is higher than kitkat");
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
 
             // effort to save battery, allow deviation of 15 minutes
-            int windowMillis = 15 * 60 * 1000;
-            Log.i(TAG, "is higher than kitkat");
+            // int windowMillis = 15 * 60 * 1000;
             //alarmManager.setWindow(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), windowMillis, pendingIntent);
         }
         else {
             Log.i(TAG, "is lower than kitkat");
             alarmManager.set(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
         }
-        Log.i(TAG, "Build.VERSION.SDK_INT=> "+Build.VERSION.SDK_INT);
+        Log.i(TAG, "Build.VERSION.SDK_INT => "+Build.VERSION.SDK_INT);
         Log.i(TAG, "Build.VERSION_CODES.M => "+Build.VERSION_CODES.M);
-        if(isAlarmUp(context))
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    public static boolean checkBatteryOptimization(Context context)
-    {
-        Log.i(TAG, "is going to ignore battery optimization");
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent();
-            String packageName = context.getPackageName();
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (pm.isIgnoringBatteryOptimizations(packageName))
-            {
-                intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                intent.setData(Uri.parse("package:" + packageName));
-            }
-//            else {
-//                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-//                intent.setData(Uri.parse("package:" + packageName));
-//            }
-            context.startActivity(intent);
-        }
-        return true;
-    }
+        return isAlarmUp(context);
+    }    
 }

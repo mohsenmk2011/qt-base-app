@@ -5,10 +5,13 @@
 #include<QDebug>
 #include<QDateTime>
 #include<alarminfo.h>
+
 #if defined(Q_OS_ANDROID)
 #include<QJniObject>
 #include<QJniEnvironment>
 #include<QCoreApplication>
+#include <QtCore/private/qandroidextras_p.h>
+#include<androidpermissionmanager.h>
 #endif
 
 class AlarmManager : public QObject
@@ -18,32 +21,33 @@ class AlarmManager : public QObject
     Q_PROPERTY(bool isUpAndRunning READ isUpAndRunning WRITE setIsUpAndRunning NOTIFY isUpAndRunningChanged)
 public:
     explicit AlarmManager(QObject *parent = nullptr);
-//    static AlarmManager *instance() { return m_instance; }
     AlarmInfo* alarmInfo();
 
     bool isUpAndRunning();
     void setIsUpAndRunning(bool r);
 
-    Q_INVOKABLE bool startAlarmWithWorkManager();
     bool isTimeValid(int hour,int minute);
+    Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");
+    ///=====================================[alarm with alarm manager]=========================
     //is alarm up and running?
     Q_INVOKABLE bool isAlarmUp();
-    Q_INVOKABLE QString message();
-    Q_INVOKABLE int startAlarmWithAlamManager(QString alarmType="Notification");
-
-    Q_INVOKABLE void displayAlarmPage(QString alarmType="Notification");
+    Q_INVOKABLE bool startAlarmWithAlamManager(QString alarmType="Notification");
     Q_INVOKABLE void cancelAlarm();
-//    void registerNativesOfApp();
-//    void registerNativesOfService();
-
-    void registerBroadcastReceiver();
+    ///=====================================[alarm with work manager]=========================
+    /// is alram that is set with work manager is in process ?
+    Q_INVOKABLE bool isAlarmWorkUp();
+    /// will set alarm with work manager
+    Q_INVOKABLE bool startAlarmWithWorkManager(QString alarmType="Notification");
+    /// cancle that alarm that is set with work manager
+    Q_INVOKABLE bool cancelAlarmWork();
 signals:
     void isUpAndRunningChanged();
 private slots:
 private:
     AlarmInfo* m_AlarmInfo;
     bool m_IsUpAndRunning;
-    QString m_Message;
+    /// will return alarm interval in minutes in string format
+    QString getIntervalInMintues();
 };
 
 #endif // ALARMMANAGER_H
