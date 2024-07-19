@@ -16,6 +16,7 @@ import android.Manifest;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
 
 public class PackageinfoManager {
     private static final int REQUEST_CODE = 123; // You can use any value for the request code
@@ -69,6 +70,16 @@ public class PackageinfoManager {
             e.printStackTrace();
         }
         return "";
+    }
+    public static String getApplicationName(Context context) {
+        ApplicationInfo applicationInfo;
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
+        } catch (final PackageManager.NameNotFoundException e) {
+            applicationInfo = null;
+        }
+        return (String) (applicationInfo != null ? packageManager.getApplicationLabel(applicationInfo) : "Unknown");
     }
 }
 
