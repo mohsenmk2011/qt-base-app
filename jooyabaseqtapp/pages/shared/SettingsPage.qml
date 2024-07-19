@@ -12,8 +12,7 @@ Flickable {
     LayoutMirroring.childrenInherit: true
     contentHeight: clm.implicitHeight
     function formatText(count, modelData) {
-        var data = count === 12 ? modelData + 1 : modelData;
-        return data.toString().length < 2 ? "0" + data : data;
+        return modelData.toString().length < 2 ? "0" + modelData : modelData;
     }
     ApplicationSettings{
         id:settings
@@ -26,7 +25,19 @@ Flickable {
         id:alarmManager
     }
     Component.onCompleted: {
-        console.log("alarmManager.isAlarmUp()=> "+alarmManager.isAlarmUp());
+
+        if(!ApplicationAlarmSettings.hasAlarm)
+        {
+            retrun;
+        }
+        if(ApplicationAlarmSettings.alarmClass === AlarmClasses.AlarmManager)
+        {
+            console.log("alarmManager.isAlarmUp()=> "+alarmManager.isAlarmUp());
+        }
+        else
+        {
+            console.log("alarmManager.isAlarmWorkUp()=> "+alarmManager.isAlarmWorkUp());
+        }
         console.log("settings.alarmInfo"+settings.alarmInfo);
         alarmManager.alarmInfo.fromString(settings.alarmInfo)
         console.log("alarmManager.alarmInfo.alarmHour"+alarmManager.alarmInfo.alarmHour);
@@ -34,6 +45,14 @@ Flickable {
         hoursTumbler.currentIndex=alarmManager.alarmInfo.alarmHour;
         minutesTumbler.currentIndex=alarmManager.alarmInfo.alarmMinutes;
         combxAlarmType.currentIndex=alarmManager.alarmInfo.alarmType===AlarmTypes.DisplayPage?0:1
+        if(ApplicationAlarmSettings.hasRepeat)
+        {
+            intervalUnitTumbler.currentIndex = alarmManager.alarmInfo.intervalUnit-1;
+            intervalTumbler.currentIndex = alarmManager.alarmInfo.alarmInterval;
+        }
+        else{
+            alarmManager.alarmInfo.hasRepeat = false;
+        }
     }
     ColumnLayout{
         id:clm
@@ -50,6 +69,7 @@ Flickable {
             ColumnLayout{
                 id:clmAlarm
                 anchors.fill: parent
+                visible: ApplicationAlarmSettings.hasAlarm
                 spacing: 9
                 Text {
                     text: qsTr("هشدار")
@@ -160,12 +180,35 @@ Flickable {
                         }
                     }
                 }
+                Separator {
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 4.5
+                    Layout.leftMargin: 4.5
+                    color: MaterialStyle.accent200
+                }
                 RowLayout{
                     Layout.alignment: Qt.AlignHCenter
+                    IconImage {
+                        width: 27
+                        height: 27
+                        Layout.alignment: Qt.AlignVCenter
+                        source: "../../images/common/clock-time-nine.png"
+                        color: MaterialStyle.iconColor
+                    }
+                    Text {
+                        text: qsTr("زمان هشدار")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
                     Rectangle{
                         color: MaterialStyle.backColor300
-                        Layout.preferredHeight: 3
-                        Layout.preferredWidth: 99
+                        Layout.preferredHeight: 6
+                        Layout.preferredWidth: 72
                         Layout.alignment: Qt.AlignVCenter
                         radius: 3
                     }
@@ -221,13 +264,152 @@ Flickable {
                     }
                     Rectangle{
                         color: MaterialStyle.backColor300
-                        Layout.preferredHeight: 3
+                        Layout.preferredHeight: 6
+                        Layout.preferredWidth: 72
+                        Layout.alignment: Qt.AlignVCenter
+                        radius: 3
+                    }
+                }
+                Separator {
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 4.5
+                    Layout.leftMargin: 4.5
+                    color: MaterialStyle.accent200
+                }
+                //==========================[ interval section ]========================================
+                RowLayout{
+                    visible: ApplicationAlarmSettings.hasRepeat
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 18
+                    Layout.leftMargin: 18
+                    spacing: 9
+                    IconImage {
+                        width: 27
+                        height: 27
+                        Layout.alignment: Qt.AlignVCenter
+                        source: "../../images/common/repeat.png"
+                        color: MaterialStyle.iconColor
+                    }
+                    Text {
+                        text: qsTr("تکرار هشدار")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
+                    Text {
+                        text: qsTr("خاموش")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                    Switch{
+                        id:swAlarmRepeat
+                        checked: alarmManager.alarmInfo.hasRepeat
+                        onToggled: {
+                            console.log("onToggle swAlarmRepeat.checked => " + swAlarmRepeat.checked)
+                            alarmManager.alarmInfo.hasRepeat = checked;
+                        }
+                    }
+                    Text {
+                        text: qsTr("روشن")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                }
+                RowLayout{
+                    visible: ApplicationAlarmSettings.hasRepeat && swAlarmRepeat.checked
+                    Layout.alignment: Qt.AlignHCenter
+                    Rectangle{
+                        color: MaterialStyle.backColor300
+                        Layout.preferredHeight: 6
+                        Layout.preferredWidth: 99
+                        Layout.alignment: Qt.AlignVCenter
+                        radius: 3
+                    }
+                    Rectangle {
+                        clip: true
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredHeight: 170
+                        Layout.preferredWidth: 154
+                        color: MaterialStyle.backColor200
+                        radius: 9
+                        RowLayout {
+                            anchors.fill: parent
+                            LayoutMirroring.enabled: true
+
+                            Tumbler {
+                                id: intervalTumbler
+                                Layout.fillHeight: true
+                                model: 61
+                                delegate: Label {
+                                    text: modelData
+                                    opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                    color: MaterialStyle.primaryTextColor
+                                }
+                                visibleItemCount: 3
+                                font{
+                                    family: flYekan.name
+                                    pixelSize: 36
+                                }
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        alarmManager.alarmInfo.alarmInterval = intervalTumbler.currentIndex;
+                                    }
+                                }
+                            }
+                            Tumbler {
+                                id: intervalUnitTumbler
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                model: ListModel {
+                                    ListElement { index: 1; title: "دقیقه"; }
+                                    ListElement { index: 2; title: "ساعت"; }
+                                    ListElement { index: 3; title: "روز"; }
+                                }
+                                delegate: Label {
+                                    text: model.title
+                                    opacity: model.index - 1 == intervalUnitTumbler.currentIndex ? 1.0 : 0.36
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                    color: MaterialStyle.primaryTextColor
+                                    height: parent.height/6
+                                }
+                                visibleItemCount: 3
+                                font{
+                                    family: flYekan.name
+                                    pixelSize: 33
+                                }
+                                onMovingChanged: {
+                                    if(!moving)
+                                    {
+                                        var currentItem = intervalUnitTumbler.model.get(currentIndex);
+                                        alarmManager.alarmInfo.intervalUnit = currentItem.index;
+                                        console.log("interval unit => "+currentItem.index)
+                                        console.log("alarmManager.alarmInfo.intervalUnit => "+alarmManager.alarmInfo.intervalUnit)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Rectangle{
+                        color: MaterialStyle.backColor300
+                        Layout.preferredHeight: 6
                         Layout.preferredWidth: 99
                         Layout.alignment: Qt.AlignVCenter
                         radius: 3
                     }
                 }
-
+                //==========================[ end of interval section ]========================================
                 RowLayout{
                     Layout.fillWidth: true
                     spacing: 9
@@ -235,38 +417,26 @@ Flickable {
                         text: alarmManager.isUpAndRunning?"پایان دادن به هشدار": "یاد آوری"
                         Layout.preferredWidth: (paneAlarm.width/2)-9
                         onClicked: {
-//                            if(!alarmManager.startAlarmWithWorkManager())
-//                            {
-//                                MessageBoard.setContent(alarmManager.message());
-//                            }
-
-                            var r=0;
-                            if(!alarmManager.isUpAndRunning)
+                            enabled = false;
+                            if(alarmManager.isUpAndRunning)
                             {
-                                if(!androidPermissionManager.requestSetAlarm()){
-                                    return;
-                                }
-                                if(!alarmManager.checkBatteryOptimization())
-                                {
-                                    return;
-                                }
-                                if(combxAlarmType.currentIndex==0)
-                                {
-                                   r= alarmManager.startAlarmWithAlamManager("Page");
-                                }
-                                else
-                                {
-                                   r= alarmManager.startAlarmWithAlamManager("Notification");
-                                }
-                                settings.alarmInfo=alarmManager.alarmInfo.convertToString();
-                                if(r==3){
-                                    MessageBoard.setContent(alarmManager.message());
-                                }
+                                alarmManager.cancelAlarm();
+                                enabled = true;
+                                return;
+                            }
+                            if(!androidPermissionManager.requestSetAlarm()){
+                                return;
+                            }
+                            settings.alarmInfo = alarmManager.alarmInfo.convertToString();
+                            if(combxAlarmType.currentIndex==0)
+                            {
+                                alarmManager.startAlarmWithAlamManager("Page");
                             }
                             else
                             {
-                                alarmManager.cancelAlarm();
+                                alarmManager.startAlarmWithAlamManager("Notification");
                             }
+                            enabled = true;
                         }
                     }
                     JooyaButton{
