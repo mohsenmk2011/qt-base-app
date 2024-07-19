@@ -31,7 +31,8 @@ public class JooyaNotificationManager
     public static void notify(Context context,String title, String message)
     {
         createNotificationChannel(context);
-        Intent intent=new Intent(context,QtActivity.class);
+        Intent intent=new Intent(context,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pi=PendingIntent.getActivity(context,0,intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -41,7 +42,7 @@ public class JooyaNotificationManager
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
-            //.setCategory(NotificationCompat.CATEGORY_EVENT)
+            .setCategory(NotificationCompat.CATEGORY_EVENT)
             //.setCategory(NotificationCompat.CATEGORY_PROGRESS)
             //.setCategory(NotificationCompat.CATEGORY_CALL)
             .setDefaults(Notification.DEFAULT_SOUND)
