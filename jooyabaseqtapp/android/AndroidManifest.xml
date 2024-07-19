@@ -111,6 +111,8 @@
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_MMS"/>
 
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
@@ -119,7 +121,7 @@
     <!--https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM-->
     <!--if your app relies on exact alarms for core functionality,use => USE_EXACT_ALARM  if not use SCHEDULE_EXACT_ALARM -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <!--<uses-permission android:name="android.permission.USE_EXACT_ALARM"/>-->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <!--https://developer.android.com/reference/android/Manifest.permission#SYSTEM_ALERT_WINDOW-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
