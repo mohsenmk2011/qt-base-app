@@ -84,14 +84,8 @@ JooyaDialog {
                     }
 
                     onClicked: {
-                        if(isAndroid){
-                            var c=fileDialogAndroid.createObject(mainWindow);
-                            c.provideExistingFileName();
-                        }
-                        else{
-                            var cd=fileDialogWin.createObject(mainWindow);
-                            cd.open();
-                        }
+                        var cd=fileDialogWin.createObject(mainWindow);
+                        cd.open();
                     }
                     Component{
                         id: fileDialogWin
@@ -107,15 +101,6 @@ JooyaDialog {
                                 close();
                             }
                             Component.onCompleted: visible = true
-                        }
-                    }
-                    Component{
-                        id: fileDialogAndroid
-                        AndroidFileDialog{
-                            id: afdlg
-                            onAccepted: {
-                                notify.loadImageFromFile(fileUrl)
-                            }
                         }
                     }
                 }
