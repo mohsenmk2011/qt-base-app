@@ -50,16 +50,14 @@ public class AlarmWorker extends Worker {
 //        wl.acquire();
 
 //        Intent myIntent=new Intent(m_Context,AlarmWorker.class);
-//        PendingIntent pi=PendingIntent.getActivity(m_Context,0,myIntent,0);
+//        PendingIntent pi=PendingIntent.getActivity(m_Context,0,myIntent, PendingIntent.FLAG_MUTABLE);
 
 //        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //        Ringtone r = RingtoneManager.getRingtone(m_Context, soundUri);
 //        r.play();
 
-        Intent alarmIntent = new Intent(m_Context,AlarmActivity.class);
-        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        m_Context.startActivity(alarmIntent);
+
+        JooyaNotificationManager.showFullScreenNotification(m_Context,"رخشید","زمان انجام تمرینات");
 
 //        wl.release();
         ///send data as output of worker
