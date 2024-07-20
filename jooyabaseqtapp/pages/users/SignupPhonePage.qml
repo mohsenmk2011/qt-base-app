@@ -93,18 +93,21 @@ Page{
                         imgFile.download();
                     }
                 }
-            }
-            JooyaTextField{
+            }           
+            TextFieldLabeld{
                 id: tfPhoneNumber
-                placeholderText: "شماره تلفن همراه"
-                inputMethodHints: Qt.ImhDigitsOnly
                 maximumLength: 11
+                title: "شماره تلفن همراه"
+                placeholderText2: "شماره تلفن همراه"
+                Layout.fillWidth: true
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
+                Layout.preferredHeight: 54
+                Layout.topMargin: 36
+                borderVisible: true
+                horizontalAlignment:TextField.AlignLeft
+                inputMethodHints: Qt.ImhDigitsOnly
                 EnterKey.type: Qt.EnterKeyDone
-                onFocusChanged: {                    
-                    if(focus){
-                        flickable.bringYToVisibleArea(y+height);
-                    }
-                }
             }
             JooyaButton{
                 id:btnSignup

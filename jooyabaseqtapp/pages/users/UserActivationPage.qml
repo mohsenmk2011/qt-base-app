@@ -141,11 +141,19 @@ Page{
                     }
                 }
             }
-            JooyaTextField{
+            TextFieldLabeld{
                 id: tfActivationCode
-                placeholderText: "کد فعال سازی"
-                inputMethodHints: Qt.ImhDigitsOnly
                 maximumLength: 6
+                title: "کد فعال سازی"
+                placeholderText2: "کد فعال سازی"
+                Layout.fillWidth: true
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
+                Layout.preferredHeight: 54
+                Layout.topMargin: 36
+                borderVisible: true
+                horizontalAlignment:TextField.AlignLeft
+                inputMethodHints: Qt.ImhDigitsOnly
                 EnterKey.type: Qt.EnterKeyDone
             }
             JooyaButton{
