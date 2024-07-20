@@ -8,6 +8,7 @@ TextField{
     //=================< properties of TextField >===================
     property string helpTitle: ""
     property string title: ""
+    property string placeholderText2: ""
 
     //=================< properties of background >===================
     property string backColor: MaterialStyle.backColor100
@@ -31,8 +32,21 @@ TextField{
         border.color:  MaterialStyle.backColor200
         border.width: borderVisible? 2:0
         radius: 3
+        Text{
+            visible: placeholderText2 != "" && !tfTitle.visible
+            text: placeholderText2
+            font: tfContent.font
+            anchors.fill: parent
+            verticalAlignment: Qt.AlignVCenter
+            horizontalAlignment: tfContent.horizontalAlignment
+            anchors.rightMargin: 18
+            anchors.leftMargin: 18
+            color: tfContent.color
+            opacity: 0.45
+        }
     }
     TitleItem{
+        id:tfTitle
         x:tfContent.horizontalAlignment===TextField.AlignRight ? tfContent.width - width - 18 : 18
         visible: {
             if(helpTitle!=""){
