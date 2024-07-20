@@ -13,7 +13,7 @@ Item{
     property string defaultImageUrl: "../../images/common/image-filter-hdr.png"
     property bool hasImage: imageFile != null
     property alias image: img
-    property bool isImageAdaptive: false
+    property int imageFillMode: Image.PreserveAspectFit
     Image {
         id: imgDefualt
         source:defaultImageUrl
@@ -30,18 +30,7 @@ Item{
         source: (hasImage&&imageFile.isExists)? imageFile.url:""
         width: parent.width
         height: parent.height
-        fillMode: Image.PreserveAspectFit
-        onWidthChanged: {
-            if(!isImageAdaptive){
-                return;
-            }
-            if(img.width<(img.sourceSize.width/2)){
-                fillMode = Image.PreserveAspectCrop;
-            }
-            else{
-                fillMode = Image.PreserveAspectFit;
-            }
-        }
+        fillMode: imageFillMode
     }
     ProgressBar{
         visible: hasImage&&imageFile.isProcessing

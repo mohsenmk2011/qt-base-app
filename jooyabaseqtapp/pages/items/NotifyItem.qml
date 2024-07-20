@@ -32,7 +32,7 @@ Item {
                 id:imgItem
                 imageFile: notify
                 anchors.fill: parent
-                isImageAdaptive: true
+                imageFillMode:Image.PreserveAspectCrop
             }
             RoundButton{
                 id:btnMenuNotify
