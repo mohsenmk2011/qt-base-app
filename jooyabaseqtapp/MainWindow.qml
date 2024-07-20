@@ -245,7 +245,6 @@ Page {
             //in rokhshid it inserted after loading exercises
             //adlm.checkDeepLink();
             sv.push("pages/HomePage.qml");
-            WebSocketManager.open();
         }
         else{
             console.log("rSettings.seenAppIntroducing=> "+rSettings.seenAppIntroducing)
