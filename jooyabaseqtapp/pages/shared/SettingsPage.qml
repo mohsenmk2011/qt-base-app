@@ -59,6 +59,7 @@ Flickable {
         anchors.fill: parent
         Pane{
             id:paneAlarm
+            visible: ApplicationAlarmSettings.hasAlarm
             Material.elevation: 1
             Material.background: MaterialStyle.backColor100
             Layout.fillWidth: true
@@ -69,7 +70,6 @@ Flickable {
             ColumnLayout{
                 id:clmAlarm
                 anchors.fill: parent
-                visible: ApplicationAlarmSettings.hasAlarm
                 spacing: 9
                 Text {
                     text: qsTr("هشدار")
