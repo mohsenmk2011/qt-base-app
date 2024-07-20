@@ -184,7 +184,7 @@ JooyaPage{
                 id: tfDisplayName
                 Layout.topMargin: 36
                 title: "نام شما در " + ApplicationInfo.name
-                placeholderText:  "نام شما در " + ApplicationInfo.name
+                placeholderText2:  "نام شما در " + ApplicationInfo.name
                 text: userProfile.displayName
                 Layout.fillWidth: true
                 Layout.preferredHeight: 54
@@ -211,7 +211,7 @@ JooyaPage{
             TextFieldLabeld{
                 id: tfUserName
                 title: "نام کاربری"
-                placeholderText: "نام کاربری"
+                placeholderText2: "نام کاربری"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 54
                 Layout.leftMargin: 18
@@ -221,7 +221,7 @@ JooyaPage{
             TextFieldLabeld{
                 id: tfEmail
                 title: "ایمیل"
-                placeholderText: "ایمیل"                
+                placeholderText2: "ایمیل"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 54
                 Layout.leftMargin: 18
@@ -231,7 +231,7 @@ JooyaPage{
             TextFieldLabeld{
                 id: tfPhoneNumber
                 title: "شماره موبایل"
-                placeholderText: "شماره موبایل"
+                placeholderText2: "شماره موبایل"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 54
                 Layout.leftMargin: 18
@@ -242,7 +242,7 @@ JooyaPage{
             TextFieldLabeld{
                 id: tfUserScore
                 title: "امتیاز کاربر"
-                placeholderText: "امتیاز کاربر"
+                placeholderText2: "امتیاز کاربر"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 54
                 Layout.leftMargin: 18
