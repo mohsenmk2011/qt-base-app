@@ -1,8 +1,8 @@
 <resources>
     <!-- Other string resources -->
-    <!--<string name="app_name">Rokhshid</string>-->
     <string name="ministro_not_found_msg">Ministro not found. Please install Ministro from the Play Store to run this application.</string>
     <string name="ministro_needed_msg">Ministro is needed to run this application. Please install it from the Play Store.</string>
     <string name="app_package_name">org.jooya.jooyaqtquickapplication</string>
-    <string name="app_name">jooyaqtquickapplication</string>
+    <string name="app_name">JooyaQtQuickApplication</string>
+    <string name="app_persian_name">اپ جویا</string>
 </resources>
