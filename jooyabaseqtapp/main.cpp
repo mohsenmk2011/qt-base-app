@@ -66,8 +66,7 @@ int main(int argc, char *argv[])
     //    WebSocketHandler::setUrl("ws://localhost:5000/ws");
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     QGuiApplication app(argc, argv);
-    qDebug()<<"^^^^^^^^^[ register Native Methods And BroadcastReceiver  ]^^^^^^^^^";
-    jne.androidService()->registerNativeMethodsAndBroadcastReceiver();
+    qDebug()<<"^^^^^^^^^[ register Native Methods And BroadcastReceiver(in qt app) ]^^^^^^^^^";
 
     SmsManager sm;
     sm.registerNativesMethod();
