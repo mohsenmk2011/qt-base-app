@@ -6,50 +6,38 @@ DownloadManager::DownloadManager(QObject *parent) : JooyaNetwork(parent)
     m_CountFailed=0;
     m_CountDownloaded=0;
     m_CountToDownload=0;
-    if(androidService()==nullptr)
-    {
-        qCritical()<<"*** [ AndroidServiceManager is null => return ] ***";
-        return;
-    }
-    if(androidService()->isInService())
+    m_DownloadServiceManager = new DownloadServiceManager();
+    m_App_or_Service_BroadcastReceiver = downloadService()->registerNativeMethodsAndBroadcastReceiver();
+    if(downloadService()->isInService())
     {
         qDebug()<<"*** [is In Service => connect AndroidServiceManager.serviceMessageReceived signal to  DownloadManager.onNewServiceMessage slot ] ***";
-        connect(androidService(),&AndroidServiceManager::serviceMessageReceived,this,&DownloadManager::onNewServiceMessage);
+        connect(downloadService(),&AndroidServiceManager::serviceMessageReceived,this,&DownloadManager::onNewServiceMessage);
     }
     else{
         qDebug()<<"*** [is In App => connect AndroidServiceManager.appMessageReceived signal to  DownloadManager.onNewAppeMessage slot ] ***";
-        connect(androidService(),&AndroidServiceManager::appMessageReceived,this,&DownloadManager::onNewAppeMessage);
+        connect(downloadService(),&AndroidServiceManager::appMessageReceived,this,&DownloadManager::onNewAppeMessage);
     }
 }
 
-QString DownloadManager::downloadCountMessage()
+DownloadManager::~DownloadManager()
 {
-    return m_DownloadCountMessage;
+    downloadService()->unregisterNativeMethodsAndBroadcastReceiver(m_App_or_Service_BroadcastReceiver);
 }
 
-void DownloadManager::setDownloadCountMessage(QString message)
+void DownloadManager::setNotificationText(QString text)
 {
-    if(m_DownloadCountMessage!=message){
-        m_DownloadCountMessage=message;
-        qInfo()<<"=> "<<message;
-        emit downloadCountMessageChanged();
-    }
-}
-
-float DownloadManager::totalRatio()
-{
-    return m_TotalRatio;
-}
-
-void DownloadManager::setTotalRatio(float r)
-{
-    if(r!=m_TotalRatio){
-        m_TotalRatio=r;
-        emit totalRatioChanged();
-        if(androidService()->isInService()){
-            androidService()->sendToService(QString("DownloadManagerTotalRatio,%1").arg(r));
+    if(m_NotificationText!=text){
+        m_NotificationText=text;
+        if(downloadService()->isInService())
+        {
+            downloadService()->sendToService(QString("DownloadMessage,%1").arg(text));
         }
     }
+}
+
+DownloadServiceManager *DownloadManager::downloadService()
+{
+    return m_DownloadServiceManager;
 }
 
 void DownloadManager::add(QList<File*> fls)
@@ -61,29 +49,13 @@ void DownloadManager::add(QList<File*> fls)
 
 void DownloadManager::add(QString link)
 {
-#if defined(Q_OS_ANDROID)
-    if(androidService()->isInService())
-    {
-        qInfo()<<"is in service => is adding link("<<link<<")";
-        File* f=findFile(link);
-        if(f==nullptr){
-            files.append(new File(link));
-        }
-    }
-    else{
-        qInfo()<<"is in qt app => send link to service";
-        files.append(new File(link));
-        androidService()->sendToService("DownloadManagerAddFile,"+link);
-    }
-#else
-    files.append(new File(link));
-#endif
+    add(new File(link));
 }
 
 void DownloadManager::add(File *file)
 {
 #if defined(Q_OS_ANDROID)
-    if(androidService()->isInService())
+    if(downloadService()->isInService())
     {
         qInfo()<<"is in service => is adding link("<<file->downloadLink()<<")";
         File* f=findFile(file->downloadLink());
@@ -93,8 +65,11 @@ void DownloadManager::add(File *file)
     }
     else{
         qInfo()<<"is in qt app => send link to service";
-        files.append(file);
-        androidService()->sendToService("DownloadManagerAddFile,"+file->downloadLink());
+        File* f=findFile(file->downloadLink());
+        if(f==nullptr){
+            files.append(file);
+        }
+        downloadService()->sendToService("AddFile,"+file->downloadLink());
     }
 #else
     files.append(file);
@@ -112,67 +87,93 @@ File *DownloadManager::findFile(QString link)
     return nullptr;
 }
 
-void DownloadManager::download()
+void DownloadManager::download(File* f)
 {
-#if defined(Q_OS_ANDROID)
-    if(androidService()->isInService())
+    if(f == nullptr)
     {
-        downloadFiles();
+        return;
+    }
+    bool startDownload = false;
+#if defined(Q_OS_ANDROID)
+    if(downloadService()->isInService())
+    {
+        startDownload = true;
     }
     else
     {
-        androidService()->sendToService("DownloadManagerStartDownload");
+        downloadService()->sendToService("StartDownload");
+        return;
     }
 #else
-    downloadFiles();
+    startDownload = true;
 #endif
+    if(startDownload)
+    {
+        if(f->isProcessing())
+        {
+            return;
+        }
+        connect(f,&File::upDownRatioChanged,this,&DownloadManager::updateRatio);
+        connect(f,SIGNAL(downloadStateChanged()),this,SLOT(onDownloadStateChanged()));
+        //TODO: should connect download finished signal to dipslay on app for try again,and close download service
+        f->download();
+    }
 }
 
-void DownloadManager::downloadFiles()
+void DownloadManager::startDownload()
 {
     qDebug()<<"is going to download the files";
-    m_CountDownloaded=0;
-    m_CountToDownload=files.count();
     foreach (File* f, files) {
-        connect(f,SIGNAL(bytesSentChanged()),this,SLOT(updateRatio()));
-        connect(f,SIGNAL(downloadStateChanged()),this,SLOT(updateDownloadCount()));
-        connect(f,SIGNAL(isDownloadedChanged()),this,SLOT(onSendisDownloadedToAppInstance()));
-        f->download();
-        break;
+        if(f->isExists())
+        {
+            break;
+        }
+        if(f->downloadState() == FileDownloadStates::FileDownloadStatesEnum::FileExists
+            ||f->downloadState() == FileDownloadStates::FileDownloadStatesEnum::Succeed)
+        {
+            break;
+        }
+        if(f->isProcessing())
+        {
+            return;
+        }
+        download(f);
     }
 }
 
 void DownloadManager::updateRatio()
 {
-    qint64 totalBytes=0;
-    qint64 totalBytesSent=0;
-    foreach (File* f, files) {
-        totalBytes+=f->bytesTotal();
-        totalBytesSent+=f->bytesSent();
+    File* file=qobject_cast<File*>(sender());
+    if(downloadService()->isInService()){
+        downloadService()->sendToService(QString("Ratio,%1,%2").arg(file->downloadLink()).arg(file->upDownRatio()));
     }
-    setTotalRatio((float)totalBytesSent/totalBytes);
 }
 
 void DownloadManager::updateDownloadCount()
 {
-    File* f=qobject_cast<File*>(sender());
+    m_CountDownloaded = 0;
+    m_CountFailed = 0;
+    m_CountToDownload = files.count();
     foreach (File* f, files) {
-        if(f->isDownloaded())
+        if(f->isDownloaded()||f->isExists())
         {
             m_CountDownloaded++;
         }
-    }
-    m_CountFailed=files.count()-m_CountDownloaded;
-
-    refreshDownloadMessage();
-    qDebug()<<"m_CountDownloaded="<<m_CountDownloaded;
-    qDebug() <<"m_CountFailed="<<m_CountFailed;
-    qDebug() <<"files.count()="<<files.count();
-
-    if(m_CountDownloaded+m_CountFailed==files.count()){
-        if(androidService()->isInService())
+        else if(f->downloadState()==FileDownloadStates::FileDownloadStatesEnum::Faild||f->downloadState()==FileDownloadStates::FileDownloadStatesEnum::ErrorInSaving)
         {
-            androidService()->sendToService("DownloadManagerTotalFileDownloaded");
+            m_CountFailed++;
+        }
+    }
+    qDebug()<<"Downloaded count => "<<m_CountDownloaded;
+    qDebug() <<"Failed count => "<<m_CountFailed;
+    qDebug() <<"all files count => "<<m_CountToDownload;
+
+    setNotificationText(QString("در حال دانلود فایل %1 از %2").arg(m_CountDownloaded+1).arg(m_CountToDownload));
+
+    if(m_CountDownloaded+m_CountFailed>=files.count()){
+        if(downloadService()->isInService())
+        {
+            downloadService()->sendToService("TotalFileDownloaded");
         }
         else{
             emit totalFileDownloaded();
@@ -180,60 +181,53 @@ void DownloadManager::updateDownloadCount()
     }
 }
 
-void DownloadManager::onSendisDownloadedToAppInstance()
+void DownloadManager::onDownloadStateChanged()
 {
-    download();
-    if(androidService()->isInService())
+    File* file=qobject_cast<File*>(sender());
+    //download state in servic is updated => update state in qt app
+    if(downloadService()->isInService())
     {
-        File* f=qobject_cast<File*>(sender());
-        androidService()->sendToService(QString("DownloadManagerIsDownloaded,%1,%2").arg(f->downloadLink()).arg(f->isDownloaded()));
+        //should update downloadState => file.isExists and isDownloaded will update too
+        downloadService()->sendToService(QString("DownloadState,%1,%2").arg(file->downloadLink()).arg((int)file->downloadState()));
+        updateDownloadCount();
+        startDownload();
     }
 }
 
 void DownloadManager::onNewServiceMessage(QString message)
 {
     qCritical()<<"###[(In C++ Service) DownloadManager: message received from app => "<<message<<" ]###";
-    if(message.contains("DownloadManagerAddFile"))
+    if(message.contains("AddFile"))
     {
         add(message.split(",").at(1));
     }
-    else if(message.contains("DownloadManagerStartDownload"))
+    else if(message.contains("StartDownload"))
     {
-        download();
+        startDownload();
     }
-
 }
 
 void DownloadManager::onNewAppeMessage(QString appMessage)
 {
     qCritical()<<"###[(In Qt App) DownloadManager: message received from c++ service => "<<appMessage<<" ]###";
-    if(appMessage.contains("DownloadManagerTotalRatio"))
-    {
-        setTotalRatio((appMessage.split(",").at(1).toFloat()));
-    }
-    else if(appMessage.contains("DownloadManagerDownloadMessage"))
-    {
-        setDownloadCountMessage((appMessage.split(",").at(1)));
-    }
-    else if(appMessage.contains("DownloadManagerIsDownloaded"))
+    if(appMessage.contains("Ratio"))
     {
         QString link=appMessage.split(",").at(1);
         File* f=findFile(link);
         if(f!=nullptr){
-            f->setIsDownloaded(appMessage.split(",").at(2).toInt());
+            f->setUpDownRatio(appMessage.split(",").at(2).toFloat());
         }
     }
-    else if(appMessage.contains("DownloadManagerTotalFileDownloaded"))
+    else if(appMessage.contains("DownloadState"))
     {
-        emit totalFileDownloaded();
+        QString link=appMessage.split(",").at(1);
+        File* f=findFile(link);
+        if(f!=nullptr){
+            f->setDownloadState(static_cast<FileDownloadStates::FileDownloadStatesEnum>(appMessage.split(",").at(2).toInt()));
+        }
     }
-}
-
-void DownloadManager::refreshDownloadMessage()
-{
-    setDownloadCountMessage(QString("در حال دانلود فایل %1 از %2").arg(m_CountDownloaded+1).arg(m_CountToDownload));
-    if(androidService()->isInService())
+    else if(appMessage.contains("TotalFileDownloaded"))
     {
-        androidService()->sendToService(QString("DownloadManagerDownloadMessage,%1").arg(downloadCountMessage()));
+        updateDownloadCount();
     }
 }

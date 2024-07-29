@@ -4,47 +4,44 @@
 #include <QObject>
 #include<jooyanetwork.h>
 #include<file.h>
-#include<androidservicemanager.h>
+#include<downloadservicemanager.h>
 
 class DownloadManager : public JooyaNetwork
 {
     Q_OBJECT
-    Q_PROPERTY(QString downloadCountMessage READ downloadCountMessage WRITE setDownloadCountMessage NOTIFY downloadCountMessageChanged)
-    Q_PROPERTY(float totalRatio READ totalRatio WRITE setTotalRatio NOTIFY totalRatioChanged)
 public:
     explicit DownloadManager(QObject *parent = nullptr);
+    ~DownloadManager();
 
-    QString downloadCountMessage();
-    void setDownloadCountMessage(QString message);
+    void setNotificationText(QString text);
 
-    float totalRatio();
-    void setTotalRatio(float r);
+    DownloadServiceManager* downloadService();
 
-    Q_INVOKABLE void download();
+    /// will start download all files
+    Q_INVOKABLE void startDownload();
     Q_INVOKABLE void add(QList<File*> fls);
     Q_INVOKABLE void add(QString link);
     Q_INVOKABLE void add(File* file);
-    File* findFile(QString link);
 signals:
-    void downloadCountMessageChanged();
-    void totalRatioChanged();
     void totalFileDownloaded();
 private slots:
     void updateRatio();
     void updateDownloadCount();
-    void onSendisDownloadedToAppInstance();
-
+    void onDownloadStateChanged();
     void onNewServiceMessage(QString message);
     void onNewAppeMessage(QString appMessage);
 private:
-    QString m_DownloadCountMessage;
-    void downloadFiles();
-    float m_TotalRatio;
+    void download(File* f);
+    File* findFile(QString link);
     int m_CountToDownload;
     int m_CountDownloaded;
     int m_CountFailed;
+    QString m_NotificationText;
+    ///current file that is displaying it's ratio on notification
+    int m_CurrentFileIndex;
+    QJniObject m_App_or_Service_BroadcastReceiver;
     QList<File*> files;
-    void refreshDownloadMessage();
+    DownloadServiceManager* m_DownloadServiceManager;
 };
 
 #endif // DOWNLOADMANAGER_H
