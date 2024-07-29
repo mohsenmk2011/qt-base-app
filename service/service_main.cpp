@@ -1,11 +1,5 @@
 #include <QDebug>
 
-//#include<notifymanager.h>
-//#include<jooyaapplication.h>
-//#include<jooyanetworkengine.h>
-//#include<jooyalogger.h>
-#include<androidservicemanager.h>
-#include<testtimer.h>
 #include<downloadmanager.h>
 #include<jooyaapplication.h>
 #include<jooyalogger.h>
@@ -33,6 +27,7 @@ int main(int argc, char *argv[])
     //    WebSocketHandler::setUrl("ws://localhost:5000/ws");
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
+    DownloadManager dm;
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
@@ -42,12 +37,6 @@ int main(int argc, char *argv[])
     qInfo() << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
 #if defined(Q_OS_ANDROID)
     QAndroidService app(argc, argv);
-    jne.androidService()->registerNativeMethodsAndBroadcastReceiver(true);
-
-    TestTimer tt;
-    tt.setAndroidService(jne.androidService());
-    DownloadManager dm;
     return app.exec();
-
 #endif
 }
