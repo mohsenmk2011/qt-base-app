@@ -32,20 +32,36 @@ static void serviceMessagereceivedFromAndroidService(JNIEnv *env, jobject /*thiz
 
 AndroidServiceManager::AndroidServiceManager(QObject *parent) : QObject(parent)
 {
+    m_ServiceClassName = "";
+    m_ServiceBroadcastReceiverClassName = "";
+    m_AppBroadcastReceiverClassName = "";
     m_instance = this;
 }
 
-void AndroidServiceManager::sendToService(const QString &name)
+void AndroidServiceManager::sendToService(const QString &message)
 {
 #if defined(Q_OS_ANDROID)
-    qDebug()<<"is sending message => "<< name;
-    qDebug()<<"isInService() => "<<isInService();
-    qDebug()<<"QNativeInterface::QAndroidApplication::isActivityContext() => "<<QNativeInterface::QAndroidApplication::isActivityContext();
-
+    if(getServiceClassName().isNull()||getServiceClassName().isEmpty())
+    {
+        qCritical() <<"send message faild => serivce class name is null";
+        return;
+    }
+    if(isInApp())
+    {
+        qDebug()<<"is sending message from qt app to service => "<< message;
+    }
+    else
+    {
+        qDebug()<<"is sending message from service to qt app => "<< message;
+    }
     QJniObject activity = QJniObject(QNativeInterface::QAndroidApplication::context());
-    QAndroidIntent serviceIntent(activity.object(),
-                                 "org/jooya/jooyaqtapplication/QtAndroidService");
-    serviceIntent.putExtra("MessageFromQt", name.toUtf8());
+
+    QString serviceClassPath = PackageInfoManager::getPackageName()+getServiceClassName();
+    QAndroidIntent serviceIntent(activity.object(), serviceClassPath.toUtf8());
+    serviceIntent.putExtra("ServiceClassName", getServiceClassName().toUtf8());
+    QString isInServiceString = isInService()?"Yes":"No";
+    serviceIntent.putExtra("IsInService",isInServiceString.toUtf8());
+    serviceIntent.putExtra("MessageFromQt", message.toUtf8());
     QJniObject result = activity.callObjectMethod(
         "startService",
         "(Landroid/content/Intent;)Landroid/content/ComponentName;",
@@ -97,28 +113,57 @@ void AndroidServiceManager::stopService()
 #endif
 }
 
-void AndroidServiceManager::setIsInService(bool i)
-{
-    m_IsInService=i;
-}
-
 bool AndroidServiceManager::isInService()
 {
-    return m_IsInService;
+    bool t = !isInApp();
+    //qDebug()<<"is in Service => "<<t;
+    return t;
+}
+
+bool AndroidServiceManager::isInApp()
+{
+    bool t = QNativeInterface::QAndroidApplication::isActivityContext();
+    //qDebug()<<"is in Qt App => "<<t;
+    return t;
 }
 
 void AndroidServiceManager::registerNativesOfApp()
 {
 #if defined(Q_OS_ANDROID)
+    if(getAppBroadcastReceiverClassName().isNull()||getAppBroadcastReceiverClassName().isEmpty())
+    {
+        qCritical() <<"register app native methods faild,app broadcast receiver class name was null";
+        return;
+    }
     JNINativeMethod methods[] {
         {"sendToQtApp", "(Ljava/lang/String;)V", reinterpret_cast<void *>(appMessagereceivedFromAndroidService)},
     };
-    QJniObject javaClass("org/jooya/jooyaqtapplication/AppBroadcastUtility");
+    QString appBroadcastClassName = PackageInfoManager::getPackageName()+getAppBroadcastReceiverClassName();
+    QJniObject javaClass(appBroadcastClassName.toUtf8());
+
     QJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
     env->RegisterNatives(objectClass,
                          methods,
                          sizeof(methods) / sizeof(methods[0]));
+    env->DeleteLocalRef(objectClass);
+#endif
+}
+
+void AndroidServiceManager::unregisterNativesOfApp()
+{
+#if defined(Q_OS_ANDROID)
+    if(getAppBroadcastReceiverClassName().isNull()||getAppBroadcastReceiverClassName().isEmpty())
+    {
+        qCritical() <<"register app native methods faild,app broadcast receiver class name was null";
+        return;
+    }
+    QString appBroadcastClassName = PackageInfoManager::getPackageName()+getAppBroadcastReceiverClassName();
+    QJniObject javaClass(appBroadcastClassName.toUtf8());
+
+    QJniEnvironment env;
+    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
+    env->UnregisterNatives(objectClass);
     env->DeleteLocalRef(objectClass);
 #endif
 }
@@ -126,10 +171,16 @@ void AndroidServiceManager::registerNativesOfApp()
 void AndroidServiceManager::registerNativesOfService()
 {
 #if defined(Q_OS_ANDROID)
+    if(getServiceBroadcastReceiverClassName().isNull()||getServiceBroadcastReceiverClassName().isEmpty())
+    {
+        qCritical() <<"register service native methods faild,service broadcast receiver class name was null";
+        return;
+    }
     JNINativeMethod methods[] {
         {"sendToCPPService", "(Ljava/lang/String;)V", reinterpret_cast<void *>(serviceMessagereceivedFromAndroidService)},
     };
-    QJniObject javaClass("org/jooya/jooyaqtapplication/ServiceBroadcastUtility");
+    QString serviceBroadcastClassName = PackageInfoManager::getPackageName()+getServiceBroadcastReceiverClassName();
+    QJniObject javaClass(serviceBroadcastClassName.toUtf8());
 
     QJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
@@ -140,53 +191,163 @@ void AndroidServiceManager::registerNativesOfService()
 #endif
 }
 
-void AndroidServiceManager::registerAppBroadcastReceiver()
+void AndroidServiceManager::unregisterNativesOfService()
 {
 #if defined(Q_OS_ANDROID)
-    QJniEnvironment env;
-    jclass javaClass = env.findClass("org/jooya/jooyaqtapplication/AppBroadcastUtility");
-    QJniObject classObject(javaClass);
-
-    classObject.callMethod<void>("registerServiceBroadcastReceiver",
-                                 "(Landroid/content/Context;)V",
-                                 QNativeInterface::QAndroidApplication::context());
-#endif
-}
-
-void AndroidServiceManager::registerServiceBroadcastReceiver()
-{
-#if defined(Q_OS_ANDROID)
-    QJniEnvironment env;
-    jclass javaClass = env.findClass("org/jooya/jooyaqtapplication/ServiceBroadcastUtility");
-    QJniObject classObject(javaClass);
-
-    classObject.callMethod<void>("registerServiceBroadcastReceiver",
-                                 "(Landroid/content/Context;)V",
-                                 QNativeInterface::QAndroidApplication::context());
-#endif
-}
-
-void AndroidServiceManager::registerNativeMethodsAndBroadcastReceiver(bool isInService)
-{
-//if the os is android register native methods
-
-//------------------------ ANDROID SERVICE-----------------------
-#if defined(Q_OS_ANDROID)
-    qDebug()<<" isInService => "<<isInService;
-    setIsInService(isInService);
-    if(isInService)
+    if(getServiceBroadcastReceiverClassName().isNull()||getServiceBroadcastReceiverClassName().isEmpty())
     {
+        qCritical() <<"register service native methods faild,service broadcast receiver class name was null";
+        return;
+    }
+    QString serviceBroadcastClassName = PackageInfoManager::getPackageName()+getServiceBroadcastReceiverClassName();
+    QJniObject javaClass(serviceBroadcastClassName.toUtf8());
+
+    QJniEnvironment env;
+    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
+    env->UnregisterNatives(objectClass);
+    env->DeleteLocalRef(objectClass);
+#endif
+}
+
+QJniObject AndroidServiceManager::registerAppBroadcastReceiver()
+{
+#if defined(Q_OS_ANDROID)
+    if(getAppBroadcastReceiverClassName().isNull()||getAppBroadcastReceiverClassName().isEmpty())
+    {
+        qCritical() <<"register app broadcast receiver faild,app broadcast receiver class name was null";
+        return NULL;
+    }
+    QJniEnvironment env;
+    // ex :"org/jooya/my_app_name/AppBroadcastUtility"
+    QString appBroadcastClassName = PackageInfoManager::getPackageName()+getAppBroadcastReceiverClassName();
+    jclass javaClass = env.findClass(appBroadcastClassName.toUtf8());
+    QJniObject classObject(javaClass);
+
+    classObject.callMethod<void>("registerServiceBroadcastReceiver",
+                                 "(Landroid/content/Context;)V",
+                                 QNativeInterface::QAndroidApplication::context());
+    return classObject;
+#endif
+    return NULL;
+}
+
+void AndroidServiceManager::unregisterAppBroadcastReceiver(QJniObject receiverObject)
+{
+#if defined(Q_OS_ANDROID)
+    if(receiverObject == NULL)
+    {
+        qCritical() <<"un register app broadcast receiver faild,app broadcast receiver object was null";
+        return;
+    }
+    receiverObject.callMethod<void>("unregisterServiceBroadcastReceiver",
+                                 "(Landroid/content/Context;)V",
+                                 QNativeInterface::QAndroidApplication::context());
+#endif
+}
+
+QJniObject AndroidServiceManager::registerServiceBroadcastReceiver()
+{
+#if defined(Q_OS_ANDROID)
+    if(getServiceBroadcastReceiverClassName().isNull()||getServiceBroadcastReceiverClassName().isEmpty())
+    {
+        qCritical() <<"register service broadcast receiver faild,service broadcast receiver class name was null";
+        return NULL;
+    }
+    QJniEnvironment env;
+    QString serviceBroadcastClassName = PackageInfoManager::getPackageName()+getServiceBroadcastReceiverClassName();
+    jclass javaClass = env.findClass(serviceBroadcastClassName.toUtf8());
+    QJniObject classObject(javaClass);
+
+    classObject.callMethod<void>("registerServiceBroadcastReceiver",
+                                 "(Landroid/content/Context;)V",
+                                 QNativeInterface::QAndroidApplication::context());
+    return classObject;
+#endif
+    return NULL;
+}
+
+void AndroidServiceManager::unregisterServiceBroadcastReceiver(QJniObject receiverObject)
+{
+#if defined(Q_OS_ANDROID)
+    if(receiverObject == NULL)
+    {
+        qCritical() <<"un register service broadcast receiver faild,service broadcast receiver object was null";
+        return;
+    }
+    receiverObject.callMethod<void>("unregisterServiceBroadcastReceiver",
+                                 "(Landroid/content/Context;)V",
+                                 QNativeInterface::QAndroidApplication::context());
+#endif
+}
+
+QJniObject AndroidServiceManager::registerNativeMethodsAndBroadcastReceiver()
+{
+    QJniObject r = NULL;
+#if defined(Q_OS_ANDROID)
+    if(isInService())
+    {
+        qInfo() << "%%%%%%%%[ => registerServiceBroadcastReceiver  ]%%%%%%%%%%%%";
+        r = registerServiceBroadcastReceiver();
         qInfo() << "%%%%%%%%[ registerNativesOfService();  ]%%%%%%%%%%%%";
         registerNativesOfService();
-        qInfo() << "%%%%%%%%[ => registerServiceBroadcastReceiver  ]%%%%%%%%%%%%";
-        registerServiceBroadcastReceiver();
     }
     else
     {
+        qInfo() << "%%%%%%%%[ registerAppBroadcastReceiver();  ]%%%%%%%%%%%%";
+        r = registerAppBroadcastReceiver();
         qInfo() << "%%%%%%%%[ registerNativesOfApp();  ]%%%%%%%%%%%%";
         registerNativesOfApp();
-        qInfo() << "%%%%%%%%[ registerAppBroadcastReceiver();  ]%%%%%%%%%%%%";
-        registerAppBroadcastReceiver();
     }
 #endif
+    return r;
+}
+
+void AndroidServiceManager::unregisterNativeMethodsAndBroadcastReceiver(QJniObject broadcastReceiver)
+{
+#if defined(Q_OS_ANDROID)
+    if(isInService())
+    {
+        qInfo() << "%%%%%%%%[ => un registerServiceBroadcastReceiver  ]%%%%%%%%%%%%";
+        unregisterServiceBroadcastReceiver(broadcastReceiver);
+        qInfo() << "%%%%%%%%[ un registerNativesOfService();  ]%%%%%%%%%%%%";
+        unregisterNativesOfService();
+    }
+    else
+    {
+        qInfo() << "%%%%%%%%[ un registerAppBroadcastReceiver();  ]%%%%%%%%%%%%";
+        unregisterAppBroadcastReceiver(broadcastReceiver);
+        qInfo() << "%%%%%%%%[ un registerNativesOfApp();  ]%%%%%%%%%%%%";
+        unregisterNativesOfApp();
+    }
+#endif
+}
+
+void AndroidServiceManager::setServiceClassName(QString name)
+{
+    m_ServiceClassName = name;
+}
+
+QString AndroidServiceManager::getServiceClassName()
+{
+    return m_ServiceClassName;
+}
+
+void AndroidServiceManager::setServiceBroadcastReceiverClassName(QString name)
+{
+    m_ServiceBroadcastReceiverClassName = name;
+}
+
+QString AndroidServiceManager::getServiceBroadcastReceiverClassName()
+{
+    return m_ServiceBroadcastReceiverClassName;
+}
+
+void AndroidServiceManager::setAppBroadcastReceiverClassName(QString name)
+{
+    m_AppBroadcastReceiverClassName = name;
+}
+
+QString AndroidServiceManager::getAppBroadcastReceiverClassName()
+{
+    return m_AppBroadcastReceiverClassName;
 }
