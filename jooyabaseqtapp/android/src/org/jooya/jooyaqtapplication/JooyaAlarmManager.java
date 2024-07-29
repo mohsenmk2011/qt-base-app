@@ -59,10 +59,11 @@ public class JooyaAlarmManager
          alarmManager.cancel(pendingIntent);
          pendingIntent.cancel();
     }
-    public static void displayAlarmPage(Context context,String alarmType)
+    public static void displayAlarmPage(Context context,String alarmType,String notificationContent)
     {
         Log.i(TAG, "displayAlarmPage");
-        Log.i(TAG, "alarmType=>"+alarmType);
+        Log.i(TAG, "alarmType => "+alarmType);
+        Log.i(TAG, "notificationContent => "+notificationContent);
         //alarmType => {Page,Notification}
         if(alarmType.equals("Page"))
         {
@@ -73,8 +74,12 @@ public class JooyaAlarmManager
         else if(alarmType.equals("Notification"))
         {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(2700);
-            JooyaNotificationManager.notify(context,"اپلیکیشن جویا","زمان انجام تمرینات");
+            vibrator.vibrate(1800);
+
+            NotificationCompat.Builder builder =  JooyaNotificationManager.getNotificationBuilder(context);
+            builder.setDefaults(Notification.DEFAULT_SOUND);
+            builder.setContentText(notificationContent);
+            JooyaNotificationManager.display(context,builder);
         }
     }
     public static boolean isAlarmUp(Context context)
@@ -86,7 +91,7 @@ public class JooyaAlarmManager
         return alarmUp;
     }
 
-    public static boolean setExact(Context context,String hm,String alarmType,String interval)
+    public static boolean setExact(Context context,String hm,String alarmType,String interval,String notificationContent)
     {
         Log.i(TAG, "*********[  JooyaAlarmManager.setExact  ]*********");
         Log.i(TAG, "alarm time => "+hm);
@@ -100,6 +105,7 @@ public class JooyaAlarmManager
         intent.putExtra("type",alarmType);
         intent.putExtra("time",hm);
         intent.putExtra("interval",interval);
+        intent.putExtra("notificationContent",notificationContent);
         PendingIntent pendingIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);

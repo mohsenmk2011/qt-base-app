@@ -25,18 +25,19 @@ Flickable {
         id:alarmManager
     }
     Component.onCompleted: {
-
         if(!ApplicationAlarmSettings.hasAlarm)
         {
             retrun;
         }
         if(ApplicationAlarmSettings.alarmClass === AlarmClasses.AlarmManager)
         {
-            console.log("alarmManager.isAlarmUp()=> "+alarmManager.isAlarmUp());
+            alarmManager.isUpAndRunning = alarmManager.isAlarmUp();
+            console.log("alarmManager.isAlarmUp()=> "+alarmManager.isUpAndRunning);
         }
         else
         {
-            console.log("alarmManager.isAlarmWorkUp()=> "+alarmManager.isAlarmWorkUp());
+            alarmManager.isUpAndRunning = alarmManager.isAlarmWorkUp();
+            console.log("alarmManager.isAlarmWorkUp()=> "+alarmManager.isUpAndRunning);
         }
         console.log("settings.alarmInfo"+settings.alarmInfo);
         alarmManager.alarmInfo.fromString(settings.alarmInfo)
@@ -418,7 +419,16 @@ Flickable {
                         Layout.preferredWidth: (paneAlarm.width/2)-9
                         onClicked: {
                             enabled = false;
-                            if(alarmManager.isUpAndRunning)
+                            if(ApplicationAlarmSettings.alarmClass === AlarmClasses.WorkoutManager)
+                            {
+                                if(alarmManager.isAlarmWorkUp())
+                                {
+                                    alarmManager.cancelAlarmWork();
+                                    enabled = true;
+                                    return;
+                                }
+                            }
+                            if(alarmManager.isAlarmUp())
                             {
                                 alarmManager.cancelAlarm();
                                 enabled = true;
@@ -428,13 +438,26 @@ Flickable {
                                 return;
                             }
                             settings.alarmInfo = alarmManager.alarmInfo.convertToString();
+                            if(ApplicationAlarmSettings.alarmClass === AlarmClasses.WorkoutManager)
+                            {
+                                if(combxAlarmType.currentIndex==0)
+                                {
+                                    alarmManager.startAlarmWithWorkManager("Page",ApplicationAlarmSettings.notificationContent);
+                                }
+                                else
+                                {
+                                    alarmManager.startAlarmWithWorkManager("Notification",ApplicationAlarmSettings.notificationContent);
+                                }
+                                enabled = true;
+                                return;
+                            }
                             if(combxAlarmType.currentIndex==0)
                             {
-                                alarmManager.startAlarmWithAlamManager("Page");
+                                alarmManager.startAlarmWithAlamManager("Page",ApplicationAlarmSettings.notificationContent);
                             }
                             else
                             {
-                                alarmManager.startAlarmWithAlamManager("Notification");
+                                alarmManager.startAlarmWithAlamManager("Notification",ApplicationAlarmSettings.notificationContent);
                             }
                             enabled = true;
                         }
@@ -445,12 +468,11 @@ Flickable {
                         onClicked: {
                             if(combxAlarmType.currentIndex==0)
                             {
-                                alarmManager.displayAlarmPage("Page");
+                                alarmManager.displayAlarmPage("Page",ApplicationAlarmSettings.notificationContent);
                             }
                             else
                             {
-                                alarmManager.displayAlarmPage();
-                                //or => alarmManager.displayAlarmPage("Notification");
+                                alarmManager.displayAlarmPage("Notification",ApplicationAlarmSettings.notificationContent);
                             }
                         }
                     }

@@ -52,12 +52,13 @@ public class JooyaAlarmWorkManager
 {
     private static final String TAG = "JooyaAlarmWorkManager";
     //will set alram with workmanager
-    public static boolean setAlarm(Context context,String hm,String alarmType,String interval) {
+    public static boolean setAlarm(Context context,String hm,String alarmType,String interval,String notificationContent) {
         Log.i(TAG, "***[ is setting Alarm WorkManager ]***");
 
-//        Data data=new Data.Builder()
-//                    .putInt("number",10)
-//                    .build();
+       Data data=new Data.Builder()
+                   .putString("notificationContent",notificationContent)
+                   .putString("alarmType",alarmType)
+                   .build();
         Constraints con=new Constraints.Builder()
 //        .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresDeviceIdle(false)
@@ -67,6 +68,7 @@ public class JooyaAlarmWorkManager
         String[] separated=hm.split(":");
         int hour=Integer.parseInt(separated[0]);
         int minute=Integer.parseInt(separated[1]);
+        int intervalInt=Integer.parseInt(interval);
         Log.i(TAG, "hour => "+hour);
         Log.i(TAG, "minute => "+minute);
        // get datetime now and set input datetime
@@ -101,8 +103,8 @@ public class JooyaAlarmWorkManager
            // WorkManager.getInstance(context)
            //                  .enqueue(alarmRequest);
 
-       PeriodicWorkRequest alarmRequest=new PeriodicWorkRequest.Builder(AlarmWorker.class,15,TimeUnit.MINUTES)
-//                    .setInputData(data)
+       PeriodicWorkRequest alarmRequest=new PeriodicWorkRequest.Builder(AlarmWorker.class,intervalInt,TimeUnit.MINUTES)
+                    .setInputData(data)
                     .setConstraints(con)
                    .setInitialDelay(-diffSeconds,TimeUnit.SECONDS)
                    .addTag(ReminderBroadcastReceiver.BROADCAST_ACTION_NAME)

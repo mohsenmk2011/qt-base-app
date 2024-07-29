@@ -26,7 +26,7 @@ void AlarmManager::setIsUpAndRunning(bool r)
     }
 }
 
-bool AlarmManager::startAlarmWithWorkManager(QString alarmType)
+bool AlarmManager::startAlarmWithWorkManager(QString alarmType,QString notificationContent)
 {
     qInfo()<<"***[ set Alarm With WorkManager ]***";
     bool result= false;
@@ -39,10 +39,11 @@ bool AlarmManager::startAlarmWithWorkManager(QString alarmType)
     }
     if (activity.isValid())
     {
-        result=(bool)QJniObject::callStaticMethod<jboolean>("org/jooya/jooyaqtapplication/JooyaWorkManager","setAlarm",
-                                           "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z",
+        result=(bool)QJniObject::callStaticMethod<jboolean>("org/jooya/jooyaqtapplication/JooyaAlarmWorkManager","setAlarm",
+                                           "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z",
                                            QNativeInterface::QAndroidApplication::context(),QJniObject::fromString(hm).object<jstring>()
-                                           ,QJniObject::fromString(alarmType).object<jstring>(),QJniObject::fromString(getIntervalInMintues()).object<jstring>());
+                                           ,QJniObject::fromString(alarmType).object<jstring>(),QJniObject::fromString(getIntervalInMintues()).object<jstring>(),
+                                               notificationContent);
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
@@ -130,7 +131,7 @@ bool AlarmManager::isAlarmWorkUp()
     return up;
 }
 
-bool AlarmManager::startAlarmWithAlamManager(QString alarmType)
+bool AlarmManager::startAlarmWithAlamManager(QString alarmType,QString notificationContent)
 {
     qInfo()<<"***[ start Alarm With AlamManager ]***";
     bool result= false;
@@ -144,7 +145,6 @@ bool AlarmManager::startAlarmWithAlamManager(QString alarmType)
     }
     QJniEnvironment env;
     QString hm=QString("%1:%2").arg(alarmInfo()->alarmHour()).arg(alarmInfo()->alarmMinutes());
-
     QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
     if (env->ExceptionCheck()) {
         env->ExceptionClear();
@@ -152,9 +152,10 @@ bool AlarmManager::startAlarmWithAlamManager(QString alarmType)
     if (activity.isValid())
     {
         result=(bool)QJniObject::callStaticMethod<jboolean>("org/jooya/rokhshid/JooyaAlarmManager","setExact",
-                                                           "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z",
+                                                           "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z",
                                                            QNativeInterface::QAndroidApplication::context(),QJniObject::fromString(hm).object<jstring>()
-                                                           ,QJniObject::fromString(alarmType).object<jstring>(),QJniObject::fromString(getIntervalInMintues()).object<jstring>());
+                                                           ,QJniObject::fromString(alarmType).object<jstring>(),QJniObject::fromString(getIntervalInMintues()).object<jstring>()
+                                                            ,notificationContent);
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }
@@ -164,19 +165,20 @@ bool AlarmManager::startAlarmWithAlamManager(QString alarmType)
     return result;
 }
 
-void AlarmManager::displayAlarmPage(QString alarmType)
+void AlarmManager::displayAlarmPage(QString alarmType,QString notificationContent)
 {
     qInfo()<<"***[ displayAlarmPage ]***";
     //alarmType => {Page,Notification}
 #if defined(Q_OS_ANDROID)
     QJniEnvironment env;
-    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
     if (env->ExceptionCheck()) {
         env->ExceptionClear();
     }
     if (activity.isValid())
     {
-        QJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/JooyaAlarmManager","displayAlarmPage","(Landroid/content/Context;Ljava/lang/String;)V",QNativeInterface::QAndroidApplication::context(),QJniObject::fromString(alarmType).object<jstring>());
+        QJniObject::callStaticMethod<void>("org/jooya/jooyaqtapplication/JooyaAlarmManager","displayAlarmPage","(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V"
+                                           ,QNativeInterface::QAndroidApplication::context(),QJniObject::fromString(alarmType).object<jstring>(),notificationContent);
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }

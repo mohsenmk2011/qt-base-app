@@ -36,10 +36,12 @@ public class AlarmWorker extends Worker {
     @NonNull
     @Override
     public Result doWork(){
-//        Data inputData=getInputData();
-//        String name = inputData.getString("name");
-//        int number = inputData.getInt(key:"number", defaultValue:-1);
-//        Log.i(TAG, "number=> "+number);
+       Data inputData=getInputData();
+       String notificationContent = inputData.getString("notificationContent");
+       String alarmType = inputData.getString("alarmType");
+       //int number = inputData.getInt(key:"number", defaultValue:-1);
+       Log.i(TAG, "alarmType => " + alarmType);
+       Log.i(TAG, "notificationContent => " + notificationContent);
 
 //        Toast.makeText(this, "AlarmWorker.doWork()", Toast.LENGTH_LONG).show();
         Log.i(TAG, "***[ Is Showing Alram Notification ]***");
@@ -55,9 +57,22 @@ public class AlarmWorker extends Worker {
 //        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //        Ringtone r = RingtoneManager.getRingtone(m_Context, soundUri);
 //        r.play();
-
-
-        JooyaNotificationManager.showFullScreenNotification(m_Context,"رخشید","زمان انجام تمرینات");
+        if(alarmType == ""||notificationContent == "")
+        {
+            NotificationCompat.Builder builder =  JooyaNotificationManager.getNotificationBuilder(m_Context);
+            builder.setDefaults(Notification.DEFAULT_SOUND);
+            builder.setContentText("alarm type or content is null");
+            JooyaNotificationManager.display(m_Context,builder);
+        }
+        if (alarmType.equals("Notification")) {
+            NotificationCompat.Builder builder =  JooyaNotificationManager.getNotificationBuilder(m_Context);
+            builder.setDefaults(Notification.DEFAULT_SOUND);
+            builder.setContentText(notificationContent);
+            JooyaNotificationManager.display(m_Context,builder);
+        }
+        else if (alarmType.equals("Page")) {
+            JooyaNotificationManager.showFullScreenNotification(m_Context,notificationContent);
+        }
 
 //        wl.release();
         ///send data as output of worker
