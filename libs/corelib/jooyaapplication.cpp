@@ -39,11 +39,12 @@ void JooyaApplication::setApplicationName(QString name)
     m_AppInfo->setName(name);
 }
 
-void JooyaApplication::setDefaultAlarmSettings(bool hasAlarm,AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat)
+void JooyaApplication::setDefaultAlarmSettings(bool hasAlarm,AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat,QString notificationContent)
 {
     m_ApplicationAlarmSettingsHelper->setHasAlarm(hasAlarm);
     m_ApplicationAlarmSettingsHelper->setHasRepeat(hasRepeat);
     m_ApplicationAlarmSettingsHelper->setAlarmClass(alarmClass);
+    m_ApplicationAlarmSettingsHelper->setNotificationContent(notificationContent);
 }
 
 void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,MaterialColors::MaterialColorsEnum primary,MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor)

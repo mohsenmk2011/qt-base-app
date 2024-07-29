@@ -9,6 +9,7 @@
 class ApplicationAlarmSettings : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(AlarmClasses::AlarmClassesEnum alarmClass READ alarmClass CONSTANT)
     QML_ATTACHED(ApplicationAlarmSettingsHelper)
     QML_ELEMENT
 public:
@@ -16,6 +17,7 @@ public:
     {
         return JooyaApplication::m_ApplicationAlarmSettingsHelper;
     }
+    AlarmClasses::AlarmClassesEnum alarmClass(){return AlarmClasses::AlarmClassesEnum::AlarmManager;}
 };
 
 #endif // APPLICATIONALARMSETTINGS_H

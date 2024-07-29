@@ -18,7 +18,7 @@ public:
     explicit JooyaApplication(QObject *parent = nullptr);
     explicit JooyaApplication(QString organization,QString organizationDomain, QString applicationName);
     void setApplicationName(QString name);
-    void setDefaultAlarmSettings(bool hasAlarm, AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat);
+    void setDefaultAlarmSettings(bool hasAlarm, AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat, QString notificationContent="");
 
     static MaterialStyleHelper* m_MaterialStyleHelper;
     static ApplicationAlarmSettingsHelper* m_ApplicationAlarmSettingsHelper;

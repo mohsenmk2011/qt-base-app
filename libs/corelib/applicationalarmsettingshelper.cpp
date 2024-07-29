@@ -6,6 +6,7 @@ ApplicationAlarmSettingsHelper::ApplicationAlarmSettingsHelper(QObject *parent)
     m_hasAlarm = false;
     m_hasRepeat = false;
     m_alarmClass = AlarmClasses::AlarmClassesEnum::AlarmManager;
+    m_notificationContent = "";
 }
 
 bool ApplicationAlarmSettingsHelper::hasAlarm() const
@@ -45,4 +46,17 @@ void ApplicationAlarmSettingsHelper::setAlarmClass(const AlarmClasses::AlarmClas
         return;
     m_alarmClass = newAlarmClass;
     emit alarmClassChanged();
+}
+
+QString ApplicationAlarmSettingsHelper::notificationContent() const
+{
+    return m_notificationContent;
+}
+
+void ApplicationAlarmSettingsHelper::setNotificationContent(const QString &newNotificationContent)
+{
+    if (m_notificationContent == newNotificationContent)
+        return;
+    m_notificationContent = newNotificationContent;
+    emit notificationContentChanged();
 }
