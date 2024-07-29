@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
+import android.content.res.Resources;
 
 public class PackageinfoManager {
     private static final int REQUEST_CODE = 123; // You can use any value for the request code
@@ -80,6 +81,10 @@ public class PackageinfoManager {
             applicationInfo = null;
         }
         return (String) (applicationInfo != null ? packageManager.getApplicationLabel(applicationInfo) : "Unknown");
+    }
+    public static String getApplicationPersianName(Context context) {
+          Resources res = context.getResources();
+          return res.getString(R.string.app_persian_name);
     }
 }
 
