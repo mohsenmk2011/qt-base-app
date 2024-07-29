@@ -16,7 +16,6 @@ import android.util.Log;
 
 public class JooyaNotificationManager
 {
-    public static String CHANNEL_ID = "full_screen_channel_id";
     private static final String CHANNEL_NAME = "Full Screen Channel";
     private static final String CHANNEL_DESC = "Channel for full-screen notifications";
 
@@ -28,30 +27,35 @@ public class JooyaNotificationManager
           return packageName + ".jooyaqtquickchannelid";
     }
 
-    public static void notify(Context context,String title, String message)
+    public static NotificationCompat.Builder getNotificationBuilder(Context context)
     {
         createNotificationChannel(context);
         Intent intent=new Intent(context,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pi=PendingIntent.getActivity(context,0,intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, getChannelId(context))
             .setSmallIcon(R.drawable.icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))
-            .setContentTitle(title)
-            .setContentText(message)
+            .setContentTitle(PackageinfoManager.getApplicationPersianName(context))
+            // .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setCategory(NotificationCompat.CATEGORY_EVENT)
-            //.setCategory(NotificationCompat.CATEGORY_PROGRESS)
             //.setCategory(NotificationCompat.CATEGORY_CALL)
-            .setDefaults(Notification.DEFAULT_SOUND)
             .setColor(Color.GREEN)
             .setContentIntent(pi)
             //.addAction(R.drawable.notif_icon, "Buy", intent)
             //.addAction(R.drawable.notif_icon, "Product details", intent)
             .setAutoCancel(true);
 
+        return builder;
+    }
+    public static void display(Context context,NotificationCompat.Builder builder)
+    {
+        if (builder == null) {
+            builder = getNotificationBuilder(context);
+        }
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             notificationManager.notify(1, builder.build());
@@ -64,7 +68,7 @@ public class JooyaNotificationManager
     }
 
     public static void createNotificationChannel(Context context) {        
-        CHANNEL_ID = getChannelId(context);
+        String CHANNEL_ID = getChannelId(context);
         Log.i("TAG", "%%%[ CHANNEL_ID => "+ CHANNEL_ID);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
@@ -88,17 +92,7 @@ public class JooyaNotificationManager
     // doc link:https://developer.android.com/develop/ui/views/notifications/build-notification#urgent-message
     // full screen intent limits : https://source.android.com/docs/core/permissions/fsi-limits
     // will display full screen when screen is lock,otherwise will display notification for user
-    public static void showFullScreenNotification(Context context,String title, String message) {
-       createNotificationChannel(context);
-
-       Intent myAppActivityIntent = new Intent(context, MainActivity.class);
-       PendingIntent myAppPI = PendingIntent.getActivity(
-               context,
-               0,
-               myAppActivityIntent,
-               PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-       );
-
+    public static void showFullScreenNotification(Context context, String message) {
        Intent fullScreenIntent = new Intent(context, AlarmActivity.class);
        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(
                context,
@@ -107,21 +101,12 @@ public class JooyaNotificationManager
                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
        );
 
-       NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-           .setSmallIcon(R.drawable.icon)
-           .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))
-           .setContentTitle(title)
-           .setContentText(message)
-           .setPriority(NotificationCompat.PRIORITY_HIGH)
-           //.setCategory(NotificationCompat.CATEGORY_ALARM)
-           .setCategory(NotificationCompat.CATEGORY_CALL)
-           .setFullScreenIntent(fullScreenPendingIntent, true)
-           .setContentIntent(myAppPI)
-           .setAutoCancel(true);
+       NotificationCompat.Builder builder = getNotificationBuilder(context);
+       builder.setContentText(message);
+       builder.setCategory(NotificationCompat.CATEGORY_CALL);
+       builder.setFullScreenIntent(fullScreenPendingIntent, true);
+       builder.setAutoCancel(true);
 
-       NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-       if (notificationManager != null) {
-           notificationManager.notify(1, builder.build());
-       }
+       display(context,builder);
    }
 }
