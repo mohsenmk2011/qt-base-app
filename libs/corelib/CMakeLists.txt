@@ -42,8 +42,6 @@ add_library(${PROJECT_NAME} SHARED
     urlutility.cpp
     userlogininfo.cpp
     userloginsettings.cpp
-
-    androidservice.h
     androidservicemanager.h
     applicationinfo.h
     applicationinfohelper.h

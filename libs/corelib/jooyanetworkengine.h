@@ -12,7 +12,6 @@
 #include<filewatcher.h>
 #include<jsonutility.h>
 #include<datetimeutility.h>
-#include<androidservicemanager.h>
 
 class JooyaNetworkEngine : public QObject
 {
@@ -38,8 +37,6 @@ public:
 
     UserLoginInfo* loginInfo();
     static UserLoginInfo* m_loginInfo;
-    static AndroidServiceManager* m_AndroidServiceManager;
-    AndroidServiceManager* androidService();
     static FileWatcher* m_FileWather;
 
     static bool isNetworkIsAccessible;
