@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
-import org.jooya.rokhshid.R;
+import org.jooya.jooyaqtapplication.R;
 import android.content.res.Resources;
 
 public class DownloadServiceBroadcastUtility {

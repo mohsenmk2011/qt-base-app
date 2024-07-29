@@ -1,4 +1,4 @@
-package org.jooya.rokhshid;
+package org.jooya.jooyaqtapplication;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.NotificationChannel;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.app.PendingIntent;
 import android.graphics.Color;
 import android.graphics.BitmapFactory;
-import org.jooya.rokhshid.R;
+import org.jooya.jooyaqtapplication.R;
 import android.widget.Toast;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
