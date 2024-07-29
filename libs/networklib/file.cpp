@@ -128,6 +128,13 @@ float File::upDownRatio()
 
 void File::setUpDownRatio(float ratio)
 {
+    if(ratio==m_UpDownRatio){
+        return;
+    }
+    if(ratio<0||ratio>1)
+    {
+        return;
+    }
     m_UpDownRatio=ratio;
     emit upDownRatioChanged();
 }
@@ -227,6 +234,11 @@ void File::setIsExists(bool isD)
 void File::download()
 {
     qDebug()<<"is going to download => "<<downloadLink();
+    if(downloadState()==FileDownloadStates::FileDownloadStatesEnum::Started)
+    {
+        qDebug()<<"download is started -> return";
+        return;
+    }
     if(downloadState()==FileDownloadStates::FileDownloadStatesEnum::IsDownloading)
     {
         qDebug()<<"is downloaing the file and not finished yet";
