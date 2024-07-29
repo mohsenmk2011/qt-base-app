@@ -46,6 +46,8 @@ add_library(${PROJECT_NAME} SHARED
     websocketinfo.h
     websocketmanager.h
     websocketstates.h
+    downloadservicemanager.h
+    downloadservicemanager.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/libs/androidlib ${CMAKE_SOURCE_DIR}/libs/corelib)
