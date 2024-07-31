@@ -16,6 +16,8 @@ class PackageInfoManager : public QObject
 public:
     explicit PackageInfoManager(QObject *parent = nullptr);
     QString getAppSign();
+    static QString getPackageName(QString charSeperator = "/");
+    static QString getApplicationName();
 
 signals:
 

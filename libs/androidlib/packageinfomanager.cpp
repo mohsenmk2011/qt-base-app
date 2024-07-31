@@ -42,3 +42,20 @@ QString PackageInfoManager::getAppSign()
 #endif
     return "";
 }
+
+QString PackageInfoManager::getPackageName(QString charSeperator)
+{
+    QString pn = "org"+charSeperator+"jooya"+charSeperator+getApplicationName().toLower();
+    if(charSeperator == "/")
+    {
+        return pn + charSeperator;
+    }
+    // else charSeperator is "."
+    return pn;
+
+}
+
+QString PackageInfoManager::getApplicationName()
+{
+    return "JooyaQtQuickApplication";
+}
