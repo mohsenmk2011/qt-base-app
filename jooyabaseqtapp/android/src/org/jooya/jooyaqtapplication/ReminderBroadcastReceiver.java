@@ -13,14 +13,14 @@ import android.telephony.SmsMessage;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.content.res.Resources;
-import org.jooya.rokhshid.R;
+import org.jooya.jooyaqtapplication.R;
 import java.util.Calendar;
 import android.icu.text.SimpleDateFormat;
 
 public class ReminderBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = "ReminderBroadcastReceiver";
-    public static final String BROADCAST_ACTION_NAME = "org.jooya.rokhshid.JOOYAQTQUICKAPPLICATIONSALARM";
+    public static final String BROADCAST_ACTION_NAME = "org.jooya.jooyaqtquickapplication.JOOYAQTQUICKAPPLICATIONSALARM";
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "####[ Alarm trigged now :> ]###");
