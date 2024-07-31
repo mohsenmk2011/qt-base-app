@@ -86,7 +86,10 @@
             <action android:name="android.provider.Telephony.SMS_DELIVER"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".ReminderBroadcastReceiver" android:exported="true">
+        <receiver android:name=".ReminderBroadcastReceiver" android:exported="true" android:enabled="true">
+            <intent-filter>
+                <action android:name="org.jooya.jooyaqtquickapplication.JOOYAQTQUICKAPPLICATIONSALARM" />
+            </intent-filter>
         </receiver>
     </application>
 
