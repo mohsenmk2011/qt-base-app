@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
+set(PROJECT_NAME jooyaqtbaseapp)
 
-project(jooyabaseqtapp VERSION 1.0 LANGUAGES CXX)
+project(${PROJECT_NAME} VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -26,44 +27,44 @@ set(HEADERS
     baseappsettings.h
     version.h
 )
-qt_add_executable(jooyabaseqtapp
+qt_add_executable(${PROJECT_NAME}
     ${SOURCES} ${HEADERS}
 )
 
-qt_add_qml_module(jooyabaseqtapp
-    URI jooyabaseqtapp
+qt_add_qml_module(${PROJECT_NAME}
+    URI ${PROJECT_NAME}
     VERSION 1.0
     QML_FILES
     main.qml
 )
 if(ANDROID)
-    set_property(TARGET jooyabaseqtapp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+    set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
         "${CMAKE_CURRENT_SOURCE_DIR}/android")
     # set(ANDROID_ABIS "armeabi-v7a")
     set(CMAKE_ANDROID_ARCH_ABI "armeabi-v7a")
 
     # cloned from https://github.com/KDAB/android_openssl.git
     include(${CMAKE_SOURCE_DIR}/../../../sdk/android_openssl/android_openssl.cmake)
-    add_android_openssl_libraries(jooyabaseqtapp)
+    add_android_openssl_libraries(${PROJECT_NAME})
 
 endif()
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-set_target_properties(jooyabaseqtapp PROPERTIES
-    #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.jooyabaseqtapp
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.${PROJECT_NAME}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(jooyabaseqtapp PRIVATE
+target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Quick Qt6::QuickControls2 Qt6::Qml Qt6::Network Qt6::WebSockets Qt6::Multimedia Qt6::WebView
-    jsgeneratorlib androidlib corelib networklib chatlib notificationlib quicklib managerlib settingslib purchasinglib loginlib
+    androidlib corelib networklib chatlib notificationlib quicklib managerlib settingslib purchasinglib loginlib
 )
-target_include_directories(jooyabaseqtapp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/libs/jsgeneratorlib ${CMAKE_SOURCE_DIR}/libs/androidlib
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/libs/androidlib
     ${CMAKE_SOURCE_DIR}/libs/corelib ${CMAKE_SOURCE_DIR}/libs/networklib ${CMAKE_SOURCE_DIR}/libs/chatlib
     ${CMAKE_SOURCE_DIR}/libs/notificationlib ${CMAKE_SOURCE_DIR}/libs/quicklib ${CMAKE_SOURCE_DIR}/libs/managerlib
     ${CMAKE_SOURCE_DIR}/libs/settingslib ${CMAKE_SOURCE_DIR}/libs/purchasinglib ${CMAKE_SOURCE_DIR}/libs/loginlib
@@ -71,20 +72,20 @@ target_include_directories(jooyabaseqtapp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 
 if(ANDROID)
 
-    target_link_libraries(jooyabaseqtapp PRIVATE
+    target_link_libraries(${PROJECT_NAME} PRIVATE
         service
     )
-    target_include_directories(jooyabaseqtapp PRIVATE
+    target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/service
     )
 endif()
 include(GNUInstallDirs)
-install(TARGETS jooyabaseqtapp
+install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION /opt/${PROJECT_NAME}/bin
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-qt_add_resources(jooyabaseqtapp "commonqmlfiles"
+qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     PREFIX "/"
     FILES
     main.qml
@@ -137,11 +138,11 @@ qt_add_resources(jooyabaseqtapp "commonqmlfiles"
     items/shared/RectWithTitle.qml
     items/shared/NewProductLabelItem.qml
 )
-qt_add_resources(jooyabaseqtapp "currentappqmlfiles"
+qt_add_resources(${PROJECT_NAME} "currentappqmlfiles"
     PREFIX "/"
     FILES
 )
-qt_add_resources(jooyabaseqtapp "customqmltypes"
+qt_add_resources(${PROJECT_NAME} "customqmltypes"
     PREFIX "/"
     FILES
     jooyaQuickControls/CircleImage.qml
@@ -180,7 +181,7 @@ qt_add_resources(jooyabaseqtapp "customqmltypes"
     jooyaQuickControls/TagItem.qml
     jooyaQuickControls/ThemChangeAnimator.qml
 )
-qt_add_resources(jooyabaseqtapp "managerqmlfiles"
+qt_add_resources(${PROJECT_NAME} "managerqmlfiles"
     PREFIX "/"
     FILES
     pages/manager/app/ExercisAddPage.qml
@@ -206,7 +207,7 @@ qt_add_resources(jooyabaseqtapp "managerqmlfiles"
     pages/manager/NotifyDiscountEditDialog.qml
     pages/manager/NotifyAppIntroEditDialog.qml
 )
-qt_add_resources(jooyabaseqtapp "appresources"
+qt_add_resources(${PROJECT_NAME} "appresources"
     PREFIX "/"
     FILES
     fonts/IRANSans.ttf
@@ -216,7 +217,7 @@ qt_add_resources(jooyabaseqtapp "appresources"
     AppIcon.rc
     shaders/maskshader.qsb
 )
-qt_add_resources(jooyabaseqtapp "managerimages"
+qt_add_resources(${PROJECT_NAME} "managerimages"
     PREFIX "/"
     FILES
     images/manager/behpardakht.png
@@ -253,7 +254,7 @@ qt_add_resources(jooyabaseqtapp "managerimages"
     images/manager/account-cog.png
 )
 
-qt_add_resources(jooyabaseqtapp "commonimages"
+qt_add_resources(${PROJECT_NAME} "commonimages"
     PREFIX "/"
     FILES
     images/icon.ico
@@ -411,7 +412,7 @@ qt_add_resources(jooyabaseqtapp "commonimages"
     images/common/repeat.png
 )
 
-qt_add_resources(jooyabaseqtapp "chatimages"
+qt_add_resources(${PROJECT_NAME} "chatimages"
     PREFIX "/"
     FILES
     images/chat/message-reply-text@4x.png
@@ -460,7 +461,7 @@ qt_add_resources(jooyabaseqtapp "chatimages"
     images/chat/chevron-down.png
 )
 
-qt_add_resources(jooyabaseqtapp "mediaimages"
+qt_add_resources(${PROJECT_NAME} "mediaimages"
     PREFIX "/"
     FILES
     images/media/pause.png
@@ -500,7 +501,7 @@ qt_add_resources(jooyabaseqtapp "mediaimages"
     images/media/volume-mute4x.png
     images/media/volume-mute@2x.png
 )
-qt_add_resources(jooyabaseqtapp "currentappimages"
+qt_add_resources(${PROJECT_NAME} "currentappimages"
     PREFIX "/"
     FILES
     images/icon.png
