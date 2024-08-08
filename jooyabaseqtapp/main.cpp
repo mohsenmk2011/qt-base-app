@@ -82,20 +82,18 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     //QQuickStyle::setStyle("Universal");
     QQmlApplicationEngine engine;
+    //----------------------------------------------------------
+#if defined(QT_DEBUG) && !defined(Q_OS_ANDROID)
     const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/rokhshid");
     JooyaNetworkEngine::m_FileWather=new FileWatcher();
     JooyaNetworkEngine::m_FileWather->loadQQmlApplicationEngine(&engine);
     JooyaNetworkEngine::m_FileWather->addExcludeDirs(QStringList()<<"Other"<<"android");
     JooyaNetworkEngine::m_FileWather->setDirectory(projectDirectory.absolutePath());
     JooyaNetworkEngine::m_FileWather->writepathcounts();
-    //----------------------------------------------------------
-#if defined(QT_DEBUG) && !defined(Q_OS_ANDROID)
-        //use below line instead above line for qml live be working
-        engine.load(QUrl(projectDirectory.absolutePath()+"/main.qml"));
+    //use below line instead above line for qml live be working
+    engine.load(QUrl(projectDirectory.absolutePath()+"/main.qml"));
 #else
-    {
-        engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    }
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 #endif
 
     //------------------------[ AppPagesManager ]-----------------------
