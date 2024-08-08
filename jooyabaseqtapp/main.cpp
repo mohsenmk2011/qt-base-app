@@ -171,7 +171,8 @@ int main(int argc, char *argv[])
         else {
         }
     //-----------------------------------------------
-        QNativeInterface::QAndroidApplication::hideSplashScreen();
-
+#if defined(Q_OS_ANDROID)
+    QNativeInterface::QAndroidApplication::hideSplashScreen();
+#endif
     return app.exec();
 }
