@@ -39,7 +39,9 @@ private:
     QString m_NotificationText;
     ///current file that is displaying it's ratio on notification
     int m_CurrentFileIndex;
+#if defined(Q_OS_ANDROID)
     QJniObject m_App_or_Service_BroadcastReceiver;
+#endif
     QList<File*> files;
     DownloadServiceManager* m_DownloadServiceManager;
 };

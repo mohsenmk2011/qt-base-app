@@ -122,8 +122,12 @@ bool AndroidServiceManager::isInService()
 
 bool AndroidServiceManager::isInApp()
 {
-    bool t = QNativeInterface::QAndroidApplication::isActivityContext();
+    bool t = false;
+#if defined(Q_OS_ANDROID)
+    t = QNativeInterface::QAndroidApplication::isActivityContext();
     //qDebug()<<"is in Qt App => "<<t;
+    return t;
+#endif
     return t;
 }
 
@@ -208,7 +212,7 @@ void AndroidServiceManager::unregisterNativesOfService()
     env->DeleteLocalRef(objectClass);
 #endif
 }
-
+#if defined(Q_OS_ANDROID)
 QJniObject AndroidServiceManager::registerAppBroadcastReceiver()
 {
 #if defined(Q_OS_ANDROID)
@@ -321,7 +325,7 @@ void AndroidServiceManager::unregisterNativeMethodsAndBroadcastReceiver(QJniObje
     }
 #endif
 }
-
+#endif
 void AndroidServiceManager::setServiceClassName(QString name)
 {
     m_ServiceClassName = name;

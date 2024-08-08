@@ -6,6 +6,7 @@ DownloadManager::DownloadManager(QObject *parent) : JooyaNetwork(parent)
     m_CountFailed=0;
     m_CountDownloaded=0;
     m_CountToDownload=0;
+#if defined(Q_OS_ANDROID)
     m_DownloadServiceManager = new DownloadServiceManager();
     m_App_or_Service_BroadcastReceiver = downloadService()->registerNativeMethodsAndBroadcastReceiver();
     if(downloadService()->isInService())
@@ -17,11 +18,14 @@ DownloadManager::DownloadManager(QObject *parent) : JooyaNetwork(parent)
         qDebug()<<"*** [is In App => connect AndroidServiceManager.appMessageReceived signal to  DownloadManager.onNewAppeMessage slot ] ***";
         connect(downloadService(),&AndroidServiceManager::appMessageReceived,this,&DownloadManager::onNewAppeMessage);
     }
+#endif
 }
 
 DownloadManager::~DownloadManager()
 {
+#if defined(Q_OS_ANDROID)
     downloadService()->unregisterNativeMethodsAndBroadcastReceiver(m_App_or_Service_BroadcastReceiver);
+#endif
 }
 
 void DownloadManager::setNotificationText(QString text)

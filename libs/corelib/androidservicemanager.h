@@ -35,6 +35,7 @@ public:
     void registerNativesOfService();
     void unregisterNativesOfService();
 
+#if defined(Q_OS_ANDROID)
     QJniObject registerAppBroadcastReceiver();
     void unregisterAppBroadcastReceiver(QJniObject receiverObject);
 
@@ -43,7 +44,7 @@ public:
     // will register native methods and broadcast receiver based that is running on service or app
     QJniObject registerNativeMethodsAndBroadcastReceiver();
     void unregisterNativeMethodsAndBroadcastReceiver(QJniObject broadcastReceiver);
-
+#endif
     void setServiceClassName(QString name);
     QString getServiceClassName();
 
