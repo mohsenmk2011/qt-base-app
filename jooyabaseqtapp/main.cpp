@@ -81,51 +81,8 @@ int main(int argc, char *argv[])
 
     QQuickStyle::setStyle("Material");
     //QQuickStyle::setStyle("Universal");
-    //------------------------[ load main.qml with engin 11111]-----------------------
-    //TODO: Change this after creating new branch from master branch
-    const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/jooyabaseqtapp");
-
-    //QmlLive live;
-//    FileWatcher* fw= QmlLive::qmlAttachedProperties(nullptr);
-//    fw->addExcludeDirs(QStringList()<<"Other"<<"android");
-//    fw->setDirectory(projectDirectory.absolutePath());
-//    fw->writepathcounts();
-
-//    //japp.processQmlLiveCommandLine(&app);
-//    if(japp.isDesignMode()){
-//        FileWatcher watcher;
-//        QQuickView view;
-//        view.setSource(watcher.rootFile());
-//        qCritical()<<"watcher.rootFile()"<<watcher.rootFile();
-//        view.setWidth(600);
-//        view.setHeight(400);
-//        view.show();
-
-//        QUrl rootFile=watcher.rootFile();
-//        watcher.addCallback([&view, rootFile](){
-//            view.engine()->clearComponentCache();
-//            view.setSource(rootFile);
-//            qDebug()<<"in calll back method";
-
-//        });
-//        qCritical()<<"after all";
-//    }
-//    else{
-
-//        QQmlApplicationEngine engine;
-//        AppPagesManager pm;
-//        pm.loadQQmlApplicationEngine(&engine);
-
-//        engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-//        if (engine.rootObjects().isEmpty()){
-//            return -1;
-//        }
-//        else {
-//        }
-//    }
-    //------------------------ORGINAL LOADING-----------------------
     QQmlApplicationEngine engine;
-
+    const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/rokhshid");
     JooyaNetworkEngine::m_FileWather=new FileWatcher();
     JooyaNetworkEngine::m_FileWather->loadQQmlApplicationEngine(&engine);
     JooyaNetworkEngine::m_FileWather->addExcludeDirs(QStringList()<<"Other"<<"android");
@@ -141,6 +98,9 @@ int main(int argc, char *argv[])
     }
 #endif
 
+    //------------------------[ AppPagesManager ]-----------------------
+    //        AppPagesManager pm;
+    //        pm.loadQQmlApplicationEngine(&engine);
 //add a qml file to mainWinow
 //        pm.writeChildrens("mainWindow");
        //pm.setWindow("qrc:/TestItem.qml");
