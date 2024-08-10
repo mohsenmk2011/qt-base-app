@@ -1,0 +1,12 @@
+Key Store Pass: 48pDUFdne95h5Jc0
+
+Alias name: JooyaQtApps
+Certificate Pass: 54Gd8X4hg8Mnf4KhQ
+keysize: 2048	
+validity: 1100
+Name: Mohsen Keshavarzi
+orgName: Jooya
+org:Jooya
+city: Marvdasht
+State: Fars
+contryCode: IR
