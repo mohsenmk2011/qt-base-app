@@ -124,12 +124,6 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/chat/ChatItem.qml
     pages/chat/TalkItem.qml
     pages/shared/ImageEditor.qml
-    pages/items/WorkoutItem.qml
-    pages/items/PracticeItem.qml
-    pages/items/ExerciseCommandItem.qml
-    pages/items/ExerciseItem.qml
-    pages/items/MovementItem.qml
-    pages/items/SoundItem.qml
     pages/items/UserInfoDisplyer.qml
     pages/items/NotifyItem.qml
     items/shared/ImageItem.qml
@@ -184,12 +178,6 @@ qt_add_resources(${PROJECT_NAME} "customqmltypes"
 qt_add_resources(${PROJECT_NAME} "managerqmlfiles"
     PREFIX "/"
     FILES
-    pages/manager/app/ExercisAddPage.qml
-    pages/manager/app/JooyaEditSoundPosition.qml
-    pages/manager/app/SoundEditPage.qml
-    pages/manager/app/TutorialTextEditPage.qml
-    pages/manager/app/TutorialVideoEditPage.qml
-    pages/manager/app/TutorialVideoSoundAddPage.qml
     pages/manager/HttpRequestTypePage.qml
     pages/manager/ManagerDialog.qml
     pages/manager/ManagerPrivateKeyPage.qml
