@@ -246,6 +246,7 @@ qt_add_resources(${PROJECT_NAME} "commonimages"
     PREFIX "/"
     FILES
     images/icon.ico
+    images/icon.png
     images/common/account.png
     images/common/account@2x.png
     images/common/account@3x.png
@@ -492,5 +493,4 @@ qt_add_resources(${PROJECT_NAME} "mediaimages"
 qt_add_resources(${PROJECT_NAME} "currentappimages"
     PREFIX "/"
     FILES
-    images/icon.png
 )
