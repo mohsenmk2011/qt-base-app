@@ -493,26 +493,4 @@ qt_add_resources(${PROJECT_NAME} "currentappimages"
     PREFIX "/"
     FILES
     images/icon.png
-    images/app/check-bold.png
-    images/app/check-bold@2x.png
-    images/app/check-bold@3x.png
-    images/app/check-bold@4x.png
-    images/app/description.png
-    images/app/description@2x.png
-    images/app/description@3x.png
-    images/app/description@4x.png
-    images/app/ManualPaid-256.png
-    images/app/Paid-256.png
-    images/app/start.png
-    images/app/start@2x.png
-    images/app/start@3x.png
-    images/app/start@4x.png
-    images/app/study.png
-    images/app/study@2x.png
-    images/app/study@3x.png
-    images/app/study@4x.png
-    images/app/tutorial.png
-    images/app/tutorial@2x.png
-    images/app/tutorial@3x.png
-    images/app/tutorial@4x.png
 )
