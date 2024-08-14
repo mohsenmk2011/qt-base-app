@@ -118,7 +118,6 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/shared/FrequentQuestionsPage.qml
     pages/shared/FileExplorerPage.qml
     pages/chat/ContactsDialog.qml
-    TestAndroidService.qml
     pages/chat/ChatAddPage.qml
     pages/chat/PostItem.qml
     pages/chat/ChatItem.qml

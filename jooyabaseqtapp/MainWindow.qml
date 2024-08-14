@@ -65,12 +65,6 @@ Page {
                 sv.replace("pages/users/SignupPhonePage.qml");
             }
         }
-        else if(fileName==="TestAndroidService"){
-                sv.replaceEnter.enabled=false;
-                QmlLive.clearCache();
-                sv.replace("TestAndroidService.qml");
-
-        }
         else if(fileName==="UserActivationPage"){
             if(sv.currentItem.objectName=="UserActivationPage"){
                 sv.replaceEnter.enabled=false;
@@ -547,21 +541,6 @@ Page {
             onClicked: {
                 var c= managerDialogCom.createObject(mainWindow);
                 c.open();
-            }
-        }
-        MenuItem{
-            contentItem: Text {
-                text: qsTr("سرویس اندروید")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignRight
-                font.family:flYekan.name
-                font.pixelSize: 18
-                color: MaterialStyle.primaryTextColor
-            }
-            visible: sv.depth==1&&CurrentUser.isAnyAdmin
-            height: visible ? implicitHeight : 0
-            onClicked: {
-                sv.push("TestAndroidService.qml")
             }
         }
         MenuItem{
