@@ -117,7 +117,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/common/SettingsPage.qml
     pages/common/DatePickerDialog.qml
     pages/common/NotifyDisplayPage.qml
-    pages/items/NotifyItem.qml
+    pages/common/NotifyItem.qml
     pages/common/AddKeywordToTypesDialog.qml
     pages/common/NotificationTypeEditDialog.qml
     pages/common/AboutUsPage.qml

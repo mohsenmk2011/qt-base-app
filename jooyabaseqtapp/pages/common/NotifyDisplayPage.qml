@@ -6,7 +6,7 @@ import Jooya
 import QtQuick
 import QtQml.Models
 import "../../jooyaQuickControls"
-import "../items"
+import "../common"
 import "../manager"
 
 Page {

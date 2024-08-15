@@ -6,7 +6,6 @@ import JooyaQuick.Controls.Material
 import Jooya
 import "../manager"
 import "../../jooyaQuickControls"
-import "../shared"
 import "../../items/common"
 
 Item {
