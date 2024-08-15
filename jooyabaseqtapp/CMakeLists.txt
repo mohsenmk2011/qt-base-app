@@ -113,7 +113,6 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/orders/OrderTransactionItem.qml
     pages/orders/OrderTransactionsPage.qml
     pages/common/SharePage.qml
-    pages/DownloadDialog.qml
     pages/common/SettingsPage.qml
     pages/common/DatePickerDialog.qml
     pages/common/NotifyDisplayPage.qml
