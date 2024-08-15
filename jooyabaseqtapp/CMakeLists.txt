@@ -98,33 +98,33 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/users/UserImageItem.qml
     pages/users/UserItem.qml
     pages/users/UserPicturePage.qml
+    pages/users/UserDisplayNamePage.qml
+    pages/TakePicturePage.qml
+    pages/chat/ChatPage.qml
+    pages/chat/ContactItem.qml
+    pages/chat/ChatsPage.qml
+    pages/chat/ContactsDialog.qml
+    pages/chat/ChatAddPage.qml
+    pages/chat/PostItem.qml
+    pages/chat/ChatItem.qml
+    pages/chat/TalkItem.qml
     pages/orders/BaskeBankPage.qml
     pages/orders/OrderPaymentResultDlg.qml
     pages/orders/OrderTransactionItem.qml
     pages/orders/OrderTransactionsPage.qml
     pages/shared/SharePage.qml
     pages/DownloadDialog.qml
-    pages/TakePicturePage.qml
-    pages/chat/ChatPage.qml
-    pages/users/UserDisplayNamePage.qml
-    pages/chat/ContactItem.qml
-    pages/chat/ChatsPage.qml
     pages/shared/SettingsPage.qml
     pages/shared/DatePickerDialog.qml
     pages/shared/NotifyDisplayPage.qml
+    pages/items/NotifyItem.qml
     pages/shared/AddKeywordToTypesDialog.qml
     pages/shared/NotificationTypeEditDialog.qml
     pages/shared/AboutUsPage.qml
     pages/shared/FrequentQuestionsPage.qml
     pages/shared/FileExplorerPage.qml
-    pages/chat/ContactsDialog.qml
-    pages/chat/ChatAddPage.qml
-    pages/chat/PostItem.qml
-    pages/chat/ChatItem.qml
-    pages/chat/TalkItem.qml
     pages/shared/ImageEditor.qml
     pages/items/UserInfoDisplyer.qml
-    pages/items/NotifyItem.qml
     items/shared/ImageItem.qml
     items/shared/TitleItem.qml
     items/shared/PaneWithTitle.qml
