@@ -9,7 +9,7 @@ import "pages"
 import "items/common"
 import "jooyaQuickControls"
 import "pages/manager"
-import "pages/shared"
+import "pages/common"
 import "./pages/users"
 import QtMultimedia
 import QtWebSockets
@@ -55,8 +55,7 @@ Page {
         console.log("QmlLive.onFileChanged(in MainWindow.qml) => "+fileName);
         if(fileName==="ImageEditor"){
                 sv.replaceEnter.enabled=false;
-                QmlLive.clearCache();
-                sv.replace("pages/shared/ImageEditor.qml");
+                sv.replace("pages/common/ImageEditor.qml");
         }
         if(fileName==="SignupPhonePage"){
             if(sv.currentItem.objectName=="SignupPhonePage"){
@@ -93,7 +92,7 @@ Page {
                 sv.replaceEnter.enabled=false;
                 QmlLive.clearCache();
                 notifyManager.currentType=NotificationTypes.AppIntroducing;
-                sv.replace("pages/shared/NotifyDisplayPage.qml");
+                sv.replace("pages/common/NotifyDisplayPage.qml");
             }
         }
         else if(fileName==="HomePage"){
@@ -110,15 +109,13 @@ Page {
         }
         else if(fileName==="SettingsPage"){
                 sv.replaceEnter.enabled=false;
-                QmlLive.clearCache();
-                sv.replace("pages/shared/SettingsPage.qml");
+                sv.replace("pages/common/SettingsPage.qml");
         }
         else if(fileName==="SharePage"){
             if(sv.currentItem.objectName=="SharePage")
             {
                 sv.replaceEnter.enabled=false;
-                QmlLive.clearCache();
-                sv.replace("pages/shared/SharePage.qml");
+                sv.replace("pages/common/SharePage.qml");
             }
         }
         else if(fileName==="BaskeBankPage"){
@@ -143,12 +140,10 @@ Page {
             c.open();
         }
         else if(fileName==="AboutUsPage"){
-            QmlLive.clearCache();
-            sv.replace("pages/shared/AboutUsPage.qml");
+            sv.replace("pages/common/AboutUsPage.qml");
         }
         else if(fileName==="FrequentQuestionsPage"){
-            QmlLive.clearCache();
-            sv.replace("pages/shared/FrequentQuestionsPage.qml");
+            sv.replace("pages/common/FrequentQuestionsPage.qml");
         }
     }
 
@@ -249,7 +244,7 @@ Page {
             else
             {
                 notifyManager.currentType=NotificationTypes.AppIntroducing;
-                sv.push("pages/shared/NotifyDisplayPage.qml");
+                sv.push("pages/common/NotifyDisplayPage.qml");
             }
         }
         chatManager.getList();
@@ -337,7 +332,7 @@ Page {
                 height: visible? implicitHeight : 0
                 onClicked: {
                     notifyManager.currentType=NotificationTypes.Discount;
-                    sv.push("pages/shared/NotifyDisplayPage.qml");
+                    sv.push("pages/common/NotifyDisplayPage.qml");
                 }
             }
             ToolButton {
@@ -557,7 +552,7 @@ Page {
             height: visible ? implicitHeight : 0
             onClicked: {
                 notifyManager.currentType=NotificationTypes.AppIntroducing;
-                sv.push("pages/shared/NotifyDisplayPage.qml");
+                sv.push("pages/common/NotifyDisplayPage.qml");
             }
         }
         MenuItem{
@@ -666,11 +661,11 @@ Page {
                 }
                 model: ListModel {
                     ListElement { name: "userprofileLI";link:"pages/users/UserPicturePage.qml"; title: "حساب کاربری"; source: "images/common/account.png"}
-                    ListElement { name: "settingsLI";link:"pages/shared/SettingsPage.qml"; title: "تنظیمات"; source: "images/common/cog.png" }
-                    ListElement { name: "shareLI"; link:"pages/shared/SharePage.qml"; title: "معرفی به دوستان"; source: "images/common/share-variant.png" }
+                    ListElement { name: "settingsLI";link:"pages/common/SettingsPage.qml"; title: "تنظیمات"; source: "images/common/cog.png" }
+                    ListElement { name: "shareLI"; link:"pages/common/SharePage.qml"; title: "معرفی به دوستان"; source: "images/common/share-variant.png" }
                     ListElement { name: "contactUsLI";link:"pages/chat/ChatsPage.qml"; title: "تماس با ما"; source: "images/common/phone.png" }
-                    ListElement { name: "aboutusLI";link:"pages/shared/AboutUsPage.qml"; title: "درباره ما"; source: "images/common/information.png" }
-                    ListElement { name: "questionsLI" ;link:"pages/shared/FrequentQuestionsPage.qml";title: "سوالات متداول"; source: "images/common/frequently-asked-questions.png" }
+                    ListElement { name: "aboutusLI";link:"pages/common/AboutUsPage.qml"; title: "درباره ما"; source: "images/common/information.png" }
+                    ListElement { name: "questionsLI" ;link:"pages/common/FrequentQuestionsPage.qml";title: "سوالات متداول"; source: "images/common/frequently-asked-questions.png" }
                     ListElement { name: "exitPanelLI"; title: "خروج از حساب کاربری"; source: "images/common/logout.png" }
                 }
 

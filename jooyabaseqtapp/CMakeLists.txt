@@ -112,18 +112,18 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/orders/OrderPaymentResultDlg.qml
     pages/orders/OrderTransactionItem.qml
     pages/orders/OrderTransactionsPage.qml
-    pages/shared/SharePage.qml
+    pages/common/SharePage.qml
     pages/DownloadDialog.qml
-    pages/shared/SettingsPage.qml
-    pages/shared/DatePickerDialog.qml
-    pages/shared/NotifyDisplayPage.qml
+    pages/common/SettingsPage.qml
+    pages/common/DatePickerDialog.qml
+    pages/common/NotifyDisplayPage.qml
     pages/items/NotifyItem.qml
-    pages/shared/AddKeywordToTypesDialog.qml
-    pages/shared/NotificationTypeEditDialog.qml
-    pages/shared/AboutUsPage.qml
-    pages/shared/FrequentQuestionsPage.qml
-    pages/shared/FileExplorerPage.qml
-    pages/shared/ImageEditor.qml
+    pages/common/AddKeywordToTypesDialog.qml
+    pages/common/NotificationTypeEditDialog.qml
+    pages/common/AboutUsPage.qml
+    pages/common/FrequentQuestionsPage.qml
+    pages/common/FileExplorerPage.qml
+    pages/common/ImageEditor.qml
     items/common/UserInfoDisplyer.qml
     items/common/ImageItem.qml
     items/common/TitleItem.qml

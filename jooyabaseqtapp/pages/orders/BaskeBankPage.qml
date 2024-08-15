@@ -206,7 +206,7 @@ JooyaPage{
                                     MouseArea{
                                         anchors.fill: parent
                                         onClicked: {
-                                            sv.push("../shared/SharePage.qml");
+                                            sv.push("../common/SharePage.qml");
                                         }
                                     }
                                 }

@@ -81,7 +81,7 @@ Page {
                         console.log("display admin toolbar");
 
                         if(model.url===""&& false){
-                            sv.push("../shared/ImageEditor.qml",{imageFile:parent.imageFile,clipSize:Qt.size(300,300)});
+                            sv.push("../common/ImageEditor.qml",{imageFile:parent.imageFile,clipSize:Qt.size(300,300)});
                         }
                         else{
 
