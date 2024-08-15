@@ -99,7 +99,6 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/users/UserItem.qml
     pages/users/UserPicturePage.qml
     pages/users/UserDisplayNamePage.qml
-    pages/TakePicturePage.qml
     pages/chat/ChatPage.qml
     pages/chat/ContactItem.qml
     pages/chat/ChatsPage.qml
@@ -112,6 +111,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/orders/OrderPaymentResultDlg.qml
     pages/orders/OrderTransactionItem.qml
     pages/orders/OrderTransactionsPage.qml
+    pages/common/TakePicturePage.qml
     pages/common/SharePage.qml
     pages/common/SettingsPage.qml
     pages/common/DatePickerDialog.qml

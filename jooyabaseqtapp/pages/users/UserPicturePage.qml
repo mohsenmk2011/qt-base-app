@@ -95,7 +95,7 @@ JooyaPage{
             if(sv.currentItem.objectName==="TakePicturePage"){
                 sv.replaceEnter.enabled=false;
                 QmlLive.clearCache();
-                sv.replace("../../pages/TakePicturePage.qml",{up:userProfile});
+                sv.replace("../common/TakePicturePage.qml",{up:userProfile});
             }
         }
     }
@@ -163,7 +163,7 @@ JooyaPage{
                         if(userProfile.canTakePic){
 
                             if(permissionManager.requestCamera()){
-                                sv.push("../../pages/TakePicturePage.qml",{up:userProfile});
+                                sv.push("../common/TakePicturePage.qml",{up:userProfile});
                             }
                         }
                         else{
