@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import JooyaQuick.Controls.Material
-import "../items/shared"
+import "../items/common"
 
 TextField{
     id:tfContent

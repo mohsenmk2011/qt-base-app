@@ -5,7 +5,7 @@ import "../../jooyaQuickControls"
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
-import "../../items/shared"
+import "../../items/common"
 
 Rectangle{
     id:itemimg

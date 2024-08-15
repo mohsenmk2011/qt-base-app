@@ -7,7 +7,7 @@ import Jooya
 import "../manager"
 import "../../jooyaQuickControls"
 import "../shared"
-import "../../items/shared"
+import "../../items/common"
 
 Item {
     id:notifyItem

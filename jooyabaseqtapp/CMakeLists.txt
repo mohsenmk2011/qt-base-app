@@ -125,11 +125,11 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/shared/FileExplorerPage.qml
     pages/shared/ImageEditor.qml
     pages/items/UserInfoDisplyer.qml
-    items/shared/ImageItem.qml
-    items/shared/TitleItem.qml
-    items/shared/PaneWithTitle.qml
-    items/shared/RectWithTitle.qml
-    items/shared/NewProductLabelItem.qml
+    items/common/ImageItem.qml
+    items/common/TitleItem.qml
+    items/common/PaneWithTitle.qml
+    items/common/RectWithTitle.qml
+    items/common/NewProductLabelItem.qml
 )
 qt_add_resources(${PROJECT_NAME} "currentappqmlfiles"
     PREFIX "/"

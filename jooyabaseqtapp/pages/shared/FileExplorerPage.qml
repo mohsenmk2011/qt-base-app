@@ -6,7 +6,7 @@ import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 import "../../jooyaQuickControls"
 import QtQuick.Layouts
-import "../../items/shared"
+import "../../items/common"
 
 Page {
     id:fileExplorerDialog
