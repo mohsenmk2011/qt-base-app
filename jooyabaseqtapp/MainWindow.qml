@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 import Jooya
 import "pages"
-import "pages/items"
+import "items/common"
 import "jooyaQuickControls"
 import "pages/manager"
 import "pages/shared"
