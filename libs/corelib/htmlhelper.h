@@ -41,16 +41,20 @@ public:
     {
         return QString("<img src=\"%1\" />").arg(source);
     }
-    // static QString replaceImageSource(QString html, QString oldSrc, QString newSrc)
-    // {
-    //     QRegExp rx("<img\\b[^>]*\\bsrc=['\"]" + oldSrc + "['\"][^>]*>");
-    //     int pos = 0;
-    //     while ((pos = rx.indexIn(html, pos)) != -1) {
-    //         html.replace(pos, rx.matchedLength(), rx.cap(0).replace(oldSrc, newSrc));
-    //         pos += rx.matchedLength();
-    //     }
-    //     return html;
-    // }
+    static QString replaceImageSource(QString html, QString oldSrc, QString newSrc)
+    {
+        QRegularExpression rx("<img\\b[^>]*\\bsrc=['\"]" + QRegularExpression::escape(oldSrc) + "['\"][^>]*>");
+        QRegularExpressionMatch match;
+        int pos = 0;
+
+        while ((pos = html.indexOf(rx, pos, &match)) != -1) {
+            QString oldTag = match.captured(0);
+            QString newTag = oldTag.replace(oldSrc, newSrc);
+            html.replace(pos, match.capturedLength(0), newTag);
+            pos += newTag.length();
+        }
+        return html;
+    }
 signals:
 
 };
