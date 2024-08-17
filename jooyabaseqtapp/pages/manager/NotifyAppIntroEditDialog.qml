@@ -4,10 +4,11 @@ import QtQuick.Dialogs
 import QtQuick.Layouts
 import "../../jsf/Bootstrap.js" as Bs
 import "../../jooyaQuickControls"
-import "../shared"
+import "../common"
 import Jooya
 import QtQuick
 import QtQml.Models
+import QtCore
 
 JooyaPage {
     id: root
@@ -63,36 +64,21 @@ JooyaPage {
                     }
 
                     onClicked: {
-                        if(isAndroid){
-                            var c=fileDialogAndroid.createObject(mainWindow);
-                            c.provideExistingFileName();
-                        }
-                        else{
-                            var cd=fileDialogWin.createObject(mainWindow);
-                            cd.open();
-                        }
+                        var cd=fileDialogWin.createObject(mainWindow);
+                        cd.open();
                     }
                     Component{
                         id: fileDialogWin
                         FileDialog {
                             id: fileDialog
                             title: "Please choose a file"
-                            folder: shortcuts.home
+                            currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
                             nameFilters: ["Picture Files(*.jpg *.png)"]
                             onAccepted: {
                                 notify.loadImageFromFile(fileUrl);
                             }
                             onRejected: {
                                 close();
-                            }
-                        }
-                    }
-                    Component{
-                        id: fileDialogAndroid
-                        AndroidFileDialog{
-                            id: afdlg
-                            onAccepted: {
-                                notify.loadImageFromFile(fileUrl);
                             }
                         }
                     }

@@ -299,8 +299,9 @@ Page{
             }
         }
     }
-    Audio{
+    MediaPlayer{
         id:aPlayer
+         audioOutput: AudioOutput {}
     }
     ListView {
         id:lvPosts

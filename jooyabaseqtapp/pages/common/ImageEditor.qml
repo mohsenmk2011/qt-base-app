@@ -4,8 +4,9 @@ import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 import QtQuick.Dialogs
 import Jooya
-import "../../items/shared"
+import "../../items/common"
 import "../../jsf/JSUtility.js" as Jsu;
+import QtCore
 
 Page {
     id:imageEditorPage
@@ -256,14 +257,8 @@ Page {
                 sv.pop();
             }
             else{
-                if(isAndroid){
-                    var c=fileDialogAndroid.createObject(mainWindow);
-                    c.provideExistingFileName();
-                }
-                else{
-                    var cd=fileDialogWin.createObject(mainWindow);
-                    cd.open();
-                }
+                var cd=fileDialogWin.createObject(mainWindow);
+                cd.open();
             }
         }
         scale: isVisible?1.0:0.0
@@ -278,7 +273,7 @@ Page {
             FileDialog {
                 id: fileDialog
                 title: "Please choose a file"
-                folder: shortcuts.home
+                currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
                 nameFilters: ["Picture Files(*.jpg *.png)"]
                 onAccepted: {
                     console.log("the selected file path => " +fileUrl);
@@ -286,18 +281,6 @@ Page {
                 }
                 onRejected: {
                     close();
-                }
-            }
-        }
-        Component{
-            id: fileDialogAndroid
-            AndroidFileDialog{
-                id: afdlg
-                onAccepted: {
-                    console.log("the selected file path => " +fileUrl);
-                    if(fileUrl!==""){
-                        setimageurl(fileUrl);
-                    }
                 }
             }
         }

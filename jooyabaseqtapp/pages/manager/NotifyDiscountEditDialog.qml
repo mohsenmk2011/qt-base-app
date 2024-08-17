@@ -4,7 +4,7 @@ import QtQuick.Dialogs
 import QtQuick.Layouts
 import "../../jsf/Bootstrap.js" as Bs
 import "../../jooyaQuickControls"
-import "../shared"
+import "../common"
 import Jooya
 import QtQuick
 import QtQml.Models

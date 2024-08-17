@@ -291,7 +291,8 @@ Page{
             }
         }
     }
-    Audio{
+    MediaPlayer{
+        audioOutput: AudioOutput {}
         id:aPlayer
     }
     ListView {
