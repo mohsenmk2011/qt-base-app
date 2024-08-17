@@ -170,7 +170,7 @@ void JooyaNetworkEngine::setOperationType(OperationTypes::OperationTypesEnum o)
 
  UserLoginInfo* JooyaNetworkEngine::m_loginInfo=new UserLoginInfo();
 
- FileWatcher* JooyaNetworkEngine::m_FileWather;//=new FileWatcher();
+ FileWatcher* JooyaNetworkEngine::m_FileWather = new FileWatcher();
 
 
   bool JooyaNetworkEngine::isNetworkIsAccessible=false;
