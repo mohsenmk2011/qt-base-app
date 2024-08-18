@@ -397,6 +397,22 @@ qt_add_resources(${PROJECT_NAME} "commonimages"
     images/common/repeat@3x.png
     images/common/repeat@2x.png
     images/common/repeat.png
+    images/common/basket-minus@4x.png
+    images/common/basket-minus@3x.png
+    images/common/basket-minus@2x.png
+    images/common/basket-minus.png
+    images/common/basket-plus@4x.png
+    images/common/basket-plus@3x.png
+    images/common/basket-plus@2x.png
+    images/common/basket-plus.png
+    images/common/basket@4x.png
+    images/common/basket@3x.png
+    images/common/basket@2x.png
+    images/common/basket.png
+    images/common/content-save@4x.png
+    images/common/content-save@3x.png
+    images/common/content-save@2x.png
+    images/common/content-save.png
 )
 
 qt_add_resources(${PROJECT_NAME} "chatimages"
