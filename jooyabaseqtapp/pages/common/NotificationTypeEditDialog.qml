@@ -5,7 +5,6 @@ import Jooya
 import QtQuick
 import QtQml.Models
 import "../../jooyaQuickControls"
-import "../items"
 import "../manager"
 
 Dialog{

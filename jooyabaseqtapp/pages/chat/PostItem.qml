@@ -131,7 +131,6 @@ Rectangle{
                         width: 18
                         height: 18
                         visible: post.fromMe && !postBusyIndicator.visible
-                        color: MaterialStyle.iconColor
                         source:{
                             if(post.status===TalkStates.NotSend){
                                 return "../../images/chat/clock-time-three-outline.png";
