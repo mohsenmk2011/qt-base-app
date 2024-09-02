@@ -5,7 +5,7 @@ import "../../jooyaQuickControls"
 import Jooya
 import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
-
+import "../../items/common"
 import QtQuick.Shapes
 import "../users"
 import QtWebSockets
@@ -212,48 +212,19 @@ Page{
             btnNewChat.stateVisible=true;
         }
     }
-    Rectangle {
+    HelpBar{
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        visible: gvChats.count==0
-
+        visible: gvChats.count===0
         height: btnNewChat.height+btnNewChat.anchors.bottomMargin
         color:MaterialStyle.backColor100
-        IconImage {
-            id: imgLeftArrow           
-            source: "../../images/chat/arrow-left.png"
-            anchors.right: txtStartChat.left
-            anchors.verticalCenter: parent.verticalCenter
-            color: MaterialStyle.iconColor
-            SequentialAnimation {
-                loops: Animation.Infinite
-                running: true
-                alwaysRunToEnd: true
-                PropertyAnimation {
-                    target: imgLeftArrow
-                    property: "scale"
-                    to:0.81
-                    duration: 900
-                    easing.type: Easing.OutBounce
-                }
-                PropertyAnimation {
-                    target: imgLeftArrow
-                    property: "scale"
-                    to: 0.99
-                    duration: 900
-                    easing.type: Easing.OutBounce
-                }
-                PauseAnimation{
-                    duration: 1800
-                }
-            }
-
-        }
+        helpText: qsTr("برای شروع گفتگو اینجا کلیک نمایید")
+    }
+    Rectangle {
         Text {
             id:txtStartChat
 
-            text: qsTr("برای شروع گفتگو اینجا کلیک نمایید")
             font{
                 family: flYekan.name
                 pixelSize: 18
