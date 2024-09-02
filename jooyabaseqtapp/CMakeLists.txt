@@ -129,6 +129,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     items/common/PaneWithTitle.qml
     items/common/RectWithTitle.qml
     items/common/NewProductLabelItem.qml
+    items/common/ConfirmationPane.qml
 )
 qt_add_resources(${PROJECT_NAME} "currentappqmlfiles"
     PREFIX "/"
