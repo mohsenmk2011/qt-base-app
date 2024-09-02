@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
     JooyaNetworkEngine::m_FileWather->loadQQmlApplicationEngine(&engine);
     JooyaNetworkEngine::m_FileWather->addExcludeDirs(QStringList()<<"Other"<<"android");
     JooyaNetworkEngine::m_FileWather->setDirectory(projectDirectory.absolutePath());
-    JooyaNetworkEngine::m_FileWather->writepathcounts();
+    //JooyaNetworkEngine::m_FileWather->writepathcounts();
     //use below line instead above line for qml live be working
     engine.load(QUrl(projectDirectory.absolutePath()+"/main.qml"));
 #else
