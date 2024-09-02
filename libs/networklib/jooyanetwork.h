@@ -61,7 +61,7 @@ signals:
     void tokenChanged();
     void connectionError();
     void pageManagerChanged();
-    void requestFinished(bool isSucceed);
+    void requestFinished(bool isSucceed,OperationTypes::OperationTypesEnum operation);
     void requestSucceedWithObject(QJsonObject obj);
     void requestSucceedWithArray(QJsonArray array);
 

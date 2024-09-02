@@ -1,13 +1,10 @@
 #include "jooyanetwork.h"
 
-JooyaNetwork::JooyaNetwork(QObject *parent) :JooyaNetworkEngine(parent)/*, QNetworkAccessManager()*/
+JooyaNetwork::JooyaNetwork(QObject *parent) :JooyaNetworkEngine(parent)
 {
     currentUrl="";
-    //qCritical()<<"Initialize request header(Deleted)";
-    //initializeRequestHeader();
-    //qCritical()<<"=> Add Token to request";
     addTokenToRequestHeader();
-    //qInfo("1- Connecting to-> loginInfo.StateChanged");
+    setOperationType(OperationTypes::OperationTypesEnum::NoOperation);
     connect(loginInfo(),SIGNAL(stateChanged(LoginStates::LoginStatesEnum)),this,SLOT(addTokenToRequestHeader()));
     connect(&m_NetworkManager,SIGNAL(finished(QNetworkReply*)),this,SLOT(currentReplyFinished(QNetworkReply*)));
 
@@ -170,8 +167,8 @@ void JooyaNetwork::currentReplyFinished(QNetworkReply* r)
     checkCommonErrors(r);
     setIsProcssing(false);
     setDisplayCommonErrorMessage(true);
+    emit requestFinished(r->error() == QNetworkReply::NoError || isNotFound(r),operationType());
     setOperationType(OperationTypes::OperationTypesEnum::NoOperation);
-    emit requestFinished(r->error()==QNetworkReply::NoError);
 }
 
 void JooyaNetwork::onRequestFinished()
