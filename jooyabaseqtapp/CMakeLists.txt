@@ -85,6 +85,7 @@ install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+include(app/CurrentApp.cmake)
 qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     PREFIX "/"
     FILES
@@ -131,10 +132,6 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     items/common/NewProductLabelItem.qml
     items/common/ConfirmationPane.qml
     items/common/HelpBar.qml
-)
-qt_add_resources(${PROJECT_NAME} "currentappqmlfiles"
-    PREFIX "/"
-    FILES
 )
 qt_add_resources(${PROJECT_NAME} "customqmltypes"
     PREFIX "/"
@@ -505,8 +502,4 @@ qt_add_resources(${PROJECT_NAME} "mediaimages"
     images/media/volume-mute3x.png
     images/media/volume-mute4x.png
     images/media/volume-mute@2x.png
-)
-qt_add_resources(${PROJECT_NAME} "currentappimages"
-    PREFIX "/"
-    FILES
 )
