@@ -27,7 +27,7 @@ Flickable {
     Component.onCompleted: {
         if(!ApplicationAlarmSettings.hasAlarm)
         {
-            retrun;
+            return;
         }
         if(ApplicationAlarmSettings.alarmClass === AlarmClasses.AlarmManager)
         {
