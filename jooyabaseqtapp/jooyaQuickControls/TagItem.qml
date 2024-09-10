@@ -6,6 +6,7 @@ import JooyaQuick.Controls.Material
 Pane{
     property alias text: lbl.text
     property bool isSelected: false
+    property alias contentFont: lbl.font
     property color backColor: (MaterialStyle.isDark || isSelected) ? MaterialStyle.invertedPrimaryTextColor : MaterialStyle.primaryTextColor
     property color foreColor: (MaterialStyle.isDark || isSelected) ? MaterialStyle.primaryTextColor : MaterialStyle.invertedPrimaryTextColor
 
