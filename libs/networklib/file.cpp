@@ -234,6 +234,12 @@ void File::setIsExists(bool isD)
 void File::download()
 {
     qDebug()<<"is going to download => "<<downloadLink();
+    if(!isExistsInServer())
+    {
+        qInfo()<<"file is not exists in server so don't need to download it";
+        setDownloadState(FileDownloadStates::FileDownloadStatesEnum::FileNotFound);
+        return;
+    }
     if(downloadState()==FileDownloadStates::FileDownloadStatesEnum::Started)
     {
         qDebug()<<"download is started -> return";
@@ -446,4 +452,17 @@ void File::setUploadStatus(const FileUploadStatus::FileUploadStatusEnum &newUplo
         return;
     m_uploadStatus = newUploadStatus;
     emit uploadStatusChanged();
+}
+
+bool File::isExistsInServer() const
+{
+    return m_isExistsInServer;
+}
+
+void File::setIsExistsInServer(bool newIsExistsInServer)
+{
+    if (m_isExistsInServer == newIsExistsInServer)
+        return;
+    m_isExistsInServer = newIsExistsInServer;
+    emit isExistsInServerChanged();
 }

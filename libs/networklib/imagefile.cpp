@@ -49,6 +49,7 @@ void ImageFile::fromJson(QJsonObject obj)
     setFileId(obj.value("id").toInt());
     setDownloadLink(obj.value("imageUrl").toString());
     setImageName(obj.value("imageName").toString());
+    setIsExistsInServer(obj.value("isImageExistes").toBool());
 }
 
 void ImageFile::deleteItem()

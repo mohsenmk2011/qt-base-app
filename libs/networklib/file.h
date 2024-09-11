@@ -31,6 +31,7 @@ class File : public JooyaNetwork
     Q_PROPERTY(FileUploadStatus::FileUploadStatusEnum uploadStatus READ uploadStatus WRITE setUploadStatus NOTIFY uploadStatusChanged)
     Q_PROPERTY(bool isDownloaded READ isDownloaded WRITE setIsDownloaded NOTIFY isDownloadedChanged)
     Q_PROPERTY(bool isExists READ isExists WRITE setIsExists NOTIFY isExistsChanged)
+    Q_PROPERTY(bool isExistsInServer READ isExistsInServer WRITE setIsExistsInServer NOTIFY isExistsInServerChanged)
 
 public:
     explicit File(QObject *parent = nullptr);
@@ -89,6 +90,9 @@ public:
     const FileUploadStatus::FileUploadStatusEnum &uploadStatus() const;
     void setUploadStatus(const FileUploadStatus::FileUploadStatusEnum &newUploadStatus);
 
+    bool isExistsInServer() const;
+    void setIsExistsInServer(bool newIsExistsInServer);
+
 signals:
  void downloadLinkChanged();
  void urlChanged();
@@ -104,7 +108,9 @@ signals:
  void isExistsChanged();
  void uploadStatusChanged();
 
-private slots:
+ void isExistsInServerChanged();
+
+ private slots:
  void updownLoadingProgress(qint64 bytesSent, qint64 bytesTotal);
  void onUploadProgress(qint64 bytesSent, qint64 bytesTotal);
  void onDownloadFinishd();
@@ -127,6 +133,7 @@ private:
     void makeSureFolderExsists();
     void initializeFolderPath(QString ext);
     FileUploadStatus::FileUploadStatusEnum m_uploadStatus;
+    bool m_isExistsInServer;
 };
 
 #endif // FILE_H
