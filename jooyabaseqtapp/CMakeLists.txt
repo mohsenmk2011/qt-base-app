@@ -132,6 +132,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     items/common/NewProductLabelItem.qml
     items/common/ConfirmationPane.qml
     items/common/HelpBar.qml
+    items/common/ToolButtonTextUnder.qml
 )
 qt_add_resources(${PROJECT_NAME} "customqmltypes"
     PREFIX "/"
