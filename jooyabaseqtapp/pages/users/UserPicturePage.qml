@@ -183,8 +183,8 @@ JooyaPage{
             TextFieldLabeld{
                 id: tfDisplayName
                 Layout.topMargin: 36
-                title: "نام شما در " + ApplicationInfo.name
-                placeholderText2:  "نام شما در " + ApplicationInfo.name
+                title: "نام شما در " + CurrentApplication.name
+                placeholderText2:  "نام شما در " + CurrentApplication.name
                 text: userProfile.displayName
                 Layout.fillWidth: true
                 Layout.preferredHeight: 54
@@ -200,7 +200,7 @@ JooyaPage{
                 Layout.leftMargin: 18
                 Layout.rightMargin: 18
                 LayoutMirroring.enabled: true
-                text: "آیا این کاربر در اپلیکیشن "+ ApplicationInfo.name +" پشتیبان است"
+                text: "آیا این کاربر در اپلیکیشن "+ CurrentApplication.name +" پشتیبان است"
                 font{
                     family: flYekan.name
                 }

@@ -6,7 +6,6 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 import Jooya
-import "../items"
 import Qt.labs.qmlmodels
 
 Page{
@@ -82,12 +81,12 @@ Page{
                     spacing: 9
                     Text {
                         id:txtLink
-                        text: qsTr("با اشتراک رخشید تخفیف دریافت کنید")
+                        text:  "اپلیکیشن " + CurrentApplication.name + " را به دوستانتان معرفی کنید و تحفیف دریافت نمایید"
                         Layout.fillWidth: true
                         Layout.preferredHeight: 36
                         wrapMode: Text.WordWrap
                         font.family: flYekan.name
-                        font.pixelSize: 18
+                        font.pixelSize: 12
                         color: MaterialStyle.primaryTextColor
                         horizontalAlignment: Text.AlignHCenter
                     }
