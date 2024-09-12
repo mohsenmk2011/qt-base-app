@@ -1,17 +1,17 @@
-#include "applicationinfohelper.h"
+#include "currentapplicationhelper.h"
 
-ApplicationInfoHelper::ApplicationInfoHelper(QObject *parent)
+CurrentApplicationHelper::CurrentApplicationHelper(QObject *parent)
     : QObject{parent}
 {
 
 }
 
-const QString &ApplicationInfoHelper::name() const
+const QString &CurrentApplicationHelper::name() const
 {
     return m_name;
 }
 
-void ApplicationInfoHelper::setName(const QString &newName)
+void CurrentApplicationHelper::setName(const QString &newName)
 {
     if (m_name == newName)
         return;

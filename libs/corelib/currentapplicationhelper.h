@@ -1,16 +1,16 @@
-#ifndef APPLICATIONINFOHELPER_H
-#define APPLICATIONINFOHELPER_H
+#ifndef CURRENTAPPLICATIONHELPER_H
+#define CURRENTAPPLICATIONHELPER_H
 
 #include <QObject>
 #include<QtQml>
 
-class ApplicationInfoHelper : public QObject
+class CurrentApplicationHelper : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     QML_ANONYMOUS
 public:
-    explicit ApplicationInfoHelper(QObject *parent = nullptr);
+    explicit CurrentApplicationHelper(QObject *parent = nullptr);
 
     const QString &name() const;
     void setName(const QString &newName);
@@ -22,4 +22,4 @@ private:
     QString m_name;
 };
 
-#endif // APPLICATIONINFOHELPER_H
+#endif // CURRENTAPPLICATIONHELPER_H

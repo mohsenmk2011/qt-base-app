@@ -16,7 +16,7 @@ endif()
 add_library(${PROJECT_NAME} SHARED
 
     androidservicemanager.cpp
-    applicationinfohelper.cpp
+    currentapplicationhelper.cpp
     applicationpath.cpp
     applicationsettings.cpp
     apppagesmanager.cpp
@@ -43,8 +43,8 @@ add_library(${PROJECT_NAME} SHARED
     userlogininfo.cpp
     userloginsettings.cpp
     androidservicemanager.h
-    applicationinfo.h
-    applicationinfohelper.h
+    currentapplication.h
+    currentapplicationhelper.h
     applicationpath.h
     applicationsettings.h
     apppagesmanager.h

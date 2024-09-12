@@ -1,21 +1,21 @@
-#ifndef APPLICATIONINFO_H
-#define APPLICATIONINFO_H
+#ifndef CURRENTAPPLICATION_H
+#define CURRENTAPPLICATION_H
 
 #include <QObject>
-#include<applicationinfohelper.h>
+#include<currentapplicationhelper.h>
 #include<jooyaapplication.h>
 #include<QtQml>
 
-class ApplicationInfo : public QObject
+class CurrentApplication : public QObject
 {
     Q_OBJECT
-    QML_ATTACHED(ApplicationInfoHelper)
+    QML_ATTACHED(CurrentApplicationHelper)
     QML_ELEMENT
 public:
-    static ApplicationInfoHelper *qmlAttachedProperties(QObject *object)
+    static CurrentApplicationHelper *qmlAttachedProperties(QObject *object)
     {
-        return JooyaApplication::m_AppInfo;
+        return JooyaApplication::m_CurrentApplicationHelper;
     }
 };
 
-#endif // APPLICATIONINFO_H
+#endif // CURRENTAPPLICATION_H

@@ -29,8 +29,8 @@
 #include<datetimeutility.h>
 #include<urlutility.h>
 #include<isoscelestrianglemath.h>
-#include<applicationinfo.h>
-#include<applicationinfohelper.h>
+#include<currentapplication.h>
+#include<currentapplicationhelper.h>
 #include<alarmclasses.h>
 #include<applicationalarmsettings.h>
 #include<applicationalarmsettingshelper.h>
@@ -68,8 +68,8 @@ public:
         qmlRegisterType<MaterialColor>("JooyaQuick.Controls.Material",1,0,"MaterialColor");
 
 
-        qmlRegisterType<ApplicationInfo>("Jooya",1,0,"ApplicationInfo");
-        qmlRegisterType<ApplicationInfoHelper>("Jooya",1,0,"ApplicationInfoHelper");
+        qmlRegisterType<CurrentApplication>("Jooya",1,0,"CurrentApplication");
+        qmlRegisterType<CurrentApplicationHelper>("Jooya",1,0,"CurrentApplicationHelper");
 
         qmlRegisterUncreatableType<OperationTypes>("Jooya",1,0,"OperationTypes","Operation Types");
         qmlRegisterType<AlarmClasses>("Jooya",1,0,"AlarmClasses");

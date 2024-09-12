@@ -7,7 +7,7 @@
 #include<materialstylehelper.h>
 #include<applicationsettings.h>
 #include<QGuiApplication>
-#include<applicationinfohelper.h>
+#include<currentapplicationhelper.h>
 #include<applicationalarmsettingshelper.h>
 #include<alarmclasses.h>
 
@@ -23,7 +23,7 @@ public:
     static MaterialStyleHelper* m_MaterialStyleHelper;
     static ApplicationAlarmSettingsHelper* m_ApplicationAlarmSettingsHelper;
     static bool m_IsDesignMode;
-    static ApplicationInfoHelper* m_AppInfo;
+    static CurrentApplicationHelper* m_CurrentApplicationHelper;
     void processQmlLiveCommandLine(QGuiApplication *app);
     bool isDesignMode();
     void setDefaultTheme(MaterialThemes::MaterialThemesEnum theme, MaterialColors::MaterialColorsEnum primary, MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor);

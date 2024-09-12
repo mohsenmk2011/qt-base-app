@@ -3,7 +3,7 @@
 JooyaApplication::JooyaApplication(QObject *parent) : JooyaNetworkEngine(parent)
 {
     m_MaterialStyleHelper=new MaterialStyleHelper();
-    m_AppInfo = new ApplicationInfoHelper();
+    m_CurrentApplicationHelper = new CurrentApplicationHelper();
     m_ApplicationAlarmSettingsHelper = new ApplicationAlarmSettingsHelper();
 }
 
@@ -36,7 +36,7 @@ JooyaApplication::JooyaApplication(QString organization, QString organizationDom
 
 void JooyaApplication::setApplicationName(QString name)
 {
-    m_AppInfo->setName(name);
+    m_CurrentApplicationHelper->setName(name);
 }
 
 void JooyaApplication::setDefaultAlarmSettings(bool hasAlarm,AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat,QString notificationContent)
@@ -66,4 +66,4 @@ MaterialStyleHelper* JooyaApplication::m_MaterialStyleHelper;//=new MaterialStyl
 ApplicationAlarmSettingsHelper* JooyaApplication::m_ApplicationAlarmSettingsHelper;
 bool JooyaApplication::m_IsDesignMode=false;
 
-ApplicationInfoHelper* JooyaApplication::m_AppInfo;
+CurrentApplicationHelper* JooyaApplication::m_CurrentApplicationHelper;
