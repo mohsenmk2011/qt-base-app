@@ -8,6 +8,7 @@
 #include <QCoreApplication>
 #include <QJniEnvironment>
 #include <QJniObject>
+#include<packageinfomanager.h>
 #endif
 
 class AndroidDeepLinkManager : public QObject

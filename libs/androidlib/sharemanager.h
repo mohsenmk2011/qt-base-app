@@ -10,6 +10,7 @@
 #include<QJniObject>
 #include<QJniEnvironment>
 #include <QCoreApplication>
+#include<packageinfomanager.h>
 #endif
 class ShareManager : public QObject
 {

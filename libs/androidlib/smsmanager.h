@@ -7,6 +7,7 @@
 #include<QJniObject>
 #include<QJniEnvironment>
 #include <QCoreApplication>
+#include<packageinfomanager.h>
 #endif
 
 class SmsManager : public QObject

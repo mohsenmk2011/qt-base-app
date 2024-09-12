@@ -161,7 +161,8 @@ bool AndroidPermissionManager::requestIgnoringBatteryOptimizations()
     }
     if (activity.isValid())
     {
-        isIgnored = (bool) QJniObject::callStaticMethod<jboolean>("org/jooya/rokhshid/PermissionManager","requestIgnoringBatteryOptimizations","(Landroid/content/Context;)Z",QNativeInterface::QAndroidApplication::context());
+        QString className = PackageInfoManager::getPackageName()+"PermissionManager";
+        isIgnored = (bool) QJniObject::callStaticMethod<jboolean>(className.toUtf8(),"requestIgnoringBatteryOptimizations","(Landroid/content/Context;)Z",QNativeInterface::QAndroidApplication::context());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }

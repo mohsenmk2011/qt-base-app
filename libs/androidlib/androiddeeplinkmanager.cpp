@@ -36,7 +36,8 @@ void AndroidDeepLinkManager::registerNativesMethod()
     JNINativeMethod methods[] {
         {"sendToQtApp", "(Ljava/lang/String;)V", reinterpret_cast<void *>(newOrderIdReceivedFromQtActivity)},
     };
-    QJniObject javaClass("org/jooya/jooyaqtapplication/DeepLinkManager");
+    QString className = PackageInfoManager::getPackageName()+"DeepLinkManager";
+    QJniObject javaClass(className.toUtf8());
     QJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
     env->RegisterNatives(objectClass,
