@@ -8,7 +8,7 @@ ListManager::ListManager(QObject *parent) : JooyaListItem(parent)
     m_TakeCount=5;
     m_ListHasCompeleted=false;
     m_LastTakedCount=0;
-    m_IsSearch=false;
+    m_isSearching = false;
 }
 
 void ListManager::toJsonFile(QString fileName, QJsonArray array)
@@ -43,7 +43,6 @@ QNetworkReply *ListManager::getListAndReturnArray(QString url)
 
 bool ListManager::canGetList()
 {
-    //TODO: if isSearch() may be should return false here
     if(isProcessing())
     {
         qDebug()<<"isProcessing -> return";
@@ -109,16 +108,6 @@ void ListManager::addSkipCount(int val)
     m_SkipCount+=val;
 }
 
-bool ListManager::isSearch()
-{
-    return m_IsSearch;
-}
-
-void ListManager::setIsSearch(bool s)
-{
-    m_IsSearch=s;
-}
-
 void ListManager::resetListValues()
 {
     m_SelectedCount=0;
@@ -127,7 +116,7 @@ void ListManager::resetListValues()
 
     setSkipCount(0);
     setTakeCount(5);
-    setIsSearch(false);
+    setIsSearching(false);
     setListHasCompeleted(false);
 }
 
@@ -175,7 +164,7 @@ int ListManager::lastTakedCount()
 void ListManager::setLastTakedCount(int ltc)
 {
         m_LastTakedCount=ltc;
-        if(!isSearch()){
+        if(!isSearching()){
             addSkipCount(m_LastTakedCount);
         }
         if(m_LastTakedCount<takeCount()){
@@ -193,4 +182,17 @@ void ListManager::setListHasCompeleted(bool lhc)
     if(lhc!=m_ListHasCompeleted){
         m_ListHasCompeleted=lhc;
     }
+}
+
+bool ListManager::isSearching() const
+{
+    return m_isSearching;
+}
+
+void ListManager::setIsSearching(bool newIsSearching)
+{
+    if (m_isSearching == newIsSearching)
+        return;
+    m_isSearching = newIsSearching;
+    emit isSearchingChanged();
 }

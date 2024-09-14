@@ -11,6 +11,7 @@ class ListManager : public JooyaListItem
     Q_OBJECT
     Q_PROPERTY(bool selectMode READ selectMode WRITE setSelectMode NOTIFY selectModeChanged)
     Q_PROPERTY(int selectedCount READ selectedCount WRITE setSelectedCount NOTIFY selectedCountChanged)
+    Q_PROPERTY(bool isSearching READ isSearching WRITE setIsSearching NOTIFY isSearchingChanged FINAL)
 public:
     explicit ListManager(QObject *parent = nullptr);
     virtual void deselectAll();
@@ -30,9 +31,6 @@ public:
 
     void addSkipCount(int val);
 
-    bool isSearch();
-    void setIsSearch(bool s);
-
     /// will reset the values to default values
     void resetListValues();
 
@@ -45,10 +43,15 @@ public:
     QJsonArray fromJsonFile(QString name);
     QNetworkReply* getListAndReturnArray(QString url);
     bool canGetList();
+    bool isSearching() const;
+    void setIsSearching(bool newIsSearching);
+
 signals:
     void noMoreEntity();
     void selectModeChanged();
     void selectedCountChanged();
+    void isSearchingChanged();
+
 public slots:
     void onGetList();
 private:
@@ -58,7 +61,7 @@ private:
     int m_TakeCount;
     int m_LastTakedCount;
     bool m_ListHasCompeleted;
-    bool m_IsSearch;
+    bool m_isSearching;
 };
 
 #endif // LISTMANAGER_H
