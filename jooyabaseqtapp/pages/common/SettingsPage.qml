@@ -199,7 +199,9 @@ Flickable {
                     color: MaterialStyle.accent200
                 }
                 RowLayout{
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 18
+                    Layout.leftMargin: 18
                     IconImage {
                         width: 27
                         height: 27
@@ -214,13 +216,10 @@ Flickable {
                             family:flYekan.name
                         }
                     }
-                    Item {
-                        Layout.fillWidth: true
-                    }
                     Rectangle{
                         color: MaterialStyle.backColor300
                         Layout.preferredHeight: 6
-                        Layout.preferredWidth: 72
+                        Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter
                         radius: 3
                     }
@@ -337,11 +336,13 @@ Flickable {
                 }
                 RowLayout{
                     visible: ApplicationAlarmSettings.hasRepeat && swAlarmRepeat.checked
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 18
+                    Layout.leftMargin: 18
                     Rectangle{
                         color: MaterialStyle.backColor300
                         Layout.preferredHeight: 6
-                        Layout.preferredWidth: 99
+                        Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter
                         radius: 3
                     }
@@ -424,10 +425,14 @@ Flickable {
                 //==========================[ end of interval section ]========================================
                 RowLayout{
                     Layout.fillWidth: true
-                    spacing: 9
+                    Layout.rightMargin: 0
+                    Layout.leftMargin: 0
+                    spacing: 0
                     JooyaButton{
                         text: alarmManager.isUpAndRunning?"پایان دادن به هشدار": "یاد آوری"
-                        Layout.preferredWidth: (paneAlarm.width/2)-9
+                        Layout.preferredWidth: paneAlarm.width/2
+                        Layout.leftMargin: 3
+                        Layout.rightMargin: 3
                         onClicked: {
                             enabled = false;
                             if(ApplicationAlarmSettings.alarmClass === AlarmClasses.WorkoutManager)
@@ -475,7 +480,9 @@ Flickable {
                     }
                     JooyaButton{
                         text: "پیش نمایش هشدار"
-                        Layout.preferredWidth: (paneAlarm.width/2)-9
+                        Layout.preferredWidth: paneAlarm.width/2
+                        Layout.leftMargin: 3
+                        Layout.rightMargin: 3
                         onClicked: {
                             if(combxAlarmType.currentIndex==0)
                             {
