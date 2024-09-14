@@ -764,7 +764,7 @@ Page {
         }
     }
 
-    CurrentApplicationSettingsr{
+    CurrentApplicationSettings{
         id: currentAppSettings
         objectName: "settingManager"
     }

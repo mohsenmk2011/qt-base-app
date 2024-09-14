@@ -3,6 +3,7 @@ qt_add_resources(${PROJECT_NAME} "currentappqmlfiles"
     PREFIX "/"
     FILES
     app/CurrentApp.cmake
+    app/CurrentAppSettingsPane.qml
 )
 qt_add_resources(${PROJECT_NAME} "currentappimages"
     PREFIX "/"

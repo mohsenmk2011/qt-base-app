@@ -14,7 +14,7 @@ Flickable {
     function formatText(count, modelData) {
         return modelData.toString().length < 2 ? "0" + modelData : modelData;
     }
-    ApplicationSettings{
+    CurrentApplicationSettings{
         id:settings
     }
     AndroidPermissionManager{
@@ -58,6 +58,17 @@ Flickable {
     ColumnLayout{
         id:clm
         anchors.fill: parent
+        //===========================< current application settings >====================================
+        Loader{
+            source: "../../app/CurrentAppSettingsPane.qml"
+            Layout.fillWidth: true
+            Layout.margins: 9
+            Layout.leftMargin: 0
+            Layout.rightMargin: 0
+            height: 405
+            visible: false
+        }
+        //===========================< END OF current application settings >====================================
         Pane{
             id:paneAlarm
             visible: ApplicationAlarmSettings.hasAlarm
