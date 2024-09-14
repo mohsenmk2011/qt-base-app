@@ -73,7 +73,6 @@ public:
 
         qmlRegisterUncreatableType<OperationTypes>("Jooya",1,0,"OperationTypes","Operation Types");
         qmlRegisterType<AlarmClasses>("Jooya",1,0,"AlarmClasses");
-        qmlRegisterUncreatableType<AlarmClasses::AlarmClassesEnum>("Jooya",1,0,"AlarmClasses::AlarmClassesEnum","Alarm Classes");
         qmlRegisterType<ApplicationAlarmSettingsHelper>("Jooya",1,0,"ApplicationAlarmSettingsHelper");
         qmlRegisterType<ApplicationAlarmSettings>("Jooya",1,0,"ApplicationAlarmSettings");
 
