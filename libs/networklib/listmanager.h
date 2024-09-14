@@ -47,7 +47,10 @@ public:
     void setIsSearching(bool newIsSearching);
 
 signals:
+    /// emit this when you have got at least one entity
     void noMoreEntity();
+    /// emit this when you have not got any entity yet
+    void entityNotFound();
     void selectModeChanged();
     void selectedCountChanged();
     void isSearchingChanged();
