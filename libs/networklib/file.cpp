@@ -8,6 +8,7 @@ File::File(QObject *parent) : JooyaNetwork (parent)
     setFileId(0);
     m_IsDownloaded=false;
     m_IsExists= false;
+    m_isExistsInServer = true;
     m_DownloadState = FileDownloadStates::FileDownloadStatesEnum::NotStarted;
     m_uploadStatus = FileUploadStatus::FileUploadStatusEnum::Unknown;
     connect(this,&File::downloadLinkChanged,this,&File::refreshPath);
