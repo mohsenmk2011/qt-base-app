@@ -5,7 +5,8 @@
 #include <QtWebView>
 #include<QQuickView>
 
-#include<baseappsettings.h>
+#include<currentapplicationsettings.h>
+#include<currentapplicationpath.h>
 #include<version.h>
 #include<applicationversioninfo.h>
 #include<jooyaapplication.h>
@@ -52,7 +53,8 @@ int main(int argc, char *argv[])
     Loginlib::registerTypes();
     Managerlib::registerTypes();
     Chatlib::registerTypes();
-    qmlRegisterType<BaseAppSettings>("Jooya",1,0,"BaseAppSettings");
+    qmlRegisterType<CurrentApplicationSettings>("Jooya",1,0,"CurrentApplicationSettings");
+    qmlRegisterType<CurrentApplicationPath>("Jooya",1,0,"CurrentApplicationPath");
     qmlRegisterType<ApplicationVersionInfo>("Jooya",1,0,"ApplicationVersionInfo");
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     JooyaNetworkEngine jne;

@@ -1,16 +1,16 @@
-#ifndef BASEAPPSETTINGS_H
-#define BASEAPPSETTINGS_H
+#ifndef CURRENTAPPLICATIONSETTINGS_H
+#define CURRENTAPPLICATIONSETTINGS_H
 
 #include <QObject>
 
 #include<applicationsettings.h>
 
-class BaseAppSettings : public ApplicationSettings
+class CurrentApplicationSettings : public ApplicationSettings
 {
     Q_OBJECT
     Q_PROPERTY(int userScore READ userScore WRITE setUserScore NOTIFY userScoreChanged)
 public:
-    explicit BaseAppSettings(QObject *parent = nullptr);
+    explicit CurrentApplicationSettings(QObject *parent = nullptr);
 
     int userScore();
     void setUserScore(int n);
@@ -20,4 +20,4 @@ void userScoreChanged();
 public slots:
 };
 
-#endif // BASEAPPSETTINGS_H
+#endif // CURRENTAPPLICATIONSETTINGS_H

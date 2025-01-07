@@ -218,7 +218,7 @@ Page {
             console.log("#########            In main page         #############")
             closeNotificationPage();
 
-            rSettings.seenAppIntroducing=true;
+            currentAppSettings.seenAppIntroducing=true;
         }
         onIsProcessingChanged:(isProcessing)=> {
             progressIndicator.visible=isProcessing;
@@ -236,8 +236,8 @@ Page {
             sv.push("pages/HomePage.qml");
         }
         else{
-            console.log("rSettings.seenAppIntroducing=> "+rSettings.seenAppIntroducing)
-            if(rSettings.seenAppIntroducing)
+            console.log("rSettings.seenAppIntroducing=> "+currentAppSettings.seenAppIntroducing)
+            if(currentAppSettings.seenAppIntroducing)
             {
                 sv.push("pages/users/SignupPhonePage.qml");
             }
@@ -764,8 +764,8 @@ Page {
         }
     }
 
-    BaseAppSettings{
-        id: rSettings
+    CurrentApplicationSettingsr{
+        id: currentAppSettings
         objectName: "settingManager"
     }
     Drawer{

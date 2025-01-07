@@ -1,11 +1,11 @@
-#include "baseapppath.h"
+#include "currentapplicationpath.h"
 
-BaseAppPath::BaseAppPath(QObject *parent) : ApplicationPath(parent)
+CurrentApplicationPath::CurrentApplicationPath(QObject *parent) : ApplicationPath(parent)
 {
 
 }
 
-QString BaseAppPath::currentExerciseImagesFolderPath(int exerciseId,bool checkExistance)
+QString CurrentApplicationPath::currentExerciseImagesFolderPath(int exerciseId,bool checkExistance)
 {
 
     QString path=imagesFolderPath();
@@ -20,7 +20,7 @@ QString BaseAppPath::currentExerciseImagesFolderPath(int exerciseId,bool checkEx
     return path;
 }
 
-QString BaseAppPath::currentExerciseImagePath(int exerciseId)
+QString CurrentApplicationPath::currentExerciseImagePath(int exerciseId)
 {
     QString t=currentExerciseImagesFolderPath(exerciseId,true);
     qDebug()<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.=>"<<t;

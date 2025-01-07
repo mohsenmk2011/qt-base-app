@@ -17,14 +17,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(SOURCES
     main.cpp
     applicationversioninfo.cpp
-    baseapppath.cpp
-    baseappsettings.cpp
+    currentapplicationpath.cpp
+    currentapplicationsettings.cpp
 )
 
 set(HEADERS
     applicationversioninfo.h
-    baseapppath.h
-    baseappsettings.h
+    currentapplicationpath.h
+    currentapplicationsettings.h
     version.h
 )
 qt_add_executable(${PROJECT_NAME}
