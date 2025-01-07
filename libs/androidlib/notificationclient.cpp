@@ -4,7 +4,7 @@ NotificationClient::NotificationClient(QObject *parent) : QObject(parent)
 {
     JooyaAndroidContext context;
     //m_NotificationJavaClassName=context.packageName()+"/NotificationClient";
-    m_NotificationJavaClassName="org/jooya/bimehpardaz/NotificationClient";
+    m_NotificationJavaClassName="org/jooya/jooyaqtapplication/NotificationClient";
 }
 
 QString NotificationClient::notification()
