@@ -4,7 +4,7 @@ File::File(QObject *parent) : JooyaNetwork (parent)
 {
     ApplicationPath u;
     setFolderPath(u.filesFolderPath());
-    setImageName("defaultfilename");
+    setImageName("");
     setFileId(0);
     m_IsDownloaded=false;
     m_IsExists= false;
