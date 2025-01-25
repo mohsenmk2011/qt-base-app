@@ -232,6 +232,7 @@ Page {
         }
         onClicked: {
             if(imageOpened){
+                console.log("image was opened so cut and save it => ");
                 console.log("image.scale => " +img.scale);
                 console.log("scaled rect => "+Jsu.convertToQRect(rectScaledImage));
                 console.log("  clip rect => "+Jsu.convertToQRect(rectClip));
@@ -245,6 +246,7 @@ Page {
                     console.log("cropping image was not succeed");
                     return;
                 }
+                console.log("is going to save image in this url=> "+imageFile.url);
                 if(!imageUtility.save(imageFile.url))
                 {
                     console.log("cropped image was not saved");
