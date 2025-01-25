@@ -99,6 +99,7 @@ QList<ImageFile *> ImageListModel::getList()
 
 void ImageListModel::imageDeleted()
 {
+    qDebug()<<"image was deleted from disk-> remove it from list model";
     ImageFile *b=qobject_cast<ImageFile*>(sender());
     int c=rowCount();
     for (int i = 0; i <c&&rowCount()>0; ++i) {
@@ -106,6 +107,7 @@ void ImageListModel::imageDeleted()
             beginRemoveRows(QModelIndex(),i,i);
             m_List.removeAt(i);
             endRemoveRows();
+            return;
         }
     }
 }
