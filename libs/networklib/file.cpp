@@ -286,6 +286,7 @@ bool File::remove()
     QFile file(url().path());
     if(!file.exists()){
         setIsExists(false);
+        emit deleteSucceed();
         return true;
     }
     if(!file.remove())
@@ -294,6 +295,7 @@ bool File::remove()
         return false;
     }
     setIsExists(false);
+    emit deleteSucceed();
     return true;
 }
 

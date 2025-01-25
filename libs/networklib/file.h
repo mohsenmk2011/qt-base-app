@@ -107,8 +107,8 @@ signals:
  void isDownloadedChanged();
  void isExistsChanged();
  void uploadStatusChanged();
-
  void isExistsInServerChanged();
+ void deleteSucceed();
 
  private slots:
  void updownLoadingProgress(qint64 bytesSent, qint64 bytesTotal);

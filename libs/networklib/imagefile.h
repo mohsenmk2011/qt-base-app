@@ -21,7 +21,6 @@ public:
     void setHeight(int h);
     QJsonObject toJson() override;
     void fromJson(QJsonObject obj) override;
-    void deleteItem();
 
     QNetworkReply* uploadImage();
     QNetworkReply* deleteImage();
@@ -29,7 +28,6 @@ signals:
     void widthChanged();
     void heightChanged();
     void isClipImageChanged();
-    void deleteSucceed();
 private slots:
     void deleteImageFinished();
 private:

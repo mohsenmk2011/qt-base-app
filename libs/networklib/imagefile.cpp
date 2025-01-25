@@ -52,11 +52,6 @@ void ImageFile::fromJson(QJsonObject obj)
     setIsExistsInServer(obj.value("isImageExistes").toBool());
 }
 
-void ImageFile::deleteItem()
-{
-    emit deleteSucceed();
-}
-
 QNetworkReply *ImageFile::uploadImage()
 {
     qDebug()<<"is going to upload the image => ";
