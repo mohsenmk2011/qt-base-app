@@ -10,11 +10,12 @@ import QtQuick
 import QtQml.Models
 import QtCore
 
-JooyaPage {
+Page {
     id: root
     property Notify notify: null
     Component.onCompleted: {
     }
+    objectName: "NotifyEditor"
     padding: 0
     font {
         family: flYekan.name
@@ -175,7 +176,15 @@ JooyaPage {
             }
         }
         ScrollBar.vertical: ScrollBar{
-            width: 8
+            width: 9
+        }
+        ConfirmationDialog {
+            id:deleteDialog
+            message: "آیا مایل هستید نگاره را حذف کنید؟"
+            onYesClicked: {
+                console.log("=> delete notify image");
+                notify.deleteImage();
+            }
         }
     }
     NotificationTypeEditDialog{
