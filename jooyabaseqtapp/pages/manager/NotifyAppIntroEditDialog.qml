@@ -12,13 +12,14 @@ import QtCore
 
 JooyaPage {
     id: root
+    property Notify notify: null
+    Component.onCompleted: {
+    }
     padding: 0
     font {
         family: flYekan.name
         pixelSize: 18
         bold: true
-    }
-    Component.onCompleted: {
     }
     //================================================
     Flickable{
@@ -60,7 +61,7 @@ JooyaPage {
                         fillMode: Image.Pad
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: "/images/upload.png"
+                        source: "../../images/common/upload.png"
                     }
 
                     onClicked: {
