@@ -6,6 +6,8 @@ Notify::Notify(QObject *parent) : ImageFile(parent)
     setDuration(0);
     setBeVisibleForUsers(false);
     m_Type=NotificationTypes::NotificationTypesEnum::UnKnown;
+    ApplicationPath ap;
+    setFolderPath(ap.notifyimagesFolderPath());
 }
 
 Notify::Notify(NotificationTypes::NotificationTypesEnum type):Notify()
@@ -324,7 +326,7 @@ void Notify::onSaveFinished()
 {
     QNetworkReply* r=convertToReply(sender());
     if(r->error()==QNetworkReply::NoError){
-       QJsonObject obj= jsonUtility()->convertToJsonObject(r->readAll());
+        QJsonObject obj= jsonUtility()->convertToJsonObject(r->readAll());
         setFileId(obj.value("id").toInt());
         message()->setContent(obj.value("message").toString(),true);
     }

@@ -13,6 +13,7 @@
 #include<keyword.h>
 #include<notificationtypes.h>
 #include<imagefile.h>
+#include<applicationpath.h>
 
 class Notify : public ImageFile
 {
