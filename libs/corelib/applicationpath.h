@@ -17,6 +17,7 @@ public:
 
     void makeSureApplicationDataPathExsists();
     QString imagesFolderPath();
+    QString notifyimagesFolderPath();
     QString filesFolderPath();
     void makeSurePathExsists(QString path);
     QString currentExerciseImagesFolderPath(int bookId, bool checkExistance=false);

@@ -20,6 +20,11 @@ QString ApplicationPath::imagesFolderPath()
     return applicationDataPath()+"/Images/";
 }
 
+QString ApplicationPath::notifyimagesFolderPath()
+{
+    return imagesFolderPath()+"notify/";
+}
+
 QString ApplicationPath::filesFolderPath()
 {
     return applicationDataPath()+"/Files/";
