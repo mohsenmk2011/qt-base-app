@@ -5,6 +5,7 @@ ImageFile::ImageFile(QObject *parent) : File(parent)
     setExt("jpg");
     ApplicationPath u;
     setFolderPath(u.imagesFolderPath());
+    setImageName("deufalt_image_name");
 }
 
 int ImageFile::width()
