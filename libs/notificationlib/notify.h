@@ -74,8 +74,6 @@ public:
 
     KeywordTypeListModel* keywords();
 
-    Q_INVOKABLE void loadImageFromFile(QString path);
-
     Q_INVOKABLE void save();
     Q_INVOKABLE void load(int id);
     Q_INVOKABLE void deleteItem();

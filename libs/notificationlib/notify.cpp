@@ -402,30 +402,3 @@ QJsonObject Notify::readFeilds(){
     obj.insert("type",(int)type());
     return obj;
 }
-
-void Notify::loadImageFromFile(QString path)
-{
-    qInfo()<<"Image Path=>"<<path;
-    if(path.isNull()||path.isEmpty())
-    {
-        message()->setContent("مسیر فایل تهی است");
-        return;
-    }
-    ImageUtility im;
-    if(!im.loadFromPath(path)){
-        message()->setContent("تصویر بارگذاری نشد");
-        return;
-    }
-    //=======================
-    setUrl(QUrl::fromLocalFile(path));
-    QStringList filePathSplits=path.split("/");
-    QString fileNameHasExtension=filePathSplits.at(filePathSplits.count()-1);
-    setImageName(fileNameHasExtension.split(".").at(0));
-    //=======================
-    m_ImageBytes=im.imageBytes();
-    qWarning()<<"Image Bytes =>"<<m_ImageBytes.count();
-    if(m_ImageBytes.count()>=307200){
-        message()->setContent("حداکثر حجم تصویر 300 کیلوبایت است");
-        return;
-    }
-}
