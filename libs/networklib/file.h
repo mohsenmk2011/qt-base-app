@@ -11,6 +11,7 @@
 #include<filedownloadstates.h>
 #include<fileuploadstatus.h>
 #include<QUrl>
+#include<QNetworkRequest>
 
 class File : public JooyaNetwork
 {
@@ -78,7 +79,8 @@ public:
     Q_INVOKABLE bool exists();
 
     Q_INVOKABLE virtual void download();
-    Q_INVOKABLE virtual QNetworkReply* upload(QString url,QJsonObject obj);
+    Q_INVOKABLE virtual QNetworkReply* upload(QString url, QJsonObject obj);
+    Q_INVOKABLE virtual void upload();
     Q_INVOKABLE bool remove();
     bool isVideo(QString ext="");
     bool isAudio(QString ext="");

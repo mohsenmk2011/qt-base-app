@@ -270,11 +270,62 @@ void File::download()
 QNetworkReply* File::upload(QString url,QJsonObject obj)
 {
     qDebug()<<"is going to upload file";
+    if(uploadStatus() == FileUploadStatus::FileUploadStatusEnum::Unknown){
+        message()->setContent("فایل انتخاب نشده است");
+        return nullptr;
+    }
+    if(!this->url().isValid()){
+        qDebug()<<"file url is not valid";
+        message()->setContent("فایل انتخاب نشده است");
+        return nullptr;
+    }
+    qDebug()<<"current file url => "<<this->url();
     setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Started);
     QNetworkReply* r = postRequest(url,obj);
     connect(r,&QNetworkReply::finished,this,&File::onUpload);
     connect(r,&QNetworkReply::uploadProgress,this,&File::onUploadProgress);
     return r;
+}
+
+void File::upload()
+{
+    qDebug()<<"is going to upload file";
+    if(uploadStatus() == FileUploadStatus::FileUploadStatusEnum::Unknown){
+        message()->setContent("فایل انتخاب نشده است");
+        return;
+    }
+    if(!url().isValid()){
+        qDebug()<<"file url is not valid";
+        message()->setContent("فایل انتخاب نشده است");
+        return;
+    }
+    qDebug()<<"current file url => "<<url();
+
+    QFile *file = new QFile(url().path());
+    if (!file->open(QIODevice::ReadOnly))
+    {
+        qWarning() << "Failed to open file";
+        message()->setContent("فایل انتخاب نشده است");
+        return;
+    }
+    setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Started);
+    QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    QHttpPart filePart;
+    QString fileName = QFileInfo(url().path()).fileName();
+    qDebug()<<" file name => "<<fileName;
+    filePart.setHeader(QNetworkRequest::ContentDispositionHeader,QVariant("form-data; name=\"formFile\"; filename=\"" + fileName + "\""));
+    filePart.setBodyDevice(file);
+    file->setParent(multiPart);
+    multiPart->append(filePart);
+
+    QHttpPart urlPart;
+    urlPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"Url\""));
+    urlPart.setBody(downloadLink().toUtf8());
+    multiPart->append(urlPart);
+    QNetworkReply* r = post("api/File/Upload",multiPart);
+    multiPart->setParent(r);
+    connect(r,&QNetworkReply::finished,this,&File::onUpload);
+    connect(r,&QNetworkReply::uploadProgress,this,&File::onUploadProgress);
 }
 
 ///remove file from disk
@@ -415,11 +466,9 @@ void File::onUpload()
     }
     else{
         qCritical()<<"with error";
-        showBadMessage(r->readAll());
         setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Faild);
     }
 }
-
 void File::makeSureFolderExsists()
 {
     QDir dir(folderPath());
