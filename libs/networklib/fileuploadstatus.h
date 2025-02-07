@@ -10,6 +10,7 @@ public:
     enum class FileUploadStatusEnum:unsigned int
     {
         Unknown = 0,
+        /// when file is selected with ImageEditor or FileExplorer should set status to NotStarted
         NotStarted=1,
         Started=2,
         Succeed=3,
