@@ -47,24 +47,75 @@ Page {
                     anchors.fill: parent
                     imageFillMode:Image.PreserveAspectCrop
                 }
-                RoundButton{
-                    id:btnMenuNotify
-                    visible: CurrentUser.isLoggedIn&&CurrentUser.isAdmin
-                    width: 63
-                    height: width
-                    highlighted: true
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: -(height/3)
-                    anchors.left: parent.left
-                    anchors.leftMargin: 9
-                    contentItem: Image {
-                        fillMode: Image.Pad
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        source: "../../images/common/upload.png"
+            }
+            Pane{
+                enabled: !notify.isProcessing
+                Layout.fillWidth: true
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
+                Layout.preferredHeight: 54
+                padding: 0
+                Material.elevation: 2
+                Material.background: MaterialStyle.backColor200
+                RowLayout{
+                    anchors.fill: parent
+                    layoutDirection: Qt.RightToLeft
+                    ToolButton{
+                        Layout.preferredHeight: 54
+                        Layout.preferredWidth: 54
+                        enabled: !notify.isProcessing
+                        contentItem: IconImage {
+                            fillMode: Image.Pad
+                            source: "../../images/common/folder-open.png"
+                            color: MaterialStyle.iconColor
+                        }
+                        JooyaToolTip {
+                            text: notify.isExists ? "گزینش نگاره ای دیگر" : "گزینش نگاره"
+                        }
+                        onClicked: {
+                            //notify.loadImageFromFile(fileUrl);
+                            console.log("image not selected yet go select");
+                            sv.push("../../pages/common/ImageEditor.qml",{imageFile:notify,clipSize:Qt.size(500,250)});
+                        }
                     }
-                    onClicked: {
-                        notify.loadImageFromFile(fileUrl);
+                    ToolButton{
+                        Layout.preferredHeight: 54
+                        Layout.preferredWidth: 54
+                        enabled: !notify.isProcessing
+                        visible: notify.isExists && (notify.uploadStatus === FileUploadStatus.NotStarted || notify.uploadStatus === FileUploadStatus.Faild)
+                        contentItem: IconImage {
+                            fillMode: Image.Pad
+                            source: "../../images/common/upload.png"
+                            color: MaterialStyle.iconColor
+                        }
+                        JooyaToolTip {
+                            text: "بارگذاری نگاره"
+                        }
+                        onClicked: {
+                            console.log("=> btn upload clicked -> upload notify image");
+                            notify.uploadImage();
+                        }
+                    }
+                    ToolButton{
+                        Layout.preferredHeight: 54
+                        Layout.preferredWidth: 54
+                        enabled: !notify.isProcessing
+                        visible: notify.isExists
+                        contentItem: IconImage {
+                            fillMode: Image.Pad
+                            source: "../../images/common/delete.png"
+                            color: MaterialStyle.iconColor
+                        }
+                        JooyaToolTip {
+                            text: "زدودن نگاره"
+                        }
+                        onClicked: {
+                            console.log("image.url=> "+notify.url);
+                            deleteDialog.open();
+                        }
+                    }
+                    Item {
+                        Layout.fillWidth: true
                     }
                 }
             }
