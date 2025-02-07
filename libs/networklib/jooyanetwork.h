@@ -19,6 +19,7 @@
 #include<jooyasettings.h>
 #include<websockethandler.h>
 #include<datetimeutility.h>
+#include<headercontenttypes.h>
 
 class JooyaNetwork : public JooyaNetworkEngine
 {
@@ -38,7 +39,7 @@ public:
     QNetworkReply* getRequest(QString url, bool useIdentityUrl=false, bool isFullUrl=false);
     void getAndReturnObject(QString url);
 
-    void initializeRequestHeader(bool withJsonHeader=true);
+    void initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum headerContentType = HeaderContentTypes::HeaderContentTypesEnum::Json,QString boundary ="");
 
     QNetworkRequest m_Request;
     QNetworkAccessManager m_NetworkManager;
@@ -47,6 +48,7 @@ public:
 //    QNetworkReply *postRequest(QString url, QByteArray data);
     QNetworkReply *postRequest(QString url, QJsonObject obj, bool useIdentityUrl=false, bool isFullUrl=false);
     void post(QString url, QJsonObject obj);
+    QNetworkReply * post(QString url, QHttpMultiPart *multiPart);
     void postAndReturnObject(QString url, QJsonObject obj);
     QNetworkReply *postRequest(QString url, QUrlQuery query, bool useIdentityUrl=false, bool isFullUrl=false);
     QNetworkReply *deleteRequest(QString url,bool useIdentityUrl=false);

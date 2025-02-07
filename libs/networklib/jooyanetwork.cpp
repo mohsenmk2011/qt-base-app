@@ -14,15 +14,21 @@ JooyaNetwork::JooyaNetwork(QObject *parent) :JooyaNetworkEngine(parent)
     m_Request.setSslConfiguration(sslConfiguration);
 }
 
-void JooyaNetwork::initializeRequestHeader(bool withJsonHeader)
+void JooyaNetwork::initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum headerContentType,QString boundary)
 {
     //    qCritical()<<"*** Initialization request header ***";
     m_Request.rawHeaderList().clear();
-    if(withJsonHeader){
+    if(headerContentType == HeaderContentTypes::HeaderContentTypesEnum::Json)
+    {
         m_Request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/json"));
     }
-    else {
+    else if(headerContentType == HeaderContentTypes::HeaderContentTypesEnum::Form)
+    {
         m_Request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/x-www-form-urlencoded"));
+    }
+    else
+    {
+        m_Request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("multipart/form-data; boundary="+boundary));
     }
 }
 void JooyaNetwork::addTokenToRequestHeader(){
@@ -122,6 +128,15 @@ void JooyaNetwork::post(QString url, QJsonObject obj)
     connect(r,&QNetworkReply::finished,this,&JooyaNetwork::onRequestFinished);
 }
 
+QNetworkReply *JooyaNetwork::post(QString url, QHttpMultiPart* multiPart)
+{
+    setIsProcssing(true);
+    setUrl(url);
+    initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum::MultiPart,multiPart->boundary());
+    QNetworkReply* r=m_NetworkManager.post(m_Request,multiPart);
+    return r;
+}
+
 void JooyaNetwork::postAndReturnObject(QString url, QJsonObject obj)
 {
     setIsProcssing(true);
@@ -132,10 +147,9 @@ void JooyaNetwork::postAndReturnObject(QString url, QJsonObject obj)
 QNetworkReply* JooyaNetwork::postRequest(QString url, QUrlQuery query, bool useIdentityUrl, bool isFullUrl)
 {
     setIsProcssing(true);
-    //برای لاگین باید داده ها رو از طریق بدنه فرستاد
-    //در جواب سوال زیر نوشته شده است
+    // for login should use form header content type
     //https://stackoverflow.com/questions/37702013/webapi2-0-owin-token-request-using-json
-    initializeRequestHeader(false);
+    initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum::Form);
     setUrl(url,useIdentityUrl,isFullUrl);
 
     QNetworkReply* r= m_NetworkManager.post(m_Request,query.toString(QUrl::FullyEncoded).toUtf8());
