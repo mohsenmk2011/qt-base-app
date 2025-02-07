@@ -22,14 +22,15 @@ public:
     QJsonObject toJson() override;
     void fromJson(QJsonObject obj) override;
 
-    QNetworkReply* uploadImage();
-    QNetworkReply* deleteImage();
+    Q_INVOKABLE QNetworkReply* uploadImage();
+    Q_INVOKABLE QNetworkReply* deleteImage();
 signals:
     void widthChanged();
     void heightChanged();
     void isClipImageChanged();
 private slots:
     void deleteImageFinished();
+    void onUploadImage();
 private:
     int m_Width;
     int m_Height;

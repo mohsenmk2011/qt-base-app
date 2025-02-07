@@ -56,13 +56,31 @@ void ImageFile::fromJson(QJsonObject obj)
 QNetworkReply *ImageFile::uploadImage()
 {
     qDebug()<<"is going to upload the image => ";
-    if(uploadStatus() == FileUploadStatus::FileUploadStatusEnum::Unknown){
-        message()->setContent("نگاره انتخاب نشده است");
+    QNetworkReply* r = File::upload("api/File/SaveImage",toJson());
+    if(r==nullptr)
+    {
+        qCritical()<<"upload was not succeed => return";
         return nullptr;
     }
-    setUploadStatus(FileUploadStatus::FileUploadStatusEnum::Started);
-    QNetworkReply* r = postRequest("api/File/SaveImage",toJson());
+    connect(r,&QNetworkReply::finished,this,&ImageFile::onUploadImage);
     return r;
+}
+
+void ImageFile::onUploadImage()
+{
+    qDebug()<<"upload image finished";
+    QNetworkReply* r = convertToReply(sender());
+
+    if(r->error()==QNetworkReply::NoError)
+    {
+        qInfo()<<"with no error -> download it";
+        download();
+    }
+    else
+    {
+        qCritical()<<"with error";
+    }
+    showMessage(r);
 }
 
 QNetworkReply *ImageFile::deleteImage()
