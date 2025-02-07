@@ -16,6 +16,7 @@
 #include<websocketstates.h>
 #include<fileexplorer.h>
 #include<fileuploadstatus.h>
+#include<headercontenttypes.h>
 
 class Networklib
 {
@@ -37,6 +38,7 @@ public:
 
         qmlRegisterUncreatableType<FileDownloadStates>("Jooya",1,0,"FileDownloadStates","File Download States");
         qmlRegisterUncreatableType<FileUploadStatus>("Jooya",1,0,"FileUploadStatus","File upload status");
+        qmlRegisterUncreatableType<HeaderContentTypes>("Jooya",1,0,"HeaderContentTypes","Header Content Types");
     }
 };
 
