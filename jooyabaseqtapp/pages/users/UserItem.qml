@@ -60,7 +60,7 @@ Item{
             }
             onClicked: {
                 if(mouse.button===Qt.LeftButton){
-                    svManaging.push("UserPicturePage.qml",{userId:user.userId,userName:user.userName});
+                    svManaging.push("UserProfilePage.qml",{userId:user.userId,userName:user.userName});
                 }
                 else{
                     mnuUser.x=mouse.x;

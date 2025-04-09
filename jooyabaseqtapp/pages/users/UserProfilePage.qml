@@ -10,7 +10,7 @@ import JooyaQuick.Controls.Material
 
 JooyaPage{
     id: root
-    objectName: "UserPicturePage"
+    objectName: "UserProfilePage"
     signal profileHasChanged;
     property BaseUser baseUser: null
     property string userName: ""
@@ -90,7 +90,7 @@ JooyaPage{
     property UserImage currentImage: null
 
     QmlLive.onFileChanged:{
-        console.log("QmlLive.onFileChanged(in UserPicturePage.qml) => "+fileName);
+        console.log("QmlLive.onFileChanged(in UserProfilePage.qml) => "+fileName);
         if(fileName==="TakePicturePage"){
             if(sv.currentItem.objectName==="TakePicturePage"){
                 sv.replaceEnter.enabled=false;

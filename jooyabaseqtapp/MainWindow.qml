@@ -33,7 +33,7 @@ Page {
 
     property bool svHasItem: sv.currentItem!== null
     property bool isBasketVisible: svHasItem && sv.currentItem.objectName==="BasketPage"
-    property bool isUserPircturePageVisible: svHasItem && sv.currentItem.objectName==="UserPicturePage"
+    property bool isUserPircturePageVisible: svHasItem && sv.currentItem.objectName === "UserProfilePage"
     property bool isLoginPageVisible: svHasItem && sv.currentItem.objectName==="LoginPage"
     property bool isSignUpPageVisible: svHasItem && sv.currentItem.objectName==="SignupPage"
     property bool isUserDisplayNamePageVisible: svHasItem && sv.currentItem.objectName==="UserDisplayNamePage"
@@ -102,10 +102,14 @@ Page {
                 sv.replace("pages/HomePage.qml");
             }
         }
-        else if(fileName==="UserPicturePage"||fileName==="UserImageItem"){
+        else if(fileName === "UserProfilePage" || fileName === "UserImageItem"){
             sv.replaceEnter.enabled=false;
+<<<<<<< HEAD:jooyabaseqtapp/MainWindow.qml
             QmlLive.clearCache();
             sv.replace("pages/users/UserPicturePage.qml",{baseUser:baseUser});
+=======
+            sv.replace("pages/users/UserProfilePage.qml",{baseUser:baseUser});
+>>>>>>> f9f3fa6 (renamed UserPicturePage -> UserProfilePage):gira/MainWindow.qml
         }
         else if(fileName==="SettingsPage"){
                 sv.replaceEnter.enabled=false;
@@ -660,7 +664,7 @@ Page {
                     }
                 }
                 model: ListModel {
-                    ListElement { name: "userprofileLI";link:"pages/users/UserPicturePage.qml"; title: "حساب کاربری"; source: "images/common/account.png"}
+                    ListElement { name: "userprofileLI";link:"pages/users/UserProfilePage.qml"; title: "حساب کاربری"; source: "images/common/account.png"}
                     ListElement { name: "settingsLI";link:"pages/common/SettingsPage.qml"; title: "تنظیمات"; source: "images/common/cog.png" }
                     ListElement { name: "shareLI"; link:"pages/common/SharePage.qml"; title: "معرفی به دوستان"; source: "images/common/share-variant.png" }
                     ListElement { name: "contactUsLI";link:"pages/chat/ChatsPage.qml"; title: "تماس با ما"; source: "images/common/phone.png" }

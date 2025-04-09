@@ -98,7 +98,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/users/SignupPage.qml
     pages/users/UserImageItem.qml
     pages/users/UserItem.qml
-    pages/users/UserPicturePage.qml
+    pages/users/UserProfilePage.qml
     pages/users/UserDisplayNamePage.qml
     pages/chat/ChatPage.qml
     pages/chat/ContactItem.qml
