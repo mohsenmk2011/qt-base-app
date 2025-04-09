@@ -16,31 +16,13 @@ Rectangle{
         imageFile: userImage
         defaultImageUrl: "../../images/common/account.png"
         anchors.fill: parent
-        Pane{
-            visible: lbl.text!=""
-            Material.elevation: 2
-            Material.background: MaterialStyle.accentTextColor
+        TagItem{
+            text: userImage.persianDate == "" ? "تاریخ تصویر" : userImage.persianDate
+            fontFamily: flYekan.name
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 9
             anchors.left: parent.left
             anchors.leftMargin: 9
-            width: lbl.width+9
-            height: lbl.height
-            PropertyAnimation{
-                property: "width"
-                duration: 1000
-            }
-            z:parent.z+1
-            Label {
-                id:lbl
-                text: userImage.persianDate
-                font {
-                    family: flIranSanse.name
-                    pixelSize: 12
-                }
-                color: MaterialStyle.isDark?"black":"white"
-                anchors.centerIn: parent
-            }
         }
     }
 }
