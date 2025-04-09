@@ -22,7 +22,7 @@ Page{
     }
     Shortcut{
         sequence: "Return"
-        enabled: isWindows&&root.visible
+        enabled: isDesktopOs && root.visible
         onActivated: {
             loginManager.activate(signupResult.phoneNumber,tfActivationCode.text);
         }

@@ -28,8 +28,8 @@ Page {
         }
     }
 
-    property bool isWindows: Qt.platform.os=="windows"
-    property bool isAndroid: Qt.platform.os=="android"
+    property bool isDesktopOs: (Qt.platform.os === "windows" || Qt.platform.os === "linux")
+    property bool isAndroid: Qt.platform.os === "android"
 
     property bool svHasItem: sv.currentItem!== null
     property bool isBasketVisible: svHasItem && sv.currentItem.objectName==="BasketPage"

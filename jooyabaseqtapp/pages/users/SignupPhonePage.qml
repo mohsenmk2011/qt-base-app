@@ -26,7 +26,7 @@ Page{
     }
     Shortcut{
         sequence: "Return"
-        enabled: isWindows&&root.visible
+        enabled: isDesktopOs && root.visible
         onActivated: {
             lm.signUp(tfPhoneNumber.text);
         }
