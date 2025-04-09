@@ -4,25 +4,34 @@ import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 
 Pane{
+    signal selectedChanged()
     property alias text: lbl.text
     property bool isSelected: false
-    property alias contentFont: lbl.font
-    property color backColor: (MaterialStyle.isDark || isSelected) ? MaterialStyle.invertedPrimaryTextColor : MaterialStyle.primaryTextColor
-    property color foreColor: (MaterialStyle.isDark || isSelected) ? MaterialStyle.primaryTextColor : MaterialStyle.invertedPrimaryTextColor
+    property string fontFamily: flYekan.name
+    property color backColor: isSelected ? MaterialStyle.invertedPrimaryTextColor : MaterialStyle.primaryTextColor
+    property color foreColor: isSelected ? MaterialStyle.primaryTextColor : MaterialStyle.invertedPrimaryTextColor
 
     Material.elevation: 1
     Material.background: backColor
-    width: lbl.width+9
+    width: lbl.width+18
     height: lbl.height
     padding: 0
     Label {
         id:lbl
         text: "yourTag"
         font {
-            family: flYekan.name
-            pixelSize: 12
+            family: fontFamily
+            pixelSize: 15
+            bold: true
         }
         color: foreColor
         anchors.centerIn: parent
+    }
+    MouseArea{
+        anchors.fill: parent
+        onClicked: {
+            isSelected = !isSelected
+            selectedChanged();
+        }
     }
 }
