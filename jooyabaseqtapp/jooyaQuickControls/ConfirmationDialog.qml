@@ -7,6 +7,7 @@ import Jooya
 
 Dialog{
     id: root
+    Material.roundedScale: Material.ExtraSmallScale
     signal yesClicked
     signal noClicked
     property int rootWidth:mainWindow.width

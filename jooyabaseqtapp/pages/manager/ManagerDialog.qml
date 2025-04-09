@@ -10,7 +10,7 @@ import QtQuick.Layouts
 Dialog {
     id: root
     padding: 0
-
+    Material.roundedScale: Material.NotRounded
     property bool isRolePageIsVisible: false
     x:root.width===mainWindow.width?0:(mainWindow.width-root.width)/2
     height: mainWindow.height

@@ -583,6 +583,7 @@ Page {
     Drawer{
         id: drawer
         objectName: "drawer"
+        Material.roundedScale: Material.NotRounded
         width: Math.min(mainWindow.width, mainWindow.height) * 0.8
         height: mainWindow.height
         onOpened: {
@@ -774,6 +775,7 @@ Page {
     }
     Drawer{
         id:drawerPaymentResult
+        Material.roundedScale: Material.ExtraSmallScale
         height: parent.height/3
         width: parent.width
         edge: Qt.BottomEdge
