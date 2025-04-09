@@ -55,14 +55,25 @@ Pane {
                 }
             }
         }
+        TagItem{
+            id:lblIsAdmin
+            text: "کاربر مدیر"
+            fontFamily: flYekan.name
+            anchors.verticalCenter: cimg.verticalCenter
+            anchors.left: cimg.right
+            anchors.leftMargin: -6
+            visible: CurrentUser.isAdmin
+        }
         Text {
             color: MaterialStyle.invertedPrimaryTextColor
             text: user.displayName
             Layout.fillWidth: true
             Layout.leftMargin: 16
+            Layout.topMargin: lblIsAdmin.visible ? -1 * lblIsAdmin.height : 0
             horizontalAlignment: Text.AlignLeft
             font.pixelSize: 18
             font.family: flYekan.name
+            font.bold: true
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
