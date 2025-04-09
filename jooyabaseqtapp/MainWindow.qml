@@ -341,7 +341,7 @@ Page {
             }
             ToolButton {
                 id: tbtnTheme
-                visible: MaterialStyle.buttonVisible&&CurrentUser.isLoggedIn&&sv.depth==1
+                visible: MaterialStyle.buttonVisible && CurrentUser.isLoggedIn
                 width: visible ? implicitWidth : 0
                 height: visible ? implicitHeight : 0
                 contentItem: Image {
