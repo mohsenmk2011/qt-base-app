@@ -73,7 +73,7 @@ Page {
             Layout.preferredHeight: 60
             Layout.leftMargin: 9
             Layout.rightMargin: 9
-            Button{
+            JooyaButton{
                 id: btnPreviose
                 text: "قبلی"
                 font: flYekan.name
@@ -85,7 +85,7 @@ Page {
                     console.log(svNotification.currentIndex);
                 }
             }
-            Button{
+            JooyaButton{
                 id: btnNext
                 text: isLastItem?"بستن": "بعدی"
                 highlighted: true

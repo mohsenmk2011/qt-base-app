@@ -9,6 +9,7 @@ import QtQuick.Layouts
 
 Dialog {
     id:root
+    Material.roundedScale: Material.NotRounded
     padding: 0
     parent: Overlay.overlay
     x:root.width===mainWindow.width?0:(mainWindow.width-root.width)/2

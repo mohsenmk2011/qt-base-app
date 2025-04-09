@@ -214,7 +214,7 @@ Page {
                 spacing: 25
                 Layout.leftMargin: 18
                 Layout.rightMargin: 18
-                Button{
+                JooyaButton{
                     id: btnType
                     font.pixelSize: 12
                     text: "انتخاب ویژگی هشدر"
@@ -223,7 +223,7 @@ Page {
                         typeDialog.open();
                     }
                 }
-                Button{
+                JooyaButton{
                     id: btnSave
                     text: "ذخیره"
                     font.pixelSize: 12

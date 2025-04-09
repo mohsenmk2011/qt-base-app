@@ -4,6 +4,7 @@ import QtQuick.Controls.Material
 import QtQuick.Layouts
 
 Button {
+    Material.roundedScale: Material.ExtraSmallScale
     highlighted: true
     hoverEnabled: true
     Layout.fillWidth: true

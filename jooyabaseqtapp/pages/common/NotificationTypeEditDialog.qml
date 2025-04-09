@@ -9,6 +9,7 @@ import "../manager"
 
 Dialog{
     id:notifyTypeDialog
+    Material.roundedScale: Material.ExtraSmallScale
     property bool isInEditPage: false
 
     property int rootWidth:mainWindow.width

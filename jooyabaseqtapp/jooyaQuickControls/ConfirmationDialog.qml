@@ -61,7 +61,7 @@ Dialog{
         anchors.rightMargin: 0
         layoutDirection: Qt.RightToLeft
         anchors.bottomMargin: 0
-        Button{
+        JooyaButton{
             Layout.fillWidth: true
             highlighted: yesHighlighted
             text: yesButtonText
@@ -70,7 +70,7 @@ Dialog{
                 root.close();
             }
         }
-        Button{
+        JooyaButton{
             Layout.fillWidth: true
             highlighted: noHighlighted
             text: noButtonText
