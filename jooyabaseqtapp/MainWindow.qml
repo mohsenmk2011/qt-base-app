@@ -587,7 +587,7 @@ Page {
         ColumnLayout{
             anchors.margins: 0
             anchors.fill: parent
-            UserInfoDisplyer{
+            UserInfoDisplayer{
                 preferredHeight:144
                 user: baseUser
             }

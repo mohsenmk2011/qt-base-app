@@ -124,7 +124,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/common/FrequentQuestionsPage.qml
     pages/common/FileExplorerPage.qml
     pages/common/ImageEditor.qml
-    items/common/UserInfoDisplyer.qml
+    items/common/UserInfoDisplayer.qml
     items/common/ImageItem.qml
     items/common/TitleItem.qml
     items/common/PaneWithTitle.qml
