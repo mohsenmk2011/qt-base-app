@@ -36,7 +36,6 @@ Page {
     property bool isUserPircturePageVisible: svHasItem && sv.currentItem.objectName === "UserProfilePage"
     property bool isLoginPageVisible: svHasItem && sv.currentItem.objectName==="LoginPage"
     property bool isSignUpPageVisible: svHasItem && sv.currentItem.objectName==="SignupPage"
-    property bool isUserDisplayNamePageVisible: svHasItem && sv.currentItem.objectName==="UserDisplayNamePage"
     property bool isNotifyDisplayPageVisible: svHasItem && sv.currentItem.objectName==="NotifyDisplayPage"
 
     property string mainFontName: flYekan.name
@@ -278,7 +277,7 @@ Page {
     header: ToolBar {
         id: tbMain
         objectName: "mainToolbar"
-        visible:!(isNotifyDisplayPageVisible||isUserDisplayNamePageVisible)
+        visible:!(isNotifyDisplayPageVisible)
         padding: 0
         Material.elevation: 1
         RowLayout{
