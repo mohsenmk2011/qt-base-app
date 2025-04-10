@@ -77,6 +77,8 @@ Pane {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
+                    drawer.close();
+                    sv.push("../../pages/users/UserDisplayNamePage.qml");
                 }
             }
         }
