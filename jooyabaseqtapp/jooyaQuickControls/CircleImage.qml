@@ -12,13 +12,14 @@ Item {
         radius: parent.width / 2
         color: MaterialStyle.backColor50
         visible: img.state !== Image.Ready
-        Image {
+        IconImage {
             id: imgDefault
             anchors.centerIn: parent
             fillMode: Image.Pad
             width: 27
             height: 27
             source: sourceDefault
+            color: MaterialStyle.iconColor
         }
     }
     Rectangle {
