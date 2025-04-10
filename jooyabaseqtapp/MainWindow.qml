@@ -165,7 +165,10 @@ Page {
             else if(drawer.visible){
                 drawer.close();
             }
-            else{
+            else if(exitDialog.visible){
+                exitDialog.close();
+            }
+            else {
                 exitDialog.open();
             }
         }
