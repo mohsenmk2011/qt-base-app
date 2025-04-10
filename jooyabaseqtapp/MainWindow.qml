@@ -103,12 +103,7 @@ Page {
         }
         else if(fileName === "UserProfilePage" || fileName === "UserImageItem"){
             sv.replaceEnter.enabled=false;
-<<<<<<< HEAD:jooyabaseqtapp/MainWindow.qml
-            QmlLive.clearCache();
-            sv.replace("pages/users/UserPicturePage.qml",{baseUser:baseUser});
-=======
             sv.replace("pages/users/UserProfilePage.qml",{baseUser:baseUser});
->>>>>>> f9f3fa6 (renamed UserPicturePage -> UserProfilePage):gira/MainWindow.qml
         }
         else if(fileName==="SettingsPage"){
                 sv.replaceEnter.enabled=false;
@@ -172,16 +167,39 @@ Page {
             }
         }
     }
-    function closeNotificationPage(){
+    function displayHomePage(){
+        console.info("display home page(push home page to main stackview) ===>");
+        /// this function will run
+        /// when user logged in changed
+        /// when is closing notification page
+        /// when Component.onCompeleted signal runned in MainWindow(app startup)
+        drawer.close();
+        sv.pop(null);
+
         if(CurrentUser.isLoggedIn){
-            sv.pop();
+            console.log("user is logged in => display books page :)");
+            //check deep link in application home page
+            //for example in rokhshid home page is exercises page so,after loading exercises check deep link
+            //adlm.checkDeepLink();
+            sv.replace("app/pages/BooksPage.qml");
         }
         else{
-            sv.pop(null);
-            if(!isSignUpPageVisible){
-                sv.replace("pages/users/SignupPhonePage.qml");
+            console.log("user is NOT logged in =>");
+            if(currentAppSettings.seenAppIntroducing)
+            {
+                if(!isSignUpPageVisible){
+                    console.log("and user don't want to see app intro => display SignupPage");
+                    sv.replace("pages/users/SignupPhonePage.qml");
+                }
+            }
+            else
+            {
+                console.log("and user want to see app intro => display app intro");
+                notifyManager.currentType=NotificationTypes.AppIntroducing;
+                sv.replace("pages/common/NotifyDisplayPage.qml");
             }
         }
+
     }
 
     BaseUser{
@@ -222,9 +240,8 @@ Page {
         onRefreshLastViewSucceed: {
             console.log("######### notifyManager.onRefreshLastViewSucceed #############")
             console.log("#########            In main page         #############")
-            closeNotificationPage();
-
-            currentAppSettings.seenAppIntroducing=true;
+            currentAppSettings.seenAppIntroducing = true;
+            displayHomePage();
         }
         onIsProcessingChanged:(isProcessing)=> {
             progressIndicator.visible=isProcessing;
@@ -235,38 +252,12 @@ Page {
         console.info("###### Component.onCompleted ="+CurrentUser.isLoggedIn+" ######")
         console.info("#########################################################################")
         themChangeAnimator.setAnimationEnabling(false);
-        if(CurrentUser.isLoggedIn){
-            //check deep link here
-            //in rokhshid it inserted after loading exercises
-            //adlm.checkDeepLink();
-            sv.push("pages/HomePage.qml");
-        }
-        else{
-            console.log("rSettings.seenAppIntroducing=> "+currentAppSettings.seenAppIntroducing)
-            if(currentAppSettings.seenAppIntroducing)
-            {
-                sv.push("pages/users/SignupPhonePage.qml");
-            }
-            else
-            {
-                notifyManager.currentType=NotificationTypes.AppIntroducing;
-                sv.push("pages/common/NotifyDisplayPage.qml");
-            }
-        }
-        chatManager.getList();
     }
     CurrentUser.onIsLoggedInChanged: {
         console.info("#########################################################################")
-        console.info("###### CurrentUser.onIsLoggedInChanged ="+CurrentUser.isLoggedIn+" ######")
+        console.info("###### CurrentUser.isLoggedIn changed to => "+CurrentUser.isLoggedIn+" ######")
         console.info("#########################################################################")
-        if(CurrentUser.isLoggedIn){
-            sv.pop(null);
-            sv.replace("pages/HomePage.qml");
-        }
-        else{
-            drawer.close();
-            closeNotificationPage();
-        }
+        displayHomePage();
     }
     FontLoaderYekan{
         id:flYekan
