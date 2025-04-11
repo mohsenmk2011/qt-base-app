@@ -18,7 +18,7 @@ Page{
         id: up
         onProfileChanged: {
             baseUser.getUserInfo();
-            sv.pop();
+            displayHomePage();
         }
         onImageLoadingChanged: {
             if(argLoaded){
@@ -39,9 +39,9 @@ Page{
         id:imgFile
         downloadLink: "/Images/InsertPhoneNumber.jpg"
     }
-    JooyaFlickable{
+    Flickable{
         anchors.fill: parent
-        contentHeight: mainClm.implicitHeight
+        contentHeight: mainClm.implicitHeight + 45
         //================================================
         ColumnLayout{
             id: mainClm
@@ -100,7 +100,7 @@ Page{
                 }
             }
             Rectangle{
-                color: "#a5d6a7"
+                color: MaterialStyle.backColor100
                 Layout.fillWidth: true
                 Layout.preferredHeight: txtMessage.implicitHeight+18
                 Layout.leftMargin: 9
@@ -111,20 +111,27 @@ Page{
                     wrapMode: Text.Wrap
                     padding: 18
                     bottomPadding: 0
-                    color: "#003300"
+                    color: MaterialStyle.primaryTextColor
                     font{
                         family: flYekan.name
                         pixelSize: 14
                     }
-                    text:"نام خود را در کادر زیر وارد کنید.افراد در اپلیکیشن رخشید شما را با این نام می شناسند.این نام می تواند نام حقیقی شما یا هر چیز دیگری باشد"
+                    text:"نام خود را در کادر زیر وارد کنید.افراد در اپلیکیشن "+CurrentApplication.name+" شما را با این نام می شناسند.این نام می تواند نام حقیقی شما یا هر چیز دیگری باشد"
                 }
             }
-            JooyaTextField{
+            TextFieldLabeld{
                 id: tfDisplayName
-                placeholderText: "نام شما در رخشید"
+                title: "نام شما در " + CurrentApplication.name
+                placeholderText2: "نام شما در " + CurrentApplication.name
                 text: up.displayName
                 Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
                 EnterKey.type: Qt.EnterKeyDone
+            }
+            Item {
+                Layout.fillHeight: true
             }
             JooyaButton{
                 id: btnSave
@@ -134,9 +141,6 @@ Page{
                 onClicked: {
                     up.saveDisplayName(tfDisplayName.text);
                 }
-            }
-            Item {
-                Layout.fillHeight: true
             }
         }
     }
