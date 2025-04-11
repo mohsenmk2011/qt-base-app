@@ -682,30 +682,48 @@ Page {
                 Material.background: MaterialStyle.accent100
                 ColumnLayout{
                     anchors.fill: parent
-                    Text{
-                        id: txtAppName
+                    Rectangle{
+                        color: "transparent"
                         Layout.fillWidth: true
-                        //TODO: Change this after creating new branch from master branch
-                        baseUrl: "https://jooyabash.ir"
-                        text: "اپلیکیشن جویا"
-                        horizontalAlignment: Text.AlignRight
-                        color: MaterialStyle.primaryTextColor
-                        font{
-                            family: flYekan.name
-                            pixelSize: 16
-                            bold: true
-                        }
                         MouseArea{
+                        Layout.preferredHeight: 36
+                        RowLayout{
                             anchors.fill: parent
-                            hoverEnabled: true
-                            onClicked: {
-                                Qt.openUrlExternally(txtAppName.baseUrl);
+                            layoutDirection: Qt.RightToLeft
+                            IconImage {
+                                fillMode: Image.Pad
+                                verticalAlignment: Image.AlignVCenter
+                                source:  "images/common/open-in-new.png"
+                                color: MaterialStyle.primaryTextColor
+                                Layout.alignment: Qt.AlignVCenter
                             }
-                            onEntered: {
-                                txtAppName.font.underline=true;
+                            Text{
+                                id: txtAppName
+                                baseUrl: "https://gira.jooyabash.ir"
+                                text: "اپلیکیشن " + CurrentApplication.name
+                                color: MaterialStyle.primaryTextColor
+                                verticalAlignment: Image.AlignVCenter
+                                font{
+                                    family: flYekan.name
+                                    pixelSize: 16
+                                    bold: true
+                                }
+                                MouseArea{
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    onClicked: {
+                                        Qt.openUrlExternally(txtAppName.baseUrl);
+                                    }
+                                    onEntered: {
+                                        txtAppName.font.underline=true;
+                                    }
+                                    onExited: {
+                                        txtAppName.font.underline=false;
+                                    }
+                                }
                             }
-                            onExited: {
-                                txtAppName.font.underline=false;
+                            Item {
+                                Layout.fillWidth: true
                             }
                         }
                     }
