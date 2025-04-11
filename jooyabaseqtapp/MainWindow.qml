@@ -181,6 +181,12 @@ Page {
             //check deep link in application home page
             //for example in rokhshid home page is exercises page so,after loading exercises check deep link
             //adlm.checkDeepLink();
+            console.log("baseUser.displayName ==> " + baseUser.displayName);
+            if(baseUser.displayName === ""){
+                console.log("baseUser.displayName is null ==> push UserDisplayNamePage");
+                sv.replace("pages/users/UserDisplayNamePage.qml");
+                return;
+            }
             sv.replace("app/pages/BooksPage.qml");
         }
         else{
