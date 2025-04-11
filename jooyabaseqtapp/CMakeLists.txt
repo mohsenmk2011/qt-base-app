@@ -413,6 +413,10 @@ qt_add_resources(${PROJECT_NAME} "commonimages"
     images/common/content-save@3x.png
     images/common/content-save@2x.png
     images/common/content-save.png
+    images/common/open-in-new.png
+    images/common/open-in-new@2x.png
+    images/common/open-in-new@3x.png
+    images/common/open-in-new@4x.png
 )
 
 qt_add_resources(${PROJECT_NAME} "chatimages"
