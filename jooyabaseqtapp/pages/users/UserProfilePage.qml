@@ -160,7 +160,7 @@ JooyaPage{
                         text:!currentImage.isExists? "گرفتن عکس":"حذف کردن عکس"
                     }
                     onClicked: {
-                        if(userProfile.canTakePic){
+                        if(!currentImage.isExists){
 
                             if(permissionManager.requestCamera()){
                                 sv.push("../common/TakePicturePage.qml",{up:userProfile});
