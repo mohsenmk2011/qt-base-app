@@ -28,10 +28,9 @@ Page {
                     id:clmContent
                     anchors.fill: parent
                     spacing: 9
-                    IconImage{
+                    Image{
                         id: imgIcon
                         source: "../../images/icon.png"
-                        color: MaterialStyle.iconColor
                         Layout.preferredHeight: 171
                         Layout.preferredWidth: 171
                         Layout.alignment: Qt.AlignHCenter
