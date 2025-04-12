@@ -50,7 +50,7 @@ Page {
 //        source: "./TestItem.qml"
 //    }
 
-    QmlLive.onFileChanged:{
+    QmlLive.onFileChanged:(fileName)=>{
         console.log("QmlLive.onFileChanged(in MainWindow.qml) => "+fileName);
         if(fileName==="ImageEditor"){
                 sv.replaceEnter.enabled=false;
@@ -664,13 +664,13 @@ Page {
                     }
                 }
                 model: ListModel {
-                    ListElement { name: "userprofileLI";link:"pages/users/UserProfilePage.qml"; title: "حساب کاربری"; source: "images/common/account.png"}
-                    ListElement { name: "settingsLI";link:"pages/common/SettingsPage.qml"; title: "تنظیمات"; source: "images/common/cog.png" }
-                    ListElement { name: "shareLI"; link:"pages/common/SharePage.qml"; title: "معرفی به دوستان"; source: "images/common/share-variant.png" }
-                    ListElement { name: "contactUsLI";link:"pages/chat/ChatsPage.qml"; title: "تماس با ما"; source: "images/common/phone.png" }
-                    ListElement { name: "aboutusLI";link:"pages/common/AboutUsPage.qml"; title: "درباره ما"; source: "images/common/information.png" }
-                    ListElement { name: "questionsLI" ;link:"pages/common/FrequentQuestionsPage.qml";title: "سوالات متداول"; source: "images/common/frequently-asked-questions.png" }
-                    ListElement { name: "exitPanelLI"; title: "خروج از حساب کاربری"; source: "images/common/logout.png" }
+                    ListElement { name: "userprofileLI";link:"pages/users/UserProfilePage.qml"; title: "حساب کاربری"; source: "../../images/common/account.png"}
+                    ListElement { name: "settingsLI";link:"pages/common/SettingsPage.qml"; title: "تنظیمات"; source: "../../images/common/cog.png" }
+                    ListElement { name: "shareLI"; link:"pages/common/SharePage.qml"; title: "معرفی به دوستان"; source: "../../images/common/share-variant.png" }
+                    ListElement { name: "contactUsLI";link:"pages/chat/ChatsPage.qml"; title: "تماس با ما"; source: "../../images/common/phone.png" }
+                    ListElement { name: "aboutusLI";link:"pages/common/AboutUsPage.qml"; title: "درباره ما"; source: "../../images/common/information.png" }
+                    ListElement { name: "questionsLI" ;link:"pages/common/FrequentQuestionsPage.qml";title: "سوالات متداول"; source: "../../images/common/frequently-asked-questions.png" }
+                    ListElement { name: "exitPanelLI"; title: "خروج از حساب کاربری"; source: "../../images/common/logout.png" }
                 }
 
                 ScrollIndicator.vertical: ScrollIndicator { }
@@ -692,8 +692,7 @@ Page {
                             layoutDirection: Qt.RightToLeft
                             IconImage {
                                 fillMode: Image.Pad
-                                verticalAlignment: Image.AlignVCenter
-                                source:  "images/common/open-in-new.png"
+                                source:  "../../images/common/open-in-new.png"
                                 color: MaterialStyle.primaryTextColor
                                 Layout.alignment: Qt.AlignVCenter
                             }
@@ -814,7 +813,7 @@ Page {
                 width: 27
                 height: 27
                 fillMode: Image.Pad
-                source: "images/common/window-close.png"
+                source: "../../images/common/window-close.png"
                 color: MaterialStyle.iconColor
             }
             onClicked: {

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import JooyaQuick.Controls.Material
-
+import "../items/common"
 Item {
     id: circleImage
     property alias source: img.source
