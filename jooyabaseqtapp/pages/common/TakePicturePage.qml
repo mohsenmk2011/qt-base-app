@@ -1,11 +1,12 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import Jooya 1.0
-import QtMultimedia 5.12
-import QtQuick.Layouts 1.12
-import QtQuick.Window 2.12
-import QtSensors 5.12
-import "../jooyaQuickControls"
+import QtQuick
+import QtQuick.Controls
+import Jooya
+import QtMultimedia
+import QtQuick.Layouts
+import QtQuick.Window
+import QtSensors
+import "../../jooyaQuickControls"
+
 
 JooyaPage {
     id:root
