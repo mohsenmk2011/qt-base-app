@@ -20,16 +20,11 @@
 class UserProfile : public User
 {
     Q_OBJECT
-
-    Q_PROPERTY(bool canTakePic READ canTakePic WRITE setCanTakePic NOTIFY canTakePicChanged)
     Q_PROPERTY(UserImageListModel* listModel READ listModel CONSTANT)
     Q_PROPERTY(bool isCurrentDefault READ isCurrentDefault WRITE setIsCurrentDefault NOTIFY isCurrentDefaultChanged)
 
 public:
     explicit UserProfile(QObject *parent = nullptr);
-
-    bool canTakePic();
-    void setCanTakePic(bool can);
 
     bool isCurrentDefault();
     void setIsCurrentDefault(bool isDefault);
@@ -52,7 +47,6 @@ signals:
 
     void getProfileSucceed();
     void getScoreSucceed();
-    void canTakePicChanged();
     void isCurrentDefaultChanged();
     void imageDeleted();
 private slots:
@@ -64,7 +58,6 @@ private slots:
     void getScoreFinished();
 private:
     QByteArray m_ImageBytes;
-    bool m_CanTakePic;
     bool m_IsCurrentDefault;
 
     void fromJson(QJsonObject obj);

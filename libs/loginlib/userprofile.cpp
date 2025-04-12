@@ -7,23 +7,8 @@ UserProfile::UserProfile(QObject *parent) : User(parent)
     setUserName("");
     setGender(false);
     m_ImageBytes="";
-    m_CanTakePic=false;
     m_ListModel.add(new UserImage());
     connect(&m_ListModel,SIGNAL(deletedItem()),this,SLOT(onImageDeleted()));
-}
-
-bool UserProfile::canTakePic()
-{
-    return m_CanTakePic;
-}
-
-void UserProfile::setCanTakePic(bool can)
-{
-    if(m_CanTakePic!=can){
-        qDebug()<<"CanTakePic=>"<<can;
-        m_CanTakePic=can;
-        emit canTakePicChanged();
-    }
 }
 
 bool UserProfile::isCurrentDefault()
@@ -207,13 +192,8 @@ void UserProfile::fromJson(QJsonObject obj){
     setUserName(obj.value("userName").toString());
 
     setIsSupporter(obj.value("isSupporter").toBool());
-    setCanTakePic(obj.value("canTakeNewPicture").toBool());
     QJsonArray array=obj.value("images").toArray();
 
-    if(canTakePic()){
-        qInfo()<<"is adding default image";
-        m_ListModel.add(new UserImage());
-    }
     if(array.count()>0){
         m_ListModel.removeRows();
         for (int i = array.count()-1; i >= 0; --i) {
@@ -224,6 +204,8 @@ void UserProfile::fromJson(QJsonObject obj){
             m_ListModel.insert(img,0);
             img->download();
         }
+        qInfo()<<"is adding default image at the end of user images list";
+        m_ListModel.add(new UserImage());
     }
 }
 
@@ -315,7 +297,6 @@ void UserProfile::onImageDeleted()
     qDebug()<<"listModel()->rowCount()"<<listModel()->rowCount();
     if(listModel()->rowCount()==0){
         m_ListModel.add(new UserImage());
-        setCanTakePic(true);        
         emit imageDeleted();
     }
 }
