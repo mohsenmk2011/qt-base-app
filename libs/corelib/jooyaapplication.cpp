@@ -5,6 +5,7 @@ JooyaApplication::JooyaApplication(QObject *parent) : JooyaNetworkEngine(parent)
     m_MaterialStyleHelper=new MaterialStyleHelper();
     m_CurrentApplicationHelper = new CurrentApplicationHelper();
     m_ApplicationAlarmSettingsHelper = new ApplicationAlarmSettingsHelper();
+    m_ApplicationPageManager = new AppPagesManager();
 }
 
 void JooyaApplication::processQmlLiveCommandLine(QGuiApplication *app)
@@ -64,6 +65,7 @@ void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,
 
 MaterialStyleHelper* JooyaApplication::m_MaterialStyleHelper;//=new MaterialStyleHelper();
 ApplicationAlarmSettingsHelper* JooyaApplication::m_ApplicationAlarmSettingsHelper;
+AppPagesManager* JooyaApplication::m_ApplicationPageManager;
 bool JooyaApplication::m_IsDesignMode=false;
 
 CurrentApplicationHelper* JooyaApplication::m_CurrentApplicationHelper;

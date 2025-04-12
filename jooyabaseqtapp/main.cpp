@@ -84,11 +84,11 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     //QQuickStyle::setStyle("Universal");
     QQmlApplicationEngine engine;
+    JooyaApplication::m_ApplicationPageManager->loadQQmlApplicationEngine(&engine);
     //----------------------------------------------------------
 #if defined(QT_DEBUG) && !defined(Q_OS_ANDROID)
     const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/jooyabaseqtapp");
     JooyaNetworkEngine::m_FileWather=new FileWatcher();
-    JooyaNetworkEngine::m_FileWather->loadQQmlApplicationEngine(&engine);
     JooyaNetworkEngine::m_FileWather->addExcludeDirs(QStringList()<<"Other"<<"android");
     JooyaNetworkEngine::m_FileWather->setDirectory(projectDirectory.absolutePath());
     //JooyaNetworkEngine::m_FileWather->writepathcounts();
@@ -100,7 +100,6 @@ int main(int argc, char *argv[])
 
     //------------------------[ AppPagesManager ]-----------------------
     //        AppPagesManager pm;
-    //        pm.loadQQmlApplicationEngine(&engine);
 //add a qml file to mainWinow
 //        pm.writeChildrens("mainWindow");
        //pm.setWindow("qrc:/TestItem.qml");

@@ -10,6 +10,7 @@
 #include<currentapplicationhelper.h>
 #include<applicationalarmsettingshelper.h>
 #include<alarmclasses.h>
+#include<apppagesmanager.h>
 
 class JooyaApplication : public JooyaNetworkEngine
 {
@@ -24,6 +25,7 @@ public:
     static ApplicationAlarmSettingsHelper* m_ApplicationAlarmSettingsHelper;
     static bool m_IsDesignMode;
     static CurrentApplicationHelper* m_CurrentApplicationHelper;
+    static AppPagesManager* m_ApplicationPageManager;
     void processQmlLiveCommandLine(QGuiApplication *app);
     bool isDesignMode();
     void setDefaultTheme(MaterialThemes::MaterialThemesEnum theme, MaterialColors::MaterialColorsEnum primary, MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor);
