@@ -133,6 +133,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     items/common/ConfirmationPane.qml
     items/common/HelpBar.qml
     items/common/ToolButtonTextUnder.qml
+    items/common/IconImage.qml
 )
 qt_add_resources(${PROJECT_NAME} "customqmltypes"
     PREFIX "/"
