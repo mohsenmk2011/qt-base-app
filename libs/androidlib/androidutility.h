@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include<QtNetwork/QNetworkInterface>
+#include<QDebug>
 
 #if defined (Q_OS_ANDROID)
 #include<QCoreApplication>
