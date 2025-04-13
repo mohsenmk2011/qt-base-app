@@ -17,6 +17,7 @@ User::User(QObject *parent) : JooyaNetwork(parent)
 
     m_ImageWidth=300;
     m_ImageHeight=300;
+    m_Score = 0;
     QImage img;
     if(img.load(":/images/app/account.png")){
         setImage(img);
