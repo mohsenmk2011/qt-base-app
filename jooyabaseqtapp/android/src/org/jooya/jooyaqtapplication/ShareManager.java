@@ -17,11 +17,11 @@ import android.content.IntentFilter;
 
 public class ShareManager
 {
-    public static void share(String text) {
+    public static void share(Activity activity,String text) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, text);
         sendIntent.setType("text/plain");
-        QtNative.activity().startActivity(Intent.createChooser(sendIntent, text));
+        activity.startActivity(Intent.createChooser(sendIntent, text));
     }
 }
