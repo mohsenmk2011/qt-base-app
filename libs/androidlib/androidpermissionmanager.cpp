@@ -123,6 +123,7 @@ bool AndroidPermissionManager::requestCamera()
 
 bool AndroidPermissionManager::requestSetAlarm()
 {
+    qDebug()<<"is requesting permissions for set alarm";
     AndroidPermissionManager pm;
     pm.addPermission(PermissionTypes::PermissionTypesEnum::USE_FULL_SCREEN_INTENT);//
     pm.addPermission(PermissionTypes::PermissionTypesEnum::POST_NOTIFICATIONS);//
@@ -163,6 +164,28 @@ bool AndroidPermissionManager::requestIgnoringBatteryOptimizations()
     {
         QString className = PackageInfoManager::getPackageName()+"PermissionManager";
         isIgnored = (bool) QJniObject::callStaticMethod<jboolean>(className.toUtf8(),"requestIgnoringBatteryOptimizations","(Landroid/content/Context;)Z",QNativeInterface::QAndroidApplication::context());
+        if (env->ExceptionCheck()) {
+            env->ExceptionClear();
+        }
+    }
+#endif
+    return isIgnored;
+}
+
+bool AndroidPermissionManager::requestSetExactAlarmPermission()
+{
+    bool isIgnored=false;
+    qInfo()<<"***[ check SetExactAlarm Permission ]***";
+#if defined(Q_OS_ANDROID)
+    QJniEnvironment env;
+    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+    if (env->ExceptionCheck()) {
+        env->ExceptionClear();
+    }
+    if (activity.isValid())
+    {
+        QString className = PackageInfoManager::getPackageName()+"PermissionManager";
+        isIgnored = (bool) QJniObject::callStaticMethod<jboolean>(className.toUtf8(),"requestSetExactAlarmPermission","(Landroid/content/Context;)Z",QNativeInterface::QAndroidApplication::context());
         if (env->ExceptionCheck()) {
             env->ExceptionClear();
         }

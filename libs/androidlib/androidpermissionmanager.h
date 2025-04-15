@@ -30,6 +30,7 @@ public:
     Q_INVOKABLE bool requestSetAlarm();
     Q_INVOKABLE bool requestSetAlertWindow();
     Q_INVOKABLE bool requestIgnoringBatteryOptimizations();
+    Q_INVOKABLE bool requestSetExactAlarmPermission();
 signals:
 
 public slots:

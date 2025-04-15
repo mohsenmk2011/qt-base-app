@@ -65,5 +65,28 @@ public class PermissionManager
         }
         return true;
     }
+    public static boolean requestSetExactAlarmPermission(Context context)
+    {
+        Log.i(TAG, "is going to request Set Exact Alarm Permission");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+           Log.i(TAG, "sdk version is bigger than S(android 12)");
+           AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+           if(!alarmManager.canScheduleExactAlarms())
+           {
+               Log.i(TAG, "alarmManager.canScheduleExactAlarms() is false => ");
+               context.startActivity(new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+               return false;
+           }
+           else
+           {
+               Log.i(TAG, "alarmManager.canScheduleExactAlarms() is true => ");
+           }
+        }
+        else
+        {
+           Log.i(TAG, "sdk version is not bigger than S(android 12)");
+        }
+        return true;
+    }
 }
 
