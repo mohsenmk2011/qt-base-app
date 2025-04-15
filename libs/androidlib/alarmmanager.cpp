@@ -147,6 +147,10 @@ bool AlarmManager::startAlarmWithAlamManager(QString alarmType,QString notificat
     {
         return false;
     }
+    if(!apm.requestSetExactAlarmPermission())
+    {
+        return false;
+    }
     QJniEnvironment env;
     QString hm=QString("%1:%2").arg(alarmInfo()->alarmHour()).arg(alarmInfo()->alarmMinutes());
     QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
