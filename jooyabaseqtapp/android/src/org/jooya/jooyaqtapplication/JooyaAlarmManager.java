@@ -106,12 +106,13 @@ public class JooyaAlarmManager
         intent.putExtra("time",hm);
         intent.putExtra("interval",interval);
         intent.putExtra("notificationContent",notificationContent);
+        //=====================================================
         PendingIntent pendingIntent;
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        } else {
-            pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            flags |= PendingIntent.FLAG_IMMUTABLE;
         }
+        pendingIntent = PendingIntent.getBroadcast(context, ALARMPENDIGID, intent, flags);
         //=====================================================
         String[] separated=hm.split(":");
         int hour=Integer.parseInt(separated[0]);
@@ -141,22 +142,10 @@ public class JooyaAlarmManager
         }
         //=========================
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-//            Log.i(TAG, "sdk version is bigger than s");
-//            if(!alarmManager.canScheduleExactAlarms())
-//            {
-//                Log.i(TAG, "alarmManager.canScheduleExactAlarms() is false => ");
-//                context.startActivity(new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
-//            }
-//            else
-//            {
-//                Log.i(TAG, "alarmManager.canScheduleExactAlarms() is true => ");
-//            }
-//        }
-//        else
-//        {
-//            Log.i(TAG, "sdk version is not bigger than s");
-//        }
+        Log.i(TAG, "Build.VERSION.SDK_INT => "+Build.VERSION.SDK_INT);
+        Log.i(TAG, "Build.VERSION_CODES.M => "+Build.VERSION_CODES.M);
+        Log.i(TAG, "Build.VERSION_CODES.S => "+Build.VERSION_CODES.S);
+        Log.i(TAG, "Build.VERSION_CODES.KITKAT => "+Build.VERSION_CODES.KITKAT);
         //====================================================================
         //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
         //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
@@ -177,8 +166,6 @@ public class JooyaAlarmManager
             Log.i(TAG, "is lower than kitkat");
             alarmManager.set(AlarmManager.RTC_WAKEUP, dt.getTimeInMillis(), pendingIntent);
         }
-        Log.i(TAG, "Build.VERSION.SDK_INT => "+Build.VERSION.SDK_INT);
-        Log.i(TAG, "Build.VERSION_CODES.M => "+Build.VERSION_CODES.M);
         return isAlarmUp(context);
     }    
 }
