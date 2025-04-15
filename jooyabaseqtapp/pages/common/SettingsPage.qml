@@ -451,9 +451,6 @@ Flickable {
                                 enabled = true;
                                 return;
                             }
-                            if(!androidPermissionManager.requestSetAlarm()){
-                                return;
-                            }
                             settings.alarmInfo = alarmManager.alarmInfo.convertToString();
                             if(ApplicationAlarmSettings.alarmClass === AlarmClasses.WorkoutManager)
                             {
@@ -626,7 +623,7 @@ Flickable {
                             property int colorCode: model.color
                             color: model.colorName
                             border.width: MaterialStyle.backgroundColor === colorCode ? 2:0
-                            border.color: MaterialStyle.isDark?"white":"black"
+                            border.color: MaterialStyle.isDark ? "red" : "blue"
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
