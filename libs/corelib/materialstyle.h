@@ -12,12 +12,13 @@ class MaterialStyle : public QObject
     QML_ATTACHED(MaterialStyleHelper)
     QML_ELEMENT
 public:
+    explicit MaterialStyle(QObject *parent = nullptr);
     static MaterialStyleHelper *qmlAttachedProperties(QObject *object)
     {
         return JooyaApplication::m_MaterialStyleHelper;
     }
 
+signals:
 };
 
-//QML_DECLARE_TYPEINFO(MaterialStyle, QML_HAS_ATTACHED_PROPERTIES)
 #endif // MATERIALSTYLE_H
