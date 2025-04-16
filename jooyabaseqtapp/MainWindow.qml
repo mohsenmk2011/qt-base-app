@@ -585,6 +585,7 @@ Page {
         Material.roundedScale: Material.NotRounded
         width: Math.min(mainWindow.width, mainWindow.height) * 0.8
         height: mainWindow.height
+        interactive: sv.depth <= 1
         onOpened: {
             baseUser.getLastImage();
         }
