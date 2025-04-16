@@ -73,6 +73,7 @@ Item {
                             console.log("@@@ animation on height finished @@@");
                             inerMask.visible=false;
                             mask.visible=false;
+                            setAnimationEnabling(false);
                         }
                     }
                 }
@@ -94,6 +95,7 @@ Item {
                             console.log("@@@ animation on y finished @@@");
                             inerMask.visible=false;
                             mask.visible=false;
+                            setAnimationEnabling(false);
                         }
                     }
                 }
