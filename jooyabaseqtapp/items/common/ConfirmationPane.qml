@@ -8,7 +8,7 @@ Pane {
     id:confirmationPane
     font.family: flYekan.name
     Material.elevation: 2
-    Material.background: MaterialStyle.backColor100
+    Material.background: MaterialStyle.primary100
     signal yesClicked()
     signal noClicked()
     property string message: "پیام شما"

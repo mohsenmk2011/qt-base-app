@@ -5,7 +5,7 @@ import JooyaQuick.Controls.Material
 Rectangle {
     property string helpText: "متن راهنمای نوار راهنما"
 
-    color: MaterialStyle.backColor100
+    color: MaterialStyle.primary100
     IconImage {
         id: imgLeftArrow
         source: "../../images/chat/arrow-left.png"

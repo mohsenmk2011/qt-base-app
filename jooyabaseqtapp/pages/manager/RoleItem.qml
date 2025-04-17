@@ -10,7 +10,7 @@ import "../../jooyaQuickControls"
 Pane{
     id: root
     Material.elevation: 1
-    Material.background: MaterialStyle.backColor100
+    Material.background: MaterialStyle.primary100
     property Role role
     anchors.horizontalCenter: parent.horizontalCenter
     RowLayout {

@@ -46,7 +46,7 @@ Page{
                 Layout.fillWidth: true
                 Layout.minimumHeight: imgFile.isExists ? img.height:270
                 clip: true
-                color: MaterialStyle.backColor100
+                color: MaterialStyle.primary100
                 Image {
                     id: imgDefualt
                     source: "../../images/common/image-filter-hdr.png"

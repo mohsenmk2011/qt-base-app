@@ -39,7 +39,7 @@ Page {
                 Layout.fillWidth: true
                 // Layout.preferredWidth: notifyEditorPage.width
                 Layout.preferredHeight: notifyEditorPage.height/2
-                color: MaterialStyle.backColor100
+                color: MaterialStyle.primary100
                 Layout.alignment: Qt.AlignTop
                 ImageItem{
                     id:imgItem
@@ -56,7 +56,7 @@ Page {
                 Layout.preferredHeight: 54
                 padding: 0
                 Material.elevation: 2
-                Material.background: MaterialStyle.backColor200
+                Material.background: MaterialStyle.primary200
                 RowLayout{
                     anchors.fill: parent
                     layoutDirection: Qt.RightToLeft
@@ -140,7 +140,7 @@ Page {
                 Layout.leftMargin: 18
                 Layout.rightMargin: 18
                 Layout.topMargin: 18
-                Material.background: MaterialStyle.backColor100
+                Material.background: MaterialStyle.primary100
                 Rectangle{
                     id:rectNotifyDescriptionContainer
                     anchors.fill: parent
@@ -148,7 +148,7 @@ Page {
                     anchors.topMargin: 18
                     clip: true
                     radius: 1
-                    color: MaterialStyle.backColor200
+                    color: MaterialStyle.primary200
                     Flickable {
                         id: flickQuestion
                         anchors.fill: parent
@@ -160,7 +160,7 @@ Page {
                             TextArea {
                                 id: taDescription
                                 background: Rectangle{
-                                    color: MaterialStyle.backColor200
+                                    color: MaterialStyle.primary200
                                 }
                                 color: MaterialStyle.primaryTextColor
                                 font.pixelSize: 18

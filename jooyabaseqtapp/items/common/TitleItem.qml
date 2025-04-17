@@ -13,7 +13,7 @@ Rectangle{
     property string title: "عنوان"
     property alias titleHorizontalAlignment: lblTitle.horizontalAlignment
 
-    color: MaterialStyle.backColor200
+    color: MaterialStyle.primary200
     width: lblTitle.implicitWidth+9
     height: 18
     anchors.bottom: parent.top

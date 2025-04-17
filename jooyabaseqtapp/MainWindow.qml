@@ -809,7 +809,7 @@ Page {
             Material.elevation: 1
             width: 63
             height: 63
-            Material.background: MaterialStyle.backColor50
+            Material.background: MaterialStyle.primary50
             contentItem: IconImage {
                 width: 27
                 height: 27
@@ -827,7 +827,7 @@ Page {
             spacing: 0
 
             Pane{
-                Material.background: MaterialStyle.backColor100
+                Material.background: MaterialStyle.primary100
                 Material.elevation: 1
                 Layout.alignment: Qt.AlignHCenter
                 Layout.rightMargin: 18

@@ -87,7 +87,7 @@ JooyaPage{
                     Layout.fillWidth: true
                     Layout.preferredHeight: 300
                     Layout.margins: 9
-                    Material.background: MaterialStyle.backColor100
+                    Material.background: MaterialStyle.primary100
                     Material.elevation: 1
                     ColumnLayout{
                         id:clm
@@ -95,7 +95,7 @@ JooyaPage{
                         spacing: 9
                         Pane{
                             Material.elevation: 3
-                            Material.background:  MaterialStyle.backColor200
+                            Material.background:  MaterialStyle.primary200
                             Layout.alignment: Qt.AlignHCenter
                             Layout.topMargin: 9
                             Layout.preferredHeight: 206
@@ -141,7 +141,7 @@ JooyaPage{
                     Layout.fillWidth: true
                     Layout.preferredHeight: 216
                     Layout.margins: 9
-                    Material.background: MaterialStyle.backColor100
+                    Material.background: MaterialStyle.primary100
                     Material.elevation: 1
                     ColumnLayout{
                         anchors.fill: parent

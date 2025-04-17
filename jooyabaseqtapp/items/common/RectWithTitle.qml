@@ -7,7 +7,7 @@ Pane{
     id:rectContainer
     padding: 0
     Material.elevation: 1
-    Material.background: MaterialStyle.backColor100
+    Material.background: MaterialStyle.primary100
     //=================< new properties >===================
     property string title: ""
     TitleItem{

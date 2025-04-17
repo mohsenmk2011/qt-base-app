@@ -35,7 +35,7 @@ Page{
                 Layout.leftMargin: 27
                 padding: 9
                 Material.elevation: 1
-                Material.background: MaterialStyle.backColor100
+                Material.background: MaterialStyle.primary100
                 ImageRectItem{
                     width: parent.width
                     height: parent.height

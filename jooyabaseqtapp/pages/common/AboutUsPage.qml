@@ -20,7 +20,7 @@ Page {
             spacing: 9
             Pane{
                 Material.elevation: 1
-                Material.background: MaterialStyle.backColor100
+                Material.background: MaterialStyle.primary100
                 Layout.fillWidth: true
                 Layout.margins: 9
                 Layout.preferredHeight: clmContent.implicitHeight
@@ -72,7 +72,7 @@ Page {
             }
             Pane{
                 Material.elevation: 1
-                Material.background: MaterialStyle.backColor100
+                Material.background: MaterialStyle.primary100
                 Layout.fillWidth: true
                 Layout.margins: 9
                 Layout.preferredHeight: 90

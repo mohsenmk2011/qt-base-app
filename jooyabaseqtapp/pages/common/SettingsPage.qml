@@ -74,7 +74,7 @@ Flickable {
             id:paneAlarm
             visible: ApplicationAlarmSettings.hasAlarm
             Material.elevation: 1
-            Material.background: MaterialStyle.backColor100
+            Material.background: MaterialStyle.primary100
             Layout.fillWidth: true
             Layout.margins: 9
             Layout.leftMargin: 0
@@ -155,8 +155,8 @@ Flickable {
                         background: Rectangle {
                             implicitWidth: 120
                             implicitHeight: 40
-                            color: MaterialStyle.backColor200
-                            border.color: combxAlarmType.pressed ? MaterialStyle.backColor300 : MaterialStyle.backColor200
+                            color: MaterialStyle.primary200
+                            border.color: combxAlarmType.pressed ? MaterialStyle.primary300 : MaterialStyle.primary200
                             border.width: combxAlarmType.visualFocus ? 2 : 1
                             radius: 3
                         }
@@ -177,8 +177,8 @@ Flickable {
                             }
 
                             background: Rectangle {
-                                color: MaterialStyle.backColor200
-                                border.color: MaterialStyle.backColor300
+                                color: MaterialStyle.primary200
+                                border.color: MaterialStyle.primary300
                                 radius: 2
                             }
                         }
@@ -218,7 +218,7 @@ Flickable {
                         }
                     }
                     Rectangle{
-                        color: MaterialStyle.backColor300
+                        color: MaterialStyle.primary300
                         Layout.preferredHeight: 6
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter
@@ -230,7 +230,7 @@ Flickable {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredHeight: 170
                         Layout.preferredWidth: 117
-                        color: MaterialStyle.backColor200
+                        color: MaterialStyle.primary200
                         radius: 9
                         Row {
                             anchors.fill: parent
@@ -275,7 +275,7 @@ Flickable {
                         }
                     }
                     Rectangle{
-                        color: MaterialStyle.backColor300
+                        color: MaterialStyle.primary300
                         Layout.preferredHeight: 6
                         Layout.preferredWidth: 72
                         Layout.alignment: Qt.AlignVCenter
@@ -341,7 +341,7 @@ Flickable {
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     Rectangle{
-                        color: MaterialStyle.backColor300
+                        color: MaterialStyle.primary300
                         Layout.preferredHeight: 6
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter
@@ -352,7 +352,7 @@ Flickable {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredHeight: 170
                         Layout.preferredWidth: 154
-                        color: MaterialStyle.backColor200
+                        color: MaterialStyle.primary200
                         radius: 9
                         RowLayout {
                             anchors.fill: parent
@@ -416,7 +416,7 @@ Flickable {
                         }
                     }
                     Rectangle{
-                        color: MaterialStyle.backColor300
+                        color: MaterialStyle.primary300
                         Layout.preferredHeight: 6
                         Layout.preferredWidth: 99
                         Layout.alignment: Qt.AlignVCenter
@@ -501,7 +501,7 @@ Flickable {
         //===================================< End of Alarm >==========================================
         Pane{
             Material.elevation: 1
-            Material.background: MaterialStyle.backColor100
+            Material.background: MaterialStyle.primary100
             Layout.fillWidth: true
             Layout.margins: 9
             Layout.leftMargin: 0

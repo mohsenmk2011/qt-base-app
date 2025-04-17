@@ -20,7 +20,7 @@ Item {
     Pane{
         anchors.fill: parent
         padding: 0
-        Material.background: MaterialStyle.backColor100
+        Material.background: MaterialStyle.primary100
         RowLayout{
             anchors.fill: parent
             layoutDirection: Qt.RightToLeft

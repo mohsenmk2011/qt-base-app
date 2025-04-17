@@ -10,7 +10,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: parent.width / 2
-        color: MaterialStyle.backColor50
+        color: MaterialStyle.primary50
         visible: img.state !== Image.Ready
         IconImage {
             id: imgDefault

@@ -23,7 +23,7 @@ Item{
     Pane{
         id: cl
         Material.elevation: 1
-        Material.background: MaterialStyle.backColor100
+        Material.background: MaterialStyle.primary100
         anchors.fill: parent
         anchors.margins: 9
         padding: 0

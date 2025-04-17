@@ -25,7 +25,7 @@ Item {
             id:imgContainer
             Layout.preferredWidth: notifyItem.width
             Layout.preferredHeight: notifyItem.height/2
-            color: MaterialStyle.backColor100
+            color: MaterialStyle.primary100
             Layout.alignment: Qt.AlignTop
             ImageItem{
                 id:imgItem

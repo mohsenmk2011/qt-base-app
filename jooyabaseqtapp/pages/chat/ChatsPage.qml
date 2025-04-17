@@ -218,7 +218,7 @@ Page{
         anchors.right: parent.right
         visible: gvChats.count===0
         height: btnNewChat.height+btnNewChat.anchors.bottomMargin
-        color:MaterialStyle.backColor100
+        color:MaterialStyle.primary100
         helpText: qsTr("برای شروع گفتگو اینجا کلیک نمایید")
     }
     Rectangle {

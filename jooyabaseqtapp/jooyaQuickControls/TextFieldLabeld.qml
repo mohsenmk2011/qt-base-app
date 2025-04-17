@@ -11,7 +11,7 @@ TextField{
     property string placeholderText2: ""
 
     //=================< properties of background >===================
-    property string backColor: MaterialStyle.backColor100
+    property string backColor: MaterialStyle.primary100
     property bool borderVisible: false
     //====================================
     color: MaterialStyle.primaryTextColor
@@ -29,7 +29,7 @@ TextField{
     background: Rectangle{
         id:tfBack
         color: backColor
-        border.color:  MaterialStyle.backColor200
+        border.color:  MaterialStyle.primary200
         border.width: borderVisible? 2:0
         radius: 3
         Text{

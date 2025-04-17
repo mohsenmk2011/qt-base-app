@@ -15,7 +15,7 @@ Item{
     Pane {
         id:pane
         Material.elevation:1
-        Material.background: MaterialStyle.backColor100
+        Material.background: MaterialStyle.primary100
         rightPadding: 18
         leftPadding: 18
         padding: 0

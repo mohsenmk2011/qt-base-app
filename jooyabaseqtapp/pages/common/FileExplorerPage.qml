@@ -66,7 +66,7 @@ Page {
         delegate: Rectangle{
             width: gvImages.cellWidth
             height: gvImages.cellHeight
-            color: MaterialStyle.backColor100
+            color: MaterialStyle.primary100
             ImageItem{
                 anchors.fill: parent
                 imageFile:model

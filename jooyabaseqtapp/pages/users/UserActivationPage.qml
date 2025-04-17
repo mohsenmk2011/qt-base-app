@@ -55,7 +55,7 @@ Page{
                 Layout.fillWidth: true
                 Layout.minimumHeight: imgFile.isExists ? img.height:270
                 clip: true
-                color: MaterialStyle.backColor100
+                color: MaterialStyle.primary100
                 Image {
                     id: imgDefualt
                     source: "../../images/common/image-filter-hdr.png"
@@ -108,7 +108,7 @@ Page{
                 Layout.leftMargin: 9
                 Layout.rightMargin: 9
                 Material.elevation: 1
-                Material.background: MaterialStyle.backColor100
+                Material.background: MaterialStyle.primary100
                 ColumnLayout{
                     anchors.fill: parent
                     spacing: 9

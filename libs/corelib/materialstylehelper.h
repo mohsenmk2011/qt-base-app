@@ -39,10 +39,10 @@ class MaterialStyleHelper : public QObject
     Q_PROPERTY(QColor secondary800 READ secondary800 WRITE setSecondary800 NOTIFY secondary800Changed FINAL)
     Q_PROPERTY(QColor secondary900 READ secondary900 WRITE setSecondary900 NOTIFY secondary900Changed FINAL)
 
-    Q_PROPERTY(QColor backColor50 READ backColor50 WRITE setBackColor50 NOTIFY backColor50Changed)
-    Q_PROPERTY(QColor backColor100 READ backColor100 WRITE setBackColor100 NOTIFY backColor100Changed)
-    Q_PROPERTY(QColor backColor200 READ backColor200 WRITE setBackColor200 NOTIFY backColor200Changed)
-    Q_PROPERTY(QColor backColor300 READ backColor300 WRITE setBackColor300 NOTIFY backColor300Changed)
+    Q_PROPERTY(QColor primary50 READ primary50 WRITE setPrimary50 NOTIFY primary50Changed)
+    Q_PROPERTY(QColor primary100 READ primary100 WRITE setPrimary100 NOTIFY primary100Changed)
+    Q_PROPERTY(QColor primary200 READ primary200 WRITE setPrimary200 NOTIFY primary200Changed)
+    Q_PROPERTY(QColor primary300 READ primary300 WRITE setPrimary300 NOTIFY primary300Changed)
 
     Q_PROPERTY(QColor primaryTextColor READ primaryTextColor WRITE setPrimaryTextColor NOTIFY primaryTextColorChanged)
     Q_PROPERTY(QColor secondaryTextColor READ secondaryTextColor WRITE setSecondaryTextColor NOTIFY secondaryTextColorChanged)
@@ -69,14 +69,14 @@ public:
     QColor secondary300();
     void setSecondary300(QColor b);
 
-    QColor backColor50();
-    void setBackColor50(QColor bcolor);
-    QColor backColor100();
-    void setBackColor100(QColor c);
-    QColor backColor200();
-    void setBackColor200(QColor c);
-    QColor backColor300();
-    void setBackColor300(QColor b);
+    QColor primary50();
+    void setPrimary50(QColor bcolor);
+    QColor primary100();
+    void setPrimary100(QColor c);
+    QColor primary200();
+    void setPrimary200(QColor c);
+    QColor primary300();
+    void setPrimary300(QColor b);
 
     QColor primaryTextColor();
     void setPrimaryTextColor(QColor p);
@@ -157,10 +157,10 @@ signals:
     void secondary200Changed();
     void secondary300Changed();
 
-    void backColor50Changed();
-    void backColor100Changed();
-    void backColor200Changed();
-    void backColor300Changed();
+    void primary50Changed();
+    void primary100Changed();
+    void primary200Changed();
+    void primary300Changed();
 
     void primaryTextColorChanged();
     void secondaryTextColorChanged();
@@ -197,10 +197,10 @@ private:
     QColor m_Secondary200;
     QColor m_Secondary300;
 
-    QColor m_BackColor50;
-    QColor m_BackColor100;
-    QColor m_BackColor200;
-    QColor m_BackColor300;
+    QColor m_Primary50;
+    QColor m_Primary100;
+    QColor m_Primary200;
+    QColor m_Primary300;
 
     QColor m_PrimaryTextColor;
     QColor m_SecondaryTextColor;

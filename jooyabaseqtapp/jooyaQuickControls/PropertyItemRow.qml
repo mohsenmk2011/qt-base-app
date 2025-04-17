@@ -18,7 +18,7 @@ RowLayout{
     Layout.fillWidth: true
     Rectangle{
         id: recKey
-        color: MaterialStyle.backColor200
+        color: MaterialStyle.primary200
         Layout.fillWidth: true
         radius: 2
         height: keyfontSize+10
@@ -39,7 +39,7 @@ RowLayout{
     Rectangle{
         id: recValue
         Layout.fillWidth: true
-        color: MaterialStyle.backColor200
+        color: MaterialStyle.primary200
         radius: 2
         height: valueFontSize+10
 

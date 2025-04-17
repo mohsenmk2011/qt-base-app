@@ -10,7 +10,7 @@ import "../../items/common"
 Rectangle{
     id:itemimg
     property UserImage userImage: null
-    color: MaterialStyle.backColor200
+    color: MaterialStyle.primary200
 
     ImageItem{
         imageFile: userImage
