@@ -161,9 +161,13 @@ JooyaPage{
                     }
                     onClicked: {
                         if(!currentImage.isExists){
-
+                            console.log("current image is not exists => you can take picture with camera");
                             if(permissionManager.requestCamera()){
                                 sv.push("../common/TakePicturePage.qml",{up:userProfile});
+                            }
+                            else
+                            {
+                                console.log("Camera permission is not granted");
                             }
                         }
                         else{
