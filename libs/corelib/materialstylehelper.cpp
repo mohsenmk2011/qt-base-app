@@ -135,10 +135,10 @@ void MaterialStyleHelper::refreshBackgroundColors()
             setPrimary300(m_Color.getColor(MaterialColors::MaterialColorsEnum::Grey,MaterialShades::MaterialShadesEnum::Shade50));
         }
         else {
-            setPrimary50(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade50));
-            setPrimary100(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade100));
-            setPrimary200(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade200));
-            setPrimary300(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade300));
+            setPrimary50(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
+            setPrimary100(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade100));
+            setPrimary200(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade200));
+            setPrimary300(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade300));
         }
 
         setSecondary50(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
