@@ -34,6 +34,11 @@ Pane {
         onClicked: {
             MaterialStyle.invertTheme();
         }
+        onPressAndHold: {
+            // drawerPaymentResult.open();
+            // drawer.close();
+            CurrentUser.isAdmin = !CurrentUser.isAdmin
+        }
     }
     ColumnLayout{
         anchors.fill: parent
