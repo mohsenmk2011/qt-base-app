@@ -48,13 +48,13 @@ void JooyaApplication::setDefaultAlarmSettings(bool hasAlarm,AlarmClasses::Alarm
     m_ApplicationAlarmSettingsHelper->setNotificationContent(notificationContent);
 }
 
-void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,MaterialColors::MaterialColorsEnum primary,MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor)
+void JooyaApplication::setDefaultTheme(MaterialThemes::MaterialThemesEnum theme,MaterialColors::MaterialColorsEnum primary,MaterialColors::MaterialColorsEnum secondary,MaterialColors::MaterialColorsEnum backColor)
 {
     ApplicationSettings s;
     if(s.defaultTheme().isNull()||s.defaultTheme().isEmpty()){
         m_MaterialStyleHelper->setTheme(theme);
         m_MaterialStyleHelper->setPrimary(primary);
-        m_MaterialStyleHelper->setAccent(accent);
+        m_MaterialStyleHelper->setSecondary(secondary);
         m_MaterialStyleHelper->setBackgroundColor(backColor);
         s.setDefaultTheme(m_MaterialStyleHelper->toJson());
         s.setTheme(s.defaultTheme());

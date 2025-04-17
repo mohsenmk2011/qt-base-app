@@ -10,7 +10,7 @@ import "../../jooyaQuickControls"
 Rectangle {
     id:chatItemRect
     property Chat chat: null
-    color: chat.isSelected ? MaterialStyle.accent200: MaterialStyle.accent100
+    color: chat.isSelected ? MaterialStyle.secondary200: MaterialStyle.secondary100
     height: mainTalkRow.implicitHeight
     property bool isLastItem: index+1==gvChats.count
     Connections{
@@ -200,7 +200,7 @@ Rectangle {
     }
     Separator {
         id:seperator
-        color: MaterialStyle.accent200
+        color: MaterialStyle.secondary200
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width*0.72

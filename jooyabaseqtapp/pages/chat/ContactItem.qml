@@ -65,7 +65,7 @@ Item {
                 Separator {
                     id:seperator
                     Layout.fillWidth: true
-                    color: MaterialStyle.accent200
+                    color: MaterialStyle.secondary200
                     Layout.leftMargin: 18
                     visible: !isLastItem
                 }

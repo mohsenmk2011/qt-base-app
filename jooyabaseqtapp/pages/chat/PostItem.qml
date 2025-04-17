@@ -11,7 +11,7 @@ Rectangle{
     property Post post: null
     property real ballonMaxWidth: 0.0
     property bool lblContentShouldSherink: tempText.width>(ballonMaxWidth-(45+rowPostProperties.width))
-    color: post.isSelected ? MaterialStyle.accent200: "transparent"
+    color: post.isSelected ? MaterialStyle.secondary200: "transparent"
     property bool seen:
     {
         //NOTE: Is item is visivle in list ?
@@ -84,7 +84,7 @@ Rectangle{
             Layout.bottomMargin: post.isLastItem? 18:0
             radius: 6
 
-            color: MaterialStyle.accent100
+            color: MaterialStyle.secondary100
             Material.elevation: 3
             clip: true
             GridLayout{
@@ -166,7 +166,7 @@ Rectangle{
             Layout.preferredWidth: lbl.width+18
             Layout.preferredHeight: lbl.height+6
             radius: 3
-            color: MaterialStyle.accentTextColor
+            color: MaterialStyle.secondaryTextColor
             Label {
                 id:lbl
                 text: post.dateText

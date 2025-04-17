@@ -22,16 +22,22 @@ class MaterialStyleHelper : public QObject
     Q_PROPERTY(MaterialThemes::MaterialThemesEnum theme READ theme WRITE setTheme NOTIFY themeChanged)
     Q_PROPERTY(MaterialColors::MaterialColorsEnum backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(MaterialColors::MaterialColorsEnum primary READ primary WRITE setPrimary NOTIFY primaryChanged)
-    Q_PROPERTY(MaterialColors::MaterialColorsEnum accent READ accent WRITE setAccent NOTIFY accentChanged)
+    Q_PROPERTY(MaterialColors::MaterialColorsEnum secondary READ secondary WRITE setSecondary NOTIFY secondaryChanged)
     Q_PROPERTY(MaterialShades::MaterialShadesEnum shade READ shade WRITE setShade NOTIFY shadeChanged)
 
     Q_PROPERTY(bool isDark READ isDark WRITE setIsDark NOTIFY isDarkChanged)
     Q_PROPERTY(bool showAnimation READ showAnimation WRITE setShowAnimation NOTIFY showAnimationChanged)
 
-    Q_PROPERTY(QColor accent50 READ accent50 WRITE setAccent50 NOTIFY accent50Changed)
-    Q_PROPERTY(QColor accent100 READ accent100 WRITE setAccent100 NOTIFY accent100Changed)
-    Q_PROPERTY(QColor accent200 READ accent200 WRITE setAccent200 NOTIFY accent200Changed)
-    Q_PROPERTY(QColor accent300 READ accent300 WRITE setAccent300 NOTIFY accent300Changed)
+    Q_PROPERTY(QColor secondary50 READ secondary50 WRITE setSecondary50 NOTIFY secondary50Changed)
+    Q_PROPERTY(QColor secondary100 READ secondary100 WRITE setSecondary100 NOTIFY secondary100Changed)
+    Q_PROPERTY(QColor secondary200 READ secondary200 WRITE setSecondary200 NOTIFY secondary200Changed)
+    Q_PROPERTY(QColor secondary300 READ secondary300 WRITE setSecondary300 NOTIFY secondary300Changed)
+    Q_PROPERTY(QColor secondary400 READ secondary400 WRITE setSecondary400 NOTIFY secondary400Changed FINAL)
+    Q_PROPERTY(QColor secondary500 READ secondary500 WRITE setSecondary500 NOTIFY secondary500Changed FINAL)
+    Q_PROPERTY(QColor secondary600 READ secondary600 WRITE setSecondary600 NOTIFY secondary600Changed FINAL)
+    Q_PROPERTY(QColor secondary700 READ secondary700 WRITE setSecondary700 NOTIFY secondary700Changed FINAL)
+    Q_PROPERTY(QColor secondary800 READ secondary800 WRITE setSecondary800 NOTIFY secondary800Changed FINAL)
+    Q_PROPERTY(QColor secondary900 READ secondary900 WRITE setSecondary900 NOTIFY secondary900Changed FINAL)
 
     Q_PROPERTY(QColor backColor50 READ backColor50 WRITE setBackColor50 NOTIFY backColor50Changed)
     Q_PROPERTY(QColor backColor100 READ backColor100 WRITE setBackColor100 NOTIFY backColor100Changed)
@@ -39,7 +45,7 @@ class MaterialStyleHelper : public QObject
     Q_PROPERTY(QColor backColor300 READ backColor300 WRITE setBackColor300 NOTIFY backColor300Changed)
 
     Q_PROPERTY(QColor primaryTextColor READ primaryTextColor WRITE setPrimaryTextColor NOTIFY primaryTextColorChanged)
-    Q_PROPERTY(QColor accentTextColor READ accentTextColor WRITE setAccentTextColor NOTIFY accentTextColorChanged)
+    Q_PROPERTY(QColor secondaryTextColor READ secondaryTextColor WRITE setSecondaryTextColor NOTIFY secondaryTextColorChanged)
 
     Q_PROPERTY(QColor invertedPrimaryTextColor READ invertedPrimaryTextColor WRITE setInvertedPrimaryTextColor NOTIFY invertedPrimaryTextColorChanged)
     Q_PROPERTY(QColor invertedAccetTextColor READ invertedAccetTextColor WRITE setInvertedAccetTextColor NOTIFY invertedAccetTextColorChanged)
@@ -54,35 +60,28 @@ public:
 
     ColorListModel *colors();
 
-    QColor accent50();
-    void setAccent50(QColor bcolor);
-
-    QColor accent100();
-    void setAccent100(QColor c);
-
-    QColor accent200();
-    void setAccent200(QColor c);
-
-    QColor accent300();
-    void setAccent300(QColor b);
+    QColor secondary50();
+    void setSecondary50(QColor bcolor);
+    QColor secondary100();
+    void setSecondary100(QColor c);
+    QColor secondary200();
+    void setSecondary200(QColor c);
+    QColor secondary300();
+    void setSecondary300(QColor b);
 
     QColor backColor50();
     void setBackColor50(QColor bcolor);
-
     QColor backColor100();
     void setBackColor100(QColor c);
-
     QColor backColor200();
     void setBackColor200(QColor c);
-
     QColor backColor300();
     void setBackColor300(QColor b);
 
     QColor primaryTextColor();
     void setPrimaryTextColor(QColor p);
-
-    QColor accentTextColor();
-    void setAccentTextColor(QColor a);
+    QColor secondaryTextColor();
+    void setSecondaryTextColor(QColor a);
 
     QColor invertedPrimaryTextColor();
     void setInvertedPrimaryTextColor(QColor c);
@@ -113,13 +112,10 @@ public:
 
     MaterialColors::MaterialColorsEnum backgroundColor();
     void setBackgroundColor(MaterialColors::MaterialColorsEnum bc);
-
     MaterialColors::MaterialColorsEnum primary();
     void setPrimary(MaterialColors::MaterialColorsEnum p);
-
-    MaterialColors::MaterialColorsEnum accent();
-    void setAccent(MaterialColors::MaterialColorsEnum a);
-
+    MaterialColors::MaterialColorsEnum secondary();
+    void setSecondary(MaterialColors::MaterialColorsEnum a);
     MaterialShades::MaterialShadesEnum shade();
     void setShade(MaterialShades::MaterialShadesEnum s);
 
@@ -129,6 +125,24 @@ public:
 
     bool buttonVisible();
     void setButtonVisible(bool v);
+    QColor secondary400() const;
+    void setSecondary400(const QColor &newSecondary400);
+
+    QColor secondary500() const;
+    void setSecondary500(const QColor &newSecondary500);
+
+    QColor secondary600() const;
+    void setSecondary600(const QColor &newSecondary600);
+
+    QColor secondary700() const;
+    void setSecondary700(const QColor &newSecondary700);
+
+    QColor secondary800() const;
+    void setSecondary800(const QColor &newSecondary800);
+
+    QColor secondary900() const;
+    void setSecondary900(const QColor &newSecondary900);
+
 signals:
     void windowCapturedImgPathChanged();
     void iconColorChanged();
@@ -138,10 +152,10 @@ signals:
     void windowCaptureSucceed();
     void backgroundColorChanged();
 
-    void accent50Changed();
-    void accent100Changed();
-    void accent200Changed();
-    void accent300Changed();
+    void secondary50Changed();
+    void secondary100Changed();
+    void secondary200Changed();
+    void secondary300Changed();
 
     void backColor50Changed();
     void backColor100Changed();
@@ -149,15 +163,27 @@ signals:
     void backColor300Changed();
 
     void primaryTextColorChanged();
-    void accentTextColorChanged();
+    void secondaryTextColorChanged();
     void invertedPrimaryTextColorChanged();
     void invertedAccetTextColorChanged();
 
     void primaryChanged();
-    void accentChanged();
+    void secondaryChanged();
     void shadeChanged();
     void buttonVisibilityTimeoutChanged();
     void buttonVisibleChanged();
+    void secondary400Changed();
+
+    void secondary500Changed();
+
+    void secondary600Changed();
+
+    void secondary700Changed();
+
+    void secondary800Changed();
+
+    void secondary900Changed();
+
 private slots:
     void onGrabbedWindow(bool succeed);
     void onThemeChanged();
@@ -166,10 +192,10 @@ private:
     bool m_IsDark;
     int m_ButtonVisibilityTimeout;
     bool m_ButtonVisible;
-    QColor m_Accent50;
-    QColor m_Accent100;
-    QColor m_Accent200;
-    QColor m_Accent300;
+    QColor m_Secondary50;
+    QColor m_Secondary100;
+    QColor m_Secondary200;
+    QColor m_Secondary300;
 
     QColor m_BackColor50;
     QColor m_BackColor100;
@@ -177,7 +203,7 @@ private:
     QColor m_BackColor300;
 
     QColor m_PrimaryTextColor;
-    QColor m_AccentTextColor;
+    QColor m_SecondaryTextColor;
     QColor m_InvertedPrimaryTextColor;
     QColor m_InvertedAccetTextColor;
     QColor m_IconColor;
@@ -187,7 +213,7 @@ private:
     MaterialThemes::MaterialThemesEnum m_Theme;
     MaterialColors::MaterialColorsEnum m_Primary;
     MaterialColors::MaterialColorsEnum m_BackgroundColor;
-    MaterialColors::MaterialColorsEnum m_Accent;
+    MaterialColors::MaterialColorsEnum m_Secondary;
    MaterialShades::MaterialShadesEnum m_Shade;
     AppPagesManager m_PageManager;
     bool m_ShowAnimation;
@@ -196,5 +222,11 @@ private:
     QTimer m_Timer;
     void refreshBackgroundColors();
     void saveThemeInSettings();
+    QColor m_secondary400;
+    QColor m_secondary500;
+    QColor m_secondary600;
+    QColor m_secondary700;
+    QColor m_secondary800;
+    QColor m_secondary900;
 };
 #endif // MATERIALSTYLEHELPER_H

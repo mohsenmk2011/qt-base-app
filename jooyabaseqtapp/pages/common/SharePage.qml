@@ -99,8 +99,8 @@ Page{
                             implicitWidth: 100
                             implicitHeight: 36
                             border.width: 1
-                            border.color:MaterialStyle.accent300
-                            color:MaterialStyle.accent200
+                            border.color:MaterialStyle.secondary300
+                            color:MaterialStyle.secondary200
                             Text {
                                 text: "تعداد دوستان"
                                 anchors.centerIn: parent
@@ -112,8 +112,8 @@ Page{
                             implicitWidth: 100
                             implicitHeight: 36
                             border.width: 1
-                            border.color:MaterialStyle.accent300
-                            color:MaterialStyle.accent200
+                            border.color:MaterialStyle.secondary300
+                            color:MaterialStyle.secondary200
                             Text {
                                 text: "مقدار تخفیف"
                                 anchors.centerIn: parent
@@ -141,8 +141,8 @@ Page{
                             implicitWidth: 100
                             implicitHeight: 36
                             border.width: 1
-                            border.color:MaterialStyle.accent300
-                            color:MaterialStyle.accent200
+                            border.color:MaterialStyle.secondary300
+                            color:MaterialStyle.secondary200
                             Text {
                                 text: display
                                 anchors.centerIn: parent
@@ -210,8 +210,8 @@ Page{
                             implicitWidth: 100
                             implicitHeight: 36
                             border.width: 1
-                            border.color:MaterialStyle.accent300
-                            color:MaterialStyle.accent200
+                            border.color:MaterialStyle.secondary300
+                            color:MaterialStyle.secondary200
                             Text {
                                 id:txtClicks
                                 text: "0"
@@ -224,8 +224,8 @@ Page{
                             implicitWidth: 100
                             implicitHeight: 36
                             border.width: 1
-                            border.color:MaterialStyle.accent300
-                            color:MaterialStyle.accent200
+                            border.color:MaterialStyle.secondary300
+                            color:MaterialStyle.secondary200
                             Text {
                                 text: "تعداد کلیک ها"
                                 anchors.centerIn: parent
@@ -245,8 +245,8 @@ Page{
                             implicitWidth: 100
                             implicitHeight: 36
                             border.width: 1
-                            border.color:MaterialStyle.accent300
-                            color:MaterialStyle.accent200
+                            border.color:MaterialStyle.secondary300
+                            color:MaterialStyle.secondary200
                             Text {
                                 id:txtSignedUps
                                 text: "0"
@@ -259,8 +259,8 @@ Page{
                             implicitWidth: 100
                             implicitHeight: 36
                             border.width: 1
-                            border.color:MaterialStyle.accent300
-                            color:MaterialStyle.accent200
+                            border.color:MaterialStyle.secondary300
+                            color:MaterialStyle.secondary200
                             Text {
                                 text: "تعداد ثبت نام"
                                 anchors.centerIn: parent

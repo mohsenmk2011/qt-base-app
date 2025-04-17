@@ -197,7 +197,7 @@ Flickable {
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
-                    color: MaterialStyle.accent200
+                    color: MaterialStyle.secondary200
                 }
                 RowLayout{
                     Layout.fillWidth: true
@@ -286,7 +286,7 @@ Flickable {
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
-                    color: MaterialStyle.accent200
+                    color: MaterialStyle.secondary200
                 }
                 //==========================[ interval section ]========================================
                 RowLayout{
@@ -578,7 +578,7 @@ Flickable {
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
-                    color: MaterialStyle.accent200
+                    color: MaterialStyle.secondary200
                 }
                 RowLayout{
                     enabled: !MaterialStyle.isDark
@@ -640,7 +640,7 @@ Flickable {
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
-                    color: MaterialStyle.accent200
+                    color: MaterialStyle.secondary200
                 }
 
                 RowLayout{
@@ -704,7 +704,7 @@ Flickable {
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
-                    color: MaterialStyle.accent200
+                    color: MaterialStyle.secondary200
                 }
                 RowLayout{
                     Layout.fillWidth: true
@@ -732,7 +732,7 @@ Flickable {
                 }
 
                 JooyaGridView{
-                    id:gvAccentColor
+                    id:gvSecondaryColor
                     Layout.fillWidth: true
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
@@ -750,14 +750,14 @@ Flickable {
                             radius: width/2
                             property int colorCode: model.color
                             color: model.colorName
-                            border.width: MaterialStyle.accent === colorCode ? 2:0
+                            border.width: MaterialStyle.secondary === colorCode ? 2:0
                             border.color: MaterialStyle.isDark?"white":"black"
                             visible: model.color!==MaterialColors.White
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
                                     console.log("clicked color=> "+parent.color);
-                                    MaterialStyle.accent=model.color
+                                    MaterialStyle.secondary=model.color
                                 }
                             }
                         }
@@ -768,7 +768,7 @@ Flickable {
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
-                    color: MaterialStyle.accent200
+                    color: MaterialStyle.secondary200
                 }
                 RowLayout{
                     Layout.fillWidth: true

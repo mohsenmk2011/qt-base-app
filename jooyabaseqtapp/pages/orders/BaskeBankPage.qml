@@ -155,8 +155,8 @@ JooyaPage{
                                 implicitWidth: 162
                                 implicitHeight: 36
                                 border.width: 1
-                                border.color:MaterialStyle.accent300
-                                color:MaterialStyle.accent200
+                                border.color:MaterialStyle.secondary300
+                                color:MaterialStyle.secondary200
                                 Text {
                                     text: order.price/10+" تومان"
                                     anchors.centerIn: parent
@@ -168,8 +168,8 @@ JooyaPage{
                                 implicitWidth: 81
                                 implicitHeight: 36
                                 border.width: 1
-                                border.color:MaterialStyle.accent300
-                                color:MaterialStyle.accent200
+                                border.color:MaterialStyle.secondary300
+                                color:MaterialStyle.secondary200
                                 Text {
                                     text: "قیمت"
                                     anchors.centerIn: parent
@@ -189,8 +189,8 @@ JooyaPage{
                                 implicitWidth: 162
                                 implicitHeight: 36
                                 border.width: 1
-                                border.color:MaterialStyle.accent300
-                                color:MaterialStyle.accent200
+                                border.color:MaterialStyle.secondary300
+                                color:MaterialStyle.secondary200
                                 Text {
                                     text: order.discountPercent==0?"دریافت تخفیف": order.discountPercent+" درصد"
                                     anchors.centerIn: parent
@@ -215,8 +215,8 @@ JooyaPage{
                                 implicitWidth: 81
                                 implicitHeight: 36
                                 border.width: 1
-                                border.color:MaterialStyle.accent300
-                                color:MaterialStyle.accent200
+                                border.color:MaterialStyle.secondary300
+                                color:MaterialStyle.secondary200
                                 Text {
                                     text: "مقدار تخفیف"
                                     anchors.centerIn: parent
@@ -236,8 +236,8 @@ JooyaPage{
                                 implicitWidth: 162
                                 implicitHeight: 36
                                 border.width: 1
-                                border.color:MaterialStyle.accent300
-                                color:MaterialStyle.accent200
+                                border.color:MaterialStyle.secondary300
+                                color:MaterialStyle.secondary200
                                 Text {
                                     text: order.priceWithDiscount/10+" تومان"
                                     anchors.centerIn: parent
@@ -249,8 +249,8 @@ JooyaPage{
                                 implicitWidth: 81
                                 implicitHeight: 36
                                 border.width: 1
-                                border.color:MaterialStyle.accent300
-                                color:MaterialStyle.accent200
+                                border.color:MaterialStyle.secondary300
+                                color:MaterialStyle.secondary200
                                 Text {
                                     text: "قیمت نهایی"
                                     anchors.centerIn: parent

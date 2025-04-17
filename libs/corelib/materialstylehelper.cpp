@@ -9,14 +9,14 @@ MaterialStyleHelper::MaterialStyleHelper(QObject *parent) : QObject(parent)
     connect(this,&MaterialStyleHelper::themeChanged,this,&MaterialStyleHelper::onThemeChanged);
 
     m_Shade=MaterialShades::MaterialShadesEnum::Shade500;
-    m_Accent=MaterialColors::MaterialColorsEnum::Pink;
+    m_Secondary=MaterialColors::MaterialColorsEnum::Pink;
     m_Primary=MaterialColors::MaterialColorsEnum::Pink;
     m_BackgroundColor=m_Primary;
     m_Theme=MaterialThemes::MaterialThemesEnum::Light;
     m_IsDark=false;
 
     m_WindowCapturedImgPath=QUrl();
-    ///below code should be after theme,primary and accent color setting
+    ///below code should be after theme,primary and secondary color setting
     /// for button be unvisible at application startup
     m_ButtonVisible=false;
     refreshBackgroundColors();
@@ -85,16 +85,16 @@ void MaterialStyleHelper::setPrimaryTextColor(QColor p)
     }
 }
 
-QColor MaterialStyleHelper::accentTextColor()
+QColor MaterialStyleHelper::secondaryTextColor()
 {
-    return m_AccentTextColor;
+    return m_SecondaryTextColor;
 }
 
-void MaterialStyleHelper::setAccentTextColor(QColor a)
+void MaterialStyleHelper::setSecondaryTextColor(QColor a)
 {
-    if(m_AccentTextColor!=a){
-        m_AccentTextColor=a;
-        emit accentTextColorChanged();
+    if(m_SecondaryTextColor!=a){
+        m_SecondaryTextColor=a;
+        emit secondaryTextColorChanged();
     }
 }
 
@@ -141,16 +141,22 @@ void MaterialStyleHelper::refreshBackgroundColors()
             setBackColor300(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade300));
         }
 
-        setAccent50(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
-        setAccent100(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade100));
-        setAccent200(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade200));
-        setAccent300(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade300));
+        setSecondary50(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
+        setSecondary100(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade100));
+        setSecondary200(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade200));
+        setSecondary300(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade300));
+        setSecondary400(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade400));
+        setSecondary500(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade500));
+        setSecondary600(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade600));
+        setSecondary700(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade700));
+        setSecondary800(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade800));
+        setSecondary900(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade900));
 
-        setIconColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade500));
+        setIconColor(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade500));
         setPrimaryTextColor(m_Color.darkColor(primary()));
-        setAccentTextColor(m_Color.darkColor(accent()));
+        setSecondaryTextColor(m_Color.darkColor(secondary()));
         setInvertedPrimaryTextColor(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
-        setInvertedAccetTextColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
+        setInvertedAccetTextColor(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
         break;
     case MaterialThemes::MaterialThemesEnum::Dark:
         if(backgroundColor()==MaterialColors::MaterialColorsEnum::White){
@@ -165,16 +171,22 @@ void MaterialStyleHelper::refreshBackgroundColors()
             setBackColor200(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade700));
             setBackColor300(m_Color.getColor(backgroundColor(),MaterialShades::MaterialShadesEnum::Shade600));
         }
-        setAccent50(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade900));
-        setAccent100(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade800));
-        setAccent200(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade700));
-        setAccent300(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade600));
+        setSecondary50(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade900));
+        setSecondary100(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade800));
+        setSecondary200(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade700));
+        setSecondary300(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade600));
+        setSecondary400(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade500));
+        setSecondary500(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade400));
+        setSecondary600(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade300));
+        setSecondary700(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade200));
+        setSecondary800(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade100));
+        setSecondary900(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
 
-        setIconColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
+        setIconColor(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
         setPrimaryTextColor(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
-        setAccentTextColor(m_Color.getColor(accent(),MaterialShades::MaterialShadesEnum::Shade50));
+        setSecondaryTextColor(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
         setInvertedPrimaryTextColor(m_Color.darkColor(primary()));
-        setInvertedAccetTextColor(m_Color.darkColor(accent()));
+        setInvertedAccetTextColor(m_Color.darkColor(secondary()));
         break;
     default:
         break;
@@ -304,7 +316,7 @@ QString MaterialStyleHelper::toJson()
     QJsonObject obj;
     obj.insert("theme",static_cast<int>(theme()));
     obj.insert("primary",static_cast<int>(primary()));
-    obj.insert("accent",static_cast<int>(accent()));
+    obj.insert("secondary",static_cast<int>(secondary()));
     obj.insert("backgroundColor",static_cast<int>(backgroundColor()));
 
     QJsonDocument doc(obj);
@@ -318,7 +330,7 @@ void MaterialStyleHelper::loadFromJson(QString json)
     setTheme(static_cast<MaterialThemes::MaterialThemesEnum>(obj.value("theme").toInt()));
     setBackgroundColor(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("backgroundColor").toInt()));
     setPrimary(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("primary").toInt()));
-    setAccent(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("accent").toInt()));
+    setSecondary(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("secondary").toInt()));
 }
 
 MaterialColors::MaterialColorsEnum MaterialStyleHelper::backgroundColor()
@@ -351,16 +363,16 @@ void MaterialStyleHelper::setPrimary(MaterialColors::MaterialColorsEnum p)
     }
 }
 
-MaterialColors::MaterialColorsEnum MaterialStyleHelper::accent()
+MaterialColors::MaterialColorsEnum MaterialStyleHelper::secondary()
 {
-    return m_Accent;
+    return m_Secondary;
 }
 
-void MaterialStyleHelper::setAccent(MaterialColors::MaterialColorsEnum a)
+void MaterialStyleHelper::setSecondary(MaterialColors::MaterialColorsEnum a)
 {
-    if(m_Accent!=a){
-        m_Accent=a;
-        emit accentChanged();
+    if(m_Secondary!=a){
+        m_Secondary=a;
+        emit secondaryChanged();
         refreshBackgroundColors();
         saveThemeInSettings();
     }
@@ -473,54 +485,132 @@ ColorListModel* MaterialStyleHelper::colors()
     return &m_Colors;
 }
 
-QColor MaterialStyleHelper::accent50()
+QColor MaterialStyleHelper::secondary50()
 {
-    return m_Accent50;
+    return m_Secondary50;
 }
 
-void MaterialStyleHelper::setAccent50(QColor bcolor)
+void MaterialStyleHelper::setSecondary50(QColor bcolor)
 {
-    if(m_Accent50!=bcolor){
-        m_Accent50=bcolor;
-        emit accent50Changed();
+    if(m_Secondary50!=bcolor){
+        m_Secondary50=bcolor;
+        emit secondary50Changed();
     }
 }
 
-QColor MaterialStyleHelper::accent100()
+QColor MaterialStyleHelper::secondary100()
 {
-    return m_Accent100;
+    return m_Secondary100;
 }
 
-void MaterialStyleHelper::setAccent100(QColor c)
+void MaterialStyleHelper::setSecondary100(QColor c)
 {
-    if(m_Accent100!=c){
-        m_Accent100=c;
-        emit accent100Changed();
+    if(m_Secondary100!=c){
+        m_Secondary100=c;
+        emit secondary100Changed();
     }
 }
 
-QColor MaterialStyleHelper::accent200()
+QColor MaterialStyleHelper::secondary200()
 {
-    return m_Accent200;
+    return m_Secondary200;
 }
 
-void MaterialStyleHelper::setAccent200(QColor c)
+void MaterialStyleHelper::setSecondary200(QColor c)
 {
-    if(m_Accent200!=c){
-        m_Accent200=c;
-        emit accent200Changed();
+    if(m_Secondary200!=c){
+        m_Secondary200=c;
+        emit secondary200Changed();
     }
 }
 
-QColor MaterialStyleHelper::accent300()
+QColor MaterialStyleHelper::secondary300()
 {
-    return m_Accent300;
+    return m_Secondary300;
 }
 
-void MaterialStyleHelper::setAccent300(QColor b)
+void MaterialStyleHelper::setSecondary300(QColor b)
 {
-    if(m_Accent300!=b){
-        m_Accent300=b;
-        emit accent300Changed();
+    if(m_Secondary300!=b){
+        m_Secondary300=b;
+        emit secondary300Changed();
     }
+}
+
+QColor MaterialStyleHelper::secondary400() const
+{
+    return m_secondary400;
+}
+
+void MaterialStyleHelper::setSecondary400(const QColor &newSecondary400)
+{
+    if (m_secondary400 == newSecondary400)
+        return;
+    m_secondary400 = newSecondary400;
+    emit secondary400Changed();
+}
+
+QColor MaterialStyleHelper::secondary500() const
+{
+    return m_secondary500;
+}
+
+void MaterialStyleHelper::setSecondary500(const QColor &newSecondary500)
+{
+    if (m_secondary500 == newSecondary500)
+        return;
+    m_secondary500 = newSecondary500;
+    emit secondary500Changed();
+}
+
+QColor MaterialStyleHelper::secondary600() const
+{
+    return m_secondary600;
+}
+
+void MaterialStyleHelper::setSecondary600(const QColor &newSecondary600)
+{
+    if (m_secondary600 == newSecondary600)
+        return;
+    m_secondary600 = newSecondary600;
+    emit secondary600Changed();
+}
+
+QColor MaterialStyleHelper::secondary700() const
+{
+    return m_secondary700;
+}
+
+void MaterialStyleHelper::setSecondary700(const QColor &newSecondary700)
+{
+    if (m_secondary700 == newSecondary700)
+        return;
+    m_secondary700 = newSecondary700;
+    emit secondary700Changed();
+}
+
+QColor MaterialStyleHelper::secondary800() const
+{
+    return m_secondary800;
+}
+
+void MaterialStyleHelper::setSecondary800(const QColor &newSecondary800)
+{
+    if (m_secondary800 == newSecondary800)
+        return;
+    m_secondary800 = newSecondary800;
+    emit secondary800Changed();
+}
+
+QColor MaterialStyleHelper::secondary900() const
+{
+    return m_secondary900;
+}
+
+void MaterialStyleHelper::setSecondary900(const QColor &newSecondary900)
+{
+    if (m_secondary900 == newSecondary900)
+        return;
+    m_secondary900 = newSecondary900;
+    emit secondary900Changed();
 }

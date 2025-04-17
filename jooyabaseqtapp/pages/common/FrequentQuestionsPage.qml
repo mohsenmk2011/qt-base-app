@@ -481,7 +481,7 @@ Page{
         height: 36
         radius: width/2
         visible: btnGoToEndOfList.isVisible&& chat.unReadTalks>0
-        color: Material.color(MaterialStyle.accent)
+        color: Material.color(MaterialStyle.secondary)
         anchors.bottom: btnGoToEndOfList.bottom
         anchors.right: btnGoToEndOfList.right
         anchors.bottomMargin: 36
@@ -500,7 +500,7 @@ Page{
     }
     footer:Rectangle{
         id:footerRect
-        color: MaterialStyle.accent100
+        color: MaterialStyle.secondary100
         height: txtSendingTalk.implicitHeight+12
         RowLayout{
             id:rowSendMessage
@@ -556,9 +556,9 @@ Page{
                     color: MaterialStyle.primaryTextColor
                     background: Rectangle{
                         radius: 3
-                        color: MaterialStyle.accent200
+                        color: MaterialStyle.secondary200
                         border.width: 1
-                        border.color: MaterialStyle.accent300
+                        border.color: MaterialStyle.secondary300
                     }
                     padding: 0
                     rightPadding: 9

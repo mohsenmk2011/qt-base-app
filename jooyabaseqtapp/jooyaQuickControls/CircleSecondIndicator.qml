@@ -39,7 +39,7 @@ Item {
     property bool isPie: false           // paint a pie instead of an arc
     property bool showBackground: false  // a full circle as a background of the arc
     property real lineWidth: 20          // width of the line
-    property color colorCircle: Material.accentColor
+    property color colorCircle: Material.secondaryColor
     property color colorBackground: "#779933"
 
     property alias beginAnimation: animationArcBegin.enabled
@@ -81,7 +81,7 @@ Item {
             height: width
             anchors.centerIn: parent
             radius: width/2
-            color: MaterialStyle.accent200
+            color: MaterialStyle.secondary200
             Text {
                 id:txt
                 anchors.centerIn: parent

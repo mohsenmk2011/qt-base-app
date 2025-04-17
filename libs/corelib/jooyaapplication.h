@@ -28,7 +28,7 @@ public:
     static AppPagesManager* m_ApplicationPageManager;
     void processQmlLiveCommandLine(QGuiApplication *app);
     bool isDesignMode();
-    void setDefaultTheme(MaterialThemes::MaterialThemesEnum theme, MaterialColors::MaterialColorsEnum primary, MaterialColors::MaterialColorsEnum accent,MaterialColors::MaterialColorsEnum backColor);
+    void setDefaultTheme(MaterialThemes::MaterialThemesEnum theme, MaterialColors::MaterialColorsEnum primary, MaterialColors::MaterialColorsEnum secondary,MaterialColors::MaterialColorsEnum backColor);
 signals:
 
 public slots:

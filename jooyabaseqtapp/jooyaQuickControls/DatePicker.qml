@@ -21,7 +21,7 @@ Rectangle {
         property color primary: "#00BCD4"
         property color primary_dark: "#0097A7"
         property color primary_light: "#B2EBF2"
-        property color accent: "#FF5722"
+        property color secondary: "#FF5722"
         property color primary_text: "#212121"
         property color secondary_text: "#757575"
         property color icons: "#FFFFFF"

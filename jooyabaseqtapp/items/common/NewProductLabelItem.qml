@@ -14,7 +14,7 @@ Rectangle{
         x:-35
         width: txtContent.width+90
         height: txtContent.height
-        color: MaterialStyle.accentTextColor
+        color: MaterialStyle.secondaryTextColor
         transformOrigin: Item.TopLeft
         rotation: -45
         Text {

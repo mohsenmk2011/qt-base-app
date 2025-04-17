@@ -13,7 +13,7 @@ ApplicationWindow {
     width: 360
     //TODO: Change this after creating new branch from master branch
     title: qsTr("اپلیکیشن جویا")
-    Material.accent: MaterialStyle.accent
+    Material.accent: MaterialStyle.secondary
     Material.primary: MaterialStyle.primary
     Material.theme:MaterialStyle.theme
     onClosing: {

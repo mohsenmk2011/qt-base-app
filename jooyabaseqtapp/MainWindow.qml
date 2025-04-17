@@ -680,7 +680,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignBottom
                 height: 70
-                Material.background: MaterialStyle.accent100
+                Material.background: MaterialStyle.secondary100
                 ColumnLayout{
                     anchors.fill: parent
                     Rectangle{
