@@ -23,7 +23,6 @@ class MaterialStyleHelper : public QObject
     Q_PROPERTY(MaterialColors::MaterialColorsEnum backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(MaterialColors::MaterialColorsEnum primary READ primary WRITE setPrimary NOTIFY primaryChanged)
     Q_PROPERTY(MaterialColors::MaterialColorsEnum secondary READ secondary WRITE setSecondary NOTIFY secondaryChanged)
-    Q_PROPERTY(MaterialShades::MaterialShadesEnum shade READ shade WRITE setShade NOTIFY shadeChanged)
 
     Q_PROPERTY(bool isDark READ isDark WRITE setIsDark NOTIFY isDarkChanged)
     Q_PROPERTY(bool showAnimation READ showAnimation WRITE setShowAnimation NOTIFY showAnimationChanged)
@@ -116,8 +115,6 @@ public:
     void setPrimary(MaterialColors::MaterialColorsEnum p);
     MaterialColors::MaterialColorsEnum secondary();
     void setSecondary(MaterialColors::MaterialColorsEnum a);
-    MaterialShades::MaterialShadesEnum shade();
-    void setShade(MaterialShades::MaterialShadesEnum s);
 
     ///How manay seconds the button of changing theme will be visible in toolbar
     int buttonVisibilityTimeout();
@@ -214,7 +211,6 @@ private:
     MaterialColors::MaterialColorsEnum m_Primary;
     MaterialColors::MaterialColorsEnum m_BackgroundColor;
     MaterialColors::MaterialColorsEnum m_Secondary;
-   MaterialShades::MaterialShadesEnum m_Shade;
     AppPagesManager m_PageManager;
     bool m_ShowAnimation;
     ColorListModel m_Colors;

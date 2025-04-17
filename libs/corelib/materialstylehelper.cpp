@@ -8,7 +8,6 @@ MaterialStyleHelper::MaterialStyleHelper(QObject *parent) : QObject(parent)
     connect(&m_PageManager,&AppPagesManager::grabbedWindowFinished,this,&MaterialStyleHelper::onGrabbedWindow);
     connect(this,&MaterialStyleHelper::themeChanged,this,&MaterialStyleHelper::onThemeChanged);
 
-    m_Shade=MaterialShades::MaterialShadesEnum::Shade500;
     m_Secondary=MaterialColors::MaterialColorsEnum::Pink;
     m_Primary=MaterialColors::MaterialColorsEnum::Pink;
     m_BackgroundColor=m_Primary;
@@ -375,19 +374,6 @@ void MaterialStyleHelper::setSecondary(MaterialColors::MaterialColorsEnum a)
         emit secondaryChanged();
         refreshBackgroundColors();
         saveThemeInSettings();
-    }
-}
-
-MaterialShades::MaterialShadesEnum MaterialStyleHelper::shade()
-{
-    return m_Shade;
-}
-
-void MaterialStyleHelper::setShade(MaterialShades::MaterialShadesEnum s)
-{
-    if(m_Shade!=s){
-        m_Shade=s;
-        emit shadeChanged();
     }
 }
 
