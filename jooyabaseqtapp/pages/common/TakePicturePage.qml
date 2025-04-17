@@ -46,12 +46,19 @@ JooyaPage {
                 screenOrientation=0;
         }
     }
-    Camera {
-        id: camera
-        position: Camera.BackFace
-        imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
+    CaptureSession{
+        camera: Camera {
+            id: camera
+            // position: Camera.BackFace
+            whiteBalanceMode: Camera.WhiteBalanceFlash
 
-        flash.mode: Camera.FlashRedEyeReduction
+            flashMode: Camera.FlashRedEyeReduction
+            focusMode: {
+                focusMode: Camera.FocusModeAutoNear
+                focusPointMode: Camera.FocusPointCenter
+            }
+        }
+        videoOutput: cameraDisplay
         imageCapture {
             onImageCaptured: {
                 camera.stop();
@@ -72,17 +79,14 @@ JooyaPage {
                 console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
         }
-        focus {
-            focusMode: Camera.FocusContinuous
-            focusPointMode: Camera.FocusPointCenter
-        }
+
     }
+
     VideoOutput {
         id:cameraDisplay
-        source: camera
         anchors.fill: parent
         fillMode: VideoOutput.Stretch
-        autoOrientation: true
+        // orientation: true
         focus : visible // to receive focus and capture key events when visible
     }
     Image {
