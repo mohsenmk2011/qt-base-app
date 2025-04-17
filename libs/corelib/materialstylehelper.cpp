@@ -10,7 +10,6 @@ MaterialStyleHelper::MaterialStyleHelper(QObject *parent) : QObject(parent)
 
     m_Secondary=MaterialColors::MaterialColorsEnum::Pink;
     m_Primary=MaterialColors::MaterialColorsEnum::Pink;
-    m_BackgroundColor=m_Primary;
     m_Theme=MaterialThemes::MaterialThemesEnum::Light;
     m_IsDark=false;
 
@@ -127,7 +126,7 @@ void MaterialStyleHelper::refreshBackgroundColors()
     switch (theme())
     {
     case MaterialThemes::MaterialThemesEnum::Light:
-        if(backgroundColor()==MaterialColors::MaterialColorsEnum::White){
+        if(useWhiteBackColor()){
             setPrimary50(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade100));
             setPrimary100(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
             setPrimary200(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade100));
@@ -150,6 +149,16 @@ void MaterialStyleHelper::refreshBackgroundColors()
         setSecondary700(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade700));
         setSecondary800(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade800));
         setSecondary900(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade900));
+        setTertiary50(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade50));
+        setTertiary100(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade100));
+        setTertiary200(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade200));
+        setTertiary300(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade300));
+        setTertiary400(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade400));
+        setTertiary500(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade500));
+        setTertiary600(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade600));
+        setTertiary700(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade700));
+        setTertiary800(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade800));
+        setTertiary900(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade900));
 
         setIconColor(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade500));
         setPrimaryTextColor(m_Color.darkColor(primary()));
@@ -158,7 +167,7 @@ void MaterialStyleHelper::refreshBackgroundColors()
         setInvertedAccetTextColor(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
         break;
     case MaterialThemes::MaterialThemesEnum::Dark:
-        if(backgroundColor()==MaterialColors::MaterialColorsEnum::White){
+        if(useWhiteBackColor()){
             setPrimary50(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade900));
             setPrimary100(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade800));
             setPrimary200(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade700));
@@ -180,6 +189,16 @@ void MaterialStyleHelper::refreshBackgroundColors()
         setSecondary700(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade200));
         setSecondary800(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade100));
         setSecondary900(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
+        setTertiary50(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade900));
+        setTertiary100(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade800));
+        setTertiary200(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade700));
+        setTertiary300(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade600));
+        setTertiary400(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade500));
+        setTertiary500(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade400));
+        setTertiary600(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade300));
+        setTertiary700(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade200));
+        setTertiary800(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade100));
+        setTertiary900(m_Color.getColor(tertiary(),MaterialShades::MaterialShadesEnum::Shade50));
 
         setIconColor(m_Color.getColor(secondary(),MaterialShades::MaterialShadesEnum::Shade50));
         setPrimaryTextColor(m_Color.getColor(primary(),MaterialShades::MaterialShadesEnum::Shade50));
@@ -316,7 +335,8 @@ QString MaterialStyleHelper::toJson()
     obj.insert("theme",static_cast<int>(theme()));
     obj.insert("primary",static_cast<int>(primary()));
     obj.insert("secondary",static_cast<int>(secondary()));
-    obj.insert("backgroundColor",static_cast<int>(backgroundColor()));
+    obj.insert("tertiary",static_cast<int>(tertiary()));
+    obj.insert("useWhiteBackColor",static_cast<bool>(useWhiteBackColor()));
 
     QJsonDocument doc(obj);
     return QString(doc.toJson(QJsonDocument::JsonFormat::Compact));
@@ -327,24 +347,10 @@ void MaterialStyleHelper::loadFromJson(QString json)
     qInfo()<<"theme that was in settings =>"<<json;
     QJsonObject obj=QJsonDocument::fromJson(json.toUtf8()).object();
     setTheme(static_cast<MaterialThemes::MaterialThemesEnum>(obj.value("theme").toInt()));
-    setBackgroundColor(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("backgroundColor").toInt()));
+    setUseWhiteBackColor(static_cast<bool>(obj.value("useWhiteBackColor").toBool()));
     setPrimary(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("primary").toInt()));
     setSecondary(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("secondary").toInt()));
-}
-
-MaterialColors::MaterialColorsEnum MaterialStyleHelper::backgroundColor()
-{
-    return m_BackgroundColor;
-}
-
-void MaterialStyleHelper::setBackgroundColor(MaterialColors::MaterialColorsEnum bc)
-{
-    if(m_BackgroundColor!=bc){
-        m_BackgroundColor=bc;
-        emit backgroundColorChanged();
-        refreshBackgroundColors();
-        saveThemeInSettings();
-    }
+    setTertiary(static_cast<MaterialColors::MaterialColorsEnum>(obj.value("tertiary").toInt()));
 }
 
 MaterialColors::MaterialColorsEnum MaterialStyleHelper::primary()
@@ -599,4 +605,164 @@ void MaterialStyleHelper::setSecondary900(const QColor &newSecondary900)
         return;
     m_secondary900 = newSecondary900;
     emit secondary900Changed();
+}
+
+bool MaterialStyleHelper::useWhiteBackColor() const
+{
+    return m_useWhiteBackColor;
+}
+
+void MaterialStyleHelper::setUseWhiteBackColor(bool newUseWhiteBackColor)
+{
+    if (m_useWhiteBackColor == newUseWhiteBackColor)
+        return;
+    m_useWhiteBackColor = newUseWhiteBackColor;
+    emit useWhiteBackColorChanged();
+    refreshBackgroundColors();
+    saveThemeInSettings();
+}
+
+MaterialColors::MaterialColorsEnum MaterialStyleHelper::tertiary() const
+{
+    return m_tertiary;
+}
+
+void MaterialStyleHelper::setTertiary(const MaterialColors::MaterialColorsEnum &newTertiary)
+{
+    if (m_tertiary == newTertiary)
+        return;
+    m_tertiary = newTertiary;
+    emit tertiaryChanged();
+    refreshBackgroundColors();
+    saveThemeInSettings();
+}
+
+QColor MaterialStyleHelper::tertiary50() const
+{
+    return m_tertiary50;
+}
+
+void MaterialStyleHelper::setTertiary50(const QColor &newTertiary50)
+{
+    if (m_tertiary50 == newTertiary50)
+        return;
+    m_tertiary50 = newTertiary50;
+    emit tertiary50Changed();
+}
+
+QColor MaterialStyleHelper::tertiary100() const
+{
+    return m_tertiary100;
+}
+
+void MaterialStyleHelper::setTertiary100(const QColor &newTertiary100)
+{
+    if (m_tertiary100 == newTertiary100)
+        return;
+    m_tertiary100 = newTertiary100;
+    emit tertiary100Changed();
+}
+
+QColor MaterialStyleHelper::tertiary200() const
+{
+    return m_tertiary200;
+}
+
+void MaterialStyleHelper::setTertiary200(const QColor &newTertiary200)
+{
+    if (m_tertiary200 == newTertiary200)
+        return;
+    m_tertiary200 = newTertiary200;
+    emit tertiary200Changed();
+}
+
+QColor MaterialStyleHelper::tertiary300() const
+{
+    return m_tertiary300;
+}
+
+void MaterialStyleHelper::setTertiary300(const QColor &newTertiary300)
+{
+    if (m_tertiary300 == newTertiary300)
+        return;
+    m_tertiary300 = newTertiary300;
+    emit tertiary300Changed();
+}
+
+QColor MaterialStyleHelper::tertiary400() const
+{
+    return m_tertiary400;
+}
+
+void MaterialStyleHelper::setTertiary400(const QColor &newTertiary400)
+{
+    if (m_tertiary400 == newTertiary400)
+        return;
+    m_tertiary400 = newTertiary400;
+    emit tertiary400Changed();
+}
+
+QColor MaterialStyleHelper::tertiary500() const
+{
+    return m_tertiary500;
+}
+
+void MaterialStyleHelper::setTertiary500(const QColor &newTertiary500)
+{
+    if (m_tertiary500 == newTertiary500)
+        return;
+    m_tertiary500 = newTertiary500;
+    emit tertiary500Changed();
+}
+
+QColor MaterialStyleHelper::tertiary600() const
+{
+    return m_tertiary600;
+}
+
+void MaterialStyleHelper::setTertiary600(const QColor &newTertiary600)
+{
+    if (m_tertiary600 == newTertiary600)
+        return;
+    m_tertiary600 = newTertiary600;
+    emit tertiary600Changed();
+}
+
+QColor MaterialStyleHelper::tertiary700() const
+{
+    return m_tertiary700;
+}
+
+void MaterialStyleHelper::setTertiary700(const QColor &newTertiary700)
+{
+    if (m_tertiary700 == newTertiary700)
+        return;
+    m_tertiary700 = newTertiary700;
+    emit tertiary700Changed();
+}
+
+QColor MaterialStyleHelper::tertiary800() const
+{
+    return m_tertiary800;
+}
+
+void MaterialStyleHelper::setTertiary800(const QColor &newTertiary800)
+{
+    if (m_tertiary800 == newTertiary800)
+        return;
+    m_tertiary800 = newTertiary800;
+    emit tertiary800Changed();
+}
+
+QColor MaterialStyleHelper::tertiary900() const
+{
+    return m_tertiary900;
+}
+
+void MaterialStyleHelper::setTertiary900(const QColor &newTertiary900)
+{
+    if (m_tertiary900 == newTertiary900)
+        return;
+    m_tertiary900 = newTertiary900;
+    emit tertiary900Changed();
 }
