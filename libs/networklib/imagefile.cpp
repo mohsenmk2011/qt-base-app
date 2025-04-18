@@ -37,7 +37,8 @@ void ImageFile::setHeight(int h)
 
 QJsonObject ImageFile::toJson()
 {
-    ImageUtility iu(url().path());
+    ImageUtility iu;
+    iu.loadFromPath(url());
     QJsonObject obj;
     obj.insert("id",fileId());
     obj.insert("imageBase64",iu.base64Img());
