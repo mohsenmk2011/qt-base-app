@@ -254,8 +254,11 @@ Page {
                 }
                 reloadCount++;
                 imageFile.url = orginalUrl + "?reload="+reloadCount;
+                console.log("orginalUrl => "+orginalUrl);
+                console.log("imageFile.url => "+imageFile.url);
                 imageFile.uploadStatus = FileUploadStatus.NotStarted;
                 imageFile.isExists = true;
+                img.source = imageFile.url;
             }
             else{
                 var cd=fileDialogWin.createObject(mainWindow);
