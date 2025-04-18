@@ -312,7 +312,7 @@ Page {
                 visible: imageOpened
                 contentItem: IconImage {
                     fillMode: Image.Pad
-                    source: "../../images/common/delete.png"
+                    source: "../../images/common/resize.png"
                     color: MaterialStyle.iconColor
                 }
                 JooyaToolTip {
