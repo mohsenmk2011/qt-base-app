@@ -108,12 +108,6 @@ void ImageEditorUtility::calculateCurrentOperation()
         return;
     }
     //--------------------------< if mouse pressed at inside rect cip >------------------------------
-    bool isInsideClipRect = clipRect().contains(dragStartPosition());
-    if(isInsideClipRect){
-        qDebug()<<"inside clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ClipRectPosition);
-    }
-    //--------------------------< if mouse pressed at inside rect cip >------------------------------
     else{
         qDebug()<<"inside image";
         setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ImagePosition);
