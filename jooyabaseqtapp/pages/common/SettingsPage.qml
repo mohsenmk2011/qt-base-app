@@ -645,7 +645,7 @@ Flickable {
                         color: MaterialStyle.iconColor
                     }
                     Text {
-                        text: qsTr("رنگ اصلی")
+                        text: qsTr("رنگ نخستین")
                         Layout.alignment: Qt.AlignLeft
                         color: MaterialStyle.primaryTextColor
                         font{
@@ -801,6 +801,7 @@ Flickable {
                             color: model.colorName
                             border.width: MaterialStyle.tertiary === colorCode ? 2:0
                             border.color: MaterialStyle.isDark ? "red" : "blue"
+                            visible: model.color!==MaterialColors.White
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
