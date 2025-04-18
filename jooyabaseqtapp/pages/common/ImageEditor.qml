@@ -4,7 +4,9 @@ import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 import QtQuick.Dialogs
 import Jooya
+import QtQuick.Layouts
 import "../../items/common"
+import "../../jooyaQuickControls"
 import "../../jsf/JSUtility.js" as Jsu;
 import QtCore
 
@@ -12,6 +14,7 @@ Page {
     id:imageEditorPage
     property ImageFile imageFile: null
     property bool imageOpened: img.source !== "" && img.status === Image.Ready
+    property bool imageEditing: flase
     property bool clipImageSaved: false
     property size clipSize: Qt.size(100,100)
     property bool isFixedClipSize: true
@@ -39,6 +42,7 @@ Page {
     }
     ImageEditorUtility{
         id:imageEditor
+        hasFixedClipRect: isFixedClipSize
         onClipRectChanged: {
             console.log("is updateing clip rect to new position or size")
             rectClip.x=imageEditor.clipRect.x
@@ -94,6 +98,18 @@ Page {
             width: 3
         }
         z:img.z+1
+    }
+    Text {
+        id: txtImageCilppedImageWidth
+        text: img.width + "px"
+        anchors.bottom: rectScaledImage.bottom
+        anchors.horizontalCenter: rectScaledImage.horizontalCenter
+    }
+    Text {
+        id: txtImageCilppedImageHeight
+        text: img.height + "px"
+        anchors.right: rectScaledImage.right
+        anchors.verticalCenter: rectScaledImage.verticalCenter
     }
     PinchArea {
         id: pinchArea
@@ -193,79 +209,123 @@ Page {
 
 
     }
-    RoundButton{
-        id: btnImageOpen
-        Material.elevation:2
-        property bool isVisible: true
-        visible: CurrentUser.isLoggedIn
-        width: 72
-        height: 72
-        highlighted: true
+
+    Component{
+        id: fileDialogWin
+        FileDialog {
+            id: fileDialog
+            title: "Please choose a file"
+            fileMode: FileDialog.OpenFile
+            currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
+            nameFilters: ["Picture Files(*.jpg *.png)"]
+            onAccepted: {
+                console.log("the selected file path => " +fileDialog.selectedFile);
+                setimageurl(fileDialog.selectedFile);
+            }
+            onRejected: {
+                close();
+            }
+        }
+    }
+    Pane{
+
+        height: 54
+
         anchors.bottom: parent.bottom
+        anchors.left: parent.left
         anchors.right: parent.right
-        contentItem: Image {
-            fillMode: Image.Pad
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            source: imageOpened ? "../../images/common/cut.png": "../../images/common/folder-open.png"
-        }
-        onClicked: {
-            if(imageOpened){
-                console.log("image was opened so cut and save it => ");
-                console.log("image.scale => " +img.scale);
-                console.log("scaled rect => "+Jsu.convertToQRect(rectScaledImage));
-                console.log("  clip rect => "+Jsu.convertToQRect(rectClip));
-                if(!imageUtility.loadFromPath(img.source))
-                {
-                    console.log("image is not read from path");
-                    return;
+        anchors.rightMargin: 18
+        anchors.leftMargin: 18
+        anchors.bottomMargin: 18
+        padding: 0
+        Material.elevation: 2
+        Material.background: MaterialStyle.secondary100
+        RowLayout{
+            anchors.fill: parent
+            layoutDirection: Qt.RightToLeft
+            ToolButton{
+                Layout.preferredHeight: 54
+                Layout.preferredWidth: 54
+                visible: !imageOpened
+                contentItem: IconImage {
+                    fillMode: Image.Pad
+                    source: "../../images/common/folder-open.png"
+                    color: MaterialStyle.iconColor
                 }
-                if(!imageUtility.clip(Qt.rect(rectClip.x-rectScaledImage.x,rectClip.y-rectScaledImage.y,rectClip.width,rectClip.height),img.scale))
-                {
-                    console.log("cropping image was not succeed");
-                    return;
+                JooyaToolTip {
+                    text: "باز کردن تصویر"
                 }
-                console.log("is going to save image in this url=> "+imageFile.url);
-                if(!imageUtility.save(imageFile.url))
-                {
-                    console.log("cropped image was not saved");
-                    return;
+                onClicked: {
+                    var cd=fileDialogWin.createObject(mainWindow);
+                    cd.open();
                 }
-                reloadCount++;
-                imageFile.url = orginalUrl + "?reload="+reloadCount;
-                console.log("orginalUrl => "+orginalUrl);
-                console.log("imageFile.url => "+imageFile.url);
-                imageFile.uploadStatus = FileUploadStatus.NotStarted;
-                imageFile.isExists = true;
-                img.source = imageFile.url;
             }
-            else{
-                var cd=fileDialogWin.createObject(mainWindow);
-                cd.open();
-            }
-        }
-        scale: isVisible?1.0:0.0
-        Behavior on scale {
-            NumberAnimation{
-                easing.type: Easing.InOutBounce
-                duration: 180
-            }
-        }
-        Component{
-            id: fileDialogWin
-            FileDialog {
-                id: fileDialog
-                title: "Please choose a file"
-                fileMode: FileDialog.OpenFile
-                currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
-                nameFilters: ["Picture Files(*.jpg *.png)"]
-                onAccepted: {
-                    console.log("the selected file path => " +fileUrl);
-                    setimageurl(fileUrl);
+            ToolButton{
+                Layout.preferredHeight: 54
+                Layout.preferredWidth: 54
+                visible: imageOpened
+                contentItem: IconImage {
+                    fillMode: Image.Pad
+                    source: "../../images/common/cut.png"
+                    color: MaterialStyle.iconColor
                 }
-                onRejected: {
-                    close();
+                JooyaToolTip {
+                    text: "برش تصویر"
                 }
+                onClicked: {
+                    console.log("image was opened so cut and save it => ");
+                    console.log("image.scale => " +img.scale);
+                    console.log("scaled rect => "+Jsu.convertToQRect(rectScaledImage));
+                    console.log("  clip rect => "+Jsu.convertToQRect(rectClip));
+                    if(!imageUtility.loadFromPath(img.source))
+                    {
+                        console.log("image is not read from path");
+                        return;
+                    }
+                    if(!imageUtility.clip(Qt.rect(rectClip.x-rectScaledImage.x,rectClip.y-rectScaledImage.y,rectClip.width,rectClip.height),img.scale))
+                    {
+                        console.log("cropping image was not succeed");
+                        return;
+                    }
+                    console.log("is going to save image in this url=> "+imageFile.url);
+                    if(!imageUtility.save(imageFile.url))
+                    {
+                        console.log("cropped image was not saved");
+                        return;
+                    }
+                    reloadCount++;
+                    imageFile.url = orginalUrl + "?reload="+reloadCount;
+                    console.log("orginalUrl => "+orginalUrl);
+                    console.log("imageFile.url => "+imageFile.url);
+                    imageFile.uploadStatus = FileUploadStatus.NotStarted;
+                    imageFile.isExists = true;
+                    img.source = imageFile.url;
+                    /// get image to visble area
+                    // todo:make positon of it to center of page ImageEditorUtility.makeItToCenter ofpage
+                    imageEditor.scaledImageRect.x = 0;
+                    imageEditor.scaledImageRect.y = 0;
+                }
+            }
+            ToolButton{
+                Layout.preferredHeight: 54
+                Layout.preferredWidth: 54
+                visible: imageOpened
+                contentItem: IconImage {
+                    fillMode: Image.Pad
+                    source: "../../images/common/delete.png"
+                    color: MaterialStyle.iconColor
+                }
+                JooyaToolTip {
+                    // text: "حذف تصویر"
+                    text: "ریست کردن مکان تصویر"
+                }
+                onClicked: {
+                    console.log("isFixedClipSize  ==> "+isFixedClipSize);
+                    console.log("imageEditor.hasFixedClipRect  ==> "+imageEditor.hasFixedClipRect);
+                }
+            }
+            Item {
+                Layout.fillWidth: true
             }
         }
     }
