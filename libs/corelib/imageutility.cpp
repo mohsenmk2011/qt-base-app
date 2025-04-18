@@ -47,10 +47,24 @@ void ImageUtility::setImage(QImage img)
     emit imageChanged();
 }
 
-bool ImageUtility::loadFromPath(QString path)
+bool ImageUtility::loadFromPath(QUrl url)
 {
-    qDebug()<<"load image from image url";
-    QFile imgFile(path);
+    qDebug()<<"load image from image path => " << url;
+    qDebug()<<"path.toLocalFile() => " << url.toLocalFile();
+    qDebug()<<"path.path() => " << url.path();
+    qDebug()<<"path.path() => " << url.toString();
+    QString ttt = "";
+    /// check if the url is content url or not
+    if(url.toString().contains("content://"))
+    {
+        ttt = url.toString();
+    }
+    else
+    {
+        ttt = url.toLocalFile();
+    }
+
+    QFile imgFile(ttt);
     if(!imgFile.exists()){
         qCritical()<<"Image File Not Exists";
         return false;

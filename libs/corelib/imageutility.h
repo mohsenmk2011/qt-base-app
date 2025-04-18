@@ -37,7 +37,7 @@ public:
     int imgHeight();
 
     void setImage(QImage img);
-    Q_INVOKABLE bool loadFromPath(QString path);
+    Q_INVOKABLE bool loadFromPath(QUrl url);
     Q_INVOKABLE bool loadFromData(QByteArray base64Data);
     Q_INVOKABLE bool loadImageFromClipboard();
     Q_INVOKABLE bool loadFromBase64String(QString base64);
