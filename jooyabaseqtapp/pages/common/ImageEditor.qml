@@ -119,36 +119,15 @@ Page {
             }
             console.log("scaleFactor=> "+scaleFactor);
 
-            // calculate the new position based on the current position and the pinch center
-            var pinchCenter = Qt.point(pinch.center.x - img.x, pinch.center.y - img.y)
-
-            console.log("pinchCenter=> "+pinchCenter);
-            var newPos = Qt.point(pinch.center.x - pinchCenter.x * scaleFactor, pinch.center.y - pinchCenter.y * scaleFactor)
-            console.log("newPos.x=> "+newPos.x);
-            console.log("newPos.y=> "+newPos.y);
-
-            console.log("img.width => "+img.width);
-            console.log("img.height => "+img.height);
-
-            console.log("img.x => "+img.x);
-            console.log("img.y => "+img.y);
             // update the image's scale and position
-            var oldScale = img.scale;
+            // var oldScale = img.scale;
             img.scale *= scaleFactor
-            console.log("new img.width => "+img.width);
-            console.log("new img.height => "+img.height);
-            console.log("new img.x => "+img.x);
-            console.log("new img.y => "+img.y);
 
-            if(!isValidPosition(rectScaledImage,rectClip)){
-                console.info("clip rect is going to protrude from scaled image so return");
-                img.scale = oldScale;
-                return;
-            }
-            //            img.x = newPos.x
-            //            img.y = newPos.y
-            console.log("new img.x => "+img.x);
-            console.log("new img.y => "+img.y);
+            // if(!isValidPosition(rectScaledImage,rectClip)){
+            //     console.info("clip rect is going to protrude from scaled image so return");
+            //     img.scale = oldScale;
+            //     return;
+            // }
         }
         MouseArea {
             id: dragArea
