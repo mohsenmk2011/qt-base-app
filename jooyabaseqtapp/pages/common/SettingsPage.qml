@@ -581,20 +581,17 @@ Flickable {
                     color: MaterialStyle.secondary200
                 }
                 RowLayout{
-                    enabled: !MaterialStyle.isDark
                     Layout.fillWidth: true
                     Layout.rightMargin: 18
                     Layout.leftMargin: 18
                     spacing: 9
                     IconImage {
-                        width: 27
-                        height: 27
                         Layout.alignment: Qt.AlignVCenter
                         source: "../../images/common/rectangle.png"
                         color: MaterialStyle.iconColor
                     }
                     Text {
-                        text: qsTr("پس زمینه")
+                        text: qsTr("پس زمینه کارت ها")
                         color: MaterialStyle.primaryTextColor
                         font{
                             family:flYekan.name
@@ -603,46 +600,38 @@ Flickable {
                     Item {
                         Layout.fillWidth: true
                     }
-                }
-                JooyaGridView{
-                    id:gvBackgroundColor
-                    Layout.fillWidth: true
-                    Layout.rightMargin: 18
-                    Layout.leftMargin: 18
-                    Layout.preferredHeight: 234
-                    cellWidth: 54
-                    cellHeight: 54
-                    delegate: Item {
-                        width: gvBackgroundColor.cellWidth
-                        height: gvBackgroundColor.cellHeight
-                        Rectangle{
-                            width: parent.width-4.5
-                            height: parent.width-4.5
-                            anchors.centerIn: parent
-                            radius: width/2
-                            property int colorCode: model.color
-                            color: model.colorName
-                            border.width: MaterialStyle.backgroundColor === colorCode ? 2:0
-                            border.color: MaterialStyle.isDark ? "red" : "blue"
-                            MouseArea{
-                                anchors.fill: parent
-                                onClicked: {
-                                    console.log("clicked color=> "+parent.color);
-                                    MaterialStyle.backgroundColor=model.color
-                                }
-                            }
+                    Text {
+                        text: qsTr("رنگ نخستین")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
                         }
                     }
-                    model:MaterialStyle.colors
+                    Switch{
+                        id:swUserWhiteBackColor
+                        checked: MaterialStyle.useWhiteBackColor
+                        onCheckedChanged: {
+                            console.log("swUserWhiteBackColor.checked => " + swTheme.checked)
+                        }
+                        onToggled: {
+                            console.log("onToggled swUserWhiteBackColor.checked => " + swTheme.checked)
+                            MaterialStyle.useWhiteBackColor = checked;
+                        }
+                    }
+                    Text {
+                        text: qsTr("سفید")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
                 }
                 Separator {
-                    visible: !MaterialStyle.isDark
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
                     color: MaterialStyle.secondary200
                 }
-
                 RowLayout{
                     Layout.fillWidth: true
                     Layout.rightMargin: 18
@@ -699,7 +688,6 @@ Flickable {
                     }
                     model:MaterialStyle.colors
                 }
-
                 Separator {
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
@@ -765,6 +753,67 @@ Flickable {
                     model:MaterialStyle.colors
                 }
                 Separator {
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 4.5
+                    Layout.leftMargin: 4.5
+                    color: MaterialStyle.secondary200
+                }
+                RowLayout{
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 18
+                    Layout.leftMargin: 18
+                    spacing: 9
+                    IconImage {
+                        width: 27
+                        height: 27
+                        Layout.alignment: Qt.AlignVCenter
+                        source: "../../images/common/palette.png"
+                        color: MaterialStyle.iconColor
+                    }
+                    Text {
+                        text: qsTr("رنگ سوم")
+                        color: MaterialStyle.primaryTextColor
+                        font{
+                            family:flYekan.name
+                        }
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
+                }
+                JooyaGridView{
+                    id:gvTertiaryColor
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 18
+                    Layout.leftMargin: 18
+                    Layout.preferredHeight: 234
+                    cellWidth: 54
+                    cellHeight: 54
+                    delegate: Item {
+                        width: gvTertiaryColor.cellWidth
+                        height: gvTertiaryColor.cellHeight
+                        Rectangle{
+                            width: parent.width-4.5
+                            height: parent.width-4.5
+                            anchors.centerIn: parent
+                            radius: width/2
+                            property int colorCode: model.color
+                            color: model.colorName
+                            border.width: MaterialStyle.tertiary === colorCode ? 2:0
+                            border.color: MaterialStyle.isDark ? "red" : "blue"
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: {
+                                    console.log("clicked color=> " + parent.color);
+                                    MaterialStyle.tertiary = model.color
+                                }
+                            }
+                        }
+                    }
+                    model:MaterialStyle.colors
+                }
+                Separator {
+                    visible: !MaterialStyle.isDark
                     Layout.fillWidth: true
                     Layout.rightMargin: 4.5
                     Layout.leftMargin: 4.5
