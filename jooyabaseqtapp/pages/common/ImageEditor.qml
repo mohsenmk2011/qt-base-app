@@ -256,7 +256,6 @@ Page {
                 imageFile.url = orginalUrl + "?reload="+reloadCount;
                 imageFile.uploadStatus = FileUploadStatus.NotStarted;
                 imageFile.isExists = true;
-                sv.pop();
             }
             else{
                 var cd=fileDialogWin.createObject(mainWindow);
