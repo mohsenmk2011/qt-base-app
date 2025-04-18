@@ -320,12 +320,68 @@ Page {
                     text: "ریست کردن مکان تصویر"
                 }
                 onClicked: {
-                    console.log("isFixedClipSize  ==> "+isFixedClipSize);
-                    console.log("imageEditor.hasFixedClipRect  ==> "+imageEditor.hasFixedClipRect);
+                    drawerResizeImage.open();
                 }
             }
             Item {
                 Layout.fillWidth: true
+            }
+        }
+    }
+
+    Drawer{
+        id:drawerResizeImage
+        width: parent.width
+        height: 300
+        edge: Qt.BottomEdge
+        ColumnLayout{
+            anchors.fill: parent
+            spacing: 18
+            TextFieldLabeld{
+                id: tfWidth
+                title: "پهنای تصویر"
+                placeholderText2: "پهنای تصویر"
+                text: img.width
+                Layout.fillWidth: true
+                Layout.preferredHeight: 54
+                Layout.leftMargin: 18
+                Layout.rightMargin: 18
+            }
+            JooyaButton{
+                id:btnResize
+                Layout.topMargin: 9
+                text:"تغییر اندازه تصویر"
+                onClicked: {
+                    console.log("image was opened so cut and save it => ");
+                    console.log("image.scale => " +img.scale);
+                    console.log("scaled rect => "+Jsu.convertToQRect(rectScaledImage));
+                    console.log("  clip rect => "+Jsu.convertToQRect(rectClip));
+                    if(!imageUtility.loadFromPath(img.source))
+                    {
+                        console.log("image is not read from path");
+                        return;
+                    }
+                    imageUtility.resize(tfWidth.text,img.height);
+
+                    console.log("is going to save image in this url=> "+imageFile.url);
+                    if(!imageUtility.save(imageFile.url))
+                    {
+                        console.log("cropped image was not saved");
+                        return;
+                    }
+                    reloadCount++;
+                    imageFile.url = orginalUrl + "?reload="+reloadCount;
+                    console.log("orginalUrl => "+orginalUrl);
+                    console.log("imageFile.url => "+imageFile.url);
+                    imageFile.uploadStatus = FileUploadStatus.NotStarted;
+                    imageFile.isExists = true;
+                    img.source = imageFile.url;
+                    /// get image to visble area
+                    // todo:make positon of it to center of page ImageEditorUtility.makeItToCenter ofpage
+                    imageEditor.scaledImageRect.x = 0;
+                    imageEditor.scaledImageRect.y = 0;
+
+                }
             }
         }
     }
