@@ -47,36 +47,29 @@ void ImageUtility::setImage(QImage img)
     emit imageChanged();
 }
 
-bool ImageUtility::loadFromPath(QUrl imgUrl)
+bool ImageUtility::loadFromPath(QString path)
 {
-    // Open the source image file
-    if(!imgUrl.isValid())
-    {
+    qDebug()<<"load image from image url";
+    QFile imgFile(path);
+    if(!imgFile.exists()){
+        qCritical()<<"Image File Not Exists";
         return false;
     }
-    QImageReader reader(imgUrl.path());
-    reader.setAutoTransform(true);
-    m_image = reader.read();
-    return !m_image.isNull();
+    if(!imgFile.open(QIODevice::ReadOnly)){
+        qCritical()<<"Image File Not Opened";
+        return false;
+    }
+    m_ImageBytes=imgFile.readAll();
+    qDebug()<<"image Bytes Count=>"<<m_ImageBytes.count();
 
-    //    QUrl url(imgPath);
-    //    QFile imgFile(url.toLocalFile());
-    //    if(!imgFile.exists()){
-    //        qCritical()<<"Image File Not Exists";
-    //        return false;
-    //    }
-    //    if(!imgFile.open(QIODevice::ReadOnly)){
-    //        qCritical()<<"Image File Not Opened";
-    //        return false;
-    //    }
-    //    m_ImageBytes=imgFile.readAll();
-    //    qDebug()<<"image Bytes Count=>"<<m_ImageBytes.count();
-    //    bool isOpend= m_image.loadFromData(m_ImageBytes);
-    //    if(!isOpend){
-    //        return false;
-    //        qCritical()<<"Image was not loaded !";
-    //    }
-    //    emit imageLoadingStateChanged(isOpend);
+    bool isOpend= m_image.loadFromData(m_ImageBytes);
+
+    if(!isOpend){
+        return false;
+        qCritical()<<"Image was not loaded !";
+    }
+    emit imageLoadingStateChanged(isOpend);
+    return true;
 }
 
 bool ImageUtility::loadFromData(QByteArray base64Data)

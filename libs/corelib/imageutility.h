@@ -37,10 +37,11 @@ public:
     int imgHeight();
 
     void setImage(QImage img);
-    Q_INVOKABLE bool loadFromPath(QUrl imgUrl);
+    Q_INVOKABLE bool loadFromPath(QString path);
     Q_INVOKABLE bool loadFromData(QByteArray base64Data);
     Q_INVOKABLE bool loadImageFromClipboard();
     Q_INVOKABLE bool loadFromBase64String(QString base64);
+
     QString decodeBase64(QString base64);
     Q_INVOKABLE bool clip(QRectF rect, double scale=1);
     // Q_INVOKABLE void rotate(int angel);

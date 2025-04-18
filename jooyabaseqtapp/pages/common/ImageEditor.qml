@@ -275,6 +275,7 @@ Page {
             FileDialog {
                 id: fileDialog
                 title: "Please choose a file"
+                fileMode: FileDialog.OpenFile
                 currentFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
                 nameFilters: ["Picture Files(*.jpg *.png)"]
                 onAccepted: {
