@@ -20,6 +20,7 @@ class ImageEditorUtility : public QObject
 
     Q_PROPERTY(QPointF imagePosition READ imagePosition WRITE setImagePosition NOTIFY imagePositionChanged)
     Q_PROPERTY(int cornerDragWidth READ cornerDragWidth WRITE setCornerDragWidth NOTIFY cornerDragWidthChanged FINAL)
+    Q_PROPERTY(bool hasFixedClipRect READ hasFixedClipRect WRITE setHasFixedClipRect NOTIFY hasFixedClipRectChanged FINAL)
 
 public:
     explicit ImageEditorUtility(QObject *parent = nullptr);
@@ -47,6 +48,9 @@ public:
     int cornerDragWidth() const;
     void setCornerDragWidth(int newCornerDragWidth);
 
+    bool hasFixedClipRect() const;
+    void setHasFixedClipRect(bool newHasFixedClipRect);
+
 signals:
 
     void currentOperationChanged();
@@ -61,6 +65,8 @@ signals:
     void scaledImageRectChanged();
 
     void cornerDragWidthChanged();
+
+    void hasFixedClipRectChanged();
 
 private:
     ImageOperationTypes::ImageOperationTypesEnum m_currentOperation;
@@ -78,6 +84,7 @@ private:
     ///is clip rect is insid scaled image so return
 //    bool isValidPosition();
     int m_cornerDragWidth;
+    bool m_hasFixedClipRect;
 };
 
 #endif // IMAGEEDITORUTILITY_H

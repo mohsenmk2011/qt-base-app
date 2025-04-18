@@ -4,6 +4,7 @@ ImageEditorUtility::ImageEditorUtility(QObject *parent)
     : QObject{parent}
 {
     m_cornerDragWidth = 18;
+    m_hasFixedClipRect = true;
 }
 
 const ImageOperationTypes::ImageOperationTypesEnum &ImageEditorUtility::currentOperation() const
@@ -57,61 +58,64 @@ void ImageEditorUtility::calculateCurrentOperation()
     //QPointF clipRectMousePosition = QPointF(dragStartPosition().x()+clipRect().x(),dragStartPosition().y()+clipRect().y());
     // is mouse pressed inside the rect clip?
     //bool isInsideClipRect = clipRect().contains(clipRectMousePosition);
-    //--------------------------< if mouse pressed at corners >------------------------------
-    QRectF topLeft = QRectFExtensions::topLeft(clipRect(),cornerDragWidth(),cornerDragWidth());
-    if(topLeft.contains(dragStartPosition())){
-        qDebug()<<"inside top left clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromTopLeft);
-        return;
-    }
-    QRectF topRight = QRectFExtensions::topRight(clipRect(),cornerDragWidth(),cornerDragWidth());
-    if(topRight.contains(dragStartPosition())){
-        qDebug()<<"inside top right clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromTopRight);
-        return;
-    }
-    QRectF bottomLeft = QRectFExtensions::bottomLeft(clipRect(),cornerDragWidth(),cornerDragWidth());
-    if(bottomLeft.contains(dragStartPosition())){
-        qDebug()<<"inside bottom left clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromBottomLeft);
-        return;
-    }
-    QRectF bottomRight = QRectFExtensions::bottomRight(clipRect(),cornerDragWidth(),cornerDragWidth());
-    if(bottomRight.contains(dragStartPosition())){
-        qDebug()<<"inside bottom right clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromBottomRight);
-        return;
-    }
-    //--------------------------< if mouse pressed at borders >------------------------------
-    QRectF left = QRectFExtensions::left(clipRect(),cornerDragWidth());
-    if(left.contains(dragStartPosition())){
-        qDebug()<<"inside left clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromLeft);
-        return;
-    }
-    QRectF right = QRectFExtensions::right(clipRect(),cornerDragWidth());
-    qDebug()<<"inside right  clip rect";
-    if(right.contains(dragStartPosition())){
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromRight);
-        return;
-    }
-    QRectF top = QRectFExtensions::top(clipRect(),cornerDragWidth());
-    if(top.contains(dragStartPosition())){
-        qDebug()<<"inside top clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromTop);
-        return;
-    }
-    QRectF bottom = QRectFExtensions::bottom(clipRect(),cornerDragWidth());
-    if(bottom.contains(dragStartPosition())){
-        qDebug()<<"inside bottom clip rect";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromBottom);
-        return;
+    if(!hasFixedClipRect())
+    {
+        //--------------------------< if mouse pressed at corners >------------------------------
+        QRectF topLeft = QRectFExtensions::topLeft(clipRect(),cornerDragWidth(),cornerDragWidth());
+        if(topLeft.contains(dragStartPosition())){
+            qDebug()<<"inside top left clip rect";
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromTopLeft);
+            return;
+        }
+        QRectF topRight = QRectFExtensions::topRight(clipRect(),cornerDragWidth(),cornerDragWidth());
+        if(topRight.contains(dragStartPosition())){
+            qDebug()<<"inside top right clip rect";
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromTopRight);
+            return;
+        }
+        QRectF bottomLeft = QRectFExtensions::bottomLeft(clipRect(),cornerDragWidth(),cornerDragWidth());
+        if(bottomLeft.contains(dragStartPosition())){
+            qDebug()<<"inside bottom left clip rect";
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromBottomLeft);
+            return;
+        }
+        QRectF bottomRight = QRectFExtensions::bottomRight(clipRect(),cornerDragWidth(),cornerDragWidth());
+        if(bottomRight.contains(dragStartPosition())){
+            qDebug()<<"inside bottom right clip rect";
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromBottomRight);
+            return;
+        }
+        //--------------------------< if mouse pressed at borders >------------------------------
+        QRectF left = QRectFExtensions::left(clipRect(),cornerDragWidth());
+        if(left.contains(dragStartPosition())){
+            qDebug()<<"inside left clip rect";
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromLeft);
+            return;
+        }
+        QRectF right = QRectFExtensions::right(clipRect(),cornerDragWidth());
+        qDebug()<<"inside right  clip rect";
+        if(right.contains(dragStartPosition())){
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromRight);
+            return;
+        }
+        QRectF top = QRectFExtensions::top(clipRect(),cornerDragWidth());
+        if(top.contains(dragStartPosition())){
+            qDebug()<<"inside top clip rect";
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromTop);
+            return;
+        }
+        QRectF bottom = QRectFExtensions::bottom(clipRect(),cornerDragWidth());
+        if(bottom.contains(dragStartPosition())){
+            qDebug()<<"inside bottom clip rect";
+            setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ResizeFromBottom);
+            return;
+        }
     }
     //--------------------------< if mouse pressed at inside rect cip >------------------------------
-    else{
-        qDebug()<<"inside image";
-        setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ImagePosition);
-    }
+
+    qDebug()<<"inside image";
+    setCurrentOperation(ImageOperationTypes::ImageOperationTypesEnum::ImagePosition);
+
 
 }
 
@@ -284,4 +288,17 @@ void ImageEditorUtility::setCornerDragWidth(int newCornerDragWidth)
         return;
     m_cornerDragWidth = newCornerDragWidth;
     emit cornerDragWidthChanged();
+}
+
+bool ImageEditorUtility::hasFixedClipRect() const
+{
+    return m_hasFixedClipRect;
+}
+
+void ImageEditorUtility::setHasFixedClipRect(bool newHasFixedClipRect)
+{
+    if (m_hasFixedClipRect == newHasFixedClipRect)
+        return;
+    m_hasFixedClipRect = newHasFixedClipRect;
+    emit hasFixedClipRectChanged();
 }
