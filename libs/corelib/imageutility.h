@@ -18,6 +18,7 @@
 #include<fileutility.h>
 #include<QImageReader>
 #include<QPainter>
+#include<QClipboard>
 
 class ImageUtility : public FileUtility
 {

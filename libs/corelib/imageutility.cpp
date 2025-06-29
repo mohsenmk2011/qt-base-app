@@ -157,24 +157,27 @@ QString ImageUtility::base64Img(){
 }
 
 QString ImageUtility::htmlImg(bool copyToClipboard){
+    qDebug()<<"return htm image =>";
     QString t=QString("<img src=\"data:image/png;base64,%1\"/>").arg(base64Img());
+    qDebug()<< "html tag => commented :)";//<<t;
     if(copyToClipboard){
-        //        QClipboard *cb=QApplication::clipboard();
-        //        cb->setText(t);
+        QClipboard *cb=QGuiApplication::clipboard();
+        cb->setText(t);
     }
     return t;
 }
 
 bool ImageUtility::loadImageFromClipboard(){
-    //    const QClipboard *cb=QApplication::clipboard();
-    //    const QMimeData *md=cb->mimeData();
-    //    if(md->hasImage()){
-    //        setImage(cb->image());
-    //        return true;
-    //    }
-    //    else{
-    //        return false;
-    //    }
+    qDebug()<<"load image from clipboard => ";
+    const QClipboard *cb=QGuiApplication::clipboard();
+    const QMimeData *md=cb->mimeData();
+    if(md->hasImage()){
+        setImage(cb->image());
+        return true;
+    }
+    else{
+        return false;
+    }
     return false;
 }
 
