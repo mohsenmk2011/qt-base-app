@@ -44,6 +44,7 @@ Pane {
 
             layoutDirection: Qt.RightToLeft
             Button{
+                Material.roundedScale: Material.ExtraSmallScale
                 Layout.fillWidth: true
                 highlighted: yesHighlighted
                 text: yesButtonText
@@ -54,6 +55,7 @@ Pane {
                 }
             }
             Button{
+                Material.roundedScale: Material.ExtraSmallScale
                 Layout.fillWidth: true
                 highlighted: noHighlighted
                 text: noButtonText
