@@ -8,6 +8,7 @@ import JooyaQuick.Controls.Material
 import QtMultimedia
 import QtQuick.Controls.Material.impl
 import QtQuick.Shapes
+import "../../items/common"
 
 Page{
     id:chatPage

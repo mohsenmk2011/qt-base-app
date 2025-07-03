@@ -39,7 +39,8 @@ public:
     Q_INVOKABLE void sendIAmOnline();
 
     Q_INVOKABLE void selectAll() override;
-   Q_INVOKABLE void startNewChat(Contact *contact);
+    Q_INVOKABLE void startNewChat(Contact *contact);
+    Q_INVOKABLE void startNewChatWithMyself();
     void deselectAll() override;
     QJsonArray toJsonArray();
     Q_INVOKABLE void deleteChats();

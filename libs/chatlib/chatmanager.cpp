@@ -317,6 +317,11 @@ void ChatManager::startNewChat(Contact* contact)
     }
 }
 
+void ChatManager::startNewChatWithMyself()
+{
+    startNewChat(contactManager()->me());
+}
+
 void ChatManager::onFirstTalkAddedToChat()
 {
     Chat* newChat=qobject_cast<Chat*>(sender());

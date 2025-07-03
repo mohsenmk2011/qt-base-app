@@ -5,6 +5,7 @@ import Jooya
 import QtQuick.Controls.Material
 import JooyaQuick.Controls.Material
 import "../../jooyaQuickControls"
+import "../../items/common"
 
 Rectangle{
     id:postItem
