@@ -14,7 +14,7 @@ Page {
     id:imageEditorPage
     property ImageFile imageFile: null
     property bool imageOpened: img.source !== "" && img.status === Image.Ready
-    property bool imageEditing: flase
+    property bool imageEditing: false
     property bool clipImageSaved: false
     property size clipSize: Qt.size(100,100)
     property bool isFixedClipSize: true
