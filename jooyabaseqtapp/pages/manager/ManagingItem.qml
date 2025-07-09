@@ -17,6 +17,7 @@ Item{
     Pane{
         id:pane22
         Material.elevation:2
+        Material.background: MaterialStyle.primary100
         padding: 0
         anchors.centerIn: parent
         height: 160
