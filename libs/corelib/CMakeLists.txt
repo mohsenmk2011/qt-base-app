@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Quick Core Qml Gui)
+find_package(Qt6 REQUIRED COMPONENTS Quick Core Qml Gui)
 if(ANDROID)
     
 endif()
