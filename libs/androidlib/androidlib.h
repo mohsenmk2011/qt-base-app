@@ -12,6 +12,7 @@
 #include<alarmtypes.h>
 #include<androiddeeplinkmanager.h>
 #include<intervalunits.h>
+#include<packageinfomanager.h>
 
 class Androidlib
 {
@@ -26,6 +27,7 @@ public:
         qmlRegisterType<ShareManager>("Jooya",1,0,"ShareManager");
         qmlRegisterType<SmsManager>("Jooya",1,0,"SmsManager");
         qmlRegisterType<AndroidDeepLinkManager>("Jooya",1,0,"AndroidDeepLinkManager");
+        qmlRegisterType<PackageInfoManager>("Jooya",1,0,"PackageInfoManager");
         qmlRegisterUncreatableType<PermissionTypes>("Jooya",1,0,"PermissionTypes","Permission Types");
         qmlRegisterUncreatableType<AlarmTypes>("Jooya",1,0,"AlarmTypes","Alarm Types");
         qmlRegisterUncreatableType<IntervalUnits>("Jooya",1,0,"IntervalUnits","Interval Units");

@@ -8,7 +8,7 @@ PackageInfoManager::PackageInfoManager(QObject *parent)
 
 QString PackageInfoManager::getAppSign()
 {
-    qInfo()<<"is going to get the application sign";
+    qInfo()<<"is going to get the application signature";
 #if defined(Q_OS_ANDROID)
     {
         QJniEnvironment env;
@@ -19,7 +19,7 @@ QString PackageInfoManager::getAppSign()
         if (activity.isValid())
         {
             QJniObject context = QNativeInterface::QAndroidApplication::context();
-            QString className= QString("org/jooya/jooyaqtapplication/PackageinfoManager");
+            QString className= getPackageName()+"PackageinfoManager";
 
 
             QJniObject  t= QJniObject::callStaticObjectMethod(className.toStdString().c_str(),"getAppSign","(Landroid/content/Context;)Ljava/lang/String;", context.object<jobject>());
