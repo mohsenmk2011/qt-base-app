@@ -174,6 +174,7 @@ void LoginManager::signUp(QString phoneNumber,bool hasActivationCode)
         message()->setContent("شماره تلفن همراه را وارد کنید");
         return;
     }
+    qInfo()<<"< =========[ is going to signup with phone number ]========= >";
     qDebug()<<"phoneNumber=>"<<phoneNumber;
     QJsonObject jObj;
     jObj.insert("phoneNumber",phoneNumber);
