@@ -40,7 +40,13 @@ public:
         VIBRATE,
         DISABLE_KEYGUARD,
         SYSTEM_ALERT_WINDOW,
-        ACTION_MANAGE_OVERLAY_PERMISSION
+
+        // Gallery Storage
+        READ_MEDIA_IMAGES,
+        READ_MEDIA_VIDEO,
+        READ_MEDIA_AUDIO,
+        // full access storage
+        MANAGE_EXTERNAL_STORAGE
     };
     Q_ENUMS(PermissionTypesEnum)
 };
