@@ -112,13 +112,14 @@ Page{
             JooyaButton{
                 id:btnSignup
                 enabled: !lm.isProcessing
+                Material.accent: enabled ? MaterialStyle.secondary : Material.Grey
                 text:"ارسال کد فعال سازی"
                 highlighted: true
                 onClicked: {
                     console.log("img.heigt=>"+img.height)
                     console.log("imgFile.isExists => "+imgFile.isExists)
                     console.log("imgFile.path => "+imgFile.url)
-                    androidPermissionManager.requestStorage();
+                    console.log("login or signup,first get sms permissions ;>");
                     androidPermissionManager.requestSms();
                     lm.signUp(tfPhoneNumber.text);
                 }
