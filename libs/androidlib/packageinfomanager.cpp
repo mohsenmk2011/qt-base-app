@@ -43,6 +43,34 @@ QString PackageInfoManager::getAppSign()
     return "";
 }
 
+QString PackageInfoManager::getApkHash()
+{
+    qInfo()<<"is going to get the apk hash";
+#if defined(Q_OS_ANDROID)
+    {
+        QJniEnvironment env;
+        QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");   //activity is valid
+        if (env->ExceptionCheck()) {
+            env->ExceptionClear();
+        }
+        if (activity.isValid())
+        {
+            QJniObject context = QNativeInterface::QAndroidApplication::context();
+            QString className= getPackageName()+"PackageinfoManager";
+
+
+            QJniObject  t= QJniObject::callStaticObjectMethod(className.toStdString().c_str(),"getApkHash","(Landroid/content/Context;)Ljava/lang/String;", context.object<jobject>());
+
+            if (env->ExceptionCheck()) {
+                env->ExceptionClear();
+            }
+            return t.toString();
+        }
+    }
+#endif
+    return "";
+}
+
 QString PackageInfoManager::getPackageName(QString charSeperator)
 {
     QString pn = "org"+charSeperator+"jooya"+charSeperator+getApplicationName().toLower();
