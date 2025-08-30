@@ -10,6 +10,8 @@
 #include<QCoreApplication>
 #include <QtCore/private/qandroidextras_p.h>
 #include<packageinfomanager.h>
+#include<QFuture>
+#include<QtConcurrent/QtConcurrent>
 #endif
 class AndroidPermissionManager : public QObject
 {
@@ -23,6 +25,7 @@ public:
 
     bool requestPermissions();
     bool isPermissionGranted(PermissionTypes::PermissionTypesEnum permission);
+    bool isPermissionGranted(QString permission);
 
     Q_INVOKABLE bool requestStorage();
     Q_INVOKABLE bool requestSms();
