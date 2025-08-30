@@ -35,7 +35,7 @@ public class PackageinfoManager {
         }
         return null;
     }
-    public static String getApkHash(Context context,Activity activity) {
+    public static String getApkHash(Context context/*,Activity activity*/) {
         try {
             // ================ Calulation of Hash of Apk file =====================
             String apkPath = context.getPackageCodePath();
@@ -52,9 +52,6 @@ public class PackageinfoManager {
                 Log.e("jooya", " ================== < not exists > ================== ");
             }
             Log.e("jooya", " ================== < ======= > ================== ");
-            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-            }
             FileInputStream fileInputStream = new FileInputStream(apkPath);
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             DigestInputStream digestInputStream = new DigestInputStream(fileInputStream, messageDigest);
