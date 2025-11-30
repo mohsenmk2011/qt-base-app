@@ -39,6 +39,8 @@ android {
      * Changing them manually might break the compilation!
      *******************************************************/
 
+    println "set name space =>"
+    namespace = "org.jooya.jooyaqtapplication"
     compileSdkVersion androidCompileSdkVersion.toInteger()
 
     buildToolsVersion '31.0.0'
