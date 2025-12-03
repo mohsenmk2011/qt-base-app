@@ -9,7 +9,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Widgets Quick QuickControls2 Qml Network WebSockets Multimedia WebView)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Quick QuickControls2 Qml Network WebSockets Multimedia WebView)
 
 qt_standard_project_setup()
 qt_policy(SET QTP0001 NEW)
