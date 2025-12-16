@@ -543,8 +543,7 @@ Page {
         }
         MenuItem{
             contentItem: Text {
-                //TODO: Change this after creating new branch from master branch
-                text: qsTr("معرفی اپلیکیشن")
+                text: qsTr("معرفی ") + CurrentApplication.name
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignRight
                 font.family:flYekan.name

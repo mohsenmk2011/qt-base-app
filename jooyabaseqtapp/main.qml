@@ -11,8 +11,7 @@ ApplicationWindow {
     visible: true
     height: 620
     width: 360
-    //TODO: Change this after creating new branch from master branch
-    title: qsTr("اپلیکیشن جویا")
+    title: CurrentApplication.name
     Material.accent: MaterialStyle.secondary
     Material.primary: MaterialStyle.primary
     Material.theme:MaterialStyle.theme
