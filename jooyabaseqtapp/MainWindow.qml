@@ -685,7 +685,6 @@ Page {
                     Rectangle{
                         color: "transparent"
                         Layout.fillWidth: true
-                        MouseArea{
                         Layout.preferredHeight: 36
                         RowLayout{
                             anchors.fill: parent
