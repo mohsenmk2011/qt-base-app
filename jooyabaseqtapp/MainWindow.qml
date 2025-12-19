@@ -694,6 +694,8 @@ Page {
                                 source:  "../../images/common/open-in-new.png"
                                 color: MaterialStyle.primaryTextColor
                                 Layout.alignment: Qt.AlignVCenter
+                                width: 20
+                                height: 20
                             }
                             Text{
                                 id: txtAppName
