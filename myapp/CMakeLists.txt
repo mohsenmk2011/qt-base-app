@@ -410,10 +410,22 @@ qt_add_resources(${PROJECT_NAME} "commonimages"
     images/common/basket@3x.png
     images/common/basket@2x.png
     images/common/basket.png
+    images/common/save.png
+    images/common/save@2x.png
+    images/common/save@3x.png
+    images/common/save@4x.png
+    images/common/content-save.png
     images/common/content-save@4x.png
     images/common/content-save@3x.png
     images/common/content-save@2x.png
-    images/common/content-save.png
+    images/common/bookmark.png
+    images/common/bookmark@2x.png
+    images/common/bookmark@3x.png
+    images/common/bookmark@4x.png
+    images/common/bookmark-filled.png
+    images/common/bookmark-filled@2x.png
+    images/common/bookmark-filled@3x.png
+    images/common/bookmark-filled@4x.png
     images/common/open-in-new.png
     images/common/open-in-new@2x.png
     images/common/open-in-new@3x.png
