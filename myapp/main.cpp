@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
     JooyaApplication::m_ApplicationPageManager->loadQQmlApplicationEngine(&engine);
     //----------------------------------------------------------
 #if defined(QT_DEBUG) && !defined(Q_OS_ANDROID)
-    const QDir projectDirectory("/home/mohsen/QtProjects/qtprojects/rokhshid/jooyabaseqtapp");
+    const QDir projectDirectory("/home/mohsen/Programming/Projects/jooyaqtquickapplication/myapp");
     JooyaNetworkEngine::m_FileWather=new FileWatcher();
     JooyaNetworkEngine::m_FileWather->addExcludeDirs(QStringList()<<"Other"<<"android");
     JooyaNetworkEngine::m_FileWather->setDirectory(projectDirectory.absolutePath());
