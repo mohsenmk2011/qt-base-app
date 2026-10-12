@@ -1,15 +1,21 @@
 buildscript {
     repositories {
+        maven {
+            url 'https://maven.myket.ir'
+        }
         google()
          mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.6.0'
+        classpath 'com.android.tools.build:gradle:8.10.1'
     }
 }
 
 repositories {
+    maven {
+        url 'https://maven.myket.ir'
+    }
     google()
     mavenCentral()
 }
