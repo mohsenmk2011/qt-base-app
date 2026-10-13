@@ -21,7 +21,14 @@ public class DownloadAppBroadcastUtility {
     public void registerServiceBroadcastReceiver(Context context) {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(getActionName(context));
-        context.registerReceiver(serviceMessageReceiver, intentFilter);
+        if (android.os.Build.VERSION.SDK_INT >= 33)
+        {
+            context.registerReceiver(serviceMessageReceiver,intentFilter,Context.RECEIVER_NOT_EXPORTED);
+        }
+        else
+        {
+           context.registerReceiver(serviceMessageReceiver, intentFilter);
+        }
         Log.i(TAG, "%%%[ registered app broadcast receiver ]%%%");
     }
     public void unregisterServiceBroadcastReceiver(Context context) {
