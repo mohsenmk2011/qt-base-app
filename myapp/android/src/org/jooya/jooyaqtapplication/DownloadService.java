@@ -146,8 +146,8 @@ public class DownloadService extends QtService
         Log.i(TAG, "***[ Foreground Notification For Download Manager Succeed here ]***");
     }
     public void sendMessageToQtAPP(String message){
-        Intent sendToUiIntent = new Intent();
-        sendToUiIntent.setAction(DownloadAppBroadcastUtility.getActionName(this));
+        Intent sendToUiIntent = new Intent(DownloadAppBroadcastUtility.getActionName(this));
+        sendToUiIntent.setPackage(getPackageName());
         sendToUiIntent.putExtra("MessageFromQtService", message);
         sendBroadcast(sendToUiIntent);
     }
