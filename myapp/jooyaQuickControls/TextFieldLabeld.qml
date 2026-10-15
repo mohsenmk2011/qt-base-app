@@ -47,6 +47,7 @@ TextField{
     }
     TitleItem{
         id:tfTitle
+        backColor: MaterialStyle.primary200
         x:tfContent.horizontalAlignment===TextField.AlignRight ? tfContent.width - width - 18 : 18
         visible: {
             if(helpTitle!=""){

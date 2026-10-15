@@ -10,10 +10,11 @@ Rectangle{
     //=======================< properties of container >=======================
     property bool borderVisible: false
     //=======================< properties of title >=======================
-    property string title: "عنوان"
+    property string title
     property alias titleHorizontalAlignment: lblTitle.horizontalAlignment
+    property color backColor
 
-    color: MaterialStyle.primary200
+    color: backColor
     width: lblTitle.implicitWidth+9
     height: 18
     anchors.bottom: parent.top
