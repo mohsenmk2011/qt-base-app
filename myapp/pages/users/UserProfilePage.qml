@@ -84,7 +84,9 @@ JooyaPage{
             }
         }
         onImageDeleted: {
+            console.info("user image is deleted successfully -> get user info ,set current image again");
             baseUser.getUserInfo(true);
+            currentImage=userProfile.listModel.get(svUserImages.currentIndex);
         }
     }
     property UserImage currentImage: null
@@ -111,6 +113,7 @@ JooyaPage{
             spacing: 9
             Pane{
                 id:pnContainer
+                visible: false
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 243
                 Layout.preferredHeight: 243
@@ -154,13 +157,13 @@ JooyaPage{
                         fillMode: Image.Pad
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: (currentImage.isExists)?"../../images/common/delete.png": "../../images/common/camera.png"
+                        source: (currentImage.fileId !== 0)?"../../images/common/delete.png": "../../images/common/camera.png"
                     }
                     JooyaToolTip {
-                        text:!currentImage.isExists? "گرفتن عکس":"حذف کردن عکس"
+                        text:currentImage.fileId === 0 ? "گرفتن عکس":"حذف کردن عکس"
                     }
                     onClicked: {
-                        if(!currentImage.isExists){
+                        if(currentImage.fileId === 0){
                             console.log("current image is not exists => you can take picture with camera");
                             if(permissionManager.requestCamera()){
                                 sv.push("../common/TakePicturePage.qml",{up:userProfile});
