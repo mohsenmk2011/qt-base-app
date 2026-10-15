@@ -9,6 +9,7 @@ Order::Order(QObject *parent) : JooyaNetwork(parent)
     setPriceWithDiscount(0);
     setPaid(false);
     setManualPaid(false);
+    setManualPaymentReceipt("");
     setUserId("");
     //if user has tried for payment read the order id from settings
     ApplicationSettings as;
@@ -195,11 +196,34 @@ void Order::getPaymentResultFinished()
     as.setLastTriedPaymentOrderId("");
 }
 
+void Order::saveManualPaymentReceiptFinished()
+{
+    QNetworkReply* r= convertToReply(sender());
+    if(r->error()==QNetworkReply::NoError){
+        showOkMessage(r->readAll());
+    }
+    else{
+        showBadMessage(r->readAll());
+    }
+}
+
 void Order::manualPay()
 {
     setIsProcssing(true);
     QNetworkReply* r=getRequest(QString("api/Order/ManualPay/%1").arg(id()));
     connect(r,SIGNAL(finished()),this,SLOT(manualPayFinished()));
+}
+
+void Order::saveManualPaymentReceipt()
+{
+    if(manualPaymentReceipt().isNull()){
+        message()->setContent("رسید پرداخت را وارد کنید");
+        return;
+    }
+    setIsProcssing(true);
+    QNetworkReply* r=postRequest("api/Order",readManualPaymentReceipt());
+    connect(r,SIGNAL(finished()),this,SLOT(saveManualPaymentReceiptFinished()));
+
 }
 void Order::manualPayFinished()
 {
@@ -228,6 +252,15 @@ void Order::readOrder(QByteArray json)
     setPriceWithDiscount(obj.value("priceWithDiscount").toInt());
     setDiscountPercent(obj.value("discountPercent").toInt());
     setHasDiscount(obj.value("hasDiscount").toBool());
+    setManualPaymentReceipt(obj.value("manualPaymentReceipt").toString());
+}
+
+QJsonObject Order::readManualPaymentReceipt()
+{
+    QJsonObject obj;
+    obj.insert("id",id());
+    obj.insert("manualPaymentReceipt",manualPaymentReceipt());
+    return obj;
 }
 
 
@@ -242,4 +275,17 @@ void Order::setBillId(const QString &newBillId)
         return;
     m_billId = newBillId;
     emit billIdChanged();
+}
+
+QString Order::manualPaymentReceipt() const
+{
+    return m_manualPaymentReceipt;
+}
+
+void Order::setManualPaymentReceipt(const QString &newManualPaymentReceipt)
+{
+    if (m_manualPaymentReceipt == newManualPaymentReceipt)
+        return;
+    m_manualPaymentReceipt = newManualPaymentReceipt;
+    emit manualPaymentReceiptChanged();
 }
