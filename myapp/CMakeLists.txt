@@ -112,6 +112,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/orders/OrderPaymentResultDlg.qml
     pages/orders/OrderTransactionItem.qml
     pages/orders/OrderTransactionsPage.qml
+    pages/common/ImageViewer.qml
     pages/common/TakePicturePage.qml
     pages/common/SharePage.qml
     pages/common/SettingsPage.qml
@@ -124,6 +125,7 @@ qt_add_resources(${PROJECT_NAME} "commonqmlfiles"
     pages/common/FrequentQuestionsPage.qml
     pages/common/FileExplorerPage.qml
     pages/common/ImageEditor.qml
+    items/common/ImageViewerItem.qml
     items/common/UserInfoDisplayer.qml
     items/common/ImageItem.qml
     items/common/TitleItem.qml
