@@ -8,6 +8,7 @@ Pane{
     property alias text: lbl.text
     property bool isSelected: false
     property string fontFamily: flYekan.name
+    property alias textFont: lbl.font
     property color backColor: isSelected ? MaterialStyle.invertedPrimaryTextColor : MaterialStyle.primaryTextColor
     property color foreColor: isSelected ? MaterialStyle.primaryTextColor : MaterialStyle.invertedPrimaryTextColor
 
