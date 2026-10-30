@@ -89,4 +89,11 @@ android {
     println "==================[ Target SDK Version: $qtTargetSdkVersion ]=============================="
     println "==================[ Compile SDK Version: $compileSdkVersion ]=============================="
     println "==================[ Android SDK Build Tools version: $buildToolsVersion ]=============================="
+
+    // below should be set based on this https://www.qt.io/blog/qt-6.9-android-updates
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
 }
