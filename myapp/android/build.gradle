@@ -49,8 +49,6 @@ android {
     namespace = "org.jooya.jooyaqtapplication"
     compileSdkVersion androidCompileSdkVersion.toInteger()
 
-    buildToolsVersion '31.0.0'
-
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -89,4 +87,6 @@ android {
     }
     println "==================[ Minimum SDK Version: $qtMinSdkVersion ]=============================="
     println "==================[ Target SDK Version: $qtTargetSdkVersion ]=============================="
+    println "==================[ Compile SDK Version: $compileSdkVersion ]=============================="
+    println "==================[ Android SDK Build Tools version: $buildToolsVersion ]=============================="
 }
