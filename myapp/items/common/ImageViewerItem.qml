@@ -79,10 +79,14 @@ Item {
     }
     PinchHandler {
         id: pinchHandler
-        target: content
+        target: null
 
         minimumScale: 0.5
         maximumScale: 5.0
+        onScaleChanged: (delta) => {
+             console.log("delta=> "+delta);
+             viewport.zoomAt(centroid.position.x,centroid.position.y,delta);
+        }
     }
 
     DragHandler {
