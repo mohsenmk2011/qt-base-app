@@ -18,3 +18,16 @@ void CurrentApplicationHelper::setName(const QString &newName)
     m_name = newName;
     emit nameChanged();
 }
+
+bool CurrentApplicationHelper::hasChat() const
+{
+    return m_hasChat;
+}
+
+void CurrentApplicationHelper::setHasChat(bool newHasChat)
+{
+    if (m_hasChat == newHasChat)
+        return;
+    m_hasChat = newHasChat;
+    emit hasChatChanged();
+}

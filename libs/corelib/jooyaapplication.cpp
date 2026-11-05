@@ -35,9 +35,10 @@ JooyaApplication::JooyaApplication(QString organization, QString organizationDom
     loginInfo()->initialState();
 }
 
-void JooyaApplication::setApplicationName(QString name)
+void JooyaApplication::setApplicationName(QString name, bool hasChat)
 {
     m_CurrentApplicationHelper->setName(name);
+    m_CurrentApplicationHelper->setHasChat(hasChat);
 }
 
 void JooyaApplication::setDefaultAlarmSettings(bool hasAlarm,AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat,QString notificationContent)

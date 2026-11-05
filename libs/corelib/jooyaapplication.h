@@ -18,7 +18,7 @@ class JooyaApplication : public JooyaNetworkEngine
 public:
     explicit JooyaApplication(QObject *parent = nullptr);
     explicit JooyaApplication(QString organization,QString organizationDomain, QString applicationName);
-    void setApplicationName(QString name);
+    void setApplicationName(QString name,bool hasChat=true);
     void setDefaultAlarmSettings(bool hasAlarm, AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat, QString notificationContent="");
 
     static MaterialStyleHelper* m_MaterialStyleHelper;
