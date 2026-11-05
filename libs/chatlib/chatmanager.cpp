@@ -7,6 +7,7 @@ ChatManager::ChatManager(QObject *parent) : ListManager(parent)
     connect(m_WebSocketHandler,&WebSocketHandler::newInfoReceived,this,&ChatManager::onNewInfoReceived);    
     connect(m_WebSocketHandler,&WebSocketHandler::connectedChanged,this,&ChatManager::onWebSocketConnected);
     m_NewNotification=new File("/Audios/NewNotification1.mp3");
+    m_NewNotification->setDisplayCommonErrorMessage(false);
     m_NewNotification->download();
 }
 
