@@ -611,6 +611,10 @@ Page {
                         if(name==="exitPanelLI"||name==="settingsLI"||name==="userprofileLI"||name==="shareLI"){
                             return CurrentUser.isLoggedIn;
                         }
+                        else if(name ==="contactUsLI")
+                        {
+                            return CurrentApplication.hasChat;
+                        }
                         return true;
                     }
 
