@@ -177,7 +177,7 @@ Page {
         sv.pop(null);
 
         if(CurrentUser.isLoggedIn){
-            console.log("user is logged in => display books page :)");
+            console.log("user is logged in => display home page :)");
             //check deep link in application home page
             //for example in rokhshid home page is exercises page so,after loading exercises check deep link
             //adlm.checkDeepLink();
@@ -187,7 +187,7 @@ Page {
                 sv.replace("pages/users/UserDisplayNamePage.qml");
                 return;
             }
-            sv.replace("app/pages/BooksPage.qml");
+            sv.replace("pages/HomePage.qml");
         }
         else{
             console.log("user is NOT logged in =>");
