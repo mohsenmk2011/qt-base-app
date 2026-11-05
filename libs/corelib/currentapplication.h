@@ -15,6 +15,7 @@ class CurrentApplication : public QObject
     Q_PROPERTY(QString name READ name CONSTANT)
     ///just for display intelisense
     Q_PROPERTY(bool hasChat READ hasChat CONSTANT)
+    Q_PROPERTY(bool hasSignup READ hasSignup CONSTANT)
 public:
     static CurrentApplicationHelper *qmlAttachedProperties(QObject *object)
     {
@@ -22,9 +23,16 @@ public:
     }
     QString name() const;
     bool hasChat() const;
+    bool hasSignup() const;
 
 private:
 };
+
+///just for display intelisense
+inline bool CurrentApplication::hasSignup() const
+{
+    return false;
+}
 ///just for display intelisense
 inline bool CurrentApplication::hasChat() const
 {

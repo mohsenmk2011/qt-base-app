@@ -31,3 +31,16 @@ void CurrentApplicationHelper::setHasChat(bool newHasChat)
     m_hasChat = newHasChat;
     emit hasChatChanged();
 }
+
+bool CurrentApplicationHelper::hasSignup() const
+{
+    return m_hasSignup;
+}
+
+void CurrentApplicationHelper::setHasSignup(bool newHasSignup)
+{
+    if (m_hasSignup == newHasSignup)
+        return;
+    m_hasSignup = newHasSignup;
+    emit hasSignupChanged();
+}
