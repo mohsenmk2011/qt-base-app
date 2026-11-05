@@ -176,6 +176,11 @@ Page {
         drawer.close();
         sv.pop(null);
 
+        if(!CurrentApplication.hasSignup)
+        {
+            sv.replace("pages/HomePage.qml");
+            return;
+        }
         if(CurrentUser.isLoggedIn){
             console.log("user is logged in => display home page :)");
             //check deep link in application home page
@@ -258,12 +263,17 @@ Page {
         console.info("###### Component.onCompleted ="+CurrentUser.isLoggedIn+" ######")
         console.info("#########################################################################")
         themChangeAnimator.setAnimationEnabling(false);
-    }
-    CurrentUser.onIsLoggedInChanged: {
-        console.info("#########################################################################")
-        console.info("###### CurrentUser.isLoggedIn changed to => "+CurrentUser.isLoggedIn+" ######")
-        console.info("#########################################################################")
-        displayHomePage();
+        if(!CurrentApplication.hasSignup)
+        {
+            displayHomePage();
+        }
+        //else it has signup,it will display home page after login info is changed login state of current user --------
+    }//                                                                                                               |
+    CurrentUser.onIsLoggedInChanged: {//                                                                              |
+        console.info("#########################################################################")//                   |
+        console.info("###### CurrentUser.isLoggedIn changed to => "+CurrentUser.isLoggedIn+" ######")//               |
+        console.info("#########################################################################")//                   |
+        displayHomePage();//                                                                             <-------------
     }
     FontLoaderYekan{
         id:flYekan
