@@ -37,7 +37,7 @@
 int main(int argc, char *argv[])
 {
     JooyaApplication japp("Jooya","www.jooyabash.ir","JooyaQtBaseApplication");
-    japp.setApplicationName("اپلیکیشن جویا");
+    japp.setApplicationName("اپلیکیشن جویا",false,false);
     japp.setDefaultTheme(MaterialThemes::MaterialThemesEnum::Light,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink);
     japp.setDefaultAlarmSettings(true,AlarmClasses::AlarmClassesEnum::AlarmManager,true,"این پیام هشدار اپ جویا است");
     QtWebView::initialize();
