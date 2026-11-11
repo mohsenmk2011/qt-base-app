@@ -56,23 +56,8 @@ public:
     QString baseUrl();
     void setBaseUrl(QString url);
 
-    QString identityUrl();
-    void setIdentityUrl(QString url);
-
-    QString clientId();
-    void setClientId(QString cId);
-
-    QString clientSecret();
-    void setClientSecret(QString secret);
-
-    QString clientScopes();
-    void setClientScopes(QString scope);
-
-    QString apiName();
-    void setApiName(QString name);
-
-    void appendClientScopes(QString newScope);
-//    static void initialize(QString newScope);
+    QString apiUrl();
+    void setApiUrl(QString url);
 
 signals:    
 //    void messageChanged();
@@ -82,11 +67,7 @@ signals:
 public slots:
 private:
     static QString m_BaseUrl;
-    static QString m_IdentityUrl;
-    static QString m_ClientId;
-    static QString m_ClientSecret;
-    static QString m_ClientScopes;
-    static QString m_ApiName;
+    static QString m_ApiUrl;
     bool m_IsProccessing;
     bool m_DisplayCommonErrorMessage;
     QString m_OperationMessage;

@@ -89,11 +89,7 @@ void JooyaNetworkEngine::setOperationType(OperationTypes::OperationTypesEnum o)
 }
 
  QString JooyaNetworkEngine::m_BaseUrl="";
- QString JooyaNetworkEngine::m_IdentityUrl="";
- QString JooyaNetworkEngine::m_ClientId="";
- QString JooyaNetworkEngine::m_ApiName="";
- QString JooyaNetworkEngine::m_ClientSecret="";
- QString JooyaNetworkEngine::m_ClientScopes="openid";
+ QString JooyaNetworkEngine::m_ApiUrl="";
 
  QString JooyaNetworkEngine::baseUrl()
  {
@@ -105,67 +101,14 @@ void JooyaNetworkEngine::setOperationType(OperationTypes::OperationTypesEnum o)
      m_BaseUrl=url;
  }
 
- QString JooyaNetworkEngine::identityUrl()
+ QString JooyaNetworkEngine::apiUrl()
  {
-     return m_IdentityUrl;
+     return m_ApiUrl;
  }
 
- void JooyaNetworkEngine::setIdentityUrl(QString url)
+ void JooyaNetworkEngine::setApiUrl(QString url)
  {
-     m_IdentityUrl=url;
- }
-
- QString JooyaNetworkEngine::clientId()
- {
-     return m_ClientId;
- }
-
- void JooyaNetworkEngine::setClientId(QString cId)
- {
-     if(m_ClientId!=cId){
-         m_ClientId=cId;
-     }
- }
-
- QString JooyaNetworkEngine::clientSecret()
- {
-     return m_ClientSecret;
- }
-
- void JooyaNetworkEngine::setClientSecret(QString secret)
- {
-     if(m_ClientSecret!=secret){
-         m_ClientSecret=secret;
-     }
- }
-
- QString JooyaNetworkEngine::clientScopes()
- {
-     return m_ClientScopes;
- }
-
- void JooyaNetworkEngine::setClientScopes(QString scope)
- {
-     if(m_ClientScopes!=scope){
-         m_ClientScopes=scope;
-     }
- }
-
- QString JooyaNetworkEngine::apiName()
- {
-     return m_ApiName;
- }
-
- void JooyaNetworkEngine::setApiName(QString name)
- {
-     if(m_ApiName!=name){
-         m_ApiName=name;
-     }
- }
-
- void JooyaNetworkEngine::appendClientScopes(QString newScope)
- {
-     setClientScopes(newScope+" "+clientScopes());
+     m_ApiUrl=url;
  }
 
  UserLoginInfo* JooyaNetworkEngine::m_loginInfo=new UserLoginInfo();
