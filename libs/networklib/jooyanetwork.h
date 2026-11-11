@@ -28,7 +28,7 @@ class JooyaNetwork : public JooyaNetworkEngine
 public:
     explicit JooyaNetwork(QObject *parent = nullptr);
 
-    QUrl setUrl(QString url, bool useIdentityUrl=false, bool isFullUrl=false);
+    QUrl setUrl(QString url, bool useApiUrl=false, bool isFullUrl=false);
     QUrl url();
 
     void showBadMessage(QByteArray replyMessage);
@@ -36,22 +36,22 @@ public:
     void showMessage(QNetworkReply* reply);
     void showMessage(QObject* obj);
 
-    QNetworkReply* getRequest(QString url, bool useIdentityUrl=false, bool isFullUrl=false);
+    QNetworkReply* getRequest(QString url, bool useApiUrl=false, bool isFullUrl=false);
     void getAndReturnObject(QString url);
 
-    void initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum headerContentType = HeaderContentTypes::HeaderContentTypesEnum::Json,QString boundary ="");
+    void setRequestHeaderType(HeaderContentTypes::HeaderContentTypesEnum headerContentType = HeaderContentTypes::HeaderContentTypesEnum::Json,QString boundary ="");
 
     QNetworkRequest m_Request;
     QNetworkAccessManager m_NetworkManager;
     QNetworkReply *convertToReply(QObject *obj);
     bool isNotFound(QNetworkReply *r);
-//    QNetworkReply *postRequest(QString url, QByteArray data);
-    QNetworkReply *postRequest(QString url, QJsonObject obj, bool useIdentityUrl=false, bool isFullUrl=false);
+    //    QNetworkReply *postRequest(QString url, QByteArray data);
+    QNetworkReply *postRequest(QString url, QJsonObject obj, bool useApiUrl=false, bool isFullUrl=false);
     void post(QString url, QJsonObject obj);
     QNetworkReply * post(QString url, QHttpMultiPart *multiPart);
     void postAndReturnObject(QString url, QJsonObject obj);
-    QNetworkReply *postRequest(QString url, QUrlQuery query, bool useIdentityUrl=false, bool isFullUrl=false);
-    QNetworkReply *deleteRequest(QString url,bool useIdentityUrl=false);
+    QNetworkReply *postRequest(QString url, QUrlQuery query, bool useApiUrl=false, bool isFullUrl=false);
+    QNetworkReply *deleteRequest(QString url,bool useApiUrl=false);
     QNetworkReply *putRequest(QString url, QJsonObject obj);
     QUrl setFullUrl(QString url);
 
@@ -72,8 +72,9 @@ private:
     bool isAcceptedResposeCode(int code);
     QString currentUrl;
     QString removeQuotationMarks(QString m);
+public slots:
+    void setRequestHeader(QString headerName="",QString headerValue="",HeaderContentTypes::HeaderContentTypesEnum headerContentType=HeaderContentTypes::HeaderContentTypesEnum::Json);
 private slots:
-    void addTokenToRequestHeader();
     virtual void currentReplyFinished(QNetworkReply *r);
     void onRequestFinished();
     void onRequestFinishedReturnObject();

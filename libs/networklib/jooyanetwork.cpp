@@ -3,9 +3,9 @@
 JooyaNetwork::JooyaNetwork(QObject *parent) :JooyaNetworkEngine(parent)
 {
     currentUrl="";
-    addTokenToRequestHeader();
+    setRequestHeader();
     setOperationType(OperationTypes::OperationTypesEnum::NoOperation);
-    connect(loginInfo(),SIGNAL(stateChanged(LoginStates::LoginStatesEnum)),this,SLOT(addTokenToRequestHeader()));
+    connect(loginInfo(),SIGNAL(stateChanged(LoginStates::LoginStatesEnum)),this,SLOT(setRequestHeader()));
     connect(&m_NetworkManager,SIGNAL(finished(QNetworkReply*)),this,SLOT(currentReplyFinished(QNetworkReply*)));
 
     QSslConfiguration sslConfiguration = m_Request.sslConfiguration();
@@ -14,7 +14,7 @@ JooyaNetwork::JooyaNetwork(QObject *parent) :JooyaNetworkEngine(parent)
     m_Request.setSslConfiguration(sslConfiguration);
 }
 
-void JooyaNetwork::initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum headerContentType,QString boundary)
+void JooyaNetwork::setRequestHeaderType(HeaderContentTypes::HeaderContentTypesEnum headerContentType,QString boundary)
 {
     //    qCritical()<<"*** Initialization request header ***";
     m_Request.rawHeaderList().clear();
@@ -31,40 +31,49 @@ void JooyaNetwork::initializeRequestHeader(HeaderContentTypes::HeaderContentType
         m_Request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("multipart/form-data; boundary="+boundary));
     }
 }
-void JooyaNetwork::addTokenToRequestHeader(){
-    //ToDo: agar app daraye login user bashad payyeen anjam shavad
-    //qDebug()<<"Sender=>"<<sender();
-    //    qCritical()<<"=>Initialization request header";
-    initializeRequestHeader();
-    if(loginInfo()->isLoggedIn()){
-        //        qInfo()<<"*** Is adding Token to Request Header ***";
-        QString token=loginInfo()->token();
-        QString HeaderName="Authorization";
-        QString HeaderValue="Bearer "+token;
-        m_Request.setRawHeader(HeaderName.toUtf8(),HeaderValue.toUtf8());
+void JooyaNetwork::setRequestHeader(QString headerName,QString headerValue,HeaderContentTypes::HeaderContentTypesEnum headerContentType)
+{
+    setRequestHeaderType(headerContentType);
+    qWarning()<<"heaer name=>"<<headerName;
+    if(!(headerName.isNull()||headerName.isEmpty()))
+    {
+        qInfo()<<"====[ set api Request Header ]====";
+        m_Request.setRawHeader(headerName.toUtf8(),headerValue.toUtf8());
+    }
+    else
+    {
+        qInfo()<<"====[ set current app Request Header ]====";
+        if(loginInfo()->isLoggedIn()){
+            QString token=loginInfo()->token();
+            QString HeaderName="Authorization";
+            QString HeaderValue="Bearer "+token;
+            m_Request.setRawHeader(HeaderName.toUtf8(),HeaderValue.toUtf8());
+        }
     }
 }
 
-QUrl JooyaNetwork::setUrl(QString url, bool useIdentityUrl, bool isFullUrl){
+QUrl JooyaNetwork::setUrl(QString url, bool useApiUrl, bool isFullUrl){
     if(url.isEmpty()||url.isNull()){
         return QUrl();
     }
     if(isFullUrl){
+        m_Request = QNetworkRequest();
+        m_Request.rawHeaderList().clear();
+        qDebug()<<"headers==>"<<m_Request.headers();
         currentUrl=url;
     }
     else {
         if(url.at(0)=='/'){
             url= url.remove(0,1);
         }
-        if(useIdentityUrl){
-            currentUrl=identityUrl()+"/"+url;
+        if(useApiUrl){
+            currentUrl=apiUrl()+"/"+url;
         }
         else {
             currentUrl=baseUrl()+"/"+url;
         }
     }
     QUrl url2(currentUrl);
-    qDebug()<<"currentUrl=>"<<currentUrl;
     m_Request.setUrl(url2);
     return url2;
 }
@@ -82,14 +91,21 @@ QUrl JooyaNetwork::url()
     return currentUrl;
 }
 
-QNetworkReply* JooyaNetwork::getRequest(QString url, bool useIdentityUrl, bool isFullUrl)
+QNetworkReply* JooyaNetwork::getRequest(QString url, bool useApiUrl, bool isFullUrl)
 {
     if(url.isEmpty()||url.isNull()){
+        qDebug()<<"currentUrl=>"<<currentUrl;
+        message()->setContent("آدرس خالی است");
         return nullptr;
     }
     setIsProcssing(true);
-    setUrl(url,useIdentityUrl,isFullUrl);
+    setUrl(url,useApiUrl,isFullUrl);
+    qDebug()<<"currentUrl=>"<<currentUrl;
     QNetworkReply* r= m_NetworkManager.get(m_Request);
+    if(r==nullptr){
+        message()->setContent("جواب شبکه خالی است");
+        qCritical()<<"network reply is null";
+    }
     return r;
 }
 
@@ -104,18 +120,18 @@ void JooyaNetwork::getAndReturnObject(QString url)
     connect(r,&QNetworkReply::finished,this,&JooyaNetwork::onRequestFinished);
 }
 
-QNetworkReply* JooyaNetwork::deleteRequest(QString url, bool useIdentityUrl)
+QNetworkReply* JooyaNetwork::deleteRequest(QString url, bool useApiUrl)
 {
     setIsProcssing(true);
-    setUrl(url,useIdentityUrl);
+    setUrl(url,useApiUrl);
     QNetworkReply* r= m_NetworkManager.deleteResource(m_Request);
     return r;
 }
 
-QNetworkReply* JooyaNetwork::postRequest(QString url, QJsonObject obj, bool useIdentityUrl, bool isFullUrl)
+QNetworkReply* JooyaNetwork::postRequest(QString url, QJsonObject obj, bool useApiUrl, bool isFullUrl)
 {
     setIsProcssing(true);
-    setUrl(url,useIdentityUrl,isFullUrl);
+    setUrl(url,useApiUrl,isFullUrl);
     QNetworkReply* r=m_NetworkManager.post(m_Request,QJsonDocument(obj).toJson());
     return r;
 }
@@ -132,7 +148,7 @@ QNetworkReply *JooyaNetwork::post(QString url, QHttpMultiPart* multiPart)
 {
     setIsProcssing(true);
     setUrl(url);
-    initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum::MultiPart,multiPart->boundary());
+    setRequestHeaderType(HeaderContentTypes::HeaderContentTypesEnum::MultiPart,multiPart->boundary());
     QNetworkReply* r=m_NetworkManager.post(m_Request,multiPart);
     return r;
 }
@@ -144,13 +160,13 @@ void JooyaNetwork::postAndReturnObject(QString url, QJsonObject obj)
     QNetworkReply* r=m_NetworkManager.post(m_Request,QJsonDocument(obj).toJson());
     connect(r,&QNetworkReply::finished,this,&JooyaNetwork::onRequestFinishedReturnObject);
 }
-QNetworkReply* JooyaNetwork::postRequest(QString url, QUrlQuery query, bool useIdentityUrl, bool isFullUrl)
+QNetworkReply* JooyaNetwork::postRequest(QString url, QUrlQuery query, bool useApiUrl, bool isFullUrl)
 {
     setIsProcssing(true);
     // for login should use form header content type
     //https://stackoverflow.com/questions/37702013/webapi2-0-owin-token-request-using-json
-    initializeRequestHeader(HeaderContentTypes::HeaderContentTypesEnum::Form);
-    setUrl(url,useIdentityUrl,isFullUrl);
+    setRequestHeaderType(HeaderContentTypes::HeaderContentTypesEnum::Form);
+    setUrl(url,useApiUrl,isFullUrl);
 
     QNetworkReply* r= m_NetworkManager.post(m_Request,query.toString(QUrl::FullyEncoded).toUtf8());
     return r;
