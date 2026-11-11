@@ -23,9 +23,6 @@ void LoginManager::login(QString un,QString pass)
     postData.addQueryItem("grant_type","password");
     postData.addQueryItem("username",un.trimmed());
     postData.addQueryItem("password",pass);
-    postData.addQueryItem("scope",clientScopes());
-    postData.addQueryItem("client_id",clientId());
-    postData.addQueryItem("client_secret",clientSecret());
     QNetworkReply* reply=postRequest("connect/token",postData);
     connect(reply,SIGNAL(finished()) ,this,SLOT(loginFinished()));
 }
@@ -41,9 +38,6 @@ void LoginManager::login(QString code)
     QUrlQuery postData;
     postData.addQueryItem("grant_type","hybrid");
 //    postData.addQueryItem("code",code);
-    postData.addQueryItem("scope",clientScopes());
-    postData.addQueryItem("client_id",clientId());
-    postData.addQueryItem("client_secret",clientSecret());
     postData.addQueryItem("responsetype","code");
 
     QNetworkReply* reply=postRequest("connect/authorize",postData);
@@ -74,7 +68,7 @@ void LoginManager::loginUN(QString un,QString pass,QString captha,QString captha
     jObj.insert("captha",captha.trimmed());
     jObj.insert("capthaHash",capthaHash);
     QNetworkReply* reply=postRequest("api/User/Login",jObj);
-    qDebug()<<"url=>"<<identityUrl();
+    qDebug()<<"url=>"<<apiUrl();
     connect(reply,SIGNAL(finished()) ,this,SLOT(loginFinished()));
 }
 void LoginManager::loginFinished()
@@ -254,10 +248,6 @@ void LoginManager::activate(QString phoneNumber,QString activationCode)
     jObj.insert("phoneNumber",phoneNumber);
     jObj.insert("activationCode",activationCode);
 
-    jObj.insert("clientId",clientId());
-    jObj.insert("apiName",apiName());
-
-    qCritical()<<"clientId=> "<<clientId();
     QNetworkReply* reply= postRequest("api/User/Activate",jObj);
     connect(reply,SIGNAL(finished()) ,this,SLOT(activateFinished()));
 }
