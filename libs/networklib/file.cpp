@@ -48,6 +48,9 @@ void File::setDownloadLink(QString link)
         QFileInfo file(link);
         setImageName(file.baseName());
         setExt(file.suffix());
+        if(ext().contains("?")){
+            setExt(ext().split('?').at(0));
+        }
     }
 }
 
@@ -232,7 +235,7 @@ void File::setIsExists(bool isD)
     }
 }
 
-void File::download()
+void File::download(bool useApiUrl, bool isFullUrl)
 {
     qDebug()<<"is going to download => "<<downloadLink();
     if(!isExistsInServer())
@@ -262,7 +265,7 @@ void File::download()
         return;
     }
     setDownloadState(FileDownloadStates::FileDownloadStatesEnum::Started);
-    QNetworkReply* r=getRequest(downloadLink());
+    QNetworkReply* r=getRequest(downloadLink(),useApiUrl,isFullUrl);
     connect(r,SIGNAL(finished()),this,SLOT(onDownloadFinishd()));
     connect(r,SIGNAL(downloadProgress(qint64,qint64)),this,SLOT(updownLoadingProgress(qint64,qint64)));
 }
@@ -372,6 +375,7 @@ void File::updownLoadingProgress(qint64 bytesSent,qint64 bytesTotal)
     setBytesSent(bytesSent);
     setBytesTotal(bytesTotal);
     setUpDownRatio((float)bytesSent/bytesTotal);
+    qInfo()<<"download ratio=>"<<m_UpDownRatio;
 }
 
 void File::onUploadProgress(qint64 bytesSent, qint64 bytesTotal)

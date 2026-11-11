@@ -78,7 +78,7 @@ public:
 
     Q_INVOKABLE bool exists();
 
-    Q_INVOKABLE virtual void download();
+    Q_INVOKABLE virtual void download(bool useApiUrl=false, bool isFullUrl=false);
     Q_INVOKABLE virtual QNetworkReply* upload(QString url, QJsonObject obj);
     Q_INVOKABLE virtual void upload();
     Q_INVOKABLE bool remove();
