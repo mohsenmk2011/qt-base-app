@@ -263,10 +263,7 @@ Page {
         console.info("###### Component.onCompleted ="+CurrentUser.isLoggedIn+" ######")
         console.info("#########################################################################")
         themChangeAnimator.setAnimationEnabling(false);
-        if(!CurrentApplication.hasSignup)
-        {
-            displayHomePage();
-        }
+        displayHomePage();
         //else it has signup,it will display home page after login info is changed login state of current user --------
     }//                                                                                                               |
     CurrentUser.onIsLoggedInChanged: {//                                                                              |
