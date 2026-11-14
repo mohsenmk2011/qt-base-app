@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml Network Multimedia)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml Network NetworkAuth Multimedia Gui)
 if(ANDROID)
     
 endif()
@@ -16,6 +16,7 @@ endif()
 add_library(${PROJECT_NAME} SHARED
     baseuser.cpp
     capthamanager.cpp
+    googleauth.cpp
     loginlib.cpp
     loginmanager.cpp
     role.cpp
@@ -30,6 +31,7 @@ add_library(${PROJECT_NAME} SHARED
     userprofile.cpp
     baseuser.h
     capthamanager.h
+    googleauth.h
     loginlib.h
     loginmanager.h
     role.h
@@ -50,7 +52,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt6::Core Qt6::CorePrivate Qt6::Quick Qt6::Qml Qt6::Network Qt6::Multimedia
+    Qt6::Core Qt6::CorePrivate Qt6::Quick Qt6::Qml Qt6::Network Qt6::NetworkAuth Qt6::Multimedia Qt6::Gui
     androidlib corelib networklib
 )
 
