@@ -42,6 +42,8 @@ public:
 
     Q_INVOKABLE void activate(QString phoneNumber, QString activationCode);
 
+    Q_INVOKABLE void loginWithGoogle(const QString &idToken);
+
     Q_INVOKABLE void login(QString code);
 
 signals:
@@ -49,11 +51,13 @@ signals:
     void signUpPhoneSucceed(SignupResult* result);
     void activationSucceed();
     void activationCodeReceived(const QString &activationCode);
+    void googleLoginSucceed();
 private slots:
     void loginFinished();
     void signUpFinished();
     void activateFinished();
     void signUpPhoneFinished();
+    void googleLoginFinished();
     void onNewSmsReceived(const QString &sms);
 
 private:

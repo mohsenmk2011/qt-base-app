@@ -191,6 +191,50 @@ void LoginManager::signUpPhoneFinished()
     }
 }
 
+void LoginManager::loginWithGoogle(const QString &idToken)
+{
+    qInfo()<<"google signing step 6";
+    if(idToken.isNull()||idToken.isEmpty())
+    {
+        message()->setContent("توکن گوگل دریافت نشد");
+        return;
+    }
+    qInfo()<<"< =========[ is going to login with google ]========= >";
+    setIsProcssing(true);
+
+#if defined(Q_OS_ANDROID)
+    QString whichClient = "Android";
+#else
+    QString whichClient = "Desktop";
+#endif
+
+    QJsonObject jObj;
+    jObj.insert("idToken",idToken);
+    jObj.insert("whichClient",whichClient);
+    qInfo()<<"google signing step 6 => send google id token to your backend api";
+    QNetworkReply* reply= postRequest("api/User/LoginGoogle",jObj);
+    connect(reply,SIGNAL(finished()) ,this,SLOT(googleLoginFinished()));
+}
+
+void LoginManager::googleLoginFinished()
+{
+    qDebug()<<"google signing step 7 => signin finished";
+    QNetworkReply* reply=convertToReply(sender());
+    if(reply->error()== QNetworkReply::NoError)
+    {
+        qInfo()<<"google signing step 7 => with no error";
+        readAndSaveToken(reply->readAll());
+        loginInfo()->setState(LoginStates::LoginStatesEnum::LoggedIn);
+        emit googleLoginSucceed();
+    }
+    else
+    {
+        qCritical()<<"google signing step 7 => with error";
+        showMessage(reply);
+    }
+    setIsProcssing(false);
+}
+
 void LoginManager::onNewSmsReceived(const QString &sms)
 {
     qInfo()<<"extract activation code from new sms";
