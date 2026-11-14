@@ -44,3 +44,29 @@ void CurrentApplicationHelper::setHasSignup(bool newHasSignup)
     m_hasSignup = newHasSignup;
     emit hasSignupChanged();
 }
+
+QString CurrentApplicationHelper::googleClientId() const
+{
+    return m_googleClientId;
+}
+
+void CurrentApplicationHelper::setGoogleClientId(const QString &newGoogleClientId)
+{
+    if (m_googleClientId == newGoogleClientId)
+        return;
+    m_googleClientId = newGoogleClientId;
+    emit googleClientIdChanged();
+}
+
+QString CurrentApplicationHelper::googleClientSecret() const
+{
+    return m_googleClientSecret;
+}
+
+void CurrentApplicationHelper::setGoogleClientSecret(const QString &newGoogleClientSecret)
+{
+    if (m_googleClientSecret == newGoogleClientSecret)
+        return;
+    m_googleClientSecret = newGoogleClientSecret;
+    emit googleClientSecretChanged();
+}

@@ -42,6 +42,16 @@ void JooyaApplication::setApplicationName(QString name, bool hasChat,bool hasSig
     m_CurrentApplicationHelper->setHasSignup(hasSignup);
 }
 
+void JooyaApplication::setGoogleClientId(QString cliendId)
+{
+    m_CurrentApplicationHelper->setGoogleClientId(cliendId);
+}
+
+void JooyaApplication::setGoogleClientSecret(QString secret)
+{
+    m_CurrentApplicationHelper->setGoogleClientSecret(secret);
+}
+
 void JooyaApplication::setDefaultAlarmSettings(bool hasAlarm,AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat,QString notificationContent)
 {
     m_ApplicationAlarmSettingsHelper->setHasAlarm(hasAlarm);

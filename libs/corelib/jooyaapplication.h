@@ -19,6 +19,8 @@ public:
     explicit JooyaApplication(QObject *parent = nullptr);
     explicit JooyaApplication(QString organization,QString organizationDomain, QString applicationName);
     void setApplicationName(QString name, bool hasChat=true, bool hasSignup=true);
+    void setGoogleClientId(QString cliendId);
+    void setGoogleClientSecret(QString secret);
     void setDefaultAlarmSettings(bool hasAlarm, AlarmClasses::AlarmClassesEnum alarmClass, bool hasRepeat, QString notificationContent="");
 
     static MaterialStyleHelper* m_MaterialStyleHelper;
