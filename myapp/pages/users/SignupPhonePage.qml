@@ -15,6 +15,16 @@ Page{
         onSignUpPhoneSucceed: {
             sv.push("qrc:/pages/users/UserActivationPage.qml",{signupResult:result});
         }
+    }    
+    GoogleAuth{
+        id: googleAuth
+        onIdTokenReady: {
+            console.log("google signing step 5 => google id token received => calling LoginManager.loginWithGoogle");
+            lm.loginWithGoogle(idToken);
+        }
+        onSignInFailed: {
+            console.log("google sign in failed => "+message);
+        }
     }
     AndroidPermissionManager{
         id:androidPermissionManager
@@ -111,7 +121,7 @@ Page{
             }
             JooyaButton{
                 id:btnSignup
-                enabled: !lm.isProcessing
+                enabled: !progressIndicator.visible
                 Material.accent: enabled ? MaterialStyle.secondary : Material.Grey
                 text:"ارسال کد فعال سازی"
                 highlighted: true
@@ -127,9 +137,27 @@ Page{
             Item{
                 Layout.fillHeight: true
             }
+            JooyaButton{
+                id: btnGoogle
+                highlighted: false
+                enabled: !progressIndicator.visible
+
+                icon.source: "../../images/common/google.png"
+                icon.color: "transparent"
+                icon.width: 36
+                text:"ادامه با حساب گوگل"
+                Layout.leftMargin: 72
+                Layout.rightMargin: 72
+                Layout.preferredHeight: 45
+                onClicked: {
+                    console.log("----[ google signing step 1:user pressed continue with google ]----");
+                    googleAuth.signIn(CurrentApplication.googleClientId,CurrentApplication.googleClientSecret);
+                }
+            }
         }
     }
     ProgressIndicator{
-        visible: lm.isProcessing
+        id:progressIndicator
+        visible: lm.isProcessing || googleAuth.isProcessing
     }
 }
