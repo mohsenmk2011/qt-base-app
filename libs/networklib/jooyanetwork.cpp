@@ -5,7 +5,7 @@ JooyaNetwork::JooyaNetwork(QObject *parent) :JooyaNetworkEngine(parent)
     currentUrl="";
     setRequestHeader();
     setOperationType(OperationTypes::OperationTypesEnum::NoOperation);
-    connect(loginInfo(),SIGNAL(stateChanged(LoginStates::LoginStatesEnum)),this,SLOT(setRequestHeader()));
+    connect(loginInfo(),SIGNAL(stateChanged(LoginStates::LoginStatesEnum)),this,SLOT(updateRequestHeader()));
     connect(&m_NetworkManager,SIGNAL(finished(QNetworkReply*)),this,SLOT(currentReplyFinished(QNetworkReply*)));
 
     QSslConfiguration sslConfiguration = m_Request.sslConfiguration();
@@ -50,6 +50,11 @@ void JooyaNetwork::setRequestHeader(QString headerName,QString headerValue,Heade
             m_Request.setRawHeader(HeaderName.toUtf8(),HeaderValue.toUtf8());
         }
     }
+}
+
+void JooyaNetwork::updateRequestHeader()
+{
+    setRequestHeader();
 }
 
 QUrl JooyaNetwork::setUrl(QString url, bool useApiUrl, bool isFullUrl){

@@ -75,6 +75,7 @@ private:
 public slots:
     void setRequestHeader(QString headerName="",QString headerValue="",HeaderContentTypes::HeaderContentTypesEnum headerContentType=HeaderContentTypes::HeaderContentTypesEnum::Json);
 private slots:
+    void updateRequestHeader();
     virtual void currentReplyFinished(QNetworkReply *r);
     void onRequestFinished();
     void onRequestFinishedReturnObject();
