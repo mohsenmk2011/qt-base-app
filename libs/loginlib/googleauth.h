@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QtDebug>
+#include<jooyanetwork.h>
 
 #if defined(Q_OS_ANDROID)
 #include <QCoreApplication>
@@ -28,7 +29,7 @@
  * On success the idTokenReady(idToken) signal is emitted; connect it to
  * LoginManager::loginWithGoogle(idToken).
  */
-class GoogleAuth : public QObject
+class GoogleAuth : public JooyaNetwork
 {
     Q_OBJECT
 public:

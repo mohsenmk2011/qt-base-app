@@ -3,7 +3,7 @@
 GoogleAuth *GoogleAuth::m_instance = nullptr;
 
 GoogleAuth::GoogleAuth(QObject *parent)
-    : QObject{parent}
+    : JooyaNetwork{parent}
 {
     m_instance = this;
 }
@@ -86,6 +86,7 @@ void GoogleAuth::signIn(QString googleClientId,QString googleClientSecret)
         emit signInFailed("شناسه کلاینت گوگل تنظیم نشده است");
         return;
     }
+    setIsProcssing(true);
     qDebug() << "***[ google signing step 2: start desktop flow ]***";
     startDesktopFlow(googleClientId,googleClientSecret);
 }
@@ -125,12 +126,14 @@ void GoogleAuth::startDesktopFlow(QString clientId,QString clientSecret)
         }
         qInfo()<<"google signing step 4 => grant succeed(id token received from google) => send id token to qml signing page";
         emit idTokenReady(idToken);
+        setIsProcssing(false);
     });
 
     QObject::connect(m_oauthFlow, &QOAuth2AuthorizationCodeFlow::error, this, [this](const QString &error, const QString &errorDescription, const QUrl &uri) {
         qCritical()<<"google signing step 4 => grant failed";
         qWarning() << "GoogleAuth error:" << error << errorDescription << uri;
         emit signInFailed(errorDescription.isEmpty() ? error : errorDescription);
+        setIsProcssing(false);
     });
 
     qDebug()<<"google signing step 3 => start grant";
