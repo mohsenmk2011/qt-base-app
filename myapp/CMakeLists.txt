@@ -248,6 +248,10 @@ qt_add_resources(${PROJECT_NAME} "commonimages"
     FILES
     images/icon.ico
     images/icon.png
+    images/common/google.png
+    images/common/google@2x.png
+    images/common/google@3x.png
+    images/common/google@4x.png
     images/common/account.png
     images/common/account@2x.png
     images/common/account@3x.png
