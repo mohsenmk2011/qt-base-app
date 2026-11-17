@@ -18,6 +18,7 @@
 #include<networklib.h>
 #include<quicklib.h>
 #include<loginlib.h>
+#include<googleauth.h>
 #include<managerlib.h>
 #include<notificationlib.h>
 #include<chatlib.h>
@@ -38,6 +39,17 @@ int main(int argc, char *argv[])
 {
     JooyaApplication japp("Jooya","www.jooyabash.ir","JooyaQtBaseApplication");
     japp.setApplicationName("اپلیکیشن جویا",false,false);
+#if defined(Q_OS_ANDROID)
+    // you should create two Android Client id(debug&release) for andorid,that is not used any where,it just register you android app on google
+    // Web OAuth client id from Google Cloud Console (audience accepted by the backend).
+    // Keep in sync with Authentication:Google:ClientId in the backend appsettings.json
+    // web client id has a secret that is will be used in backend
+    japp.setGoogleClientId("");
+#else
+    // this desktop client id and secret is used in google auth class in loginlib
+    japp.setGoogleClientId("");
+    japp.setGoogleClientSecret("");
+#endif
     japp.setDefaultTheme(MaterialThemes::MaterialThemesEnum::Light,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink,MaterialColors::MaterialColorsEnum::Pink);
     japp.setDefaultAlarmSettings(true,AlarmClasses::AlarmClassesEnum::AlarmManager,true,"این پیام هشدار اپ جویا است");
     QtWebView::initialize();
@@ -75,6 +87,11 @@ int main(int argc, char *argv[])
 
     AndroidDeepLinkManager adm;
     adm.registerNativesMethod();
+
+#if defined(Q_OS_ANDROID)
+    GoogleAuth ga;
+    ga.registerNativesMethod();
+#endif
     qDebug()<<"^^^^^^^^^^^^^^^^^^[ QmlLive live ]^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
     app.setWindowIcon(QIcon(":/images/icon.ico"));
 
