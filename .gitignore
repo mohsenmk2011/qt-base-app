@@ -3,6 +3,14 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+#=============== Gradle ===========================
+.gradle/
+**/.gradle/
+
+# Gradle build directories
+build/
+**/build/
+#=======================================================
 # Node artifact files
 node_modules/
 dist/
