@@ -27,6 +27,11 @@ dependencies {
     implementation "androidx.work:work-runtime:$work_version"
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
+    // Cafe Bazaar in-app billing SDK:
+    // download the bazaar IAB library (jar/aar) from the Cafe Bazaar developer
+    // panel and drop it into myapp/android/libs/ — the fileTree above picks it up.
+    // Required by org.jooya.rokhshid.CafeBazaarManager (ir.cafebazaar.purchase.IabHelper).
+
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "androidx.core:core:1.6.0"
     implementation "com.google.android.gms:play-services-auth:21.2.0"
