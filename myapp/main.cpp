@@ -20,6 +20,7 @@
 #include<smsmanager.h>
 #include<androiddeeplinkmanager.h>
 #include<currentapptypesregistrar.h>
+#include<cafebazaarpaymentmanager.h>
 
 int main(int argc, char *argv[])
 {
@@ -67,6 +68,8 @@ int main(int argc, char *argv[])
 #if defined(Q_OS_ANDROID)
     GoogleAuth ga;
     ga.registerNativesMethod();
+    CafebazaarPaymentManager cbpm;
+    cbpm.registerNativesMethod();
 #endif
     qDebug()<<"^^^^^^^^^^^^^^^^^^[ QmlLive live ]^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
     app.setWindowIcon(QIcon(":/images/icon.ico"));
