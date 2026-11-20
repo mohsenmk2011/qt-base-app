@@ -58,4 +58,12 @@ public class MainActivity extends QtActivity
         DeepLinkManager.sendToQtApp(id);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("jooya", " ================== < onActivityResult > ================== requestCode=" + requestCode);
+        // Forward Cafe Bazaar purchase results to IabHelper
+        CafeBazaarManager.handleActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
