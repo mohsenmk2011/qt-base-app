@@ -66,11 +66,43 @@ JooyaFlickable{
         onPaymentFinished: {
             console.log("PaymentManager.onPaymentFinished | argSucceed=>"+argSucceed);
             order.paid=argSucceed;
+            // route the result dialog back to the bank (Mellat) payment result
+            dlgPaymentResult.paymentResult = paymentManager.paymentResult;
             if(argSucceed){
                 dlgPaymentResult.open();
             }
             else{
                 btnPay.enabled=true;
+            }
+        }
+        onIsProcessingChanged:(isProcessing)=> {
+                                  progressIndicator.visible=isProcessing;
+                              }
+    }
+    CafebazaarPaymentManager {
+        id: cafebazaarManager
+        orderId: order.id
+        onSkuReceived: (sku)=>{
+            // backend responded with the product SKU -> open Bazaar purchase UI
+            cafebazaarManager.startPurchase(sku);
+        }
+        onPurchaseSucceeded: {
+            // purchase token received from Bazaar; server verification is
+            // triggered automatically by the manager (verifyPurchase)
+            console.log("CafebazaarPaymentManager.onPurchaseSucceeded token=>"+purchaseToken);
+        }
+        onPurchaseFailed: (message)=>{
+            console.log("CafebazaarPaymentManager.onPurchaseFailed =>"+message);
+            btnCafebazaar.enabled=true;
+        }
+        onPurchaseVerified: (paid, message)=>{
+            console.log("CafebazaarPaymentManager.onPurchaseVerified paid=>"+paid+" message=>"+message);
+            order.paid=paid;
+            if(paid){
+                dlgPaymentResult.open();
+            }
+            else{
+                btnCafebazaar.enabled=true;
             }
         }
         onIsProcessingChanged:(isProcessing)=> {
@@ -328,6 +360,21 @@ JooyaFlickable{
                             paymentManager.pay();
                             btnPay.enabled=false;
                         }
+                    }
+                }
+                JooyaButton{
+                    id:btnCafebazaar
+                    visible: Qt.platform.os==="android" && !order.paid && !order.manualPaid
+                    Layout.topMargin: 9
+                    text: "پرداخت از کافه بازار"
+                    font{
+                        pixelSize: 19
+                    }
+                    onClicked: {
+                        // route the result dialog to the cafebazaar payment result
+                        dlgPaymentResult.paymentResult = cafebazaarManager.paymentResult;
+                        cafebazaarManager.loadSku(); // continues with skuReceived -> startPurchase
+                        btnCafebazaar.enabled=false;
                     }
                 }
                 Item {
