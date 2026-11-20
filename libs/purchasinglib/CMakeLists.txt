@@ -17,12 +17,14 @@ add_library(${PROJECT_NAME} SHARED
     order.cpp
     paymentmanager.cpp
     paymentresult.cpp
+    cafebazaarpaymentmanager.cpp
     purchasinglib.cpp
     transaction.cpp
     transactionlistmodel.cpp
     order.h
     paymentmanager.h
     paymentresult.h
+    cafebazaarpaymentmanager.h
     purchasinglib.h
     transaction.h
     transactionlistmodel.h
