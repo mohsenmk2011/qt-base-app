@@ -5,23 +5,7 @@
 #include <QtWebView>
 #include<QQuickView>
 
-#include<currentapplicationsettings.h>
-#include<currentapplicationpath.h>
-#include<version.h>
-#include<applicationversioninfo.h>
 #include<jooyaapplication.h>
-
-#include<androidlib.h>
-#include<corelib.h>
-#include<purchasinglib.h>
-#include<settingslib.h>
-#include<networklib.h>
-#include<quicklib.h>
-#include<loginlib.h>
-#include<googleauth.h>
-#include<managerlib.h>
-#include<notificationlib.h>
-#include<chatlib.h>
 
 #include<jooyafont.h>
 #include<jooyanetworkengine.h>
@@ -34,6 +18,7 @@
 #include <QFile>
 #include<androidservicemanager.h>
 #include<smsmanager.h>
+#include<androiddeeplinkmanager.h>
 
 int main(int argc, char *argv[])
 {
@@ -55,19 +40,7 @@ int main(int argc, char *argv[])
     QtWebView::initialize();
     JooyaLogger jl;
 
-    Corelib::registerTypes();
-    Androidlib::registerTypes();
-    Purchasinglib::registerTypes();
-    Settingslib::registerTypes();
-    Networklib::registerTypes();
-    Quicklib::registerTypes();
-    Notificationlib::registerTypes();
-    Loginlib::registerTypes();
-    Managerlib::registerTypes();
-    Chatlib::registerTypes();
-    qmlRegisterType<CurrentApplicationSettings>("Jooya",1,0,"CurrentApplicationSettings");
-    qmlRegisterType<CurrentApplicationPath>("Jooya",1,0,"CurrentApplicationPath");
-    qmlRegisterType<ApplicationVersionInfo>("Jooya",1,0,"ApplicationVersionInfo");
+    //00000000000000000000000000000000000[ Register Types ]000000000000000000000000000000000000
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     JooyaNetworkEngine jne;
 
@@ -95,8 +68,8 @@ int main(int argc, char *argv[])
     qDebug()<<"^^^^^^^^^^^^^^^^^^[ QmlLive live ]^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
     app.setWindowIcon(QIcon(":/images/icon.ico"));
 
-    QString ver=QString("%1.%2,%3.%4").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH).arg(VERSION_BUILD);
-    app.setApplicationVersion(ver);
+    // QString ver=QString("%1.%2,%3.%4").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH).arg(VERSION_BUILD);
+    // app.setApplicationVersion(ver);
 
     QQuickStyle::setStyle("Material");
     //QQuickStyle::setStyle("Universal");
