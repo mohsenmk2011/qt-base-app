@@ -87,6 +87,8 @@ add_library(${PROJECT_NAME} SHARED
     applicationalarmsettingshelper.cpp
     alarmclasses.h
     materialstyle.cpp
+    apptypesregistrar.h
+    apptypesregistrar.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE . ../androidlib/.)

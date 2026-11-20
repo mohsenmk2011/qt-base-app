@@ -17,6 +17,8 @@ add_library(${PROJECT_NAME}  SHARED
     applicationversioninfo.cpp
     currentapplicationpath.cpp
     currentapplicationsettings.cpp
+    currentapptypesregistrar.cpp
+    currentapptypesregistrar.cpp
 
 )
 

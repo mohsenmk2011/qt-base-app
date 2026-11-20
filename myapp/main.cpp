@@ -19,6 +19,7 @@
 #include<androidservicemanager.h>
 #include<smsmanager.h>
 #include<androiddeeplinkmanager.h>
+#include<currentapptypesregistrar.h>
 
 int main(int argc, char *argv[])
 {
@@ -41,6 +42,8 @@ int main(int argc, char *argv[])
     JooyaLogger jl;
 
     //00000000000000000000000000000000000[ Register Types ]000000000000000000000000000000000000
+    CurrentAppTypesRegistrar typesRegistrar;
+    typesRegistrar.registerAllQmlTypes();
     //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     JooyaNetworkEngine jne;
 
